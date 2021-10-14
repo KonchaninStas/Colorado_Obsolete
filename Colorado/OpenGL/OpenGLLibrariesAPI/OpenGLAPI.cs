@@ -9,6 +9,9 @@ namespace OpenGL.OpenGLLibrariesAPI
 {
     internal class OpenGLAPI
     {
+        private const string DLLName = OpenGLLibraryNames.OpenGLLibraryName;
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -21,5 +24,11 @@ namespace OpenGL.OpenGLLibrariesAPI
 
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glShadeModel")]
         public static extern void ShadeModel(int mode);
+
+        [DllImport(DLLName, EntryPoint = "glViewport")]
+        public static extern void Viewport(int x, int y, int width, int height);
+
+        [DllImport(DLLName, EntryPoint = "glOrtho")]
+        public static extern void Ortho(double left, double right, double bottom, double top, double zNear, double zFar);
     }
 }

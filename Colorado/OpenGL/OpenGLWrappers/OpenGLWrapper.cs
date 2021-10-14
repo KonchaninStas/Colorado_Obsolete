@@ -28,5 +28,15 @@ namespace OpenGL.OpenGLWrappers
         {
             OpenGLAPI.ShadeModel((int)shadingModel);
         }
+
+        public static void SetViewport(int x, int y, int width, int height)
+        {
+            OpenGLAPI.Viewport(x, y, width, height);
+        }
+
+        public static void SetOrthographicViewSettings(double left, double right, double bottom, double top, double zNear, double zFar)
+        {
+            OpenGLAPI.Ortho(left, right, bottom, top, zNear, zFar);
+        }
     }
 }

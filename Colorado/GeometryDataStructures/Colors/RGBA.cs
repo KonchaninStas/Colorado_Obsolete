@@ -11,6 +11,7 @@ namespace GeometryDataStructures.Colors
         public RGBA()
         {
             Alpha = byte.MaxValue;
+            Red = 155;
         }
 
         public byte Red { get; set; }
