@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OpenGLWinForm")]
+[assembly: AssemblyTitle("GeometryDataStructures")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OpenGLWinForm")]
+[assembly: AssemblyProduct("GeometryDataStructures")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9340eba1-3cb7-46dc-88b9-369763f5496d")]
+[assembly: Guid("0e982ac4-020b-4cc6-8981-800bc1d26974")]
 
 // Version information for an assembly consists of the following four values:
 //

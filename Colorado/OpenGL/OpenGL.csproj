@@ -4,10 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9340EBA1-3CB7-46DC-88B9-369763F5496D}</ProjectGuid>
+    <ProjectGuid>{C8E9CE02-6D44-40F2-A0ED-87B8CC0D4C14}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>OpenGLWinForm</RootNamespace>
-    <AssemblyName>OpenGLWinForm</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenGL</RootNamespace>
+    <AssemblyName>OpenGL</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -36,30 +37,36 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OpenGLControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OpenGLControl.Designer.cs">
-      <DependentUpon>OpenGLControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Enumerations\PixelBufferFlags.cs" />
+    <Compile Include="Enumerations\PixelTypes.cs" />
+    <Compile Include="Enumerations\ShadingModel.cs" />
+    <Compile Include="Extensions\Delegates.cs" />
+    <Compile Include="Extensions\OpenGLExtensions.cs" />
+    <Compile Include="OpenGLLibrariesAPI\OpenGLAPI.cs" />
+    <Compile Include="OpenGLLibrariesAPI\OpenGLLibraryNames.cs" />
+    <Compile Include="OpenGLLibrariesAPI\OpenGlWglAPI.cs" />
+    <Compile Include="OpenGLWrappers\OpenGLExtensionsWrapper.cs" />
+    <Compile Include="OpenGLWrappers\OpenGlWglWrapper.cs" />
+    <Compile Include="OpenGLWrappers\OpenGLWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+    <Compile Include="Structures\Context.cs" />
+    <Compile Include="Structures\PixelFormatDescriptor.cs" />
+    <Compile Include="WindowsAPI\WindowsAPIWrappers\Gdi32LibraryWrapper.cs" />
+    <Compile Include="WindowsAPI\WindowsAPIWrappers\User32LibraryWrapper.cs" />
+    <Compile Include="WindowsAPI\WindowsAPI\Gdi32LibraryAPI.cs" />
+    <Compile Include="WindowsAPI\WindowsAPI\Kernel32LibraryAPI.cs" />
+    <Compile Include="WindowsAPI\WindowsAPI\User32LibraryAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeometryDataStructures\GeometryDataStructures.csproj">
-      <Project>{0e982ac4-020b-4cc6-8981-800bc1d26974}</Project>
+      <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
       <Name>GeometryDataStructures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenGL\OpenGL.csproj">
-      <Project>{c8e9ce02-6d44-40f2-a0ed-87b8cc0d4c14}</Project>
-      <Name>OpenGL</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
