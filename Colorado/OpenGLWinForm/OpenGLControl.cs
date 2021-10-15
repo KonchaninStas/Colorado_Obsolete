@@ -49,8 +49,9 @@ namespace OpenGLWinForm
 
         private void SizeChangedCallback(object sender, EventArgs e)
         {
+            // Not remove
             OpenGLWrapper.SetViewport(0, 0, Width, Height);
-            OpenGLWrapper.SetOrthographicViewSettings(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0);
+            //OpenGLWrapper.SetOrthographicViewSettings(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0);
         }
 
         public RGBA BackgroundColor { get; set; }

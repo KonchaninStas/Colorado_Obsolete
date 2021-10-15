@@ -20,8 +20,8 @@ namespace OpenGL.OpenGLWrappers
 
         public static void ClearColor(RGBA rgbaColor)
         {
-            OpenGLAPI.ClearColor(rgbaColor.Red / byte.MaxValue, rgbaColor.Green / byte.MaxValue,
-                rgbaColor.Blue / byte.MaxValue, rgbaColor.Alpha / byte.MaxValue);
+            OpenGLAPI.ClearColor(rgbaColor.Red / (float)byte.MaxValue, rgbaColor.Green / (float)byte.MaxValue,
+                rgbaColor.Blue / (float)byte.MaxValue, rgbaColor.Alpha / (float)byte.MaxValue);
         }
 
         public static void SetShadingMode(ShadingModel shadingModel)
