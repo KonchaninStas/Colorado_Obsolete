@@ -38,5 +38,42 @@ namespace OpenGL.OpenGLWrappers
         {
             OpenGLAPI.Ortho(left, right, bottom, top, zNear, zFar);
         }
+
+        public static void EnableCapability(OpenGLCapability capability)
+        {
+            OpenGLAPI.Enable((int)capability);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newDepthValue">Should be in range [0,1].</param>
+        public static void ClearDepthBufferValue(double newDepthValue)
+        {
+            OpenGLAPI.ClearDepth(newDepthValue);
+        }
+
+        public static void ClearDepthBufferValue()
+        {
+            OpenGLAPI.ClearDepth(1);
+        }
+
+        public static void Flush()
+        {
+            OpenGLAPI.Flush();
+        }
+
+        public static void ClearBuffers(params OpenGLBufferType[] bufferTypes)
+        {
+            foreach (OpenGLBufferType bufferType in bufferTypes)
+            {
+                ClearBuffer(bufferType);
+            }
+        }
+
+        public static void ClearBuffer(OpenGLBufferType bufferType)
+        {
+            OpenGLAPI.Clear((int)bufferType);
+        }
     }
 }

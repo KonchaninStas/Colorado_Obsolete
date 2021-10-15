@@ -40,8 +40,6 @@ namespace OpenGLWinForm
         private void PaintCallback(object sender, PaintEventArgs e)
         {
             DrawScene();
-
-            
         }
 
         private void LoadCallback(object sender, EventArgs e)
@@ -122,29 +120,21 @@ namespace OpenGLWinForm
             glEnd();
         }
 
-        public const string DLLName = "OPENGL32.DLL";
-        [DllImport(DLLName, EntryPoint = "glEnable")]
-        public static extern void Enable(int cap);
-        [DllImport(DLLName, EntryPoint = "glClearDepth")]
-        public static extern void ClearDepth(double depth);
-        [DllImport(DLLName, EntryPoint = "glClear")]
-        public static extern void Clear(int mask);
         public void BeginDrawScene()
         {
             renderingContext.MakeCurrent();
-            Enable(0x0B71);
+            OpenGLWrapper.EnableCapability(OpenGLCapability.DepthTest);
             OpenGLWrapper.ClearColor(BackgroundColor);
-            ClearDepth(1.0f);
-            Clear(0x00004000 | 0x00000100);
+            OpenGLWrapper.ClearDepthBufferValue();
+            OpenGLWrapper.ClearBuffers(OpenGLBufferType.Color, OpenGLBufferType.Depth);
             OpenGLWrapper.SetViewport(0, 0, this.Width, this.Height);
             //ApplyCamera();
             //CreateHeadLight();
         }
-        [DllImport(DLLName, EntryPoint = "glFlush")]
-        public static extern void Flush();
+
         public void EndDrawScene()
         {
-            Flush();
+            OpenGLWrapper.Flush();
             renderingContext.SwapBuffers();
         }
     }

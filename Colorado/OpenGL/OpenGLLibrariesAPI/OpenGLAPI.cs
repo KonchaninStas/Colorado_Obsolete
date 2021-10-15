@@ -30,5 +30,15 @@ namespace OpenGL.OpenGLLibrariesAPI
 
         [DllImport(DLLName, EntryPoint = "glOrtho")]
         public static extern void Ortho(double left, double right, double bottom, double top, double zNear, double zFar);
+
+        [DllImport(DLLName, EntryPoint = "glEnable")]
+        public static extern void Enable(int cap);
+        [DllImport(DLLName, EntryPoint = "glClearDepth")]
+        public static extern void ClearDepth(double depth);
+        [DllImport(DLLName, EntryPoint = "glClear")]
+        public static extern void Clear(int mask);
+
+        [DllImport(DLLName, EntryPoint = "glFlush")]
+        public static extern void Flush();
     }
 }

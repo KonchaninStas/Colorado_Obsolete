@@ -41,15 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\OpenGLBufferType.cs" />
+    <Compile Include="Enumerations\OpenGLCapability.cs" />
     <Compile Include="Enumerations\PixelBufferFlags.cs" />
     <Compile Include="Enumerations\PixelTypes.cs" />
     <Compile Include="Enumerations\ShadingModel.cs" />
     <Compile Include="Extensions\Delegates.cs" />
     <Compile Include="Extensions\OpenGLExtensions.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLAPI.cs" />
+    <Compile Include="OpenGLLibrariesAPI\OpenGLGeometryAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLLibraryNames.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGlWglAPI.cs" />
     <Compile Include="OpenGLWrappers\OpenGLExtensionsWrapper.cs" />
+    <Compile Include="OpenGLWrappers\OpenGLGeometryWrapper.cs" />
     <Compile Include="OpenGLWrappers\OpenGlWglWrapper.cs" />
     <Compile Include="OpenGLWrappers\OpenGLWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
