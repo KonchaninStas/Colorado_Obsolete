@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E982AC4-020B-4CC6-8981-800BC1D26974}</ProjectGuid>
+    <ProjectGuid>{843D12AF-A319-4872-9C85-EDFF15F4E7A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Colorado.GeometryDataStructures</RootNamespace>
-    <AssemblyName>GeometryDataStructures</AssemblyName>
+    <RootNamespace>Colorado.DataStructures</RootNamespace>
+    <AssemblyName>Colorado.DataStructures</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,23 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors\RGBA.cs" />
-    <Compile Include="GeometryStructures\BaseGeometryStructures\GeometryObject.cs" />
-    <Compile Include="GeometryStructures\Geometry2D\Circle.cs" />
-    <Compile Include="GeometryStructures\Geometry2D\Line.cs" />
-    <Compile Include="Primitives\BoundingBox.cs" />
-    <Compile Include="Primitives\Point.cs" />
-    <Compile Include="Primitives\Vector.cs" />
+    <Compile Include="Document.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GeometryStructures\Geometry3D\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
-      <Project>{862d34d5-3582-4683-8ead-de07cc583952}</Project>
-      <Name>Colorado.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
