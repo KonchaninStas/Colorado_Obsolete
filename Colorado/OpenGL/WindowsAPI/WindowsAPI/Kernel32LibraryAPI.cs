@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL.WindowsAPI.WindowsAPI
+namespace Colorado.OpenGL.WindowsAPI.WindowsAPI
 {
     class Kernel32LibraryAPI
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL.OpenGLLibrariesAPI
+namespace Colorado.OpenGL.OpenGLLibrariesAPI
 {
     internal class OpenGLLibraryNames
     {

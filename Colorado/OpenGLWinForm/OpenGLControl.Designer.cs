@@ -1,5 +1,5 @@
 ﻿
-namespace OpenGLWinForm
+namespace Colorado.OpenGLWinForm
 {
     partial class OpenGLControl
     {

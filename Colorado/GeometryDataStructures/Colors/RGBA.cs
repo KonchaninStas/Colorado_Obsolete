@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeometryDataStructures.Colors
+namespace Colorado.GeometryDataStructures.Colors
 {
     public class RGBA
     {

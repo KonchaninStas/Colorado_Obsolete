@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL.Extensions
+namespace Colorado.OpenGL.Extensions
 {
     class Delegates
     {

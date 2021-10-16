@@ -1,15 +1,15 @@
-﻿using GeometryDataStructures.Colors;
-using OpenGL.Enumerations;
-using OpenGL.OpenGLLibrariesAPI;
-using OpenGL.WindowsAPI;
-using OpenGL.WindowsAPI.WindowsAPI;
+﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.OpenGL.Enumerations;
+using Colorado.OpenGL.OpenGLLibrariesAPI;
+using Colorado.OpenGL.WindowsAPI;
+using Colorado.OpenGL.WindowsAPI.WindowsAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL.OpenGLWrappers
+namespace Colorado.OpenGL.OpenGLWrappers
 {
     public static class OpenGLWrapper
     {

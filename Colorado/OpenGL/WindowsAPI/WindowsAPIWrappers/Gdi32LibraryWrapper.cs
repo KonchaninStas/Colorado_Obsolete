@@ -1,12 +1,12 @@
-﻿using OpenGL.Structures;
-using OpenGL.WindowsAPI.WindowsAPI;
+﻿using Colorado.OpenGL.Structures;
+using Colorado.OpenGL.WindowsAPI.WindowsAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL.WindowsAPI.WindowsAPIWrappers
+namespace Colorado.OpenGL.WindowsAPI.WindowsAPIWrappers
 {
     class Gdi32LibraryWrapper
     {

@@ -1,4 +1,4 @@
-﻿namespace OpenGL.Enumerations
+﻿namespace Colorado.OpenGL.Enumerations
 {
     public enum ShadingModel
     {

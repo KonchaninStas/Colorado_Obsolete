@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OpenGLWPF
+namespace Colorado.OpenGLWPF
 {
     /// <summary>
     /// Interaction logic for OpenGLControl.xaml
@@ -30,7 +30,7 @@ namespace OpenGLWPF
         private void LoadedCallback(object sender, RoutedEventArgs e)
         {
             var host = new WindowsFormsHost();
-            host.Child = new OpenGLWinForm.OpenGLControl() { Dock = System.Windows.Forms.DockStyle.Fill };
+            host.Child = new Colorado.OpenGLWinForm.OpenGLControl() { Dock = System.Windows.Forms.DockStyle.Fill };
 
 
             // Add the interop host control to the Grid

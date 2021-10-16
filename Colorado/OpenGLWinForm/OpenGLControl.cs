@@ -1,7 +1,7 @@
-﻿using GeometryDataStructures.Colors;
-using OpenGL.Enumerations;
-using OpenGL.OpenGLWrappers;
-using OpenGL.Structures;
+﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.OpenGL.Enumerations;
+using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGL.Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OpenGLWinForm
+namespace Colorado.OpenGLWinForm
 {
     public partial class OpenGLControl : UserControl
     {

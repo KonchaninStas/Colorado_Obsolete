@@ -1,6 +1,6 @@
-﻿using OpenGL.Extensions;
-using OpenGL.OpenGLWrappers;
-using OpenGL.WindowsAPI.WindowsAPIWrappers;
+﻿using Colorado.OpenGL.Extensions;
+using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGL.WindowsAPI.WindowsAPIWrappers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL.Structures
+namespace Colorado.OpenGL.Structures
 {
     public class Context : IDisposable
     {

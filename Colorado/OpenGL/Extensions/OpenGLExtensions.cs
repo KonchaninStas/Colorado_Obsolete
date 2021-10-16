@@ -1,14 +1,14 @@
-﻿using OpenGL.OpenGLLibrariesAPI;
-using OpenGL.OpenGLWrappers;
+﻿using Colorado.OpenGL.OpenGLLibrariesAPI;
+using Colorado.OpenGL.OpenGLWrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using static OpenGL.Extensions.Delegates;
+using static Colorado.OpenGL.Extensions.Delegates;
 
-namespace OpenGL.Extensions
+namespace Colorado.OpenGL.Extensions
 {
     internal class OpenGLExtensions
     {
