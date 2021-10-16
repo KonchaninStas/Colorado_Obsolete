@@ -1,4 +1,5 @@
 ﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLLibrariesAPI;
 using Colorado.OpenGL.WindowsAPI;
@@ -13,6 +14,9 @@ namespace Colorado.OpenGL.OpenGLWrappers
 {
     public static class OpenGLWrapper
     {
+        private const int projectionMatrixSize = 16;
+        private const int modelViewMatrixSize = 16;
+
         public static IntPtr LoadOpenGLLibrary()
         {
             return Kernel32LibraryAPI.LoadLibrary(OpenGLLibraryNames.OpenGLLibraryName);
@@ -74,6 +78,69 @@ namespace Colorado.OpenGL.OpenGLWrappers
         public static void ClearBuffer(OpenGLBufferType bufferType)
         {
             OpenGLAPI.Clear((int)bufferType);
+        }
+
+        public static void SetActiveMatrixType(MatrixType matrixType)
+        {
+            OpenGLAPI.MatrixMode((int)matrixType);
+        }
+
+        public static void MakeActiveMatrixIdentity()
+        {
+            OpenGLAPI.LoadIdentity();
+        }
+
+        public static Transform GetModelViewMatrix()
+        {
+            return new Transform(GetParameterValues((int)ViewMatrixArrayType.ModelView, modelViewMatrixSize));
+        }
+
+        public static Transform GetProjectionMatrix()
+        {
+            return new Transform(GetParameterValues((int)ViewMatrixArrayType.Projection, projectionMatrixSize));
+        }
+
+        public static void TranslateCurrentMatrix(Point point)
+        {
+            OpenGLAPI.Translated(point.X, point.Y, point.Z);
+        }
+
+        public static void TranslateCurrentMatrix(Vector vector)
+        {
+            OpenGLAPI.Translated(vector.X, vector.Y, vector.Z);
+        }
+
+        public static void RotateCurrentMatrix(double rotationAngleInDegrees, Vector rotationVector)
+        {
+            OpenGLAPI.Rotated(rotationAngleInDegrees, rotationVector.X, rotationVector.Y, rotationVector.Z);
+        }
+
+        private static double[] GetParameterValues(int parameterName, int parameterValuesArraySize)
+        {
+            var assignedParameterValues = new double[parameterValuesArraySize];
+            OpenGLAPI.GetDoublev(parameterName, assignedParameterValues);
+
+            return assignedParameterValues;
+        }
+
+        public static void EnableLight(LightType lightType)
+        {
+            OpenGLAPI.Enable((int)lightType);
+        }
+
+        public static void SetLightParameter(LightType lightType, LightParameter lightParameter, float lightValue)
+        {
+            OpenGLAPI.Lightf((int)lightType, (int)lightParameter, lightValue);
+        }
+
+        public static void SetLightParameter(LightType lightType, LightParameter lightParameter, float[] lightValues)
+        {
+            OpenGLAPI.Lightfv((int)lightType, (int)lightParameter, lightValues);
+        }
+
+        public static void SetLightParameter(LightType lightType, LightColorType lightColorType, float[] lightValues)
+        {
+            OpenGLAPI.Lightfv((int)lightType, (int)lightColorType, lightValues);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
         {
             Center = centerPoint;
             Radius = radius;
-            Normal = normal.UnitVector;
+            Normal = normal.UnitVector();
 
             BoundingBox = GetBoundingBox();
         }
@@ -29,8 +29,8 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
 
         private BoundingBox GetBoundingBox()
         {
-            Vector xAxis = Normal.GetPerpendicularVector().UnitVector * Radius;
-            Vector yAxis = Normal.CrossProduct(xAxis).UnitVector * Radius;
+            Vector xAxis = Normal.GetPerpendicularVector().UnitVector() * Radius;
+            Vector yAxis = Normal.CrossProduct(xAxis).UnitVector() * Radius;
 
             return new BoundingBox(Center + xAxis + yAxis, Center - xAxis - yAxis);
         }

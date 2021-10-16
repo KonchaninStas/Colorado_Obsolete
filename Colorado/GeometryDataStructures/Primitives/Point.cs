@@ -22,18 +22,32 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public double Z { get; }
 
+        public double LargestAbsoluteComponent
+        {
+            get
+            {
+                return new double[]
+                {
+                    Math.Abs(X),
+                    Math.Abs(Y),
+                    Math.Abs(Z)
+                }.Max();
+            }
+        }
         public static Point MaxPoint => new Point(double.MaxValue, double.MaxValue, double.MaxValue);
 
         public static Point MinPoint => new Point(double.MinValue, double.MinValue, double.MinValue);
+
+        public static Point ZeroPoint => new Point(default(double), default(double), default(double));
 
         public double DistanceTo(Point secondPoint)
         {
             return Math.Sqrt(X * secondPoint.X + Y * secondPoint.Y + Z * secondPoint.Z);
         }
 
-        public static Point operator -(Point left, Point right)
+        public static Vector operator -(Point left, Point right)
         {
-            return new Point(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
+            return new Vector(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
         }
 
         public static Point operator -(Point point, Vector vector)
@@ -58,12 +72,12 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public static bool operator ==(Point firstPoint, Point secondPoint)
         {
-            return firstPoint.Equals(secondPoint);
+            return Equals(firstPoint, secondPoint);
         }
 
         public static bool operator !=(Point firstPoint, Point secondPoint)
         {
-            return !firstPoint.Equals(secondPoint);
+            return !Equals(firstPoint, secondPoint);
         }
 
         public static bool operator >(Point firstPoint, Point secondPoint)
@@ -77,6 +91,11 @@ namespace Colorado.GeometryDataStructures.Primitives
         public static bool operator <(Point firstPoint, Point secondPoint)
         {
             return !(firstPoint > secondPoint);
+        }
+
+        public Vector ToVector()
+        {
+            return new Vector(X, Y, Z);
         }
 
         public bool Equals(Point other)

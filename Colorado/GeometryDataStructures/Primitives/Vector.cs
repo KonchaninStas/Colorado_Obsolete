@@ -16,7 +16,6 @@ namespace Colorado.GeometryDataStructures.Primitives
             Z = z;
 
             Length = CalculateLength();
-            UnitVector = GetUnitVector();
         }
 
         public Vector(Point startPoint, Point endPoint)
@@ -30,7 +29,7 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public double Length { get; }
 
-        public Vector UnitVector { get; }
+        public Vector Inverse => this * -1;
 
         public bool IsUnitVector => Length.EqualsWithTolerance(1);
 
@@ -40,7 +39,7 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public static Vector YAxis => new Vector(0, 1, 0);
 
-        public static Vector ZAxis => new Vector(0, 0.0f, 1);
+        public static Vector ZAxis => new Vector(0, 0, 1);
 
         public Vector GetPerpendicularVector()
         {
@@ -108,12 +107,17 @@ namespace Colorado.GeometryDataStructures.Primitives
             return new Vector(vector.X * scaleFactor, vector.Y * scaleFactor, vector.Z * scaleFactor);
         }
 
+        public static Vector operator /(Vector vector, double scaleFactor)
+        {
+            return new Vector(vector.X / scaleFactor, vector.Y / scaleFactor, vector.Z / scaleFactor);
+        }
+
         private double CalculateLength()
         {
             return Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
-        private Vector GetUnitVector()
+        public Vector UnitVector()
         {
             return new Vector(X / Length, Y / Length, Z / Length);
         }

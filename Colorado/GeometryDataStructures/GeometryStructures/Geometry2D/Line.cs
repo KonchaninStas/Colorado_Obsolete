@@ -14,7 +14,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
-            Direction = new Vector(startPoint, endPoint).UnitVector;
+            Direction = new Vector(startPoint, endPoint).UnitVector();
             BoundingBox = new BoundingBox(StartPoint, EndPoint);
         }
 

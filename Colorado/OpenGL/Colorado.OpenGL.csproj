@@ -42,19 +42,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\LightColorType.cs" />
+    <Compile Include="Enumerations\LightParameter.cs" />
+    <Compile Include="Enumerations\LightType.cs" />
+    <Compile Include="Enumerations\MatrixType.cs" />
     <Compile Include="Enumerations\OpenGLBufferType.cs" />
     <Compile Include="Enumerations\OpenGLCapability.cs" />
     <Compile Include="Enumerations\PixelBufferFlags.cs" />
     <Compile Include="Enumerations\PixelTypes.cs" />
     <Compile Include="Enumerations\ShadingModel.cs" />
+    <Compile Include="Enumerations\ViewMatrixArrayType.cs" />
     <Compile Include="Extensions\Delegates.cs" />
     <Compile Include="Extensions\OpenGLExtensions.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLGeometryAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLLibraryNames.cs" />
+    <Compile Include="OpenGLLibrariesAPI\OpenGLUAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGlWglAPI.cs" />
     <Compile Include="OpenGLWrappers\OpenGLExtensionsWrapper.cs" />
     <Compile Include="OpenGLWrappers\OpenGLGeometryWrapper.cs" />
+    <Compile Include="OpenGLWrappers\OpenGLUWrapper.cs" />
     <Compile Include="OpenGLWrappers\OpenGlWglWrapper.cs" />
     <Compile Include="OpenGLWrappers\OpenGLWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

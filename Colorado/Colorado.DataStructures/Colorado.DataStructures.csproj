@@ -46,6 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
+      <Project>{862d34d5-3582-4683-8ead-de07cc583952}</Project>
+      <Name>Colorado.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
       <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
       <Name>Colorado.GeometryDataStructures</Name>
