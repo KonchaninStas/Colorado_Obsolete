@@ -45,5 +45,11 @@
     <Compile Include="Document.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
+      <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
+      <Name>Colorado.GeometryDataStructures</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

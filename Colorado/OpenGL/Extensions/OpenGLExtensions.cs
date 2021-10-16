@@ -295,8 +295,15 @@ namespace Colorado.OpenGL.Extensions
 
         private static Delegate GetAddress(string name, Type t)
         {
-            int addr = OpenGlWglWrapper.GetExtensionFunctionAddress(name);
-            return addr == 0 ? null : Marshal.GetDelegateForFunctionPointer(new IntPtr(addr), t);
+            try
+            {
+                int addr = OpenGlWglWrapper.GetExtensionFunctionAddress(name);
+                return addr == 0 ? null : Marshal.GetDelegateForFunctionPointer(new IntPtr(addr), t);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         {
             Center = centerPoint;
             Radius = radius;
+            BoundingBox = GetBoundingBox();
         }
 
         public Point Center { get; }

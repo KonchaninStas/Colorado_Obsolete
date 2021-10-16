@@ -10,8 +10,16 @@ namespace Colorado.GeometryDataStructures.Primitives
     {
         public BoundingBox(Point maxPoint, Point minPoint)
         {
-            MaxPoint = maxPoint;
-            MinPoint = minPoint;
+            if (maxPoint > minPoint)
+            {
+                MaxPoint = maxPoint;
+                MinPoint = minPoint;
+            }
+            else
+            {
+                MaxPoint = minPoint;
+                MinPoint = maxPoint;
+            }
         }
 
         public Point MaxPoint { get; }
