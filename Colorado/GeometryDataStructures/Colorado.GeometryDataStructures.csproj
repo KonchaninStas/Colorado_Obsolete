@@ -46,14 +46,13 @@
     <Compile Include="GeometryStructures\BaseGeometryStructures\GeometryObject.cs" />
     <Compile Include="GeometryStructures\Geometry2D\Circle.cs" />
     <Compile Include="GeometryStructures\Geometry2D\Line.cs" />
+    <Compile Include="GeometryStructures\Geometry3D\Sphere.cs" />
     <Compile Include="Primitives\BoundingBox.cs" />
     <Compile Include="Primitives\Point.cs" />
     <Compile Include="Primitives\Vector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GeometryStructures\Geometry3D\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
       <Project>{862d34d5-3582-4683-8ead-de07cc583952}</Project>
