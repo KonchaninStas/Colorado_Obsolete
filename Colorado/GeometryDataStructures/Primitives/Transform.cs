@@ -86,14 +86,11 @@ namespace Colorado.GeometryDataStructures.Primitives
         /// <summary>
         /// Scale is calculated as length of basis vector components of this transform.
         /// </summary>
-        public Point Scale
+        public double Scale
         {
             get
             {
-                return new Point(
-                    new Vector(this[0, 0], this[1, 0], this[2, 0]).Length,
-                    new Vector(this[0, 1], this[1, 1], this[2, 1]).Length,
-                    new Vector(this[0, 2], this[1, 2], this[2, 2]).Length);
+                return Math.Sqrt(this[0, 0] * this[0, 0] + this[0, 1] * this[0, 1] + this[0, 2] * this[0, 2]);
             }
         }
 
@@ -223,22 +220,15 @@ namespace Colorado.GeometryDataStructures.Primitives
 
             Transform result = Identity();
 
-            result[1, 1] = xx + ca * (1.0f - xx);
-            result[1, 2] = xy - ca * xy + sa * z;
-            result[1, 3] = xz - ca * xz - sa * y;
-            result[1, 4] = 0.0f;
-            result[2, 1] = xy - ca * xy - sa * z;
-            result[2, 2] = yy + ca * (1.0f - yy);
-            result[2, 3] = yz - ca * yz + sa * x;
-            result[2, 4] = 0.0f;
-            result[3, 1] = xz - ca * xz + sa * y;
-            result[3, 2] = yz - ca * yz - sa * x;
-            result[3, 3] = zz + ca * (1.0f - zz);
-            result[3, 4] = 0.0f;
-            result[4, 1] = 0.0f;
-            result[4, 2] = 0.0f;
-            result[4, 3] = 0.0f;
-            result[4, 4] = 1.0f;
+            result[0, 0] = xx + ca * (1.0 - xx);
+            result[0, 1] = xy - ca * xy + sa * z;
+            result[0, 2] = xz - ca * xz - sa * y;
+            result[1, 0] = xy - ca * xy - sa * z;
+            result[1, 1] = yy + ca * (1 - yy);
+            result[1, 2] = yz - ca * yz + sa * x;
+            result[2, 0] = xz - ca * xz + sa * y;
+            result[2, 1] = yz - ca * yz - sa * x;
+            result[2, 2] = zz + ca * (1 - zz);
 
             return result;
         }
@@ -258,14 +248,9 @@ namespace Colorado.GeometryDataStructures.Primitives
             return left.Multiply(right);
         }
 
-        public static Point operator *(Transform left, Point point)
+        public static Vector operator *(Transform transform, Vector vector)
         {
-            return left.ApplyToPoint(point);
-        }
-
-        public static Vector operator *(Transform left, Vector vector)
-        {
-            return left.ApplyToVector(vector);
+            return transform.ApplyToVector(vector);
         }
 
         public Transform Multiply(Transform anotherOne)
@@ -288,11 +273,7 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public Point ApplyToPoint(Point point)
         {
-            double x = this[0, 0] * point.X + this[0, 1] * point.Y + this[0, 2] * point.Z + this[0, 3];
-            double y = this[1, 0] * point.X + this[1, 1] * point.Y + this[1, 2] * point.Z + this[1, 3];
-            double z = this[2, 0] * point.X + this[2, 1] * point.Y + this[2, 2] * point.Z + this[2, 3];
-            double w = this[3, 0] * point.X + this[3, 1] * point.Y + this[3, 2] * point.Z + this[3, 3];
-            return new Point(x / w, y / w, z / w);
+            return point + Translation * Scale;
         }
 
         public Vector ApplyToVector(Vector vector)
@@ -346,7 +327,7 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public Quaternion ToQuaternion()
         {
-            double trace = this[1, 1] + this[2, 2] + this[3, 3];
+            double trace = this[0, 0] + this[1, 1] + this[2, 2];
 
             if (trace > 0.0)
             {
@@ -355,43 +336,43 @@ namespace Colorado.GeometryDataStructures.Primitives
                 s = 0.5 / s;
 
                 return new Quaternion(
-                    (this[2, 3] - this[3, 2]) * s,
-                    (this[3, 1] - this[1, 3]) * s,
                     (this[1, 2] - this[2, 1]) * s,
+                    (this[2, 0] - this[0, 2]) * s,
+                    (this[0, 1] - this[1, 0]) * s,
                     w);
             }
             else
             {
-                if (this[1, 1] >= this[2, 2] && this[1, 1] >= this[3, 3])
+                if (this[0, 0] >= this[1, 1] && this[0, 0] >= this[2, 2])
                 {
-                    double s = (double)Math.Sqrt(1.0f + this[1, 1] - this[2, 2] - this[3, 3]);
+                    double s = (double)Math.Sqrt(1.0f + this[0, 0] - this[1, 1] - this[2, 2]);
                     double invS = 0.5 / s;
                     return new Quaternion(
                         0.5 * s,
-                        (this[1, 2] + this[2, 1]) * invS,
-                        (this[1, 3] + this[3, 1]) * invS,
-                        (this[2, 3] - this[3, 2]) * invS);
+                        (this[0, 1] + this[1, 0]) * invS,
+                        (this[0, 2] + this[2, 0]) * invS,
+                        (this[1, 2] - this[2, 1]) * invS);
                 }
-                else if (this[22] > this[33])
+                else if (this[1,1] > this[2,2])
                 {
-                    double s = (double)Math.Sqrt(1.0f + this[2, 2] - this[1, 1] - this[3, 3]);
+                    double s = (double)Math.Sqrt(1.0f + this[1, 1] - this[0, 0] - this[2, 2]);
                     double invS = 0.5 / s;
 
                     return new Quaternion(
-                        (this[2, 1] + this[1, 2]) * invS,
+                        (this[1, 0] + this[0, 1]) * invS,
                         0.5 * s,
-                        (this[3, 2] + this[2, 3]) * invS,
-                        (this[3, 1] - this[1, 3]) * invS);
+                        (this[2, 1] + this[1, 2]) * invS,
+                        (this[2, 0] - this[0, 2]) * invS);
                 }
                 else
                 {
-                    double s = (double)Math.Sqrt(1.0f + this[3, 3] - this[1, 1] - this[2, 2]);
+                    double s = (double)Math.Sqrt(1.0f + this[2, 2] - this[0, 0] - this[1, 1]);
                     double invS = 0.5 / s;
                     return new Quaternion(
-                        (this[3, 1] + this[1, 3]) * invS,
-                        (this[3, 2] + this[2, 3]) * invS,
+                        (this[2, 0] + this[0, 2]) * invS,
+                        (this[2, 1] + this[1, 2]) * invS,
                         0.5 * s,
-                        (this[1, 2] - this[2, 1]) * invS);
+                        (this[0, 1] - this[1, 0]) * invS);
                 }
             }
         }

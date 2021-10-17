@@ -73,22 +73,23 @@ namespace Colorado.OpenGLWinForm
                     }
                 case Keys.Up:
                     {
-                        RotateAroundTarget(viewCamera.RightVector, 0.5);
+
+                        RotateAroundTarget(new Vector2D(0, viewCamera.ImageSize.Y * 0.1));
                         break;
                     }
                 case Keys.Down:
                     {
-                        RotateAroundTarget(viewCamera.RightVector, -10);
+                        RotateAroundTarget(new Vector2D(0, viewCamera.ImageSize.Y * -0.1));
                         break;
                     }
                 case Keys.Left:
                     {
-                        RotateAroundTarget(viewCamera.UpVector, -10);
+                        RotateAroundTarget(new Vector2D(viewCamera.ImageSize.X * -0.1, 0));
                         break;
                     }
                 case Keys.Right:
                     {
-                        RotateAroundTarget(viewCamera.UpVector, 10);
+                        RotateAroundTarget(new Vector2D(viewCamera.ImageSize.X * 0.1, 0));
                         break;
                     }
             }
@@ -132,13 +133,13 @@ namespace Colorado.OpenGLWinForm
 
         private void MoveOrigin(Vector direction)
         {
-            viewCamera.Translate(direction * 0.5);
+            viewCamera.TranslateOrigin(direction * 0.5);
             openGLControl.Refresh();
         }
 
-        private void RotateAroundTarget(Vector axis, double rotationAngleInDegrees)
+        private void RotateAroundTarget(Vector2D direction)
         {
-            viewCamera.RotateAroundTarget(axis, rotationAngleInDegrees);
+            viewCamera.RotateAroundTarget(direction);
             openGLControl.Refresh();
         }
     }

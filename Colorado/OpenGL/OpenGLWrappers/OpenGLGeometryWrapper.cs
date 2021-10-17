@@ -24,7 +24,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
                 AppendVertex(new Point(1, 1, -10));
                 AppendVertex(new Point(-1, 1, -10));
             });
-
+            DrawPoint(Point.ZeroPoint, new RGBA(100, 100, 100), 6);
             switch (geometryObject.GeometryType)
             {
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Line:

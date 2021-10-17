@@ -18,6 +18,8 @@ namespace Colorado.GeometryDataStructures.Primitives
             Axis = new Vector(x, y, z);
         }
 
+        public Quaternion(Vector axis, double w) : this(axis.X, axis.Y, axis.Z, w) { }
+
         public double X { get; }
 
         public double Y { get; }

@@ -143,8 +143,9 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
-            OpenGLGeometryWrapper.DrawPoint(viewCamera.Target, RGBA.RedColor, 10);
-
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.RedColor, 10);
+            OpenGLGeometryWrapper.DrawLine(new Line(Point.ZeroPoint, Point.ZeroPoint + viewCamera.UpVector * 100));
+            OpenGLGeometryWrapper.DrawLine(new Line(Point.ZeroPoint, Point.ZeroPoint + viewCamera.RightVector * 100));
             if (PointUnderMouse != null)
             {
                 OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
@@ -197,7 +198,7 @@ namespace Colorado.OpenGLWinForm
             Point origin = viewCamera.Origin;
             Vector inversedOrigin = origin.ToVector().Inverse;
             Quaternion rotation = viewCamera.Quaternion;
-            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(rotation.W), rotation.Axis);
+            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(rotation.W), rotation.Axis.Inverse);
             _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
             OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
 

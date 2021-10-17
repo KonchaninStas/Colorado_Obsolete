@@ -23,7 +23,7 @@ namespace Colorado.OpenGLWinForm
         private Point _ObjectCenter;              // this helps ortho projection
         private double _ObjectRadius;               // this helps ortho projection
 
-        private Transform cameraTransformation;
+        private Transform cameraRotation;
 
         #endregion Private fields
 
@@ -32,7 +32,8 @@ namespace Colorado.OpenGLWinForm
         public ViewCamera()
         {
             CameraType = CameraType.Orthographic;
-            cameraTransformation = Transform.Identity();
+            cameraRotation = Transform.Identity();
+            Origin = Point.ZeroPoint;
             Translate(new Vector(0, 0, 10), 10.0);
 
             VerticalFieldOfViewInDegrees = 45.0;
@@ -52,7 +53,7 @@ namespace Colorado.OpenGLWinForm
         /// Gets or sets the camera origin.
         /// </summary>
         /// <value>The origin.</value>
-        public Point Origin => cameraTransformation * new Point(1, 1, 1);
+        public Point Origin { get; set; }
 
         /// <summary>
         /// Gets the camera target (focus point)
@@ -161,7 +162,7 @@ namespace Colorado.OpenGLWinForm
             }
         }
 
-        public Quaternion Quaternion => cameraTransformation.ToQuaternion();
+        public Quaternion Quaternion => cameraRotation.ToQuaternion();
         #endregion Only getter
 
         #region Axis
@@ -172,7 +173,7 @@ namespace Colorado.OpenGLWinForm
         /// <value>The view direction.</value>
         public Vector ViewDirection
         {
-            get { return cameraTransformation * Vector.ZAxis.Inverse; }
+            get { return cameraRotation * Vector.ZAxis.Inverse; }
         }
 
         /// <summary>
@@ -181,7 +182,7 @@ namespace Colorado.OpenGLWinForm
         /// <value>The camera UP vector.</value>
         public Vector UpVector
         {
-            get { return cameraTransformation * Vector.YAxis; }
+            get { return cameraRotation * Vector.YAxis; }
         }
 
         /// <summary>
@@ -192,7 +193,7 @@ namespace Colorado.OpenGLWinForm
         {
             get
             {
-                return cameraTransformation * Vector.XAxis;
+                return cameraRotation * Vector.XAxis;
             }
         }
 
@@ -266,7 +267,7 @@ namespace Colorado.OpenGLWinForm
             double dz = -(focal - focal / scale);
             double dx = imageSize.X / 2.0 * newCenter.X;
             double dy = imageSize.Y / 2.0 * newCenter.Y;
-            Vector offset = cameraTransformation * new Vector(dx, dy, dz);
+            Vector offset = cameraRotation * new Vector(dx, dy, dz);
             Translate(offset, focal / scale);
         }
 
@@ -278,7 +279,7 @@ namespace Colorado.OpenGLWinForm
         {
             double focal = FocalLength;
             double dz = -(focal - focal / scale);
-            Vector offset = cameraTransformation * new Vector(0.0, 0.0, dz);
+            Vector offset = cameraRotation * new Vector(0.0, 0.0, dz);
             Translate(offset, focal / scale);
         }
 
@@ -287,32 +288,90 @@ namespace Colorado.OpenGLWinForm
             if (CameraType != CameraType.Orthographic && FocalLength < 0.001) //hard stop for focal length of 1mm.
             {
                 FocalLength = 0.001;
-                cameraTransformation.SetTranslation(Target - 0.001 * ViewDirection);
+                Origin = Target - 0.001 * ViewDirection;
             }
             else
             {
                 FocalLength = focalLength;
-                cameraTransformation.Translate(translationVector);
+                TranslateOrigin(translationVector);
             }
         }
 
-        public void Translate(Vector translationVector)
+        public void TranslateOrigin(Vector translationVector)
         {
-            cameraTransformation.Translate(translationVector);
+            Origin = Origin + translationVector;
         }
 
-
-
-        public void RotateAroundTarget(Vector rotationAxis, double angleInDegrees)
+        public void RotateAroundTarget(Vector2D direction)
         {
-            //Quaternion newRotation = new Quaternion(rotationAxis, MathUtilities.ConvertDegreesToRadians(angleInDegrees));
-            //Quaternion curRotation = CameraTransformation;
-            //Point target = Target;
-            //CameraTransformation = newRotation * curRotation;
-            //Origin = target - FocalLength * ViewDirection;
+            RotateAroundTarget(ImageSize / 2, ImageSize / 2 + direction);
+        }
+
+        public void RotateAroundTarget(Vector2D from, Vector2D to)
+        {
+            var t = Target;
+            //Vector v1 = UnifiedMapping(from);
+            //Vector v2 = UnifiedMapping(to);
+            //Vector y = UpVector;
+            //double theta = (v2.X - v1.X) / 2.0 * Math.PI;
+            //double phi = (v2.Y - v1.Y) / 2.0 * Math.PI;
+            //double phi0 = Math.Acos(ViewDirection.UnitVector().DotProduct(y.UnitVector()));
+            //if (phi0 + phi < 0.0)
+            //    phi = -phi0;
+            //else if (phi0 + phi > Math.PI)
+            //    phi = Math.PI - phi0;
+            //Transform rotate = (Transform.CreateFromAxisAngle(y, theta));
+            //Vector x = rotate * RightVector;
+            //Transform tilt = (Transform.CreateFromAxisAngle(x, -phi));
+            //Transform newRotation = tilt * rotate;
+            //Transform curRotation = cameraRotation;
+            //cameraRotation = newRotation * curRotation;
+
+            //Vector v1 = UnifiedMapping(from);
+            //Vector v2 = UnifiedMapping(to);
+            //Vector rotAxis = v2.CrossProduct(v1).UnitVector();
+            //double rotAngle = Math.Acos(v2.UnitVector().DotProduct(v1.UnitVector()));
+            //Transform newRotation = Transform.CreateFromAxisAngle(rotAxis, rotAngle);
+            //Transform curRotation = cameraRotation;
+            //cameraRotation = curRotation * newRotation;
+
+            Vector v1 = TrackballMapping(from);
+            Vector v2 = TrackballMapping(to);
+            Vector rotAxis = v2.CrossProduct(v1).UnitVector();
+            double rotAngle = Math.Acos(v2.UnitVector().DotProduct(v1.UnitVector()));
+            Transform newRotation = Transform.CreateFromAxisAngle(rotAxis, rotAngle);
+            Transform curRotation = cameraRotation;
+            Point target = Target;
+            double focal = FocalLength;
+            cameraRotation = curRotation * newRotation;
+            Origin = target - focal * ViewDirection;
+
+            var b = Target;
+
+            if (t.Equals(b))
+            {
+
+            }
         }
 
         #endregion Public fields
+
+        /// <summary>
+        /// Map the view coordinate to unit track ball centered at viewport center.
+        /// </summary>
+        /// <param name="screenPoint">The screen point.</param>
+        /// <returns>Point on unit sphere (unit trackball, centered at target)</returns>
+        private Vector TrackballMapping(Vector2D screenPoint)
+        {
+            double width = Width;
+            double height = Height;
+            Vector result = new Vector((2.0 * screenPoint.X - width) / width, (height - 2.0 * screenPoint.Y) / height, 0);
+            double d = result.Length;
+            d = (d < 1.0f) ? d : 1.0f;
+
+            result = new Vector(result.X, result.Y, Math.Sqrt(1.001 - d * d));
+            return result.UnitVector();
+        }
 
         #region Private fields
 
