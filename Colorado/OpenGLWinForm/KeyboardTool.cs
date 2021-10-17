@@ -132,7 +132,7 @@ namespace Colorado.OpenGLWinForm
 
         private void MoveOrigin(Vector direction)
         {
-            viewCamera.Origin = viewCamera.Origin + direction * 0.5;
+            viewCamera.Translate(direction * 0.5);
             openGLControl.Refresh();
         }
 

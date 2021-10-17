@@ -17,6 +17,14 @@ namespace Colorado.OpenGL.OpenGLWrappers
     {
         public static void DrawGeometryObject(GeometryObject geometryObject)
         {
+            DrawingGeometryWrapper(GeometryType.Quads, () =>
+            {
+                AppendVertex(new Point(-1, -1, -10));
+                AppendVertex(new Point(1, -1, -10));
+                AppendVertex(new Point(1, 1, -10));
+                AppendVertex(new Point(-1, 1, -10));
+            });
+
             switch (geometryObject.GeometryType)
             {
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Line:

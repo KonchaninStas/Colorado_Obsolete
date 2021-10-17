@@ -196,9 +196,8 @@ namespace Colorado.OpenGLWinForm
 
             Point origin = viewCamera.Origin;
             Vector inversedOrigin = origin.ToVector().Inverse;
-
-            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.RotationAngleInRadians),
-                viewCamera.CameraRotation.RotationAxis);
+            Quaternion rotation = viewCamera.Quaternion;
+            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(rotation.W), rotation.Axis);
             _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
             OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
 

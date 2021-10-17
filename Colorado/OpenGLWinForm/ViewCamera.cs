@@ -8,6 +8,8 @@ namespace Colorado.OpenGLWinForm
 {
     public class ViewCamera
     {
+        #region Private fields
+
         private double _FocalLength;                // distance from origin to target
         private double _VerticalFieldOfViewInDegrees;                // vertical field of view angle, in degrees
         private bool _HasNearClip;
@@ -21,12 +23,18 @@ namespace Colorado.OpenGLWinForm
         private Point _ObjectCenter;              // this helps ortho projection
         private double _ObjectRadius;               // this helps ortho projection
 
+        private Transform cameraTransformation;
+
+        #endregion Private fields
+
+        #region Constructor
+
         public ViewCamera()
         {
             CameraType = CameraType.Orthographic;
-            CameraRotation = new Quaternion();
-            Origin = new Point(0.0, 0.0, 10.0);
-            _FocalLength = 10.0;
+            cameraTransformation = Transform.Identity();
+            Translate(new Vector(0, 0, 10), 10.0);
+
             VerticalFieldOfViewInDegrees = 45.0;
             _NearClip = 0.0;
             _FarClip = 0.0;
@@ -34,13 +42,17 @@ namespace Colorado.OpenGLWinForm
             _ObjectCenter = Point.ZeroPoint;
         }
 
-        public Quaternion CameraRotation { get; set; }
+        #endregion Constructor
+
+        #region Properties
+
+        #region Only getter
 
         /// <summary>
         /// Gets or sets the camera origin.
         /// </summary>
         /// <value>The origin.</value>
-        public Point Origin { get; set; }
+        public Point Origin => cameraTransformation * new Point(1, 1, 1);
 
         /// <summary>
         /// Gets the camera target (focus point)
@@ -50,8 +62,6 @@ namespace Colorado.OpenGLWinForm
         {
             get { return Origin + ViewDirection * FocalLength; }
         }
-
-        public CameraType CameraType { get; }
 
         public Vector2D ImageSize
         {
@@ -71,36 +81,43 @@ namespace Colorado.OpenGLWinForm
             get { return (Height == 0) ? 1.0 : Width / (double)Height; }
         }
 
-        public int Width { get; set; }
-
-        public int Height { get; set; }
-
-        public double FocalLength
+        /// <summary>
+        /// Gets or sets the far clipping distance.
+        /// </summary>
+        /// <value>The far clipping distance (from camera origin, positive on front).</value>
+        public double FarClip
         {
             get
             {
-                return _FocalLength;
-            }
-            set
-            {
-                if (value > 0.0)
+                if (_HasFarClip)
                 {
-                    _FocalLength = value;
+                    return _FarClip;
                 }
-            }
-        }
 
-        public double VerticalFieldOfViewInDegrees
-        {
-            get
-            {
-                return _VerticalFieldOfViewInDegrees;
-            }
-            set
-            {
-                if (value > 0.0 && value < 180.0)
+                if (_FarClipAssigned)
                 {
-                    _VerticalFieldOfViewInDegrees = value;
+                    return _FarClip;
+                }
+
+                if (_ObjectRadius > 0.0)
+                {
+                    double farClip = (_ObjectCenter - Origin).DotProduct(ViewDirection) + _ObjectRadius;
+                    if (CameraType == CameraType.Orthographic)
+                    {
+                        return (farClip > 0.0) ? farClip * 1.001 : farClip * 0.999;
+                    }
+                    else
+                    {
+                        return (farClip > 0.01) ? farClip * 1.01 : 0.01;
+                    }
+                }
+                if (CameraType == CameraType.Orthographic)
+                {
+                    return 300 * FocalLength;
+                }
+                else
+                {
+                    return 1000 * FocalLength;
                 }
             }
         }
@@ -142,12 +159,12 @@ namespace Colorado.OpenGLWinForm
                     return 0.001 * FocalLength;
                 }
             }
-            set
-            {
-                _NearClip = value;
-                _NearClipAssigned = true;
-            }
         }
+
+        public Quaternion Quaternion => cameraTransformation.ToQuaternion();
+        #endregion Only getter
+
+        #region Axis
 
         /// <summary>
         /// Gets the view direction.
@@ -155,7 +172,7 @@ namespace Colorado.OpenGLWinForm
         /// <value>The view direction.</value>
         public Vector ViewDirection
         {
-            get { return CameraRotation * new Vector(0.0, 0.0, -1.0); }
+            get { return cameraTransformation * Vector.ZAxis.Inverse; }
         }
 
         /// <summary>
@@ -164,60 +181,62 @@ namespace Colorado.OpenGLWinForm
         /// <value>The camera UP vector.</value>
         public Vector UpVector
         {
-            get { return CameraRotation * new Vector(0.0, 1.0, 0.0); }
+            get { return cameraTransformation * Vector.YAxis; }
         }
 
         /// <summary>
         /// Gets the reference X direction.
         /// </summary>
         /// <value>The X direction.</value>
-        public Vector RightVector { get { return CameraRotation * new Vector(1.0, 0.0, 0.0); } }
-
-        /// <summary>
-        /// Gets or sets the far clipping distance.
-        /// </summary>
-        /// <value>The far clipping distance (from camera origin, positive on front).</value>
-        public double FarClip
+        public Vector RightVector
         {
             get
             {
-                if (_HasFarClip)
-                {
-                    return _FarClip;
-                }
+                return cameraTransformation * Vector.XAxis;
+            }
+        }
 
-                if (_FarClipAssigned)
-                {
-                    return _FarClip;
-                }
+        #endregion Axis
 
-                if (_ObjectRadius > 0.0)
+        public CameraType CameraType { get; set; }
+
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public double FocalLength
+        {
+            get
+            {
+                return _FocalLength;
+            }
+            private set
+            {
+                if (value > 0.0)
                 {
-                    double farClip = (_ObjectCenter - Origin).DotProduct(ViewDirection) + _ObjectRadius;
-                    if (CameraType == CameraType.Orthographic)
-                    {
-                        return (farClip > 0.0) ? farClip * 1.001 : farClip * 0.999;
-                    }
-                    else
-                    {
-                        return (farClip > 0.01) ? farClip * 1.01 : 0.01;
-                    }
+                    _FocalLength = value;
                 }
-                if (CameraType == CameraType.Orthographic)
-                {
-                    return 300 * FocalLength;
-                }
-                else
-                {
-                    return 1000 * FocalLength;
-                }
+            }
+        }
+
+        public double VerticalFieldOfViewInDegrees
+        {
+            get
+            {
+                return _VerticalFieldOfViewInDegrees;
             }
             set
             {
-                _FarClip = value;
-                _FarClipAssigned = true;
+                if (value > 0.0 && value < 180.0)
+                {
+                    _VerticalFieldOfViewInDegrees = value;
+                }
             }
         }
+
+        #endregion Properties
+
+        #region Public fields
 
         public void SetObjectRange(BoundingBox boundingBox)
         {
@@ -247,9 +266,8 @@ namespace Colorado.OpenGLWinForm
             double dz = -(focal - focal / scale);
             double dx = imageSize.X / 2.0 * newCenter.X;
             double dy = imageSize.Y / 2.0 * newCenter.Y;
-            var offset = CameraRotation * new Vector(dx, dy, dz);
-            Origin = Origin + offset;
-            FocalLength = focal / scale;
+            Vector offset = cameraTransformation * new Vector(dx, dy, dz);
+            Translate(offset, focal / scale);
         }
 
         /// <summary>
@@ -260,27 +278,43 @@ namespace Colorado.OpenGLWinForm
         {
             double focal = FocalLength;
             double dz = -(focal - focal / scale);
-            Vector offset = CameraRotation * new Vector(0.0, 0.0, dz);
-            Origin = Origin + offset;
-            FocalLength = focal / scale;
-            if (CameraType != CameraType.Orthographic)
+            Vector offset = cameraTransformation * new Vector(0.0, 0.0, dz);
+            Translate(offset, focal / scale);
+        }
+
+        public void Translate(Vector translationVector, double focalLength)
+        {
+            if (CameraType != CameraType.Orthographic && FocalLength < 0.001) //hard stop for focal length of 1mm.
             {
-                if (FocalLength < 0.001) //hard stop for focal length of 1mm.
-                {
-                    FocalLength = 0.001;
-                    Origin = Target - 0.001 * ViewDirection;
-                }
+                FocalLength = 0.001;
+                cameraTransformation.SetTranslation(Target - 0.001 * ViewDirection);
+            }
+            else
+            {
+                FocalLength = focalLength;
+                cameraTransformation.Translate(translationVector);
             }
         }
 
+        public void Translate(Vector translationVector)
+        {
+            cameraTransformation.Translate(translationVector);
+        }
+
+
+
         public void RotateAroundTarget(Vector rotationAxis, double angleInDegrees)
         {
-            Quaternion newRotation = new Quaternion(rotationAxis, MathUtilities.ConvertDegreesToRadians(angleInDegrees));
-            Quaternion curRotation = CameraRotation;
-            Point target = Target;
-            CameraRotation = newRotation * curRotation;
-            Origin = target - FocalLength * ViewDirection;
+            //Quaternion newRotation = new Quaternion(rotationAxis, MathUtilities.ConvertDegreesToRadians(angleInDegrees));
+            //Quaternion curRotation = CameraTransformation;
+            //Point target = Target;
+            //CameraTransformation = newRotation * curRotation;
+            //Origin = target - FocalLength * ViewDirection;
         }
+
+        #endregion Public fields
+
+        #region Private fields
 
         /// <summary>
         /// Map the view coordinate to unified values in the range of (-1, 1).
@@ -292,5 +326,6 @@ namespace Colorado.OpenGLWinForm
             return new Vector((2.0 * screenPoint.X - Width) / Width, (Height - 2.0 * screenPoint.Y) / Height, 0);
         }
 
+        #endregion Private fields
     }
 }

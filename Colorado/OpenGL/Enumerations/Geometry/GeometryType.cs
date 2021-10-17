@@ -10,6 +10,6 @@ namespace Colorado.OpenGL.Enumerations.Geometry
     {
         Points = 0x0000,
         Lines = 0x0001,
-        Line = 0x2
+        Quads = 0x0007
     }
 }
