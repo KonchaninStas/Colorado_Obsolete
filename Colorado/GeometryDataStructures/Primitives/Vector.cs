@@ -41,6 +41,8 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public static Vector ZAxis => new Vector(0, 0, 1);
 
+        public bool IsZero => X.IsZero() && Y.IsZero() && Z.IsZero();
+
         public Vector GetPerpendicularVector()
         {
             if (IsParallel(XAxis))
@@ -105,6 +107,11 @@ namespace Colorado.GeometryDataStructures.Primitives
         public static Vector operator *(Vector vector, double scaleFactor)
         {
             return new Vector(vector.X * scaleFactor, vector.Y * scaleFactor, vector.Z * scaleFactor);
+        }
+
+        public static Vector operator *(double scaleFactor, Vector vector)
+        {
+            return vector * scaleFactor;
         }
 
         public static Vector operator /(Vector vector, double scaleFactor)

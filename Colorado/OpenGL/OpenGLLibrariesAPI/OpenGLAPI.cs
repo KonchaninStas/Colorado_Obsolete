@@ -65,5 +65,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
 
         [DllImport(DLLName, EntryPoint = "glLightfv")]
         public static extern void Lightfv(int light, int pname, float[] fparams);
+
+        [DllImport(DLLName, EntryPoint = "glGetIntegerv")]
+        public static extern void GetParameterValuesArray(uint pname, int[] param);
     }
 }

@@ -12,5 +12,10 @@ namespace Colorado.Common.Utilities
         {
             return 180 / Math.PI * radians;
         }
+
+        public static double ConvertDegreesToRadians(double degrees)
+        {
+            return Math.PI / 180 * degrees;
+        }
     }
 }

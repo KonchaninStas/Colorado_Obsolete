@@ -1,4 +1,5 @@
 ﻿using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Enumerations;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
         public double Radius { get; }
 
         public Vector Normal { get; }
+
+        public override GeometryType GeometryType => GeometryType.Circle;
 
         public override BoundingBox BoundingBox { get; }
 

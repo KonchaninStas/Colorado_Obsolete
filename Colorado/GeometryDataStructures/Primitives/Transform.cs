@@ -43,6 +43,8 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         #region Properties
 
+        public double[] Array => matrix;
+
         public double this[int index]
         {
             get { return matrix[index]; }

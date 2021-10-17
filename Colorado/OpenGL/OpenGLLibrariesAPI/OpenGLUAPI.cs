@@ -12,5 +12,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
         private const string GLUDLLName = "GLU32.DLL";
         [DllImport(GLUDLLName, EntryPoint = "gluPerspective")]
         public static extern void Perspective(double fovy, double aspect, double zNear, double zFar);
+
+        [DllImport("Glu32.dll")]
+        public static extern void gluUnProject(double winx, double winy, double winz, double[] modelMatrix, double[] projMatrix, int[] viewport, ref double objx, ref double objy, ref double objz);
     }
 }

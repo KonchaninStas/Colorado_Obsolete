@@ -1,4 +1,5 @@
 ﻿using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Enumerations;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
         public Point EndPoint { get; }
 
         public Vector Direction { get; }
+
+        public override GeometryType GeometryType => GeometryType.Line;
 
         public override BoundingBox BoundingBox { get; }
     }

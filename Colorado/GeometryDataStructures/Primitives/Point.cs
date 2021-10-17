@@ -1,4 +1,6 @@
 ﻿using Colorado.Common.Extensions;
+using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

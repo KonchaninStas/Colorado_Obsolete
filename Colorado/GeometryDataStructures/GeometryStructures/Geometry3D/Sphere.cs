@@ -1,4 +1,5 @@
 ﻿using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Enumerations;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         public Point Center { get; }
 
         public double Radius { get; }
+
+        public override GeometryType GeometryType => GeometryType.Sphere;
 
         public override BoundingBox BoundingBox { get; }
 

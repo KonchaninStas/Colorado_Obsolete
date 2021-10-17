@@ -16,6 +16,19 @@ namespace Colorado.OpenGL.OpenGLWrappers
     {
         private const int projectionMatrixSize = 16;
         private const int modelViewMatrixSize = 16;
+        private const int viewportSizeWidthIndex = 2;
+        private const int viewportSizeHeightIndex = 3;
+
+        private static readonly IDictionary<OpenGLCapability, int> capabilityToValuesArraySizeMap;
+
+        static OpenGLWrapper()
+        {
+            capabilityToValuesArraySizeMap = new Dictionary<OpenGLCapability, int>()
+            {
+                { OpenGLCapability.Viewport, 4 }
+            };
+        }
+
 
         public static IntPtr LoadOpenGLLibrary()
         {
@@ -141,6 +154,30 @@ namespace Colorado.OpenGL.OpenGLWrappers
         public static void SetLightParameter(LightType lightType, LightColorType lightColorType, float[] lightValues)
         {
             OpenGLAPI.Lightfv((int)lightType, (int)lightColorType, lightValues);
+        }
+
+        public static int[] GetParameterValuesArray(OpenGLCapability capability, int valuesArraySize)
+        {
+            var size = new int[valuesArraySize];
+            OpenGLAPI.GetParameterValuesArray((uint)capability, size);
+            return size;
+        }
+
+        public static int GetViewportWidth()
+        {
+            return GetParameterValuesArray(OpenGLCapability.Viewport,
+                capabilityToValuesArraySizeMap[OpenGLCapability.Viewport])[viewportSizeWidthIndex];
+        }
+        public static int GetViewportHeight()
+        {
+            return GetParameterValuesArray(OpenGLCapability.Viewport,
+                capabilityToValuesArraySizeMap[OpenGLCapability.Viewport])[viewportSizeHeightIndex];
+        }
+
+        public static int[] GetViewport()
+        {
+            return GetParameterValuesArray(OpenGLCapability.Viewport,
+                capabilityToValuesArraySizeMap[OpenGLCapability.Viewport]);
         }
     }
 }

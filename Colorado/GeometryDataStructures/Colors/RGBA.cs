@@ -11,15 +11,28 @@ namespace Colorado.GeometryDataStructures.Colors
         public RGBA()
         {
             Alpha = byte.MaxValue;
-            Red = 155;
         }
 
-        public byte Red { get; set; }
+        public RGBA(byte red, byte green, byte blue) : this()
+        {
+            Red = red;
+            Green = green;
+            Blue = blue;
+        }
 
-        public byte Green { get; set; }
+        public byte Red { get; }
 
-        public byte Blue { get; set; }
+        public byte Green { get; }
 
-        public byte Alpha { get; set; }
+        public byte Blue { get; }
+
+        public byte Alpha { get; }
+
+        public static RGBA RedColor => new RGBA(byte.MaxValue, 0, 0);
+
+        public float[] ToFloat3Array()
+        {
+            return new[] { Red / (float)byte.MaxValue, Green / (float)byte.MaxValue, Blue / (float)byte.MaxValue };
+        }
     }
 }

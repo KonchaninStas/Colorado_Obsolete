@@ -1,6 +1,8 @@
 ﻿using Colorado.Common.Utilities;
 using Colorado.DataStructures;
 using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLWrappers;
@@ -17,6 +19,10 @@ namespace Colorado.OpenGLWinForm
     {
         private const double LARGE_OFFSET = 10000.0;      // in internal unit
 
+        private readonly ViewCamera viewCamera;
+        private readonly MouseTool mouseTool;
+        private readonly KeyboardTool keyboardTool;
+
         private Context renderingContext;
         private Document activeDocument;
 
@@ -30,10 +36,14 @@ namespace Colorado.OpenGLWinForm
 
         public OpenGLControl()
         {
-
             InitializeComponent();
-            ViewCamera = new ViewCamera();
+            viewCamera = new ViewCamera();
+            mouseTool = new MouseTool(this, viewCamera);
+            keyboardTool = new KeyboardTool(this, viewCamera);
+
             AddDocument(new Document());
+            activeDocument.AddGeometryObject(new Line(new Point(.25, 0.25, 0.25), new Point(100.75, 100.75, 100.75)));
+
             Load += LoadCallback;
             SizeChanged += SizeChangedCallback;
             Paint += PaintCallback;
@@ -41,21 +51,13 @@ namespace Colorado.OpenGLWinForm
             BackgroundColor = new RGBA();
         }
 
-        public ViewCamera ViewCamera { get; }
+        public Point PointUnderMouse => mouseTool.PointUnderMouse;
 
         public void AddDocument(Document document)
         {
             activeDocument = document;
         }
 
-        private const string GL_DLL = "opengl32";
-        [DllImport(GL_DLL)]
-        private static extern void glBegin(uint mode);
-        [DllImport(GL_DLL)]
-        private static extern void glEnd();
-
-        [DllImport(GL_DLL)]
-        private static extern void glVertex3d(double x, double y, double z);
         private void PaintCallback(object sender, PaintEventArgs e)
         {
             DrawScene();
@@ -74,8 +76,8 @@ namespace Colorado.OpenGLWinForm
                 return;
             }
 
-            ViewCamera.Width = this.ClientRectangle.Width;
-            ViewCamera.Height = this.ClientRectangle.Height;
+            viewCamera.Width = this.ClientRectangle.Width;
+            viewCamera.Height = this.ClientRectangle.Height;
 
             base.OnResize(e);
         }
@@ -141,10 +143,17 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
-            glBegin(0x0001);
-            glVertex3d(.25, 0.25, 0.25);
-            glVertex3d(100.75, 100.75, 100.75);
-            glEnd();
+            OpenGLGeometryWrapper.DrawPoint(viewCamera.Target, RGBA.RedColor, 10);
+
+            if (PointUnderMouse != null)
+            {
+                OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
+            }
+
+            foreach (GeometryObject geometryObject in activeDocument.Geometries)
+            {
+                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
+            }
         }
 
         public void BeginDrawScene()
@@ -161,35 +170,35 @@ namespace Colorado.OpenGLWinForm
 
         private void ApplyCamera()
         {
-            ViewCamera.SetObjectRange(activeDocument.BoundingBox);
+            viewCamera.SetObjectRange(activeDocument.BoundingBox);
             // projection scale
 
             OpenGLWrapper.SetActiveMatrixType(MatrixType.Projection);
             OpenGLWrapper.MakeActiveMatrixIdentity();
-            if (ViewCamera.CameraType == CameraType.Orthographic)
+            if (viewCamera.CameraType == CameraType.Orthographic)
             {
-                Vector2D imageSize = ViewCamera.ImageSize;
+                Vector2D imageSize = viewCamera.ImageSize;
                 double xmin = -imageSize.X / 2;
                 double xmax = imageSize.X / 2;
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
-                OpenGLWrapper.SetOrthographicViewSettings(xmin, xmax, ymin, ymax, ViewCamera.NearClip, ViewCamera.FarClip);
+                OpenGLWrapper.SetOrthographicViewSettings(xmin, xmax, ymin, ymax, viewCamera.NearClip, viewCamera.FarClip);
             }
             else
             {
-                OpenGLUWrapper.SetPerspectiveCameraSettings(ViewCamera.VerticalFieldOfViewInDegrees, ViewCamera.AspectRatio,
-                    ViewCamera.NearClip, ViewCamera.FarClip);
+                OpenGLUWrapper.SetPerspectiveCameraSettings(viewCamera.VerticalFieldOfViewInDegrees, viewCamera.AspectRatio,
+                    viewCamera.NearClip, viewCamera.FarClip);
             }
             _ProjectionMatrix = OpenGLWrapper.GetProjectionMatrix();
             // offset & orientation
             OpenGLWrapper.SetActiveMatrixType(MatrixType.ModelView);
             OpenGLWrapper.MakeActiveMatrixIdentity();
 
-            Point origin = ViewCamera.Origin;
+            Point origin = viewCamera.Origin;
             Vector inversedOrigin = origin.ToVector().Inverse;
 
-            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(ViewCamera.CameraRotation.RotationAngleInRadians),
-                ViewCamera.CameraRotation.RotationAxis);
+            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.RotationAngleInRadians),
+                viewCamera.CameraRotation.RotationAxis);
             _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
             OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
 
@@ -235,10 +244,10 @@ namespace Colorado.OpenGLWinForm
             OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Specular, color);
 
             var position = new float[] { 0, 0, 0, 1 };
-            if (ViewCamera.CameraType == CameraType.Orthographic)
+            if (viewCamera.CameraType == CameraType.Orthographic)
             {
-                Point cameraOrigin = ViewCamera.Origin;
-                Vector cameraDir = ViewCamera.ViewDir;
+                Point cameraOrigin = viewCamera.Origin;
+                Vector cameraDir = viewCamera.ViewDirection;
                 cameraOrigin = cameraOrigin - cameraDir * 1E10;
                 position[0] = (float)(cameraOrigin.X + _LargeOffset.X);
                 position[1] = (float)(cameraOrigin.Y + _LargeOffset.Y);
@@ -247,7 +256,7 @@ namespace Colorado.OpenGLWinForm
             }
             else
             {
-                Point cameraOrigin = ViewCamera.Origin;
+                Point cameraOrigin = viewCamera.Origin;
                 position[0] = (float)(cameraOrigin.X + _LargeOffset.X);
                 position[1] = (float)(cameraOrigin.Y + _LargeOffset.Y);
                 position[2] = (float)(cameraOrigin.Z + _LargeOffset.Z);
