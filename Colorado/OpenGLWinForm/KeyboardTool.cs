@@ -92,7 +92,19 @@ namespace Colorado.OpenGLWinForm
                         RotateAroundTarget(viewCamera.UpVector, -10);
                         break;
                     }
+                case Keys.Space:
+                    {
+                        ResetToDefault();
+                        break;
+                    }
+
             }
+        }
+
+        private void ResetToDefault()
+        {
+            viewCamera.ResetToDefault();
+            openGLControl.Refresh();
         }
 
         private void MoveRight()

@@ -32,8 +32,7 @@ namespace Colorado.OpenGLWinForm
             CameraType = CameraType.Orthographic;
             CameraRotation = Transform.Identity();
             Origin = Point.ZeroPoint;
-            //Translate(new Vector(0, 0, 10), 10.0);
-
+            Translate(new Vector(0, 0, 10), 10.0);
             VerticalFieldOfViewInDegrees = 45.0;
             _NearClip = 0.0;
             _FarClip = 0.0;
@@ -122,7 +121,14 @@ namespace Colorado.OpenGLWinForm
             }
         }
 
-        
+        internal void ResetToDefault()
+        {
+            FocalLength = 0;
+            CameraRotation = Transform.Identity();
+            Origin = Point.ZeroPoint;
+        }
+
+
 
         /// <summary>
         /// Gets or sets the near clipping distance.
