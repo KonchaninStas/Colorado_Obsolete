@@ -123,6 +123,11 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLAPI.Translated(vector.X, vector.Y, vector.Z);
         }
 
+        public static void MultiplyWithCurrentMatrix(Transform transform)
+        {
+            OpenGLAPI.MultMatrixd(transform.Array);
+        }
+
         public static void RotateCurrentMatrix(double rotationAngleInDegrees, Vector rotationVector)
         {
             OpenGLAPI.Rotated(rotationAngleInDegrees, rotationVector.X, rotationVector.Y, rotationVector.Z);

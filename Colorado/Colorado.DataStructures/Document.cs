@@ -15,12 +15,12 @@ namespace Colorado.DataStructures
         public Document()
         {
             geometryObjects = new List<GeometryObject>();
-            BoundingBox = new BoundingBox();
+            //BoundingBox = new BoundingBox();
         }
 
         public IEnumerable<GeometryObject> Geometries => geometryObjects;
 
-        public BoundingBox BoundingBox { get; }
+        public BoundingBox BoundingBox => new BoundingBox(new Point(1000, 1000, 1000), new Point(-1000, -1000, -1000));
 
         public void AddGeometryObject(GeometryObject geometryObject)
         {

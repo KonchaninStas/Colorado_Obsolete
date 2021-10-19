@@ -23,8 +23,6 @@ namespace Colorado.OpenGLWinForm
         private Point _ObjectCenter;              // this helps ortho projection
         private double _ObjectRadius;               // this helps ortho projection
 
-        private Transform cameraRotation;
-
         #endregion Private fields
 
         #region Constructor
@@ -32,9 +30,9 @@ namespace Colorado.OpenGLWinForm
         public ViewCamera()
         {
             CameraType = CameraType.Orthographic;
-            cameraRotation = Transform.Identity();
+            CameraRotation = Transform.Identity();
             Origin = Point.ZeroPoint;
-            Translate(new Vector(0, 0, 10), 10.0);
+            //Translate(new Vector(0, 0, 10), 10.0);
 
             VerticalFieldOfViewInDegrees = 45.0;
             _NearClip = 0.0;
@@ -68,6 +66,7 @@ namespace Colorado.OpenGLWinForm
         {
             get
             {
+                //return new Vector2D(Width, Height);
                 double imageY = 2.0 * FocalLength * Math.Tan(_VerticalFieldOfViewInDegrees * Math.PI / 360);
                 return new Vector2D(imageY * AspectRatio, imageY);
             }
@@ -123,6 +122,8 @@ namespace Colorado.OpenGLWinForm
             }
         }
 
+        
+
         /// <summary>
         /// Gets or sets the near clipping distance.
         /// </summary>
@@ -162,7 +163,7 @@ namespace Colorado.OpenGLWinForm
             }
         }
 
-        public Quaternion Quaternion => cameraRotation.ToQuaternion();
+        public Quaternion Quaternion => CameraRotation.ToQuaternion();
         #endregion Only getter
 
         #region Axis
@@ -173,7 +174,7 @@ namespace Colorado.OpenGLWinForm
         /// <value>The view direction.</value>
         public Vector ViewDirection
         {
-            get { return cameraRotation * Vector.ZAxis.Inverse; }
+            get { return CameraRotation * Vector.ZAxis.Inverse; }
         }
 
         /// <summary>
@@ -182,7 +183,7 @@ namespace Colorado.OpenGLWinForm
         /// <value>The camera UP vector.</value>
         public Vector UpVector
         {
-            get { return cameraRotation * Vector.YAxis; }
+            get { return CameraRotation * Vector.YAxis; }
         }
 
         /// <summary>
@@ -193,11 +194,13 @@ namespace Colorado.OpenGLWinForm
         {
             get
             {
-                return cameraRotation * Vector.XAxis;
+                return CameraRotation * Vector.XAxis;
             }
         }
 
         #endregion Axis
+
+        public Transform CameraRotation { get; private set; }
 
         public CameraType CameraType { get; set; }
 
@@ -267,7 +270,7 @@ namespace Colorado.OpenGLWinForm
             double dz = -(focal - focal / scale);
             double dx = imageSize.X / 2.0 * newCenter.X;
             double dy = imageSize.Y / 2.0 * newCenter.Y;
-            Vector offset = cameraRotation * new Vector(dx, dy, dz);
+            Vector offset = CameraRotation * new Vector(dx, dy, dz);
             Translate(offset, focal / scale);
         }
 
@@ -279,7 +282,7 @@ namespace Colorado.OpenGLWinForm
         {
             double focal = FocalLength;
             double dz = -(focal - focal / scale);
-            Vector offset = cameraRotation * new Vector(0.0, 0.0, dz);
+            Vector offset = CameraRotation * new Vector(0.0, 0.0, dz);
             Translate(offset, focal / scale);
         }
 
@@ -305,6 +308,20 @@ namespace Colorado.OpenGLWinForm
         public void RotateAroundTarget(Vector2D direction)
         {
             RotateAroundTarget(ImageSize / 2, ImageSize / 2 + direction);
+        }
+
+        internal void RotateAroundTarget(Vector direction, double angleInDegrees)
+        {
+            Transform newRotation = Transform.CreateFromAxisAngle(direction, MathUtilities.ConvertDegreesToRadians(angleInDegrees));
+            Transform curRotation = CameraRotation;
+            Point target = Target;
+            CameraRotation = newRotation * curRotation;
+            Origin = target - FocalLength * ViewDirection;
+
+            if (target.Equals(Target))
+            {
+
+            }
         }
 
         public void RotateAroundTarget(Vector2D from, Vector2D to)
@@ -340,10 +357,10 @@ namespace Colorado.OpenGLWinForm
             Vector rotAxis = v2.CrossProduct(v1).UnitVector();
             double rotAngle = Math.Acos(v2.UnitVector().DotProduct(v1.UnitVector()));
             Transform newRotation = Transform.CreateFromAxisAngle(rotAxis, rotAngle);
-            Transform curRotation = cameraRotation;
+            Transform curRotation = CameraRotation;
             Point target = Target;
             double focal = FocalLength;
-            cameraRotation = curRotation * newRotation;
+            CameraRotation = curRotation * newRotation;
             Origin = target - focal * ViewDirection;
 
             var b = Target;

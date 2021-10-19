@@ -68,5 +68,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
 
         [DllImport(DLLName, EntryPoint = "glGetIntegerv")]
         public static extern void GetParameterValuesArray(uint pname, int[] param);
+
+        [DllImport(DLLName, EntryPoint = "glMultMatrixd")]
+        public static extern void MultMatrixd(double[] m);
     }
 }

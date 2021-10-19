@@ -143,13 +143,17 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.RedColor, 10);
-            OpenGLGeometryWrapper.DrawLine(new Line(Point.ZeroPoint, Point.ZeroPoint + viewCamera.UpVector * 100));
-            OpenGLGeometryWrapper.DrawLine(new Line(Point.ZeroPoint, Point.ZeroPoint + viewCamera.RightVector * 100));
-            if (PointUnderMouse != null)
-            {
-                OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
-            }
+            OpenGLGeometryWrapper.DrawPoint(viewCamera.Target, RGBA.RedColor, 1);
+            OpenGLGeometryWrapper.DrawLine(
+                new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.UpVector * 100), RGBA.RedColor);
+            OpenGLGeometryWrapper.DrawLine(
+                new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.RightVector * 100), RGBA.GreenColor);
+            OpenGLGeometryWrapper.DrawLine(
+               new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.ViewDirection * 100), RGBA.BlueColor);
+            //if (PointUnderMouse != null)
+            //{
+            //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
+            //}
 
             foreach (GeometryObject geometryObject in activeDocument.Geometries)
             {
@@ -197,8 +201,7 @@ namespace Colorado.OpenGLWinForm
 
             Point origin = viewCamera.Origin;
             Vector inversedOrigin = origin.ToVector().Inverse;
-            Quaternion rotation = viewCamera.Quaternion;
-            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(rotation.W), rotation.Axis.Inverse);
+            OpenGLWrapper.MultiplyWithCurrentMatrix(viewCamera.CameraRotation.GetInverted());
             _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
             OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
 
@@ -211,7 +214,6 @@ namespace Colorado.OpenGLWinForm
                 _HasLargeOffset = true;
                 _LargeOffset = new Vector(-origin.X, -origin.Y, -origin.Z);
                 OpenGLWrapper.TranslateCurrentMatrix(origin);
-
             }
             else
             {

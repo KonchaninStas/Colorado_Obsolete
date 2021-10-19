@@ -353,7 +353,7 @@ namespace Colorado.GeometryDataStructures.Primitives
                         (this[0, 2] + this[2, 0]) * invS,
                         (this[1, 2] - this[2, 1]) * invS);
                 }
-                else if (this[1,1] > this[2,2])
+                else if (this[1, 1] > this[2, 2])
                 {
                     double s = (double)Math.Sqrt(1.0f + this[1, 1] - this[0, 0] - this[2, 2]);
                     double invS = 0.5 / s;
@@ -375,6 +375,80 @@ namespace Colorado.GeometryDataStructures.Primitives
                         (this[0, 1] - this[1, 0]) * invS);
                 }
             }
+        }
+
+        public Transform GetInverted()
+        {
+            double a = this[0, 0], b = this[0, 1], c = this[0, 2], d = this[0, 3];
+            double e = this[1, 0], f = this[1, 1], g = this[1, 2], h = this[1, 3];
+            double i = this[2, 0], j = this[2, 1], k = this[2, 2], l = this[2, 3];
+            double m = this[3, 0], n = this[3, 1], o = this[3, 2], p = this[3, 3];
+
+            double kp_lo = k * p - l * o;
+            double jp_ln = j * p - l * n;
+            double jo_kn = j * o - k * n;
+            double ip_lm = i * p - l * m;
+            double io_km = i * o - k * m;
+            double in_jm = i * n - j * m;
+
+            double a11 = +(f * kp_lo - g * jp_ln + h * jo_kn);
+            double a12 = -(e * kp_lo - g * ip_lm + h * io_km);
+            double a13 = +(e * jp_ln - f * ip_lm + h * in_jm);
+            double a14 = -(e * jo_kn - f * io_km + g * in_jm);
+
+            double det = a * a11 + b * a12 + c * a13 + d * a14;
+
+            if (Math.Abs(det) < double.Epsilon)
+            {
+                return new Transform(new double[]{ double.NaN, double.NaN, double.NaN, double.NaN,
+                                       double.NaN, double.NaN, double.NaN, double.NaN,
+                                       double.NaN, double.NaN, double.NaN, double.NaN,
+                                       double.NaN, double.NaN, double.NaN, double.NaN });
+            }
+
+            double invDet = 1.0f / det;
+
+            double M11 = a11 * invDet;
+            double M21 = a12 * invDet;
+            double M31 = a13 * invDet;
+            double M41 = a14 * invDet;
+
+            double M12 = -(b * kp_lo - c * jp_ln + d * jo_kn) * invDet;
+            double M22 = +(a * kp_lo - c * ip_lm + d * io_km) * invDet;
+            double M32 = -(a * jp_ln - b * ip_lm + d * in_jm) * invDet;
+            double M42 = +(a * jo_kn - b * io_km + c * in_jm) * invDet;
+
+            double gp_ho = g * p - h * o;
+            double fp_hn = f * p - h * n;
+            double fo_gn = f * o - g * n;
+            double ep_hm = e * p - h * m;
+            double eo_gm = e * o - g * m;
+            double en_fm = e * n - f * m;
+
+            double M13 = +(b * gp_ho - c * fp_hn + d * fo_gn) * invDet;
+            double M23 = -(a * gp_ho - c * ep_hm + d * eo_gm) * invDet;
+            double M33 = +(a * fp_hn - b * ep_hm + d * en_fm) * invDet;
+            double M43 = -(a * fo_gn - b * eo_gm + c * en_fm) * invDet;
+
+            double gl_hk = g * l - h * k;
+            double fl_hj = f * l - h * j;
+            double fk_gj = f * k - g * j;
+            double el_hi = e * l - h * i;
+            double ek_gi = e * k - g * i;
+            double ej_fi = e * j - f * i;
+
+            double M14 = -(b * gl_hk - c * fl_hj + d * fk_gj) * invDet;
+            double M24 = +(a * gl_hk - c * el_hi + d * ek_gi) * invDet;
+            double M34 = -(a * fl_hj - b * el_hi + d * ej_fi) * invDet;
+            double M44 = +(a * fk_gj - b * ek_gi + c * ej_fi) * invDet;
+
+            return new Transform(new double[]
+            { 
+                M11, M12, M13, M14,
+                M21, M22, M23, M24,
+                M31, M32, M33, M34,
+                M41, M42, M43, M44,
+            });
         }
 
         #endregion Public methods

@@ -30,6 +30,10 @@ namespace Colorado.GeometryDataStructures.Colors
 
         public static RGBA RedColor => new RGBA(byte.MaxValue, 0, 0);
 
+        public static RGBA GreenColor => new RGBA(0, byte.MaxValue, 0);
+
+        public static RGBA BlueColor => new RGBA(0, 0, byte.MaxValue);
+
         public float[] ToFloat3Array()
         {
             return new[] { Red / (float)byte.MaxValue, Green / (float)byte.MaxValue, Blue / (float)byte.MaxValue };
