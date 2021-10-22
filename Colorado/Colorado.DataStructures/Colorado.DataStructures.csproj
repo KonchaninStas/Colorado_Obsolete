@@ -44,6 +44,11 @@
   <ItemGroup>
     <Compile Include="Document.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="STLDocument.cs" />
+    <Compile Include="STL\Readers\STLASCIIFileReader.cs" />
+    <Compile Include="STL\Readers\STLBinaryFileReader.cs" />
+    <Compile Include="STL\STLFileType.cs" />
+    <Compile Include="STL\STLFileUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">

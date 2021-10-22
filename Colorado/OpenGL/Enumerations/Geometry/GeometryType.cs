@@ -8,8 +8,12 @@ namespace Colorado.OpenGL.Enumerations.Geometry
 {
     internal enum GeometryType
     {
-        Points = 0x0000,
-        Lines = 0x0001,
-        Quads = 0x0007
+        Point = 0x0000,
+        Line = 0x0001,
+        LineLoop = 0x0002,
+        Triangle = 0x0004,
+        TriangleStrip = 0x0005,
+        TriangleFan = 0x0006,
+        Quad = 0x0007
     }
 }

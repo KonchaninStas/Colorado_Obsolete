@@ -34,6 +34,9 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
         [DllImport(DLLName, EntryPoint = "glEnable")]
         public static extern void Enable(int cap);
 
+        [DllImport(DLLName, EntryPoint = "glDisable")]
+        public static extern void Disable(int cap);
+
         [DllImport(DLLName, EntryPoint = "glClearDepth")]
         public static extern void ClearDepth(double depth);
 

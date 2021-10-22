@@ -24,6 +24,9 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
         [DllImport(GL_DLL, EntryPoint = "glVertex3d")]
         public static extern void glVertex3d(double x, double y, double z);
 
+        [DllImport(GL_DLL, EntryPoint = "glNormal3d")]
+        public static extern void glNormal3d(double x, double y, double z);
+
         [DllImport(GL_DLL, EntryPoint = "glColor3fv")]
         public static extern void glColor3fv(float[] color);
 

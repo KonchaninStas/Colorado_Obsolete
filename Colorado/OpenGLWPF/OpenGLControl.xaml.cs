@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Colorado.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,9 @@ namespace Colorado.OpenGLWPF
         private void LoadedCallback(object sender, RoutedEventArgs e)
         {
             var host = new WindowsFormsHost();
-            host.Child = new Colorado.OpenGLWinForm.OpenGLControl() { Dock = System.Windows.Forms.DockStyle.Fill };
+            var openGlControl = new Colorado.OpenGLWinForm.OpenGLControl() { Dock = System.Windows.Forms.DockStyle.Fill };
+            openGlControl.AddDocument(new STLDocument(@"C:\cube.stl"));
+            host.Child = openGlControl;
 
 
             // Add the interop host control to the Grid

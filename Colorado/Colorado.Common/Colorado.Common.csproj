@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\FileNotSupportedException.cs" />
+    <Compile Include="Exceptions\InvalidFileExtensionException.cs" />
+    <Compile Include="Exceptions\StlFileIsInvalidException.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />

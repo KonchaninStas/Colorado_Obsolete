@@ -72,6 +72,11 @@ namespace Colorado.GeometryDataStructures.Primitives
             return new Point(point.X * scaleFactor, point.Y * scaleFactor, point.Z * scaleFactor);
         }
 
+        public static Point operator /(Point point, double scaleFactor)
+        {
+            return new Point(point.X / scaleFactor, point.Y / scaleFactor, point.Z / scaleFactor);
+        }
+
         public static bool operator ==(Point firstPoint, Point secondPoint)
         {
             return Equals(firstPoint, secondPoint);
@@ -80,19 +85,6 @@ namespace Colorado.GeometryDataStructures.Primitives
         public static bool operator !=(Point firstPoint, Point secondPoint)
         {
             return !Equals(firstPoint, secondPoint);
-        }
-
-        public static bool operator >(Point firstPoint, Point secondPoint)
-        {
-            double firstPointDistanceToMaxPoint = firstPoint.DistanceTo(MaxPoint);
-            double secondPointDistanceToMaxPoint = secondPoint.DistanceTo(MaxPoint);
-
-            return firstPointDistanceToMaxPoint < secondPointDistanceToMaxPoint;
-        }
-
-        public static bool operator <(Point firstPoint, Point secondPoint)
-        {
-            return !(firstPoint > secondPoint);
         }
 
         public Vector ToVector()

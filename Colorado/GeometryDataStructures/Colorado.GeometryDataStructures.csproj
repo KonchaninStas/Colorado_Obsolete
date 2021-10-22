@@ -47,14 +47,17 @@
     <Compile Include="GeometryStructures\Enumerations\GeometryType.cs" />
     <Compile Include="GeometryStructures\Geometry2D\Circle.cs" />
     <Compile Include="GeometryStructures\Geometry2D\Line.cs" />
+    <Compile Include="GeometryStructures\Geometry3D\Mesh.cs" />
     <Compile Include="GeometryStructures\Geometry3D\Sphere.cs" />
     <Compile Include="Primitives\BoundingBox.cs" />
     <Compile Include="Primitives\Point.cs" />
     <Compile Include="Primitives\Point2D.cs" />
     <Compile Include="Primitives\Quaternion.cs" />
     <Compile Include="Primitives\Transform.cs" />
+    <Compile Include="Primitives\Triangle.cs" />
     <Compile Include="Primitives\Vector.cs" />
     <Compile Include="Primitives\Vector2D.cs" />
+    <Compile Include="Primitives\Vertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

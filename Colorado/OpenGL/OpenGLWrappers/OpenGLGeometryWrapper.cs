@@ -17,7 +17,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
     {
         public static void DrawGeometryObject(GeometryObject geometryObject)
         {
-            DrawingGeometryWrapper(GeometryType.Quads, () =>
+            DrawingGeometryWrapper(GeometryType.Quad, () =>
             {
                 AppendVertex(new Point(-1, -1, -10));
                 AppendVertex(new Point(1, -1, -10));
@@ -42,6 +42,11 @@ namespace Colorado.OpenGL.OpenGLWrappers
                         DrawSphere(geometryObject as Sphere);
                         break;
                     }
+                case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Mesh:
+                    {
+                        DrawWireframeMesh(geometryObject as Mesh);
+                        break;
+                    }
                 default:
                     {
                         throw new ArgumentException();
@@ -51,7 +56,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         public static void DrawLine(Line line)
         {
-            DrawingGeometryWrapper(GeometryType.Lines, () =>
+            DrawingGeometryWrapper(GeometryType.Line, () =>
                  {
                      AppendVertex(line.StartPoint);
                      AppendVertex(line.EndPoint);
@@ -60,7 +65,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         public static void DrawLine(Line line, RGBA color)
         {
-            DrawingGeometryWrapper(GeometryType.Lines, () =>
+            DrawingGeometryWrapper(GeometryType.Line, () =>
             {
                 SetActiveColorWithoutAlpha(color);
                 AppendVertex(line.StartPoint);
@@ -81,7 +86,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
         public static void DrawPoint(Point point, RGBA color, float pointSize)
         {
             SetPointSize(pointSize);
-            DrawingGeometryWrapper(GeometryType.Points, () =>
+            DrawingGeometryWrapper(GeometryType.Point, () =>
                  {
                      SetActiveColorWithoutAlpha(color);
                      AppendVertex(point);
@@ -89,9 +94,56 @@ namespace Colorado.OpenGL.OpenGLWrappers
             SetDefaultPointSize();
         }
 
+        private static void DrawMesh(Mesh mesh)
+        {
+            DrawingGeometryWrapper(GeometryType.Triangle, () =>
+            {
+                SetActiveColorWithoutAlpha(new RGBA(204, 204, 204));
+                foreach (Triangle triangle in mesh.Triangles)
+                {
+                    AppendNormal(triangle.Normal);
+                    AppendVertex(triangle.FirstVertex);
+                    AppendVertex(triangle.SecondVertex);
+                    AppendVertex(triangle.ThirdVertex);
+                }
+            });
+        }
+
+        private static void DrawWireframeMesh(Mesh mesh)
+        {
+            foreach (Triangle triangle in mesh.Triangles)
+            {
+                //DrawingGeometryWrapper(GeometryType.Line, () =>
+                //{
+                //    SetActiveColorWithoutAlpha(RGBA.RedColor);
+                //    AppendVertex(triangle.Center);
+                //    AppendVertex(triangle.Center + triangle.Normal * 10);
+                //});
+                DrawingGeometryWrapper(GeometryType.LineLoop, () =>
+            {
+                SetActiveColorWithoutAlpha(new RGBA(204, 204, 204));
+                AppendVertex(triangle.FirstVertex);
+                AppendVertex(triangle.SecondVertex);
+                AppendVertex(triangle.ThirdVertex);
+
+            });
+            }
+        }
+
+        private static void AppendNormal(Vector normal)
+        {
+            OpenGLGeometryAPI.glNormal3d(normal.X, normal.Y, normal.Z);
+        }
+
+
         private static void AppendVertex(Point point)
         {
             OpenGLGeometryAPI.glVertex3d(point.X, point.Y, point.Z);
+        }
+
+        private static void AppendVertex(Vertex vertex)
+        {
+            OpenGLGeometryAPI.glVertex3d(vertex.Position.X, vertex.Position.Y, vertex.Position.Z);
         }
 
         private static void SetPointSize(float pointSize)

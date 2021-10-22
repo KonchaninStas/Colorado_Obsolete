@@ -61,6 +61,11 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLAPI.Enable((int)capability);
         }
 
+        public static void DisableCapability(OpenGLCapability capability)
+        {
+            OpenGLAPI.Disable((int)capability);
+        }
+
         /// <summary>
         /// 
         /// </summary>

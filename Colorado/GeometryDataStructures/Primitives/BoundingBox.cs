@@ -1,33 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.GeometryDataStructures.Primitives
 {
     public class BoundingBox
     {
-        public BoundingBox()
-        {
-            MaxPoint = Point.ZeroPoint;
-            MinPoint = Point.ZeroPoint;
-            Diagonal = 0;
-            Center = Point.ZeroPoint;
-        }
+        public BoundingBox() : this(Point.ZeroPoint, Point.ZeroPoint) { }
 
         public BoundingBox(Point maxPoint, Point minPoint)
         {
-            if (maxPoint > minPoint)
-            {
-                MaxPoint = maxPoint;
-                MinPoint = minPoint;
-            }
-            else
-            {
-                MaxPoint = minPoint;
-                MinPoint = maxPoint;
-            }
+            MaxPoint = GetPointWithMaxValues(new[] { maxPoint, minPoint });
+            MinPoint = GetPointWithMinValues(new[] { maxPoint, minPoint });
 
             var diagonalVector = new Vector(minPoint, maxPoint);
 
@@ -47,15 +31,25 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public void Add(BoundingBox boundingBox)
         {
-            if (boundingBox.MaxPoint > MaxPoint)
-            {
-                MaxPoint = boundingBox.MaxPoint;
-            }
+            MaxPoint = GetPointWithMaxValues(new[] { MaxPoint, boundingBox.MaxPoint });
+            MinPoint = GetPointWithMinValues(new[] { MinPoint, boundingBox.MinPoint });
+        }
 
-            if (boundingBox.MinPoint > MinPoint)
-            {
-                MinPoint = boundingBox.MinPoint;
-            }
+        internal static Point GetPointWithMinValues(IEnumerable<Point> points)
+        {
+            return new Point(GetValuesFromPoints(points, p => p.X).Min(), GetValuesFromPoints(points, p => p.Y).Min(),
+               GetValuesFromPoints(points, p => p.Z).Min());
+        }
+
+        internal static Point GetPointWithMaxValues(IEnumerable<Point> points)
+        {
+            return new Point(GetValuesFromPoints(points, p => p.X).Max(), GetValuesFromPoints(points, p => p.Y).Max(),
+               GetValuesFromPoints(points, p => p.Z).Max());
+        }
+
+        private static IEnumerable<double> GetValuesFromPoints(IEnumerable<Point> points, Func<Point, double> getValueFromPointAction)
+        {
+            return points.Select(p => getValueFromPointAction(p));
         }
     }
 }

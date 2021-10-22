@@ -41,9 +41,6 @@ namespace Colorado.OpenGLWinForm
             mouseTool = new MouseTool(this, viewCamera);
             keyboardTool = new KeyboardTool(this, viewCamera);
 
-            AddDocument(new Document());
-            activeDocument.AddGeometryObject(new Line(new Point(.25, 0.25, 0.25), new Point(100.75, 100.75, 100.75)));
-
             Load += LoadCallback;
             SizeChanged += SizeChangedCallback;
             Paint += PaintCallback;
@@ -148,8 +145,8 @@ namespace Colorado.OpenGLWinForm
                 new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.UpVector * 100), RGBA.RedColor);
             OpenGLGeometryWrapper.DrawLine(
                 new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.RightVector * 100), RGBA.GreenColor);
-            OpenGLGeometryWrapper.DrawLine(
-               new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.ViewDirection * 100), RGBA.BlueColor);
+            //OpenGLGeometryWrapper.DrawLine(
+            //   new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.ViewDirection * 100), RGBA.BlueColor);
             //if (PointUnderMouse != null)
             //{
             //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
@@ -203,10 +200,10 @@ namespace Colorado.OpenGLWinForm
             Vector inversedOrigin = origin.ToVector().Inverse;
             OpenGLWrapper.MultiplyWithCurrentMatrix(viewCamera.CameraRotation.GetInverted());
             _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
-            OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
+            //OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
 
-            var transOriginTransform = new Transform(inversedOrigin);
-            _ModelViewMatrix = _ModelViewMatrix * transOriginTransform;
+            //var transOriginTransform = new Transform(inversedOrigin);
+            //_ModelViewMatrix = _ModelViewMatrix * transOriginTransform;
             // If points have large coordinate values, will reset camera origin
             // and have future points compensate the origin.
             if (origin.LargestAbsoluteComponent > LARGE_OFFSET)
