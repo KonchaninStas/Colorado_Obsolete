@@ -9,6 +9,7 @@ using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm.Enumerations;
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Point = Colorado.GeometryDataStructures.Primitives.Point;
@@ -140,11 +141,12 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.BlueColor, 1);
             OpenGLGeometryWrapper.DrawPoint(viewCamera.Target, RGBA.RedColor, 1);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.UpVector * 100), RGBA.RedColor);
+                new Line(viewCamera.Target, viewCamera.Target + viewCamera.UpVector * 100), RGBA.RedColor);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.RightVector * 100), RGBA.GreenColor);
+                new Line(viewCamera.Target, viewCamera.Target + viewCamera.RightVector * 100), RGBA.GreenColor);
             //OpenGLGeometryWrapper.DrawLine(
             //   new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.ViewDirection * 100), RGBA.BlueColor);
             //if (PointUnderMouse != null)
@@ -184,7 +186,8 @@ namespace Colorado.OpenGLWinForm
                 double xmax = imageSize.X / 2;
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
-                OpenGLWrapper.SetOrthographicViewSettings(xmin, xmax, ymin, ymax, viewCamera.NearClip, viewCamera.FarClip);
+                OpenGLWrapper.SetOrthographicViewSettings(xmin, xmax, ymin, ymax, -10000, 100000);
+                Console.WriteLine(xmin);
             }
             else
             {
@@ -192,21 +195,20 @@ namespace Colorado.OpenGLWinForm
                     viewCamera.NearClip, viewCamera.FarClip);
             }
             _ProjectionMatrix = OpenGLWrapper.GetProjectionMatrix();
+            Console.WriteLine(_ProjectionMatrix.ToString());
             // offset & orientation
             OpenGLWrapper.SetActiveMatrixType(MatrixType.ModelView);
             OpenGLWrapper.MakeActiveMatrixIdentity();
 
             Point origin = viewCamera.Origin;
-            Vector inversedOrigin = origin.ToVector().Inverse;
-            OpenGLWrapper.MultiplyWithCurrentMatrix(viewCamera.CameraRotation.GetInverted());
-            _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
-            //OpenGLWrapper.TranslateCurrentMatrix(inversedOrigin);
+            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.AngleInRadians), viewCamera.CameraRotation.Axis);
 
-            //var transOriginTransform = new Transform(inversedOrigin);
-            //_ModelViewMatrix = _ModelViewMatrix * transOriginTransform;
+            _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
+            OpenGLWrapper.TranslateCurrentMatrix(origin.Inverse);
+            _ModelViewMatrix = _ModelViewMatrix * new Transform(origin.Inverse.ToVector());
             // If points have large coordinate values, will reset camera origin
             // and have future points compensate the origin.
-            if (origin.LargestAbsoluteComponent > LARGE_OFFSET)
+            if ((origin).LargestAbsoluteComponent > LARGE_OFFSET)
             {
                 _HasLargeOffset = true;
                 _LargeOffset = new Vector(-origin.X, -origin.Y, -origin.Z);

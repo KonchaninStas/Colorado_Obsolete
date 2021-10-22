@@ -23,7 +23,7 @@ namespace Colorado.GeometryDataStructures.Primitives
         public double Y { get; }
 
         public double Z { get; }
-
+        public Point Inverse => this * -1;
         public double LargestAbsoluteComponent
         {
             get

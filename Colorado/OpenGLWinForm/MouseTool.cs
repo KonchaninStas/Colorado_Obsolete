@@ -35,7 +35,7 @@ namespace Colorado.OpenGLWinForm
             double delta = e.Delta / 120.0 * 0.2;
             double scale = delta > 0 ? (1.0 + delta) : (1.0 / (1.0 - delta));
             //Vector3D fixedPoint = TrackballMapping(e.X, e.Y);
-            viewCamera.ScaleAtPoint(scale, new Vector2D(e.X, e.Y));
+            viewCamera.ScaleAtTarget(scale);
             openGLControl.Refresh();
         }
     }

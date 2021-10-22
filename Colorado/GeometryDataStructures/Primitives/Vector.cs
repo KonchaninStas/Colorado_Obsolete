@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Colorado.GeometryDataStructures.Primitives
 {
-    public class Vector
+    public class Vector : IEquatable<Vector>
     {
         public Vector(double x, double y, double z)
         {
@@ -124,9 +124,61 @@ namespace Colorado.GeometryDataStructures.Primitives
             return Math.Sqrt(X * X + Y * Y + Z * Z);
         }
 
+
+
         public Vector UnitVector()
         {
             return new Vector(X / Length, Y / Length, Z / Length);
+        }
+
+        public static bool operator ==(Vector firstVector, Vector secondVector)
+        {
+            return Equals(firstVector, secondVector);
+        }
+
+        public static bool operator !=(Vector firstVector, Vector secondVector)
+        {
+            return !Equals(firstVector, secondVector);
+        }
+
+        public Vector ToVector()
+        {
+            return new Vector(X, Y, Z);
+        }
+
+        public bool Equals(Vector other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return Math.Abs(X - other.X).IsZero() && Math.Abs(Y - other.Y).IsZero() && Math.Abs(Z - other.Z).IsZero();
+        }
+
+        public override string ToString()
+        {
+            return $" X: {X} ; Y: {Y} ; Z: {Z} ;";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            return this.Equals((Vector)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
     }
 }

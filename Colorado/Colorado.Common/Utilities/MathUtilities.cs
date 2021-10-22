@@ -17,5 +17,14 @@ namespace Colorado.Common.Utilities
         {
             return Math.PI / 180 * degrees;
         }
+
+        public static double Clamp(double value, double min, double max)
+        {
+            if (value < min)
+                value = min;
+            else if (value > max)
+                value = max;
+            return value;
+        }
     }
 }

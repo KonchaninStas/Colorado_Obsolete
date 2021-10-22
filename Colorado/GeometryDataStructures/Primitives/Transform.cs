@@ -450,7 +450,16 @@ namespace Colorado.GeometryDataStructures.Primitives
                 M41, M42, M43, M44,
             });
         }
+        public override string ToString()
+        {
+            string x = string.Empty;
 
+            for (int i = 0; i < Array.Length; i++)
+            {
+                x += $" {Array[i]}";
+            }
+            return x;
+        }
         #endregion Public methods
     }
 }

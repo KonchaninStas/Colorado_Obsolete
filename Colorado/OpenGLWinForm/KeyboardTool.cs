@@ -154,11 +154,5 @@ namespace Colorado.OpenGLWinForm
             viewCamera.RotateAroundTarget(direction, angleInDegrees);
             openGLControl.Refresh();
         }
-
-        private void RotateAroundTarget(Vector2D direction)
-        {
-            viewCamera.RotateAroundTarget(direction);
-            openGLControl.Refresh();
-        }
     }
 }

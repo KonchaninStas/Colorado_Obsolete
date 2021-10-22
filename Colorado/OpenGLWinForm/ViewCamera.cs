@@ -30,7 +30,7 @@ namespace Colorado.OpenGLWinForm
         public ViewCamera()
         {
             CameraType = CameraType.Orthographic;
-            CameraRotation = Transform.Identity();
+            CameraRotation = Quaternion.Identity;
             Origin = Point.ZeroPoint;
             Translate(new Vector(0, 0, 10), 10.0);
             VerticalFieldOfViewInDegrees = 45.0;
@@ -124,7 +124,7 @@ namespace Colorado.OpenGLWinForm
         internal void ResetToDefault()
         {
             FocalLength = 0;
-            CameraRotation = Transform.Identity();
+            CameraRotation = Quaternion.Identity;
             Origin = Point.ZeroPoint;
         }
 
@@ -169,7 +169,6 @@ namespace Colorado.OpenGLWinForm
             }
         }
 
-        public Quaternion Quaternion => CameraRotation.ToQuaternion();
         #endregion Only getter
 
         #region Axis
@@ -206,7 +205,7 @@ namespace Colorado.OpenGLWinForm
 
         #endregion Axis
 
-        public Transform CameraRotation { get; private set; }
+        public Quaternion CameraRotation { get; private set; }
 
         public CameraType CameraType { get; set; }
 
@@ -311,67 +310,16 @@ namespace Colorado.OpenGLWinForm
             Origin = Origin + translationVector;
         }
 
-        public void RotateAroundTarget(Vector2D direction)
-        {
-            RotateAroundTarget(ImageSize / 2, ImageSize / 2 + direction);
-        }
 
         internal void RotateAroundTarget(Vector direction, double angleInDegrees)
         {
-            Transform newRotation = Transform.CreateFromAxisAngle(direction, MathUtilities.ConvertDegreesToRadians(angleInDegrees));
-            Transform curRotation = CameraRotation;
+            Quaternion newRotation = Quaternion.Create(direction, angleInDegrees);
+            Quaternion curRotation = CameraRotation;
             Point target = Target;
             CameraRotation = newRotation * curRotation;
             Origin = target - FocalLength * ViewDirection;
 
             if (target.Equals(Target))
-            {
-
-            }
-        }
-
-        public void RotateAroundTarget(Vector2D from, Vector2D to)
-        {
-            var t = Target;
-            //Vector v1 = UnifiedMapping(from);
-            //Vector v2 = UnifiedMapping(to);
-            //Vector y = UpVector;
-            //double theta = (v2.X - v1.X) / 2.0 * Math.PI;
-            //double phi = (v2.Y - v1.Y) / 2.0 * Math.PI;
-            //double phi0 = Math.Acos(ViewDirection.UnitVector().DotProduct(y.UnitVector()));
-            //if (phi0 + phi < 0.0)
-            //    phi = -phi0;
-            //else if (phi0 + phi > Math.PI)
-            //    phi = Math.PI - phi0;
-            //Transform rotate = (Transform.CreateFromAxisAngle(y, theta));
-            //Vector x = rotate * RightVector;
-            //Transform tilt = (Transform.CreateFromAxisAngle(x, -phi));
-            //Transform newRotation = tilt * rotate;
-            //Transform curRotation = cameraRotation;
-            //cameraRotation = newRotation * curRotation;
-
-            //Vector v1 = UnifiedMapping(from);
-            //Vector v2 = UnifiedMapping(to);
-            //Vector rotAxis = v2.CrossProduct(v1).UnitVector();
-            //double rotAngle = Math.Acos(v2.UnitVector().DotProduct(v1.UnitVector()));
-            //Transform newRotation = Transform.CreateFromAxisAngle(rotAxis, rotAngle);
-            //Transform curRotation = cameraRotation;
-            //cameraRotation = curRotation * newRotation;
-
-            Vector v1 = TrackballMapping(from);
-            Vector v2 = TrackballMapping(to);
-            Vector rotAxis = v2.CrossProduct(v1).UnitVector();
-            double rotAngle = Math.Acos(v2.UnitVector().DotProduct(v1.UnitVector()));
-            Transform newRotation = Transform.CreateFromAxisAngle(rotAxis, rotAngle);
-            Transform curRotation = CameraRotation;
-            Point target = Target;
-            double focal = FocalLength;
-            CameraRotation = curRotation * newRotation;
-            Origin = target - focal * ViewDirection;
-
-            var b = Target;
-
-            if (t.Equals(b))
             {
 
             }
