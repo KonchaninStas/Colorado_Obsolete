@@ -16,5 +16,10 @@ namespace Colorado.GeometryDataStructures.Primitives
         }
 
         public Point Position { get; }
+
+        internal Vertex GetTransformed(Transform transform)
+        {
+            return new Vertex(transform.ApplyToPoint(Position));
+        }
     }
 }

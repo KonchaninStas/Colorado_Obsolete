@@ -18,6 +18,20 @@ namespace Colorado.OpenGLWinForm
 {
     public partial class OpenGLControl : UserControl
     {
+        private readonly static Stopwatch _Stopwatch = Stopwatch.StartNew();
+
+        /// <summary>
+        /// Gets the system time in seconds (double-precision)
+        /// </summary>
+        /// <value>The system time in seconds.</value>
+        static public double SysTime
+        {
+            get
+            {
+                return ((double)_Stopwatch.ElapsedMilliseconds) / 1000.0;
+            }
+        }
+
         private const double LARGE_OFFSET = 10000.0;      // in internal unit
 
         private readonly ViewCamera viewCamera;
@@ -46,7 +60,7 @@ namespace Colorado.OpenGLWinForm
             SizeChanged += SizeChangedCallback;
             Paint += PaintCallback;
 
-            BackgroundColor = new RGBA();
+            BackgroundColor = new RGBA(206,206,206);
         }
 
         public Point PointUnderMouse => mouseTool.PointUnderMouse;
@@ -134,21 +148,27 @@ namespace Colorado.OpenGLWinForm
 
         public void DrawScene()
         {
+            double startTime = SysTime;
+
             BeginDrawScene();
             DrawEntities();
             EndDrawScene();
+
+            double render_time = SysTime - startTime;
+            int fps = render_time == 0.0 ? 30 : (int)(1.0 / render_time + 0.5);
+            Console.WriteLine(fps);
         }
 
         private void DrawEntities()
         {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.BlueColor, 1);
-            OpenGLGeometryWrapper.DrawPoint(viewCamera.Target, RGBA.RedColor, 1);
+            //OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.BlueColor, 1);
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.RedColor, 1);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(viewCamera.Target, viewCamera.Target + viewCamera.UpVector * 100), RGBA.RedColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGBA.RedColor);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(viewCamera.Target, viewCamera.Target + viewCamera.RightVector * 100), RGBA.GreenColor);
-            //OpenGLGeometryWrapper.DrawLine(
-            //   new Line(Point.ZeroPoint, viewCamera.Target + viewCamera.ViewDirection * 100), RGBA.BlueColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGBA.GreenColor);
+            OpenGLGeometryWrapper.DrawLine(
+               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGBA.BlueColor);
             //if (PointUnderMouse != null)
             //{
             //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
@@ -186,8 +206,8 @@ namespace Colorado.OpenGLWinForm
                 double xmax = imageSize.X / 2;
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
-                OpenGLWrapper.SetOrthographicViewSettings(xmin, xmax, ymin, ymax, -10000, 100000);
-                Console.WriteLine(xmin);
+                OpenGLWrapper.SetOrthographicViewSettings(xmin * viewCamera.Scale, xmax * viewCamera.Scale,
+                    ymin * viewCamera.Scale, ymax * viewCamera.Scale, viewCamera.NearClip, viewCamera.FarClip);
             }
             else
             {
@@ -195,7 +215,6 @@ namespace Colorado.OpenGLWinForm
                     viewCamera.NearClip, viewCamera.FarClip);
             }
             _ProjectionMatrix = OpenGLWrapper.GetProjectionMatrix();
-            Console.WriteLine(_ProjectionMatrix.ToString());
             // offset & orientation
             OpenGLWrapper.SetActiveMatrixType(MatrixType.ModelView);
             OpenGLWrapper.MakeActiveMatrixIdentity();
@@ -209,7 +228,7 @@ namespace Colorado.OpenGLWinForm
             _ModelViewMatrix = _ModelViewMatrix * new Transform(origin.Inverse.ToVector());
             // If points have large coordinate values, will reset camera origin
             // and have future points compensate the origin.
-            if ((origin).LargestAbsoluteComponent > LARGE_OFFSET)
+            if (origin.LargestAbsoluteComponent > LARGE_OFFSET)
             {
                 _HasLargeOffset = true;
                 _LargeOffset = new Vector(-origin.X, -origin.Y, -origin.Z);

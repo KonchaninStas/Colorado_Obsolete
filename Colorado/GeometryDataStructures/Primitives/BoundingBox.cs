@@ -19,9 +19,9 @@ namespace Colorado.GeometryDataStructures.Primitives
             Center = minPoint + diagonalVector.UnitVector() * Diagonal / 2;
         }
 
-        public Point MaxPoint { get; private set; }
+        public Point MaxPoint { get; }
 
-        public Point MinPoint { get; private set; }
+        public Point MinPoint { get; }
 
         public bool IsEmpty => MaxPoint.Equals(MinPoint);
 
@@ -29,10 +29,10 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public double Diagonal { get; }
 
-        public void Add(BoundingBox boundingBox)
+        public BoundingBox Add(BoundingBox boundingBox)
         {
-            MaxPoint = GetPointWithMaxValues(new[] { MaxPoint, boundingBox.MaxPoint });
-            MinPoint = GetPointWithMinValues(new[] { MinPoint, boundingBox.MinPoint });
+            return new BoundingBox(GetPointWithMaxValues(new[] { MaxPoint, boundingBox.MaxPoint }), 
+                GetPointWithMinValues(new[] { MinPoint, boundingBox.MinPoint }));
         }
 
         internal static Point GetPointWithMinValues(IEnumerable<Point> points)

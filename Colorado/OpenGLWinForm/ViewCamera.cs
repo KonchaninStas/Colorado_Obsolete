@@ -35,8 +35,9 @@ namespace Colorado.OpenGLWinForm
             CameraType = CameraType.Orthographic;
             CameraRotation = Quaternion.Identity;
             Origin = Point.ZeroPoint;
-            Translate(new Vector(0, 0, 10), 10.0);
+            TranslateOrigin(new Vector(0, 0, 10));
             Scale = 1;
+            FocalLength = 1;
             VerticalFieldOfViewInDegrees = 45.0;
             _NearClip = 0.0;
             _FarClip = 0.0;
@@ -81,7 +82,6 @@ namespace Colorado.OpenGLWinForm
         {
             get
             {
-                //return new Vector2D(Width, Height);
                 double imageY = 2.0 * FocalLength * Math.Tan(_VerticalFieldOfViewInDegrees * Math.PI / 360);
                 return new Vector2D(imageY * AspectRatio, imageY);
             }
@@ -297,42 +297,25 @@ namespace Colorado.OpenGLWinForm
             }
         }
 
-        /// <summary>
-        /// Zoom in and out at the given point by moving eye closer to or away
-        /// </summary>
-        /// <param name="scale">The scale.</param>
-        /// <param name="fixedPoint">The fixed point in view coordinates.</param>
-        public void ScaleAtPoint(double scale, Vector2D fixedPoint)
-        {
-            Vector v1 = UnifiedMapping(fixedPoint);
-            Vector newCenter = v1 * (1.0 - 1.0 / scale);
-            double focal = FocalLength;
-            Vector2D imageSize = ImageSize;
-            double dz = -(focal - focal / scale);
-            double dx = imageSize.X / 2.0 * newCenter.X;
-            double dy = imageSize.Y / 2.0 * newCenter.Y;
-            Vector offset = CameraRotation * new Vector(dx, dy, dz);
-            Translate(offset, focal / scale);
-        }
-
         public void ScaleIn()
         {
-            FocalLength *= 2;
-            Scale *= 2;
+            ScaleAtTarget(0.5);
+     
         }
 
         public void ScaleOut()
         {
-            FocalLength *= 0.5;
-            Scale *= 0.5;
+            ScaleAtTarget(1.5);
+        
         }
+
         /// <summary>
         /// Zoom in and out at the center of the view by moving eye closer to or away from target
         /// </summary>
         /// <param name="scale">The scale.</param>
         public void ScaleAtTarget(double scale)
         {
-            FocalLength *= scale;
+           
             Scale *= scale;
             //double focal = FocalLength;
             //double dz = -(focal - focal / scale);
@@ -340,25 +323,10 @@ namespace Colorado.OpenGLWinForm
             //Translate(offset, focal / scale);
         }
 
-        public void Translate(Vector translationVector, double focalLength)
-        {
-            if (CameraType != CameraType.Orthographic && FocalLength < 0.001) //hard stop for focal length of 1mm.
-            {
-                FocalLength = 0.001;
-                //Origin = Target - 0.001 * ViewDirection;
-            }
-            else
-            {
-                FocalLength = focalLength;
-                //TranslateOrigin(translationVector);
-            }
-        }
-
         public void TranslateOrigin(Vector translationVector)
         {
             Origin = Origin + translationVector;
         }
-
 
         internal void RotateAroundTarget(Vector direction, double angleInDegrees)
         {

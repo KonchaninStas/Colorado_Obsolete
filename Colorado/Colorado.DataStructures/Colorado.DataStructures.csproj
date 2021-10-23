@@ -49,6 +49,7 @@
     <Compile Include="STL\Readers\STLBinaryFileReader.cs" />
     <Compile Include="STL\STLFileType.cs" />
     <Compile Include="STL\STLFileUtil.cs" />
+    <Compile Include="STL\Writers\STLASCIIFileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">

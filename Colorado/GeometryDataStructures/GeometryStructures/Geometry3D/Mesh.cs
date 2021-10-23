@@ -11,13 +11,13 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 {
     public class Mesh : GeometryObject
     {
-        public Mesh(IEnumerable<Triangle> triangles)
+        public Mesh(ICollection<Triangle> triangles)
         {
             Triangles = triangles;
             BoundingBox = GetBoundingBox();
         }
 
-        public IEnumerable<Triangle> Triangles { get; }
+        public ICollection<Triangle> Triangles { get; }
 
         public override GeometryType GeometryType => GeometryType.Mesh;
 
@@ -29,6 +29,18 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
                 new[] { t.FirstVertex.Position, t.SecondVertex.Position, t.ThirdVertex.Position });
 
             return new BoundingBox(BoundingBox.GetPointWithMaxValues(points), BoundingBox.GetPointWithMinValues(points));
+        }
+
+        public Mesh GetTransformed(Transform transform)
+        {
+            var transformedTriangles = new List<Triangle>(Triangles.Count);
+
+            foreach (Triangle triangle in Triangles)
+            {
+                transformedTriangles.Add(triangle.GetTransformed(transform));
+            }
+
+            return new Mesh(transformedTriangles);
         }
     }
 }

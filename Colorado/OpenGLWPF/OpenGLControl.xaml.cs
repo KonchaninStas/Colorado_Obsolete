@@ -22,23 +22,18 @@ namespace Colorado.OpenGLWPF
     /// </summary>
     public partial class OpenGLControl : UserControl
     {
+
+
         public OpenGLControl()
         {
             InitializeComponent();
+
             Loaded += LoadedCallback;
         }
 
         private void LoadedCallback(object sender, RoutedEventArgs e)
         {
-            var host = new WindowsFormsHost();
-            var openGlControl = new Colorado.OpenGLWinForm.OpenGLControl() { Dock = System.Windows.Forms.DockStyle.Fill };
-            openGlControl.AddDocument(new STLDocument(@"C:\cube.stl"));
-            host.Child = openGlControl;
-
-
-            // Add the interop host control to the Grid
-            // control's collection of child controls.
-            this.Content = host;
+            winFormOpenGlControl.AddDocument(new STLDocument(@"C:\cube.stl"));
         }
     }
 }

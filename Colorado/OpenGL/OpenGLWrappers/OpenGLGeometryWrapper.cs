@@ -44,7 +44,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
                     }
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Mesh:
                     {
-                        DrawWireframeMesh(geometryObject as Mesh);
+                        DrawMesh(geometryObject as Mesh);
                         break;
                     }
                 default:
@@ -98,7 +98,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
         {
             DrawingGeometryWrapper(GeometryType.Triangle, () =>
             {
-                SetActiveColorWithoutAlpha(new RGBA(204, 204, 204));
+                SetActiveColorWithoutAlpha(RGBA.RedColor);
                 foreach (Triangle triangle in mesh.Triangles)
                 {
                     AppendNormal(triangle.Normal);

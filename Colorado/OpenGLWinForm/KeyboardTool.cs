@@ -43,12 +43,12 @@ namespace Colorado.OpenGLWinForm
             {
                 case Keys.W:
                     {
-                        MoveForward();
+                        viewCamera.ScaleIn();
                         break;
                     }
                 case Keys.S:
                     {
-                        MoveBack();
+                        viewCamera.ScaleOut();
                         break;
                     }
                 case Keys.A:
@@ -99,6 +99,7 @@ namespace Colorado.OpenGLWinForm
                     }
 
             }
+            openGLControl.Refresh();
         }
 
         private void ResetToDefault()
@@ -120,11 +121,6 @@ namespace Colorado.OpenGLWinForm
         private void MoveBack()
         {
             ScaleAtTarget(0.5);
-        }
-
-        private void MoveForward()
-        {
-            ScaleAtTarget(1.5);
         }
 
         private void MoveUp()

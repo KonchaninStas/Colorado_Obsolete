@@ -23,6 +23,11 @@ namespace Colorado.GeometryDataStructures.Primitives
             return new Vector2D(left.X + right.X, left.Y + right.Y);
         }
 
+        public static Vector2D operator *(Vector2D vector, double scaleFactor)
+        {
+            return new Vector2D(vector.X * scaleFactor, vector.Y * scaleFactor);
+        }
+
         public static Vector2D operator /(Vector2D vector, double scaleFactor)
         {
             return new Vector2D(vector.X / scaleFactor, vector.Y / scaleFactor);

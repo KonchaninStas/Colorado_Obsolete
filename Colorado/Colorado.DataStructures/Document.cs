@@ -20,12 +20,12 @@ namespace Colorado.DataStructures
 
         public IEnumerable<GeometryObject> Geometries => geometryObjects;
 
-        public BoundingBox BoundingBox { get; }
+        public BoundingBox BoundingBox { get; private set; }
 
         public void AddGeometryObject(GeometryObject geometryObject)
         {
             geometryObjects.Add(geometryObject);
-            BoundingBox.Add(geometryObject.BoundingBox);
+            BoundingBox = BoundingBox.Add(geometryObject.BoundingBox);
         }
     }
 }

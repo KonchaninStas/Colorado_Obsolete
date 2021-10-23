@@ -27,5 +27,11 @@ namespace Colorado.GeometryDataStructures.Primitives
         public Vector Normal { get; }
 
         public Point Center { get; }
+
+        internal Triangle GetTransformed(Transform transform)
+        {
+            return new Triangle(FirstVertex.GetTransformed(transform), SecondVertex.GetTransformed(transform), 
+                ThirdVertex.GetTransformed(transform), transform.ApplyToVector(Normal));
+        }
     }
 }
