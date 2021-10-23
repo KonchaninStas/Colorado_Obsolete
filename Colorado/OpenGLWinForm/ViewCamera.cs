@@ -10,6 +10,9 @@ namespace Colorado.OpenGLWinForm
     {
         #region Private fields
 
+        private double width;
+        private double height;
+        private double scale;
         private double _FocalLength;                // distance from origin to target
         private double _VerticalFieldOfViewInDegrees;                // vertical field of view angle, in degrees
         private bool _HasNearClip;
@@ -33,6 +36,7 @@ namespace Colorado.OpenGLWinForm
             CameraRotation = Quaternion.Identity;
             Origin = Point.ZeroPoint;
             Translate(new Vector(0, 0, 10), 10.0);
+            Scale = 1;
             VerticalFieldOfViewInDegrees = 45.0;
             _NearClip = 0.0;
             _FarClip = 0.0;
@@ -51,6 +55,18 @@ namespace Colorado.OpenGLWinForm
         /// </summary>
         /// <value>The origin.</value>
         public Point Origin { get; set; }
+
+        public double Scale
+        {
+            get
+            {
+                return scale;
+            }
+            set
+            {
+                scale = value;
+            }
+        }
 
         /// <summary>
         /// Gets the camera target (focus point)
@@ -209,9 +225,29 @@ namespace Colorado.OpenGLWinForm
 
         public CameraType CameraType { get; set; }
 
-        public int Width { get; set; }
+        public int Width
+        {
+            get
+            {
+                return (int)(width);
+            }
+            set
+            {
+                width = value;
+            }
+        }
 
-        public int Height { get; set; }
+        public int Height
+        {
+            get
+            {
+                return (int)(height);
+            }
+            set
+            {
+                height = value;
+            }
+        }
 
         public double FocalLength
         {
@@ -285,10 +321,12 @@ namespace Colorado.OpenGLWinForm
         /// <param name="scale">The scale.</param>
         public void ScaleAtTarget(double scale)
         {
-            double focal = FocalLength;
-            double dz = -(focal - focal / scale);
-            Vector offset = CameraRotation * new Vector(0.0, 0.0, dz);
-            Translate(offset, focal / scale);
+            FocalLength *= scale;
+            Scale *= scale;
+            //double focal = FocalLength;
+            //double dz = -(focal - focal / scale);
+            //Vector offset = CameraRotation * new Vector(0.0, 0.0, dz);
+            //Translate(offset, focal / scale);
         }
 
         public void Translate(Vector translationVector, double focalLength)
@@ -296,12 +334,12 @@ namespace Colorado.OpenGLWinForm
             if (CameraType != CameraType.Orthographic && FocalLength < 0.001) //hard stop for focal length of 1mm.
             {
                 FocalLength = 0.001;
-                Origin = Target - 0.001 * ViewDirection;
+                //Origin = Target - 0.001 * ViewDirection;
             }
             else
             {
                 FocalLength = focalLength;
-                TranslateOrigin(translationVector);
+                //TranslateOrigin(translationVector);
             }
         }
 

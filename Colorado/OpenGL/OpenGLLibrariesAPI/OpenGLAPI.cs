@@ -74,5 +74,9 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
 
         [DllImport(DLLName, EntryPoint = "glMultMatrixd")]
         public static extern void MultMatrixd(double[] m);
+
+
+        [DllImport(DLLName, EntryPoint = "glScaled")]
+        public static extern void Scale(double x, double y, double z);
     }
 }

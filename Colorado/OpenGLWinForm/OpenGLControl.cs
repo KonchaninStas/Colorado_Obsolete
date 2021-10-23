@@ -167,7 +167,7 @@ namespace Colorado.OpenGLWinForm
             OpenGLWrapper.ClearColor(BackgroundColor);
             OpenGLWrapper.ClearDepthBufferValue();
             OpenGLWrapper.ClearBuffers(OpenGLBufferType.Color, OpenGLBufferType.Depth);
-            OpenGLWrapper.SetViewport(0, 0, this.Width, this.Height);
+            OpenGLWrapper.SetViewport(0, 0, viewCamera.Width, viewCamera.Height);
             ApplyCamera();
             CreateHeadLight();
         }
@@ -205,6 +205,7 @@ namespace Colorado.OpenGLWinForm
 
             _ModelViewMatrix = OpenGLWrapper.GetModelViewMatrix();
             OpenGLWrapper.TranslateCurrentMatrix(origin.Inverse);
+            //OpenGLWrapper.ScaleCurrentMatrix(viewCamera.Scale);
             _ModelViewMatrix = _ModelViewMatrix * new Transform(origin.Inverse.ToVector());
             // If points have large coordinate values, will reset camera origin
             // and have future points compensate the origin.

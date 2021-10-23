@@ -138,6 +138,11 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLAPI.Rotated(rotationAngleInDegrees, rotationVector.X, rotationVector.Y, rotationVector.Z);
         }
 
+        public static void ScaleCurrentMatrix(double scale)
+        {
+            OpenGLAPI.Scale(scale, scale, scale);
+        }
+
         private static double[] GetParameterValues(int parameterName, int parameterValuesArraySize)
         {
             var assignedParameterValues = new double[parameterValuesArraySize];
