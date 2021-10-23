@@ -32,8 +32,18 @@ namespace Colorado.OpenGLWinForm
 
         private void MouseWheelCallback(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            //if (e.Delta > 0)
+            //{
+            //    viewCamera.ScaleIn();
+            //}
+            //else
+            //{
+            //    viewCamera.ScaleIn();
+            //}
             double delta = e.Delta / 120.0 * 0.2;
             double scale = delta > 0 ? (1.0 + delta) : (1.0 / (1.0 - delta));
+
+
             //Vector3D fixedPoint = TrackballMapping(e.X, e.Y);
             viewCamera.ScaleAtTarget(scale);
             openGLControl.Refresh();

@@ -315,6 +315,17 @@ namespace Colorado.OpenGLWinForm
             Translate(offset, focal / scale);
         }
 
+        public void ScaleIn()
+        {
+            FocalLength *= 2;
+            Scale *= 2;
+        }
+
+        public void ScaleOut()
+        {
+            FocalLength *= 0.5;
+            Scale *= 0.5;
+        }
         /// <summary>
         /// Zoom in and out at the center of the view by moving eye closer to or away from target
         /// </summary>
