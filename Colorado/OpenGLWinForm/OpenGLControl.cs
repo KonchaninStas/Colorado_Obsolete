@@ -175,36 +175,11 @@ namespace Colorado.OpenGLWinForm
             //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
             //}
 
-            foreach (Point geometryObject in GetSphereVertices(1000,1000,100))
+
+            foreach (GeometryObject geometryObject in activeDocument.Geometries)
             {
-                OpenGLGeometryWrapper.DrawPoint(geometryObject, RGBA.RedColor, 5);
+                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
             }
-
-      
-        }
-
-        private List<Point> GetSphereVertices(int ringsSphere, int slicesSphere, double radiusSphere)
-        {
-            Point vertex = null;
-            List<Point> verticesSphere = new List<Point>();
-            for (int ring = 0; ring < ringsSphere; ++ring)
-            {
-                for (int slice = 0; slice < slicesSphere; ++slice)
-                {
-                    var y = -Math.Cos(Math.PI * ring / ringsSphere);
-                    var r = Math.Sqrt(1 - Math.Pow(y, 2));
-                    var x = r * Math.Sin(2.0 * Math.PI * slice / slicesSphere);
-                    var z = r * Math.Cos(2.0 * Math.PI * slice / slicesSphere);
-
-
-
-                    vertex = new Point(radiusSphere * x,
-                    radiusSphere * y,
-                    radiusSphere * z);
-                    verticesSphere.Add(vertex);
-                }
-            }
-            return verticesSphere;
         }
 
         public void BeginDrawScene()
