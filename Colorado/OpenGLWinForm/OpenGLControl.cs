@@ -9,6 +9,7 @@ using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm.Enumerations;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -60,7 +61,7 @@ namespace Colorado.OpenGLWinForm
             SizeChanged += SizeChangedCallback;
             Paint += PaintCallback;
 
-            BackgroundColor = new RGBA(206,206,206);
+            BackgroundColor = new RGBA(206, 206, 206);
         }
 
         public Point PointUnderMouse => mouseTool.PointUnderMouse;
@@ -174,10 +175,36 @@ namespace Colorado.OpenGLWinForm
             //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
             //}
 
-            foreach (GeometryObject geometryObject in activeDocument.Geometries)
+            foreach (Point geometryObject in GetSphereVertices(1000,1000,100))
             {
-                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
+                OpenGLGeometryWrapper.DrawPoint(geometryObject, RGBA.RedColor, 5);
             }
+
+      
+        }
+
+        private List<Point> GetSphereVertices(int ringsSphere, int slicesSphere, double radiusSphere)
+        {
+            Point vertex = null;
+            List<Point> verticesSphere = new List<Point>();
+            for (int ring = 0; ring < ringsSphere; ++ring)
+            {
+                for (int slice = 0; slice < slicesSphere; ++slice)
+                {
+                    var y = -Math.Cos(Math.PI * ring / ringsSphere);
+                    var r = Math.Sqrt(1 - Math.Pow(y, 2));
+                    var x = r * Math.Sin(2.0 * Math.PI * slice / slicesSphere);
+                    var z = r * Math.Cos(2.0 * Math.PI * slice / slicesSphere);
+
+
+
+                    vertex = new Point(radiusSphere * x,
+                    radiusSphere * y,
+                    radiusSphere * z);
+                    verticesSphere.Add(vertex);
+                }
+            }
+            return verticesSphere;
         }
 
         public void BeginDrawScene()

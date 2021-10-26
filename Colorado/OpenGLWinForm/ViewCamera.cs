@@ -305,8 +305,7 @@ namespace Colorado.OpenGLWinForm
 
         public void ScaleOut()
         {
-            ScaleAtTarget(1.5);
-        
+            ScaleAtTarget(1.5);     
         }
 
         /// <summary>
