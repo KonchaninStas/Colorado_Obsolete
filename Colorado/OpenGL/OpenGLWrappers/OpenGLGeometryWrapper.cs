@@ -17,14 +17,6 @@ namespace Colorado.OpenGL.OpenGLWrappers
     {
         public static void DrawGeometryObject(GeometryObject geometryObject)
         {
-            DrawingGeometryWrapper(GeometryType.Quad, () =>
-            {
-                AppendVertex(new Point(-1, -1, -10));
-                AppendVertex(new Point(1, -1, -10));
-                AppendVertex(new Point(1, 1, -10));
-                AppendVertex(new Point(-1, 1, -10));
-            });
-            DrawPoint(Point.ZeroPoint, new RGBA(100, 100, 100), 6);
             switch (geometryObject.GeometryType)
             {
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Line:
@@ -93,6 +85,38 @@ namespace Colorado.OpenGL.OpenGLWrappers
                  });
             SetDefaultPointSize();
         }
+
+        public static void DrawMeshes(IEnumerable<Mesh> meshes)
+        {
+            DrawingGeometryWrapper(GeometryType.Triangle, () =>
+            {
+                foreach (Mesh mesh in meshes)
+                {
+                    SetActiveColorWithoutAlpha(RGBA.RedColor);
+                    foreach (Triangle triangle in mesh.Triangles)
+                    {
+                        AppendNormal(triangle.Normal);
+                        AppendVertex(triangle.FirstVertex);
+                        AppendVertex(triangle.SecondVertex);
+                        AppendVertex(triangle.ThirdVertex);
+                    }
+                }
+            });
+        }
+
+        public static void DrawMeshes(IList<Mesh> meshes)
+        {
+            for (int i = 0; i < meshes.Count; i++)
+            {
+                //glBindVertexArray(meshes[i].VAO);
+                //glDrawElementsInstanced(GL_TRIANGLES, meshes[i].indices.size(), GL_UNSIGNED_INT, 0, amount);
+                //glBindVertexArray(0);
+
+            }
+        }
+
+        
+        
 
         private static void DrawMesh(Mesh mesh)
         {
@@ -177,5 +201,8 @@ namespace Colorado.OpenGL.OpenGLWrappers
         {
             OpenGLGeometryAPI.glEnd();
         }
+
+        
+
     }
 }

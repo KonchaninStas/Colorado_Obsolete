@@ -30,5 +30,26 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
         [DllImport(GL_DLL, EntryPoint = "glColor3fv")]
         public static extern void glColor3fv(float[] color);
 
+        [DllImport(GL_DLL, EntryPoint = "glDrawArrays")]
+        public static extern void DrawArrays(int mode, int first, int count);
+
+        #region Fast
+        [DllImport(GL_DLL, EntryPoint = "glEnableClientState")]
+        public static extern void EnableClientState(int array);
+
+        [DllImport(GL_DLL, EntryPoint = "glDisableClientState")]
+        public static extern void DisableClientState(int array);
+
+
+        [DllImport(GL_DLL, EntryPoint = "glVertexPointer")]
+        public static extern void VertexPointer(int size, int type, int stride, IntPtr pointer);
+
+
+        [DllImport(GL_DLL, EntryPoint = "glColorPointer")]
+        public static extern void ColorPointer(int size, int type, int stride, IntPtr pointer);
+
+      
+
+        #endregion Fast
     }
 }

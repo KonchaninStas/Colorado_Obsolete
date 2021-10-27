@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\CameraType.cs" />
+    <Compile Include="GeometryRenderer.cs" />
     <Compile Include="KeyboardTool.cs" />
     <Compile Include="MouseTool.cs" />
     <Compile Include="OpenGLControl.cs">

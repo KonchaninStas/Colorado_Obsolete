@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Colorado.Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,11 @@ namespace Colorado.GeometryDataStructures.Primitives
 
             Normal = normal;
             Center = (FirstVertex.Position + SecondVertex.Position + ThirdVertex.Position) / 3;
+            VerticesValuesArray = ArrayHelper.MergeArrays(new[]{ FirstVertex.VerticesValuesArray,
+                SecondVertex.VerticesValuesArray, ThirdVertex.VerticesValuesArray }, FirstVertex.VerticesValuesArray.Length);
         }
+
+        public double[] VerticesValuesArray { get; }
 
         public Vertex FirstVertex { get; }
 
@@ -30,7 +35,7 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         internal Triangle GetTransformed(Transform transform)
         {
-            return new Triangle(FirstVertex.GetTransformed(transform), SecondVertex.GetTransformed(transform), 
+            return new Triangle(FirstVertex.GetTransformed(transform), SecondVertex.GetTransformed(transform),
                 ThirdVertex.GetTransformed(transform), transform.ApplyToVector(Normal));
         }
     }

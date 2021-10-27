@@ -28,6 +28,8 @@ namespace Colorado.GeometryDataStructures.Colors
 
         public byte Alpha { get; }
 
+        public static RGBA BlackColor => new RGBA(0, 0, 0);
+
         public static RGBA RedColor => new RGBA(byte.MaxValue, 0, 0);
 
         public static RGBA GreenColor => new RGBA(0, byte.MaxValue, 0);

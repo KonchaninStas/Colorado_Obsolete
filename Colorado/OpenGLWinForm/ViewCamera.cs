@@ -223,29 +223,9 @@ namespace Colorado.OpenGLWinForm
 
         public CameraType CameraType { get; set; }
 
-        public int Width
-        {
-            get
-            {
-                return (int)(width);
-            }
-            set
-            {
-                width = value;
-            }
-        }
+        public int Width { get; set; }
 
-        public int Height
-        {
-            get
-            {
-                return (int)(height);
-            }
-            set
-            {
-                height = value;
-            }
-        }
+        public int Height { get; set; }
 
         public double FocalLength
         {
@@ -298,12 +278,12 @@ namespace Colorado.OpenGLWinForm
         public void ScaleIn()
         {
             ScaleAtTarget(0.5);
-     
+
         }
 
         public void ScaleOut()
         {
-            ScaleAtTarget(1.5);     
+            ScaleAtTarget(1.5);
         }
 
         /// <summary>
@@ -312,7 +292,7 @@ namespace Colorado.OpenGLWinForm
         /// <param name="scale">The scale.</param>
         public void ScaleAtTarget(double scale)
         {
-           
+
             Scale *= scale;
             //double focal = FocalLength;
             //double dz = -(focal - focal / scale);

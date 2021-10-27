@@ -1,0 +1,87 @@
+﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
+using Colorado.OpenGL.Enumerations.Geometry;
+using Colorado.OpenGL.OpenGLLibrariesAPI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Colorado.OpenGL.OpenGLWrappers.Geometry
+{
+    public static unsafe class OpenGLFastRenderer
+    {
+        public static void DrawTrianglesRgb(Mesh mesh, RGBA color)
+        {
+            double[] verticesValues = mesh.GetVerticesValuesArray();
+            byte[] colors = new byte[verticesValues.Length];
+
+            for (int i = 0; i < mesh.VerticesCount; i++)
+            {
+                colors[i] = color.Red;
+                colors[i + 1] = color.Green;
+                colors[i + 2] = color.Blue;
+            }
+
+            fixed (double* cachedPoints = verticesValues)
+            fixed (byte* cachedColors = colors)
+                DrawTrianglesRgb(mesh.VerticesCount, cachedPoints, cachedColors);
+        }
+
+
+        public static void DrawTrianglesRgb(int nVertices, double* vertices, byte* colors)
+        {
+            EnableClientState(ArrayType.Vertex);
+            EnableClientState(ArrayType.Color);
+            VertexPointer((IntPtr)vertices);
+            ColorPointerRGB((IntPtr)colors);
+            DrawArrays(GeometryType.Triangle, nVertices);
+            DisableClientState(ArrayType.Vertex);
+            DisableClientState(ArrayType.Color);
+        }
+
+        private static void EnableClientState(ArrayType arrayType)
+        {
+            OpenGLGeometryAPI.EnableClientState((int)arrayType);
+        }
+
+        private static void DisableClientState(ArrayType arrayType)
+        {
+            OpenGLGeometryAPI.DisableClientState((int)arrayType);
+        }
+
+        private const int vectexSize = 3;
+
+        private static void VertexPointer(IntPtr firstVertexPointer)
+        {
+            VertexPointer(DataType.Double, 0, firstVertexPointer);
+        }
+
+        private static void VertexPointer(DataType dataType, int stride, IntPtr firstVertexPointer)
+        {
+            OpenGLGeometryAPI.VertexPointer(vectexSize, (int)dataType, stride, firstVertexPointer);
+        }
+
+        private static void ColorPointerRGB(IntPtr firstColorComponentPointer)
+        {
+            ColorPointer(ColorComponentSize.WithAlpha, DataType.UnsignedByte, 0, firstColorComponentPointer);
+        }
+
+        private static void ColorPointerRGBA(IntPtr firstColorComponentPointer)
+        {
+            ColorPointer(ColorComponentSize.WithoutAlpha, DataType.UnsignedByte, 4, firstColorComponentPointer);
+        }
+
+
+        private static void ColorPointer(ColorComponentSize colorComponentSize, DataType dataType, int stride, IntPtr firstColorComponentPointer)
+        {
+            OpenGLGeometryAPI.ColorPointer((int)colorComponentSize, (int)dataType, stride, firstColorComponentPointer);
+        }
+
+        private static void DrawArrays(GeometryType geometryType, int count)
+        {
+            OpenGLGeometryAPI.DrawArrays((int)geometryType, 0, count);
+        }
+    }
+}
