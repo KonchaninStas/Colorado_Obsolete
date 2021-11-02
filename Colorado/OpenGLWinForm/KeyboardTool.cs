@@ -84,12 +84,12 @@ namespace Colorado.OpenGLWinForm
                     }
                 case Keys.Left:
                     {
-                        RotateAroundTarget(viewCamera.UpVector, 10);
+                        RotateAroundTarget(Vector.ZAxis, 10);
                         break;
                     }
                 case Keys.Right:
                     {
-                        RotateAroundTarget(viewCamera.UpVector, -10);
+                        RotateAroundTarget(Vector.ZAxis, -10);
                         break;
                     }
                 case Keys.Space:
