@@ -17,7 +17,7 @@ using Point = Colorado.GeometryDataStructures.Primitives.Point;
 
 namespace Colorado.OpenGLWinForm
 {
-    public partial class OpenGLControl : UserControl
+    public partial class OpenGLControl : UserControl, IRenderingControl
     {
         private readonly static Stopwatch _Stopwatch = Stopwatch.StartNew();
 
@@ -40,7 +40,6 @@ namespace Colorado.OpenGLWinForm
         private readonly KeyboardTool keyboardTool;
 
         private Context renderingContext;
-        private Document activeDocument;
 
         private Transform _ModelViewMatrix;
         private Transform _ProjectionMatrix;
@@ -64,12 +63,9 @@ namespace Colorado.OpenGLWinForm
             BackgroundColor = new RGBA(206, 206, 206);
         }
 
-        public Point PointUnderMouse => mouseTool.PointUnderMouse;
+        public Document ActiveDocument { get; set; }
 
-        public void AddDocument(Document document)
-        {
-            activeDocument = document;
-        }
+        public Point PointUnderMouse => mouseTool.PointUnderMouse;
 
         private void PaintCallback(object sender, PaintEventArgs e)
         {
@@ -175,11 +171,14 @@ namespace Colorado.OpenGLWinForm
             //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
             //}
 
-
-            foreach (GeometryObject geometryObject in activeDocument.Geometries)
+            if (ActiveDocument != null)
             {
-                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
+                foreach (GeometryObject geometryObject in ActiveDocument.Geometries)
+                {
+                    OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
+                }
             }
+
         }
 
         public void BeginDrawScene()
@@ -196,7 +195,11 @@ namespace Colorado.OpenGLWinForm
 
         private void ApplyCamera()
         {
-            viewCamera.SetObjectRange(activeDocument.BoundingBox);
+            if (ActiveDocument != null)
+            {
+                viewCamera.SetObjectRange(ActiveDocument.BoundingBox);
+            }
+
             // projection scale
 
             OpenGLWrapper.SetActiveMatrixType(MatrixType.Projection);

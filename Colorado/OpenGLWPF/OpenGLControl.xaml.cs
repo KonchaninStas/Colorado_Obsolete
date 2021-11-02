@@ -1,4 +1,5 @@
 ﻿using Colorado.DataStructures;
+using Colorado.OpenGLWinForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,18 +23,11 @@ namespace Colorado.OpenGLWPF
     /// </summary>
     public partial class OpenGLControl : UserControl
     {
-
-
         public OpenGLControl()
         {
             InitializeComponent();
-
-            Loaded += LoadedCallback;
         }
 
-        private void LoadedCallback(object sender, RoutedEventArgs e)
-        {
-            winFormOpenGlControl.AddDocument(new STLDocument(@"C:\cube.stl"));
-        }
+        public IRenderingControl RenderingControl => winFormOpenGlControl;
     }
 }

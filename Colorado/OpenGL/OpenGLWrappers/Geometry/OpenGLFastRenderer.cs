@@ -58,12 +58,12 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
 
         private static void ColorPointerRGB(IntPtr firstColorComponentPointer)
         {
-            ColorPointer(ColorComponentSize.WithAlpha, DataType.UnsignedByte, 0, firstColorComponentPointer);
+            ColorPointer(ColorComponentSize.WithoutAlpha, DataType.UnsignedByte, 0, firstColorComponentPointer);
         }
 
         private static void ColorPointerRGBA(IntPtr firstColorComponentPointer)
         {
-            ColorPointer(ColorComponentSize.WithoutAlpha, DataType.UnsignedByte, 4, firstColorComponentPointer);
+            ColorPointer(ColorComponentSize.WithAlpha, DataType.UnsignedByte, 4, firstColorComponentPointer);
         }
 
 

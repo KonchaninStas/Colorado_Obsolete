@@ -6,9 +6,17 @@
         xmlns:local="clr-namespace:Colorado.Viewer"
         xmlns:openGLWpf ="clr-namespace:Colorado.OpenGLWPF;assembly=Colorado"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <openGLWpf:OpenGLControl/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem x:Name="OpenFileMenuItem" Header="Open" Click="OpenFileMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <openGLWpf:OpenGLControl x:Name="OpenGLControl" Grid.Row="1"/>
     </Grid>
 </Window>

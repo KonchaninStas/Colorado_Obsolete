@@ -2,6 +2,8 @@
 using Colorado.DataStructures.STL;
 using Colorado.DataStructures.STL.Readers;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
+using Colorado.GeometryDataStructures.Primitives;
+using System;
 using System.IO;
 
 namespace Colorado.DataStructures
@@ -10,7 +12,7 @@ namespace Colorado.DataStructures
     {
         public STLDocument(string pathToStlFile)
         {
-            AddGeometryObject(GetMeshFromStlDocument(@"C:\\cube.stl"));
+            AddGeometryObject(GetMeshFromStlDocument(pathToStlFile));
         }
 
         private Mesh GetMeshFromStlDocument(string pathToStlFile)
