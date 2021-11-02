@@ -9,8 +9,7 @@ namespace Colorado.OpenGLWinForm
 {
     public interface IRenderingControl
     {
-        Document ActiveDocument { get; set; }
-
+        void SetActiveDocument(Document document);
         void Refresh();
     }
 }

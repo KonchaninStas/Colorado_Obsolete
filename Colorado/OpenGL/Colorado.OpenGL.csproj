@@ -81,6 +81,10 @@
     <Compile Include="WindowsAPI\WindowsAPI\User32LibraryAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
+      <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
+      <Name>Colorado.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
       <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
       <Name>Colorado.GeometryDataStructures</Name>

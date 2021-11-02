@@ -23,11 +23,9 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             TrianglesCount = triangles.Count;
             VerticesCount = triangles.Count * triangleVerticesCount;
 
-            VerticesValuesArray = ArrayHelper.MergeArrays(triangles.Select(t => t.VerticesValuesArray).ToArray(),
-                9);
+            VerticesValuesArray = ArrayHelper.MergeArrays(triangles.Select(t => t.VerticesValuesArray));
 
-            RGBColorsValuesArray = ArrayHelper.MergeArrays(triangles.Select(t => t.RGBColorsValuesArray).ToArray(),
-               27);
+            RGBColorsValuesArray = ArrayHelper.MergeArrays(triangles.Select(t => t.RGBColorsValuesArray).ToArray());
         }
 
         public double[] VerticesValuesArray { get; }

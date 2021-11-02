@@ -20,7 +20,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             Normal = normal;
             Center = (FirstVertex.Position + SecondVertex.Position + ThirdVertex.Position) / 3;
             VerticesValuesArray = ArrayHelper.MergeArrays(new[]{ FirstVertex.VerticesValuesArray,
-                SecondVertex.VerticesValuesArray, ThirdVertex.VerticesValuesArray }, FirstVertex.VerticesValuesArray.Length);
+                SecondVertex.VerticesValuesArray, ThirdVertex.VerticesValuesArray });
 
             RGBColorsValuesArray = new byte[]
             {

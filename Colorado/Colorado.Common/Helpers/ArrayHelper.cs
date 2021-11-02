@@ -8,19 +8,34 @@ namespace Colorado.Common.Helpers
 {
     public static class ArrayHelper
     {
-        public static T[] MergeArrays<T>(T[][] arraysToMerge, int arrayLength)
+        public static T[] MergeArrays<T>(IEnumerable<IEnumerable<T>> arraysToMerge)
         {
-            T[] mergedArrays = new T[arraysToMerge.Length * arrayLength];
+            List<T> mergedArrays = new List<T>();
 
-            for (int i = 0; i < arraysToMerge.Length; i++)
+            foreach (IEnumerable<T> array in arraysToMerge)
             {
-                for (int y = 0; y < arraysToMerge[i].Length; y++)
+                foreach (T value in array)
                 {
-                    mergedArrays[i * arrayLength + y] = arraysToMerge[i][y];
+                    mergedArrays.Add(value);
                 }
             }
+            //for (int i = 0; i < arraysToMerge.Count; i++)
+            //{
+            //    for (int y = 0; y < arraysToMerge[i].Length; y++)
+            //    {
+            //        mergedArrays[i * arrayLength + y] = arraysToMerge[i][y];
+            //    }
+            //}
 
-            return mergedArrays;
+            //for (int i = 0; i < arraysToMerge.Count; i++)
+            //{
+            //    for (int y = 0; y < arraysToMerge[i].Length; y++)
+            //    {
+            //        mergedArrays[i * arrayLength + y] = arraysToMerge[i][y];
+            //    }
+            //}
+
+            return mergedArrays.ToArray();
         }
     }
 }

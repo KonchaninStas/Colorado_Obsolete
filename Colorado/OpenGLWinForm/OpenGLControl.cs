@@ -49,6 +49,8 @@ namespace Colorado.OpenGLWinForm
         private bool _HasLargeOffset;
         private Vector _LargeOffset;
 
+        private GridPlane gridPlane;
+
         public OpenGLControl()
         {
             InitializeComponent();
@@ -61,9 +63,17 @@ namespace Colorado.OpenGLWinForm
             Paint += PaintCallback;
 
             BackgroundColor = new RGBA(206, 206, 206);
+            gridPlane = new GridPlane(5, 100);
         }
 
-        public Document ActiveDocument { get; set; }
+        private Document activeDocument;
+
+        public void SetActiveDocument(Document document)
+        {
+            activeDocument = document;
+            viewCamera.SetObjectRange(activeDocument.BoundingBox);
+            gridPlane = new GridPlane(5, activeDocument.BoundingBox.Diagonal);
+        }
 
         public Point PointUnderMouse => mouseTool.PointUnderMouse;
 
@@ -170,10 +180,10 @@ namespace Colorado.OpenGLWinForm
             //{
             //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
             //}
-
-            if (ActiveDocument != null)
+            gridPlane?.Draw();
+            if (activeDocument != null)
             {
-                foreach (GeometryObject geometryObject in ActiveDocument.Geometries)
+                foreach (GeometryObject geometryObject in activeDocument.Geometries)
                 {
                     OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
                 }
@@ -195,11 +205,6 @@ namespace Colorado.OpenGLWinForm
 
         private void ApplyCamera()
         {
-            if (ActiveDocument != null)
-            {
-                viewCamera.SetObjectRange(ActiveDocument.BoundingBox);
-            }
-
             // projection scale
 
             OpenGLWrapper.SetActiveMatrixType(MatrixType.Projection);
@@ -296,5 +301,7 @@ namespace Colorado.OpenGLWinForm
             OpenGLWrapper.Flush();
             renderingContext.SwapBuffers();
         }
+
+
     }
 }

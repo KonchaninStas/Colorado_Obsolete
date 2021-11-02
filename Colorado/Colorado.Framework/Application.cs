@@ -19,7 +19,7 @@ namespace Colorado.Framework
 
         public void SetActiveDocument(Document document)
         {
-            renderingControl.ActiveDocument = document;
+            renderingControl.SetActiveDocument(document);
         }
 
         public void Refresh()

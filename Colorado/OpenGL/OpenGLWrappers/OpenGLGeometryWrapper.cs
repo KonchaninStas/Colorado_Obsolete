@@ -121,7 +121,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         private static void DrawMesh(Mesh mesh)
         {
-            OpenGLFastRenderer.DrawTrianglesRgb(mesh, RGBA.RedColor);
+            OpenGLFastRenderer.DrawMeshRgb(mesh);
             //DrawingGeometryWrapper(GeometryType.Triangle, () =>
             //{
             //    SetActiveColorWithoutAlpha(RGBA.RedColor);
