@@ -5,6 +5,7 @@ using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations.Geometry;
 using Colorado.OpenGL.OpenGLLibrariesAPI;
+using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,17 +121,18 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         private static void DrawMesh(Mesh mesh)
         {
-            DrawingGeometryWrapper(GeometryType.Triangle, () =>
-            {
-                SetActiveColorWithoutAlpha(RGBA.RedColor);
-                foreach (Triangle triangle in mesh.Triangles)
-                {
-                    AppendNormal(triangle.Normal);
-                    AppendVertex(triangle.FirstVertex);
-                    AppendVertex(triangle.SecondVertex);
-                    AppendVertex(triangle.ThirdVertex);
-                }
-            });
+            OpenGLFastRenderer.DrawTrianglesRgb(mesh, RGBA.RedColor);
+            //DrawingGeometryWrapper(GeometryType.Triangle, () =>
+            //{
+            //    SetActiveColorWithoutAlpha(RGBA.RedColor);
+            //    foreach (Triangle triangle in mesh.Triangles)
+            //    {
+            //        AppendNormal(triangle.Normal);
+            //        AppendVertex(triangle.FirstVertex);
+            //        AppendVertex(triangle.SecondVertex);
+            //        AppendVertex(triangle.ThirdVertex);
+            //    }
+            //});
         }
 
         private static void DrawWireframeMesh(Mesh mesh)

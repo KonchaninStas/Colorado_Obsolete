@@ -14,18 +14,11 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
     {
         public static void DrawTrianglesRgb(Mesh mesh, RGBA color)
         {
-            double[] verticesValues = mesh.GetVerticesValuesArray();
-            byte[] colors = new byte[verticesValues.Length];
-
-            for (int i = 0; i < mesh.VerticesCount; i++)
-            {
-                colors[i] = color.Red;
-                colors[i + 1] = color.Green;
-                colors[i + 2] = color.Blue;
-            }
+            double[] verticesValues = mesh.VerticesValuesArray;
+            byte[] colorsValues = mesh.RGBColorsValuesArray;
 
             fixed (double* cachedPoints = verticesValues)
-            fixed (byte* cachedColors = colors)
+            fixed (byte* cachedColors = colorsValues)
                 DrawTrianglesRgb(mesh.VerticesCount, cachedPoints, cachedColors);
         }
 

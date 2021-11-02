@@ -1,4 +1,5 @@
 ﻿using Colorado.Common.Helpers;
+using Colorado.GeometryDataStructures.Colors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Colorado.GeometryDataStructures.Primitives
     {
         public Triangle(Vertex firstVertex, Vertex secondVertex, Vertex thirdVertex, Vector normal)
         {
+            Color = RGBA.RedColor;
             FirstVertex = firstVertex;
             SecondVertex = secondVertex;
             ThirdVertex = thirdVertex;
@@ -19,9 +21,26 @@ namespace Colorado.GeometryDataStructures.Primitives
             Center = (FirstVertex.Position + SecondVertex.Position + ThirdVertex.Position) / 3;
             VerticesValuesArray = ArrayHelper.MergeArrays(new[]{ FirstVertex.VerticesValuesArray,
                 SecondVertex.VerticesValuesArray, ThirdVertex.VerticesValuesArray }, FirstVertex.VerticesValuesArray.Length);
+
+            RGBColorsValuesArray = new byte[]
+            {
+                Color.Red, Color.Green, Color.Blue,
+                Color.Red, Color.Green, Color.Blue,
+                Color.Red, Color.Green, Color.Blue,
+                  Color.Red, Color.Green, Color.Blue,
+                Color.Red, Color.Green, Color.Blue,
+                Color.Red, Color.Green, Color.Blue,
+                  Color.Red, Color.Green, Color.Blue,
+                Color.Red, Color.Green, Color.Blue,
+                Color.Red, Color.Green, Color.Blue
+            };
         }
 
+        public RGBA Color { get; }
+
         public double[] VerticesValuesArray { get; }
+
+        public byte[] RGBColorsValuesArray { get; }
 
         public Vertex FirstVertex { get; }
 

@@ -8,15 +8,15 @@ namespace Colorado.Common.Helpers
 {
     public static class ArrayHelper
     {
-        public static T[] MergeArrays<T>(T[][] arraysToMerge, int arraySize)
+        public static T[] MergeArrays<T>(T[][] arraysToMerge, int arrayLength)
         {
-            T[] mergedArrays = new T[arraysToMerge.Length * arraySize];
+            T[] mergedArrays = new T[arraysToMerge.Length * arrayLength];
 
             for (int i = 0; i < arraysToMerge.Length; i++)
             {
-                for (int y = 0; y < arraySize; y++)
+                for (int y = 0; y < arraysToMerge[i].Length; y++)
                 {
-                    mergedArrays[i + y] = arraysToMerge[i][y];
+                    mergedArrays[i * arrayLength + y] = arraysToMerge[i][y];
                 }
             }
 

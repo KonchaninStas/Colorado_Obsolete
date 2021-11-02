@@ -13,6 +13,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
     public class Mesh : GeometryObject
     {
         private const int triangleVerticesCount = 3;
+        private const int rgbColorValuesCount = 3;
 
         public Mesh(ICollection<Triangle> triangles)
         {
@@ -22,11 +23,16 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             TrianglesCount = triangles.Count;
             VerticesCount = triangles.Count * triangleVerticesCount;
 
-            VerticesValuesArray = ArrayHelper.MergeArrays(triangles.SelectMany(t => t.VerticesValuesArray).ToArray(),
+            VerticesValuesArray = ArrayHelper.MergeArrays(triangles.Select(t => t.VerticesValuesArray).ToArray(),
                 triangleVerticesCount);
+
+            RGBColorsValuesArray = ArrayHelper.MergeArrays(triangles.Select(t => t.RGBColorsValuesArray).ToArray(),
+               rgbColorValuesCount);
         }
 
         public double[] VerticesValuesArray { get; }
+
+        public byte[] RGBColorsValuesArray { get; }
 
         public IEnumerable<Triangle> Triangles { get; }
 
