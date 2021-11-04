@@ -1,8 +1,9 @@
 ﻿using Colorado.GeometryDataStructures.Primitives;
+using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGLWinForm.Enumerations;
 using System;
 
-namespace Colorado.OpenGLWinForm
+namespace Colorado.OpenGLWinForm.RenderingControlStructures
 {
     public class ViewCamera
     {
@@ -260,6 +261,23 @@ namespace Colorado.OpenGLWinForm
         #endregion Properties
 
         #region Public fields
+
+        public void ApplySettings()
+        {
+            if (CameraType == CameraType.Orthographic)
+            {
+                Vector2D imageSize = ImageSize;
+                double xmin = -imageSize.X / 2;
+                double xmax = imageSize.X / 2;
+                double ymin = -imageSize.Y / 2;
+                double ymax = imageSize.Y / 2;
+                OpenGLWrapper.SetOrthographicViewSettings(xmin * Scale, xmax * Scale, ymin * Scale, ymax * Scale, NearClip, FarClip);
+            }
+            else
+            {
+                OpenGLUWrapper.SetPerspectiveCameraSettings(VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
+            }
+        }
 
         public void SetObjectRange(BoundingBox boundingBox)
         {

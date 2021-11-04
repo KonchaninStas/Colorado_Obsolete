@@ -44,11 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\CameraType.cs" />
-    <Compile Include="GeometryRenderer.cs" />
-    <Compile Include="GridPlane.cs" />
     <Compile Include="IRenderingControl.cs" />
-    <Compile Include="KeyboardTool.cs" />
-    <Compile Include="MouseTool.cs" />
+    <Compile Include="Managers\LightsManager.cs" />
     <Compile Include="OpenGLControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -56,8 +53,13 @@
       <DependentUpon>OpenGLControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\Timer.cs" />
-    <Compile Include="ViewCamera.cs" />
+    <Compile Include="RenderingControlStructures\ViewCamera.cs" />
+    <Compile Include="Rendering\GeometryRenderer.cs" />
+    <Compile Include="Rendering\RenderableObjects\GridPlane.cs" />
+    <Compile Include="Tools\KeyboardTool.cs" />
+    <Compile Include="Tools\MouseTool.cs" />
+    <Compile Include="Utilities\ApplicationTimer.cs" />
+    <Compile Include="Utilities\FpsCalculator.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>

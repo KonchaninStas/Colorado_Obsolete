@@ -1,30 +1,40 @@
-﻿using Colorado.DataStructures;
+﻿using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Colorado.OpenGLWinForm
+namespace Colorado.OpenGLWinForm.Rendering
 {
     public class GeometryRenderer
     {
-        private readonly Document activeDocument;
+        #region Constructor
 
-        public GeometryRenderer(Document activeDocument)
+        public GeometryRenderer()
         {
-            this.activeDocument = activeDocument;
+
         }
+
+        #endregion Constructor 
+
+        #region Properties
+
+        public DocumentsManager DocumentsManager { private get; set; }
+
+        #endregion Properties
+
+        #region Public logic
 
         public void DrawSceneGeometry()
         {
             DrawOriginCoordianteSystem();
+            DrawEntities();
         }
+
+        #endregion Public logic
+
+        #region Private logic
 
         private void DrawOriginCoordianteSystem()
         {
@@ -39,18 +49,12 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
-            //OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.BlueColor, 1);
-
-            //if (PointUnderMouse != null)
-            //{
-            //    OpenGLGeometryWrapper.DrawPoint(PointUnderMouse, RGBA.RedColor, 10);
-            //}
-
-
-            foreach (GeometryObject geometryObject in activeDocument.Geometries)
+            foreach (GeometryObject geometryObject in DocumentsManager.GeometryToRender)
             {
                 OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
             }
         }
+
+        #endregion Private logic
     }
 }

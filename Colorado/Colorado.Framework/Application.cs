@@ -1,11 +1,5 @@
-﻿using Colorado.DataStructures;
-using Colorado.Documents;
+﻿using Colorado.Documents;
 using Colorado.OpenGLWinForm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.Framework
 {
@@ -16,18 +10,19 @@ namespace Colorado.Framework
         public Application(IRenderingControl renderingControl, DocumentsManager documentsManager)
         {
             this.renderingControl = renderingControl;
+            DocumentsManager = documentsManager;
         }
 
         public DocumentsManager DocumentsManager { get; }
 
         public void AddDocument(Document document)
         {
-            renderingControl.SetActiveDocument(document);
+            DocumentsManager.AddDocument(document);
         }
 
         public void Refresh()
         {
-            renderingControl.Refresh();
+            renderingControl.RefreshView();
         }
     }
 }

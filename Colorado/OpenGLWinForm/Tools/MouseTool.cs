@@ -1,17 +1,24 @@
 ﻿using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGLWinForm.RenderingControlStructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Colorado.OpenGLWinForm
+namespace Colorado.OpenGLWinForm.Tools
 {
-    public class MouseTool
+    internal class MouseTool
     {
+        #region Private fields
+
         private readonly OpenGLControl openGLControl;
         private readonly ViewCamera viewCamera;
+
+        #endregion Private fields
+
+        #region Constructor
 
         internal MouseTool(OpenGLControl openGLControl, ViewCamera viewCamera)
         {
@@ -21,6 +28,10 @@ namespace Colorado.OpenGLWinForm
             openGLControl.MouseWheel += MouseWheelCallback;
             openGLControl.MouseMove += MouseMoveCallback;
         }
+
+        #endregion Constructor
+
+
 
         public Point PointUnderMouse { get; private set; }
 

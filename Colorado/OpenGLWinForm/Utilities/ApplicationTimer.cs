@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Colorado.OpenGLWinForm.Utilities
 {
-    public static class Timer
+    public static class ApplicationTimer
     {
         private readonly static Stopwatch _Stopwatch = Stopwatch.StartNew();
 

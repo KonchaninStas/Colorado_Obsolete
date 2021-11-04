@@ -1,9 +1,7 @@
 ﻿using Colorado.Common.Exceptions;
-using Colorado.DataStructures.STL;
-using Colorado.DataStructures.STL.Readers;
+using Colorado.Documents.STL.Readers;
+using Colorado.Documents.STL.Utils;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
-using Colorado.GeometryDataStructures.Primitives;
-using System;
 using System.IO;
 
 namespace Colorado.Documents.STL

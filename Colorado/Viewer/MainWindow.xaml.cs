@@ -1,19 +1,7 @@
-﻿using Colorado.DataStructures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Colorado.Documents;
+using Colorado.Documents.STL;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Colorado.Viewer
 {
@@ -26,9 +14,11 @@ namespace Colorado.Viewer
 
         public MainWindow()
         {
-            
             InitializeComponent();
-            application = new Framework.Application(OpenGLControl.RenderingControl);
+            var documentsManager = new DocumentsManager();
+            var openGLControl = new OpenGLWPF.OpenGLControl(documentsManager);
+            openGLControlWrapper = openGLControl;
+            application = new Framework.Application(openGLControl.RenderingControl, documentsManager);
         }
 
         private void OpenFileMenuItem_Click(object sender, RoutedEventArgs e)

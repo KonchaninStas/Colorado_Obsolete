@@ -97,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
+      <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
+      <Name>Colorado.Documents</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Colorado.Framework\Colorado.Framework.csproj">
       <Project>{1c086597-835e-4d76-91df-b6e520b4c3ad}</Project>
       <Name>Colorado.Framework</Name>

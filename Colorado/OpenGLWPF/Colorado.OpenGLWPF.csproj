@@ -83,6 +83,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
+      <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
+      <Name>Colorado.Documents</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenGLWinForm\Colorado.OpenGLWinForm.csproj">
       <Project>{9340eba1-3cb7-46dc-88b9-369763f5496d}</Project>
       <Name>Colorado.OpenGLWinForm</Name>

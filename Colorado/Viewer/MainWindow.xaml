@@ -17,6 +17,6 @@
                 <MenuItem x:Name="OpenFileMenuItem" Header="Open" Click="OpenFileMenuItem_Click"/>
             </MenuItem>
         </Menu>
-        <openGLWpf:OpenGLControl x:Name="OpenGLControl" Grid.Row="1"/>
+        <UserControl x:Name="openGLControlWrapper" Grid.Row="1"/>
     </Grid>
 </Window>

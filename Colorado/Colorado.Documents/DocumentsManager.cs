@@ -1,4 +1,5 @@
 ﻿using Colorado.Documents.EventArgs;
+using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Colorado.Documents
         private readonly IEnumerable<Document> documents;
 
         public BoundingBox TotalBoundingBox { get; set; }
+        public IEnumerable<GeometryObject> GeometryToRender { get; set; }
 
         public DocumentsManager()
         {

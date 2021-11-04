@@ -1,20 +1,6 @@
-﻿using Colorado.DataStructures;
+﻿using Colorado.Documents;
 using Colorado.OpenGLWinForm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms.Integration;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Colorado.OpenGLWPF
 {
@@ -23,11 +9,14 @@ namespace Colorado.OpenGLWPF
     /// </summary>
     public partial class OpenGLControl : UserControl
     {
-        public OpenGLControl()
+        public OpenGLControl(DocumentsManager documentsManager)
         {
             InitializeComponent();
+            var openGlControl = new OpenGLWinForm.OpenGLControl(documentsManager);
+            winFormOpenGlControlHost.Child = openGlControl;
+            RenderingControl = openGlControl;
         }
 
-        public IRenderingControl RenderingControl => winFormOpenGlControl;
+        public IRenderingControl RenderingControl { get; }
     }
 }
