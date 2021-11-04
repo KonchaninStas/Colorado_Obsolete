@@ -1,15 +1,10 @@
-﻿using Colorado.DataStructures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Colorado.Documents;
 
 namespace Colorado.OpenGLWinForm
 {
     public interface IRenderingControl
     {
-        void SetActiveDocument(Document document);
-        void Refresh();
+        void SetDocumentManager(DocumentsManager documentsManager);
+        void RefreshView();
     }
 }

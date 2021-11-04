@@ -26,6 +26,7 @@ namespace Colorado.Viewer
 
         public MainWindow()
         {
+            
             InitializeComponent();
             application = new Framework.Application(OpenGLControl.RenderingControl);
         }
@@ -40,7 +41,7 @@ namespace Colorado.Viewer
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                application.SetActiveDocument(new STLDocument(openFileDialog.FileName));
+                application.AddDocument(new STLDocument(openFileDialog.FileName));
                 application.Refresh();
             }
 

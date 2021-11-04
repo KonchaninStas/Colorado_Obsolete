@@ -1,4 +1,5 @@
 ﻿using Colorado.DataStructures;
+using Colorado.Documents;
 using Colorado.OpenGLWinForm;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ namespace Colorado.Framework
     {
         private readonly IRenderingControl renderingControl;
 
-        public Application(IRenderingControl renderingControl)
+        public Application(IRenderingControl renderingControl, DocumentsManager documentsManager)
         {
             this.renderingControl = renderingControl;
         }
 
-        public void SetActiveDocument(Document document)
+        public DocumentsManager DocumentsManager { get; }
+
+        public void AddDocument(Document document)
         {
             renderingControl.SetActiveDocument(document);
         }

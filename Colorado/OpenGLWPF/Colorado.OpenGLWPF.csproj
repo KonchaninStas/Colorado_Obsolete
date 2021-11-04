@@ -83,10 +83,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Colorado.DataStructures\Colorado.DataStructures.csproj">
-      <Project>{843D12AF-A319-4872-9C85-EDFF15F4E7A0}</Project>
-      <Name>Colorado.DataStructures</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OpenGLWinForm\Colorado.OpenGLWinForm.csproj">
       <Project>{9340eba1-3cb7-46dc-88b9-369763f5496d}</Project>
       <Name>Colorado.OpenGLWinForm</Name>

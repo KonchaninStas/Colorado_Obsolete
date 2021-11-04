@@ -1,5 +1,7 @@
-﻿using Colorado.Common.Utilities;
+﻿using Colorado.Common.Helpers;
+using Colorado.Common.Utilities;
 using Colorado.DataStructures;
+using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
@@ -19,21 +21,32 @@ namespace Colorado.OpenGLWinForm
 {
     public partial class OpenGLControl : UserControl, IRenderingControl
     {
-        private readonly static Stopwatch _Stopwatch = Stopwatch.StartNew();
+        #region IRenderingControl implementation
 
-        /// <summary>
-        /// Gets the system time in seconds (double-precision)
-        /// </summary>
-        /// <value>The system time in seconds.</value>
-        static public double SysTime
+        private DocumentsManager documentsManager;
+
+        public void RefreshView()
         {
-            get
-            {
-                return ((double)_Stopwatch.ElapsedMilliseconds) / 1000.0;
-            }
+            Refresh();
         }
 
-        private const double LARGE_OFFSET = 10000.0;      // in internal unit
+        public void SetDocumentManager(DocumentsManager documentsManager)
+        {
+            this.documentsManager = documentsManager;
+            documentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
+            documentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
+        }
+
+        private void UpdateRenderingControlSettings()
+        {
+            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox);
+            gridPlane = new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal);
+            Refresh();
+        }
+
+        #endregion IRenderingControl implementation
+
+        #region Private fields
 
         private readonly ViewCamera viewCamera;
         private readonly MouseTool mouseTool;
@@ -45,68 +58,45 @@ namespace Colorado.OpenGLWinForm
         private Transform _ProjectionMatrix;
         private Transform _World2NormalizedDeviceCoordinateTransform;
 
-        // For supporting large coordinate values efficiently
-        private bool _HasLargeOffset;
-        private Vector _LargeOffset;
-
         private GridPlane gridPlane;
 
-        public OpenGLControl()
+        #endregion Private fields
+
+        #region Constructor
+
+        public OpenGLControl(DocumentsManager documentsManager)
         {
             InitializeComponent();
             viewCamera = new ViewCamera();
             mouseTool = new MouseTool(this, viewCamera);
             keyboardTool = new KeyboardTool(this, viewCamera);
 
-            Load += LoadCallback;
-            SizeChanged += SizeChangedCallback;
-            Paint += PaintCallback;
+            SubscribeToEvents();
 
             BackgroundColor = new RGBA(206, 206, 206);
             gridPlane = new GridPlane(5, 100);
         }
 
-        private Document activeDocument;
+        #endregion Constructor
 
-        public void SetActiveDocument(Document document)
-        {
-            activeDocument = document;
-            viewCamera.SetObjectRange(activeDocument.BoundingBox);
-            gridPlane = new GridPlane(5, activeDocument.BoundingBox.Diagonal);
-        }
-
-        public Point PointUnderMouse => mouseTool.PointUnderMouse;
-
-        private void PaintCallback(object sender, PaintEventArgs e)
-        {
-            DrawScene();
-        }
-
-        private void LoadCallback(object sender, EventArgs e)
-        {
-            InitializeGraphics();
-        }
-
-        private void SizeChangedCallback(object sender, EventArgs e)
-        {
-            if (this.DesignMode)
-            {
-                base.OnResize(e);
-                return;
-            }
-
-            viewCamera.Width = this.ClientRectangle.Width;
-            viewCamera.Height = this.ClientRectangle.Height;
-
-            base.OnResize(e);
-        }
+        #region Properties
 
         public RGBA BackgroundColor { get; set; }
 
-        /// <summary>
-        /// Respond to the <see cref="E:System.Windows.Forms.Control.Paint"></see> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"></see> that contains the event data.</param>
+        #endregion Properties
+
+        #region Private methods
+
+        private void SubscribeToEvents()
+        {
+            Load += (s, e) => InitializeGraphics();
+            Paint += (s, e) => DrawScene();
+
+            SizeChanged += (s, e) => SetViewportParameters();
+        }
+
+        #endregion Private methods
+
         protected override void OnPaint(PaintEventArgs e)
         {
             if (this.DesignMode)
@@ -118,14 +108,14 @@ namespace Colorado.OpenGLWinForm
             base.OnPaint(e);
         }
 
-        /// <summary>
-        /// Responds to the OnPaintBackground event.
-        /// Override is to disable the parent's implementation, do nothing.
-        /// </summary>
-        /// <param name="pevent">A <see cref="T:System.Windows.Forms.PaintEventArgs"></see> that contains information about the control to paint.</param>
-        protected override void OnPaintBackground(PaintEventArgs pevent)
+        private void SetViewportParameters()
         {
+            viewCamera.Width = ClientRectangle.Width;
+            viewCamera.Height = ClientRectangle.Height;
         }
+
+
+
 
         /// <summary>
         /// Initialize the rendering context / device for graphics
@@ -301,7 +291,5 @@ namespace Colorado.OpenGLWinForm
             OpenGLWrapper.Flush();
             renderingContext.SwapBuffers();
         }
-
-
     }
 }

@@ -97,10 +97,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Colorado.DataStructures\Colorado.DataStructures.csproj">
-      <Project>{843D12AF-A319-4872-9C85-EDFF15F4E7A0}</Project>
-      <Name>Colorado.DataStructures</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Colorado.Framework\Colorado.Framework.csproj">
       <Project>{1c086597-835e-4d76-91df-b6e520b4c3ad}</Project>
       <Name>Colorado.Framework</Name>

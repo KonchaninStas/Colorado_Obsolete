@@ -56,6 +56,7 @@
       <DependentUpon>OpenGLControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewCamera.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -64,9 +65,9 @@
       <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
       <Name>Colorado.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Colorado.DataStructures\Colorado.DataStructures.csproj">
-      <Project>{843D12AF-A319-4872-9C85-EDFF15F4E7A0}</Project>
-      <Name>Colorado.DataStructures</Name>
+    <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
+      <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
+      <Name>Colorado.Documents</Name>
     </ProjectReference>
     <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
       <Project>{0e982ac4-020b-4cc6-8981-800bc1d26974}</Project>
@@ -77,5 +78,6 @@
       <Name>Colorado.OpenGL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
