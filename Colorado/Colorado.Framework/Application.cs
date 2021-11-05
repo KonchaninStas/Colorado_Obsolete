@@ -10,7 +10,7 @@ namespace Colorado.Framework
         public Application()
         {
             DocumentsManager = new DocumentsManager();
-            OpenGLControl = new OpenGLControl(DocumentsManager);
+            OpenGLControl = new OpenGLControl(DocumentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
             this.renderingControl = OpenGLControl;
         }
 

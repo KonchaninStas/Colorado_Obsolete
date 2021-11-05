@@ -29,8 +29,17 @@ namespace Colorado.OpenGLWinForm
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // OpenGLControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.Name = "OpenGLControl";
+            this.Size = new System.Drawing.Size(188, 188);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

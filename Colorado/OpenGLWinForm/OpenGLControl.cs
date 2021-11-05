@@ -46,7 +46,7 @@ namespace Colorado.OpenGLWinForm
         {
             InitializeComponent();
             this.documentsManager = documentsManager;
-            geometryRenderer = new GeometryRenderer();
+            geometryRenderer = new GeometryRenderer(documentsManager);
             viewCamera = new ViewCamera();
             lightsManager = new LightsManager(viewCamera);
             mouseTool = new MouseTool(this, viewCamera);

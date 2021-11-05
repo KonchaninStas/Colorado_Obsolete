@@ -9,18 +9,22 @@ namespace Colorado.OpenGLWinForm.Rendering
 {
     public class GeometryRenderer
     {
+        #region Private fields
+
+        private readonly DocumentsManager documentsManager;
+
+        #endregion Private fields
+
         #region Constructor
 
-        public GeometryRenderer()
+        public GeometryRenderer(DocumentsManager documentsManager)
         {
-
+            this.documentsManager = documentsManager;
         }
 
         #endregion Constructor 
 
         #region Properties
-
-        public DocumentsManager DocumentsManager { private get; set; }
 
         #endregion Properties
 
@@ -49,7 +53,7 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawEntities()
         {
-            foreach (GeometryObject geometryObject in DocumentsManager.GeometryToRender)
+            foreach (GeometryObject geometryObject in documentsManager.GeometryToRender)
             {
                 OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
             }
