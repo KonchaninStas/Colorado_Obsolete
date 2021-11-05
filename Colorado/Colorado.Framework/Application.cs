@@ -7,13 +7,17 @@ namespace Colorado.Framework
     {
         private readonly IRenderingControl renderingControl;
 
-        public Application(IRenderingControl renderingControl, DocumentsManager documentsManager)
+        public Application()
         {
-            this.renderingControl = renderingControl;
-            DocumentsManager = documentsManager;
+            DocumentsManager = new DocumentsManager();
+            OpenGLControl = new OpenGLControl(DocumentsManager);
+            this.renderingControl = OpenGLControl;
         }
 
+
         public DocumentsManager DocumentsManager { get; }
+
+        public OpenGLControl OpenGLControl { get; }
 
         public void AddDocument(Document document)
         {

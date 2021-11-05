@@ -15,10 +15,8 @@ namespace Colorado.Viewer
         public MainWindow()
         {
             InitializeComponent();
-            var documentsManager = new DocumentsManager();
-            var openGLControl = new OpenGLWPF.OpenGLControl(documentsManager);
-            openGLControlWrapper = openGLControl;
-            application = new Framework.Application(openGLControl.RenderingControl, documentsManager);
+            application = new Framework.Application();
+            openGLControlWrapper = new OpenGLWPF.OpenGLControl(application);
         }
 
         private void OpenFileMenuItem_Click(object sender, RoutedEventArgs e)
