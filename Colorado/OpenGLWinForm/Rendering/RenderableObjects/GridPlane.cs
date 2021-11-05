@@ -27,6 +27,12 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
                 linesList.Add(new Line(new Point(x * -space, -size, 0), new Point(x * -space, size, 0)));
             };
 
+            linesList.Add(new Line(new Point(-size, numberOfLines * space, 0), new Point(size, numberOfLines * space, 0)));
+            linesList.Add(new Line(new Point(-size, numberOfLines * -space, 0), new Point(size, numberOfLines * -space, 0)));
+
+            linesList.Add(new Line(new Point(numberOfLines * space, -size, 0), new Point(numberOfLines * space, size, 0)));
+            linesList.Add(new Line(new Point(numberOfLines * -space, -size, 0), new Point(numberOfLines * -space, size, 0)));
+
             lines = linesList.ToArray();
         }
 
