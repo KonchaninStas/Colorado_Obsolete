@@ -12,36 +12,16 @@ namespace Colorado.GeometryDataStructures.Primitives
     {
         public Triangle(Vertex firstVertex, Vertex secondVertex, Vertex thirdVertex, Vector normal)
         {
-            Color = RGBA.RedColor;
+            Color = new RGBA(0.5, 0.5, 0.5);
             FirstVertex = firstVertex;
             SecondVertex = secondVertex;
             ThirdVertex = thirdVertex;
 
             Normal = normal;
             Center = (FirstVertex.Position + SecondVertex.Position + ThirdVertex.Position) / 3;
-            VerticesValuesArray = ArrayHelper.MergeArrays(new[]{ FirstVertex.VerticesValuesArray,
-                SecondVertex.VerticesValuesArray, ThirdVertex.VerticesValuesArray });
-
-            RGBColorsValuesArray = new byte[]
-            {
-                Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue,
-                  Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue,
-                  Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue
-            };
         }
 
         public RGBA Color { get; }
-
-        public double[] VerticesValuesArray { get; }
-
-        public byte[] RGBColorsValuesArray { get; }
-
         public Vertex FirstVertex { get; }
 
         public Vertex SecondVertex { get; }

@@ -4,22 +4,25 @@ using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGLWinForm.Managers;
 
 namespace Colorado.OpenGLWinForm.Rendering
 {
-    public class GeometryRenderer
+    internal class GeometryRenderer
     {
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
+        private readonly LightsManager lightsManager;
 
         #endregion Private fields
 
         #region Constructor
 
-        public GeometryRenderer(DocumentsManager documentsManager)
+        public GeometryRenderer(DocumentsManager documentsManager, LightsManager lightsManager)
         {
             this.documentsManager = documentsManager;
+            this.lightsManager = lightsManager;
         }
 
         #endregion Constructor 
@@ -55,7 +58,7 @@ namespace Colorado.OpenGLWinForm.Rendering
         {
             foreach (GeometryObject geometryObject in documentsManager.GeometryToRender)
             {
-                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject);
+                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject, lightsManager);
             }
         }
 

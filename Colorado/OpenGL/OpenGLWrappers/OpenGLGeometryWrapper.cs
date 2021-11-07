@@ -4,6 +4,7 @@ using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations.Geometry;
+using Colorado.OpenGL.Interfaces;
 using Colorado.OpenGL.OpenGLLibrariesAPI;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using System;
@@ -16,7 +17,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
 {
     public static class OpenGLGeometryWrapper
     {
-        public static void DrawGeometryObject(GeometryObject geometryObject)
+        public static void DrawGeometryObject(GeometryObject geometryObject, ILightsManager lightsManager)
         {
             switch (geometryObject.GeometryType)
             {
@@ -37,7 +38,8 @@ namespace Colorado.OpenGL.OpenGLWrappers
                     }
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Mesh:
                     {
-                        DrawMesh(geometryObject as Mesh);
+                        OpenGLFastRenderer.DrawMeshRgb(geometryObject as Mesh, lightsManager);
+
                         break;
                     }
                 default:
@@ -116,23 +118,20 @@ namespace Colorado.OpenGL.OpenGLWrappers
             }
         }
 
-        
-        
-
         private static void DrawMesh(Mesh mesh)
         {
-            OpenGLFastRenderer.DrawMeshRgb(mesh);
-            //DrawingGeometryWrapper(GeometryType.Triangle, () =>
-            //{
-            //    SetActiveColorWithoutAlpha(RGBA.RedColor);
-            //    foreach (Triangle triangle in mesh.Triangles)
-            //    {
-            //        AppendNormal(triangle.Normal);
-            //        AppendVertex(triangle.FirstVertex);
-            //        AppendVertex(triangle.SecondVertex);
-            //        AppendVertex(triangle.ThirdVertex);
-            //    }
-            //});
+            //OpenGLFastRenderer.DrawMeshRgb(mesh);
+            DrawingGeometryWrapper(GeometryType.Triangle, () =>
+            {
+                SetActiveColorWithoutAlpha(RGBA.RedColor);
+                foreach (Triangle triangle in mesh.Triangles)
+                {
+                    AppendNormal(triangle.Normal);
+                    AppendVertex(triangle.FirstVertex);
+                    AppendVertex(triangle.SecondVertex);
+                    AppendVertex(triangle.ThirdVertex);
+                }
+            });
         }
 
         private static void DrawWireframeMesh(Mesh mesh)
@@ -204,7 +203,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLGeometryAPI.glEnd();
         }
 
-        
+
 
     }
 }

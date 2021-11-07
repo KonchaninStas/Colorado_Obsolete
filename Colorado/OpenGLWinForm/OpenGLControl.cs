@@ -46,15 +46,17 @@ namespace Colorado.OpenGLWinForm
         {
             InitializeComponent();
             this.documentsManager = documentsManager;
-            geometryRenderer = new GeometryRenderer(documentsManager);
             viewCamera = new ViewCamera();
             lightsManager = new LightsManager(viewCamera);
+
+            geometryRenderer = new GeometryRenderer(documentsManager, lightsManager);
+
             mouseTool = new MouseTool(this, viewCamera);
             keyboardTool = new KeyboardTool(this, viewCamera);
 
             SubscribeToEvents();
 
-            BackgroundColor = new RGBA(206, 206, 206);
+            BackgroundColor = new RGBA(0.8, 0.8, 0.8);
             gridPlane = new GridPlane(5, 100);
         }
 

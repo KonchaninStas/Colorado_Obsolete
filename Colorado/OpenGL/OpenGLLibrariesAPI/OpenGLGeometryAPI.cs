@@ -44,6 +44,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
         [DllImport(GL_DLL, EntryPoint = "glVertexPointer")]
         public static extern void VertexPointer(int size, int type, int stride, IntPtr pointer);
 
+        [DllImport(GL_DLL, EntryPoint = "glNormalPointer")]
+        public static extern void NormalPointer(int type, int stride, IntPtr pointer);
 
         [DllImport(GL_DLL, EntryPoint = "glColorPointer")]
         public static extern void ColorPointer(int size, int type, int stride, IntPtr pointer);

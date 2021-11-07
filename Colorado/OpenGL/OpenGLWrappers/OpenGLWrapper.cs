@@ -37,8 +37,8 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         public static void ClearColor(RGBA rgbaColor)
         {
-            OpenGLAPI.ClearColor(rgbaColor.Red / (float)byte.MaxValue, rgbaColor.Green / (float)byte.MaxValue,
-                rgbaColor.Blue / (float)byte.MaxValue, rgbaColor.Alpha / (float)byte.MaxValue);
+            OpenGLAPI.ClearColor((float)rgbaColor.Red, (float)rgbaColor.Green,
+               (float)rgbaColor.Blue, (float)rgbaColor.Alpha);
         }
 
         public static void SetShadingMode(ShadingModel shadingModel)

@@ -10,35 +10,52 @@ namespace Colorado.GeometryDataStructures.Colors
     {
         public RGBA()
         {
-            Alpha = byte.MaxValue;
+            Alpha = 1;
         }
 
-        public RGBA(byte red, byte green, byte blue) : this()
+        public RGBA(double red, double green, double blue) : this()
         {
             Red = red;
             Green = green;
             Blue = blue;
         }
 
-        public byte Red { get; }
+        public double Red { get; }
 
-        public byte Green { get; }
+        public double Green { get; }
 
-        public byte Blue { get; }
+        public double Blue { get; }
 
-        public byte Alpha { get; }
+        public double Alpha { get; }
 
         public static RGBA BlackColor => new RGBA(0, 0, 0);
 
-        public static RGBA RedColor => new RGBA(byte.MaxValue, 0, 0);
+        public static RGBA RedColor => new RGBA(1, 0, 0);
 
-        public static RGBA GreenColor => new RGBA(0, byte.MaxValue, 0);
+        public static RGBA GreenColor => new RGBA(0, 1, 0);
 
-        public static RGBA BlueColor => new RGBA(0, 0, byte.MaxValue);
+        public static RGBA BlueColor => new RGBA(0, 0, 1);
 
         public float[] ToFloat3Array()
         {
-            return new[] { Red / (float)byte.MaxValue, Green / (float)byte.MaxValue, Blue / (float)byte.MaxValue };
+            return new[] { (float)Red, (float)Green, (float)Blue };
+        }
+
+        public static RGBA operator *(RGBA color, double scaleFactor)
+        {
+            return new RGBA(color.Red * scaleFactor, color.Green * scaleFactor,
+                color.Blue * scaleFactor);
+        }
+
+        public static RGBA operator +(RGBA color, RGBA anotherColor)
+        {
+            return new RGBA(color.Red + anotherColor.Red, color.Green + anotherColor.Green,
+                color.Blue + anotherColor.Blue);
+        }
+
+        public static RGBA operator *(RGBA color, RGBA anotherColor)
+        {
+            return new RGBA(color.Red * anotherColor.Red, color.Green * anotherColor.Green, color.Blue * anotherColor.Blue);
         }
     }
 }

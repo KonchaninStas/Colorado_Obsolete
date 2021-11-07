@@ -60,6 +60,7 @@
     <Compile Include="Enumerations\ViewMatrixArrayType.cs" />
     <Compile Include="Extensions\Delegates.cs" />
     <Compile Include="Extensions\OpenGLExtensions.cs" />
+    <Compile Include="Interfaces\ILightsManager.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLGeometryAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLLibraryNames.cs" />
