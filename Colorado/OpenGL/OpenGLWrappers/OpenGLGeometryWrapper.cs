@@ -58,7 +58,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
                  });
         }
 
-        public static void DrawLine(Line line, RGBA color)
+        public static void DrawLine(Line line, RGB color)
         {
             DrawingGeometryWrapper(GeometryType.Line, () =>
             {
@@ -78,7 +78,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
             throw new NotImplementedException();
         }
 
-        public static void DrawPoint(Point point, RGBA color, float pointSize)
+        public static void DrawPoint(Point point, RGB color, float pointSize)
         {
             SetPointSize(pointSize);
             DrawingGeometryWrapper(GeometryType.Point, () =>
@@ -95,7 +95,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
             {
                 foreach (Mesh mesh in meshes)
                 {
-                    SetActiveColorWithoutAlpha(RGBA.RedColor);
+                    SetActiveColorWithoutAlpha(RGB.RedColor);
                     foreach (Triangle triangle in mesh.Triangles)
                     {
                         AppendNormal(triangle.Normal);
@@ -123,7 +123,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
             //OpenGLFastRenderer.DrawMeshRgb(mesh);
             DrawingGeometryWrapper(GeometryType.Triangle, () =>
             {
-                SetActiveColorWithoutAlpha(RGBA.RedColor);
+                SetActiveColorWithoutAlpha(RGB.RedColor);
                 foreach (Triangle triangle in mesh.Triangles)
                 {
                     AppendNormal(triangle.Normal);
@@ -146,7 +146,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
                 //});
                 DrawingGeometryWrapper(GeometryType.LineLoop, () =>
             {
-                SetActiveColorWithoutAlpha(new RGBA(204, 204, 204));
+                SetActiveColorWithoutAlpha(new RGB(204, 204, 204));
                 AppendVertex(triangle.FirstVertex);
                 AppendVertex(triangle.SecondVertex);
                 AppendVertex(triangle.ThirdVertex);
@@ -181,7 +181,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLGeometryAPI.glPointSize(1f);
         }
 
-        private static void SetActiveColorWithoutAlpha(RGBA color)
+        private static void SetActiveColorWithoutAlpha(RGB color)
         {
             OpenGLGeometryAPI.glColor3fv(color.ToFloat3Array());
         }

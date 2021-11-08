@@ -3,6 +3,7 @@ using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.OpenGL.Enumerations.Geometry;
 using Colorado.OpenGL.Interfaces;
+using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.OpenGLLibrariesAPI;
 using System;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
     {
         public static void DrawMeshRgb(Mesh mesh, ILightsManager lightsManager)
         {
+            MaterialManager.SetMaterial(mesh.Material);
             double[] verticesValues = mesh.VerticesValuesArray;
             double[] normalsValues = mesh.NormalsValuesArray;
-            double[] colorsValues = lightsManager.GetLightedColors(mesh);
+            double[] colorsValues = mesh.VerticesColorsValuesArray;
+            //double[] colorsValues = lightsManager.GetLightedColors(mesh);
 
             fixed (double* cachedPoints = verticesValues)
             fixed (double* cachedNormals = normalsValues)

@@ -35,10 +35,10 @@ namespace Colorado.OpenGL.OpenGLWrappers
             return Kernel32LibraryAPI.LoadLibrary(OpenGLLibraryNames.OpenGLLibraryName);
         }
 
-        public static void ClearColor(RGBA rgbaColor)
+        public static void ClearColor(RGB rgbaColor)
         {
             OpenGLAPI.ClearColor((float)rgbaColor.Red, (float)rgbaColor.Green,
-               (float)rgbaColor.Blue, (float)rgbaColor.Alpha);
+               (float)rgbaColor.Blue, 1);
         }
 
         public static void SetShadingMode(ShadingModel shadingModel)
@@ -193,6 +193,28 @@ namespace Colorado.OpenGL.OpenGLWrappers
         {
             return GetParameterValuesArray(OpenGLCapability.Viewport,
                 capabilityToValuesArraySizeMap[OpenGLCapability.Viewport]);
+        }
+
+        public static void SetMaterial(FaceSide faceSide, MaterialColorType materialColorType, float value)
+        {
+            OpenGLAPI.Materialf((int)faceSide, (int)materialColorType, value);
+        }
+
+        public static void SetMaterial(FaceSide faceSide, MaterialColorType materialColorType, float[] values)
+        {
+            OpenGLAPI.Materialfv((int)faceSide, (int)materialColorType, values);
+        }
+
+
+
+        public static void SetMaterial(FaceSide faceSide, MaterialColorType materialColorType, double value)
+        {
+            SetMaterial(faceSide, materialColorType, (float)value);
+        }
+
+        public static void SetLightModel(LightModel lightModel, bool enable)
+        {
+            OpenGLAPI.LightModeli((int)lightModel, enable ? 1 : 0);
         }
     }
 }

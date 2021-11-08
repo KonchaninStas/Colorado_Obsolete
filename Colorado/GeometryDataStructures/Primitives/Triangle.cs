@@ -12,7 +12,7 @@ namespace Colorado.GeometryDataStructures.Primitives
     {
         public Triangle(Vertex firstVertex, Vertex secondVertex, Vertex thirdVertex, Vector normal)
         {
-            Color = new RGBA(0.5, 0.5, 0.5);
+            Color = new RGB(0.5, 0.5, 0.5);
             FirstVertex = firstVertex;
             SecondVertex = secondVertex;
             ThirdVertex = thirdVertex;
@@ -21,7 +21,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             Center = (FirstVertex.Position + SecondVertex.Position + ThirdVertex.Position) / 3;
         }
 
-        public RGBA Color { get; }
+        public RGB Color { get; }
         public Vertex FirstVertex { get; }
 
         public Vertex SecondVertex { get; }

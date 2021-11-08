@@ -45,13 +45,13 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawOriginCoordianteSystem()
         {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGBA.BlackColor, 1);
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 1);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGBA.RedColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGBA.GreenColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor);
             OpenGLGeometryWrapper.DrawLine(
-               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGBA.BlueColor);
+               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor);
         }
 
         private void DrawEntities()

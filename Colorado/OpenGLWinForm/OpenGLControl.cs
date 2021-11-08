@@ -9,6 +9,7 @@ using Colorado.OpenGLWinForm.Rendering;
 using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
 using Colorado.OpenGLWinForm.Tools;
+using Colorado.OpenGLWinForm.Utilities;
 using System;
 using System.Windows.Forms;
 
@@ -56,7 +57,8 @@ namespace Colorado.OpenGLWinForm
 
             SubscribeToEvents();
 
-            BackgroundColor = new RGBA(0.8, 0.8, 0.8);
+            FpsCalculator = new FpsCalculator(this);
+            BackgroundColor = new RGB(0.8, 0.8, 0.8);
             gridPlane = new GridPlane(5, 100);
         }
 
@@ -64,15 +66,17 @@ namespace Colorado.OpenGLWinForm
 
         #region Properties
 
-        public RGBA BackgroundColor { get; set; }
+        public FpsCalculator FpsCalculator { get; }
+
+        public RGB BackgroundColor { get; set; }
 
         #endregion Properties
 
         #region Events
 
-        internal event EventHandler DrawSceneStarted;
+        public event EventHandler DrawSceneStarted;
 
-        internal event EventHandler DrawSceneFinished;
+        public event EventHandler DrawSceneFinished;
 
         #endregion Events
 

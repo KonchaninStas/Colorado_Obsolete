@@ -14,13 +14,20 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 {
     public class Mesh : GeometryObject
     {
+        #region Constants
+
         private const int triangleVerticesCount = 3;
         private const int rgbColorValuesCount = 3;
 
+        #endregion Constants
+
+
         private readonly DynamicArray<double> verticesValuesArray;
         private readonly DynamicArray<double> normalsValuesArray;
-        private readonly DynamicArray<RGBA> verticesColors;
+        private readonly DynamicArray<double> verticesColorsValuesArray;
+        private readonly DynamicArray<RGB> verticesColors;
         private readonly DynamicArray<Vector> verticesNormals;
+        private readonly DynamicArray<Vertex> vertices;
 
         public Mesh(IList<Triangle> triangles)
         {
@@ -32,22 +39,31 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
             verticesValuesArray = new DynamicArray<double>(triangles.Count * 9);
             normalsValuesArray = new DynamicArray<double>(triangles.Count * 9);
-            verticesColors = new DynamicArray<RGBA>(VerticesCount);
+            verticesColorsValuesArray = new DynamicArray<double>(triangles.Count * 9);
+            verticesColors = new DynamicArray<RGB>(VerticesCount);
             verticesNormals = new DynamicArray<Vector>(VerticesCount);
+            vertices = new DynamicArray<Vertex>(VerticesCount);
 
             for (int i = 0; i < triangles.Count; i++)
             {
                 AddTriangleValues(triangles[i]);
             }
+            Material = new Material();
         }
+
+        public Material Material { get; }
 
         public double[] VerticesValuesArray => verticesValuesArray.Array;
 
         public double[] NormalsValuesArray => normalsValuesArray.Array;
 
-        public RGBA[] VerticesColors => verticesColors.Array;
+        public double[] VerticesColorsValuesArray => verticesColorsValuesArray.Array;
+
+        public RGB[] VerticesColors => verticesColors.Array;
 
         public Vector[] VerticesNormals => verticesNormals.Array;
+
+        public Vertex[] Vertices => vertices.Array;
 
         public IEnumerable<Triangle> Triangles { get; }
 
@@ -83,6 +99,11 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             for (int i = 0; i < 3; i++)
             {
                 verticesColors.Add(triangle.Color);
+
+                verticesColorsValuesArray.Add(triangle.Color.Red);
+                verticesColorsValuesArray.Add(triangle.Color.Green);
+                verticesColorsValuesArray.Add(triangle.Color.Blue);
+
                 verticesNormals.Add(triangle.Normal);
 
                 normalsValuesArray.Add(triangle.Normal.X);
@@ -95,6 +116,10 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         private void AddVertices(Triangle triangle)
         {
+            vertices.Add(triangle.FirstVertex);
+            vertices.Add(triangle.SecondVertex);
+            vertices.Add(triangle.ThirdVertex);
+
             verticesValuesArray.Add(triangle.FirstVertex.Position.X);
             verticesValuesArray.Add(triangle.FirstVertex.Position.Y);
             verticesValuesArray.Add(triangle.FirstVertex.Position.Z);

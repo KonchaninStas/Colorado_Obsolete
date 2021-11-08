@@ -44,13 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\FaceSide.cs" />
     <Compile Include="Enumerations\Geometry\ArrayType.cs" />
     <Compile Include="Enumerations\Geometry\ColorComponentSize.cs" />
     <Compile Include="Enumerations\Geometry\DataType.cs" />
     <Compile Include="Enumerations\Geometry\GeometryType.cs" />
     <Compile Include="Enumerations\LightColorType.cs" />
+    <Compile Include="Enumerations\LightModel.cs" />
     <Compile Include="Enumerations\LightParameter.cs" />
     <Compile Include="Enumerations\LightType.cs" />
+    <Compile Include="Enumerations\MaterialColorType.cs" />
     <Compile Include="Enumerations\MatrixType.cs" />
     <Compile Include="Enumerations\OpenGLBufferType.cs" />
     <Compile Include="Enumerations\OpenGLCapability.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="Extensions\Delegates.cs" />
     <Compile Include="Extensions\OpenGLExtensions.cs" />
     <Compile Include="Interfaces\ILightsManager.cs" />
+    <Compile Include="Managers\MaterialManager.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLGeometryAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\OpenGLLibraryNames.cs" />

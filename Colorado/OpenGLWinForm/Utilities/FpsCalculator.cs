@@ -2,7 +2,7 @@
 
 namespace Colorado.OpenGLWinForm.Utilities
 {
-    internal class FpsCalculator
+    public class FpsCalculator
     {
         #region Constants
 

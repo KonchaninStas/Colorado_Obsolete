@@ -16,7 +16,10 @@ namespace Colorado.OpenGLWinForm.Managers
         #region Private fields
 
         private readonly ViewCamera viewCamera;
+        private readonly Material material;
+        private Point lightPosition => viewCamera.Origin;
 
+        private Vector lightDirection => viewCamera.ViewDirection;
         #endregion Private fields
 
         #region Constructor
@@ -24,6 +27,8 @@ namespace Colorado.OpenGLWinForm.Managers
         public LightsManager(ViewCamera viewCamera)
         {
             this.viewCamera = viewCamera;
+            material = new Material();
+
         }
 
         #endregion Constructor
@@ -45,9 +50,9 @@ namespace Colorado.OpenGLWinForm.Managers
             };
 
             OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Ambient, color);
-            color[0] = 1.0f;
-            color[1] = 1.0f;
-            color[2] = 1.0f;
+            color[0] = 0.5f;
+            color[1] = 0.5f;
+            color[2] = 0.5f;
             OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Diffuse, color);
             OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Specular, color);
 
@@ -70,27 +75,49 @@ namespace Colorado.OpenGLWinForm.Managers
                 position[2] = (float)cameraOrigin.Z;
                 position[3] = 1.0f;
             }
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.Position, 0f);
+            OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.Position, position);
         }
 
-        public RGBA GetLightedColor(RGBA vertexColor, Vector vertexNormal)
+        public RGB GetLightedColor(Vertex vertex, Vector normal)
         {
-            var lightColor = new RGBA(1, 0, 0);
+            var lightColor = new RGB(1, 0, 0);
+            RGB ambient = lightColor * material.Ambient;
+
+            // diffuse 
+            Vector norm = normal;
+            Vector lightDir = (lightPosition - vertex.Position).UnitVector();
+            double diff = Math.Max(norm.DotProduct(lightDir), 0.0);
+            RGB diffuse = lightColor * (material.Diffuse * diff);
+
+            // specular
+            Vector viewDir = (viewCamera.Origin - vertex.Position).UnitVector();
+            Vector reflectDir = Vector.Reflect(lightDir.Inverse, norm);
+            double spec = Math.Pow(Math.Max(viewDir.DotProduct(reflectDir), 0.0), material.Shininess);
+            RGB specular = lightColor * (material.Specular * spec);
+
+            return ambient + diffuse + specular;
+
+        }
+
+        public RGB GetLightedColor(RGB vertexColor, Vector vertexNormal)
+        {
+            var lightColor = new RGB(1, 0, 0);
             double ambientStrength = 0.4f;
-            RGBA ambient = lightColor * ambientStrength;
+            RGB ambient = lightColor * ambientStrength;
 
             double diff = Math.Max(vertexNormal.DotProduct(Vector.XAxis.Inverse), 0.0);
-            RGBA diffuse = lightColor * diff;
+            RGB diffuse = lightColor * diff;
             return (ambient + diffuse) * vertexColor;
+
         }
 
         public double[] GetLightedColors(Mesh mesh)
         {
             var RGBColorsValuesArray = new DynamicArray<double>(mesh.VerticesColors.Length * 3);
 
-            for (int i = 0; i < mesh.VerticesColors.Length; i++)
+            for (int i = 0; i < mesh.VerticesCount; i++)
             {
-                RGBA color = GetLightedColor(mesh.VerticesColors[i], mesh.VerticesNormals[i]);
+                RGB color = GetLightedColor(mesh.VerticesColors[i], mesh.VerticesNormals[i]);
                 RGBColorsValuesArray.Add(color.Red);
                 RGBColorsValuesArray.Add(color.Green);
                 RGBColorsValuesArray.Add(color.Blue);

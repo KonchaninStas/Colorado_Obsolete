@@ -6,7 +6,7 @@ namespace Colorado.OpenGL.Interfaces
 {
     public interface ILightsManager
     {
-        RGBA GetLightedColor(RGBA vertexColor, Vector vertexNormal);
+        RGB GetLightedColor(RGB vertexColor, Vector vertexNormal);
 
         double[] GetLightedColors(Mesh mesh);
     }

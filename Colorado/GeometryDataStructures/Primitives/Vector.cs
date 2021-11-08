@@ -180,5 +180,14 @@ namespace Colorado.GeometryDataStructures.Primitives
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
         }
+
+        public static Vector Reflect(Vector vector, Vector normal)
+        {
+            double dot = vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z;
+            double tempX = normal.X * dot * 2f;
+            double tempY = normal.Y * dot * 2f;
+            double tempZ = normal.Z * dot * 2f;
+            return new Vector(vector.X - tempX, vector.Y - tempY, vector.Z - tempZ);
+        }
     }
 }

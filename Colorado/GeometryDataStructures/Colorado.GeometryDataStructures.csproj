@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors\RGBA.cs" />
+    <Compile Include="Colors\Material.cs" />
+    <Compile Include="Colors\RGB.cs" />
     <Compile Include="GeometryStructures\BaseGeometryStructures\GeometryObject.cs" />
     <Compile Include="GeometryStructures\Enumerations\GeometryType.cs" />
     <Compile Include="GeometryStructures\Geometry2D\Circle.cs" />

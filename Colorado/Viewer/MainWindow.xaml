@@ -15,10 +15,14 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="File">
-                <MenuItem x:Name="OpenFileMenuItem" Header="Open" Click="OpenFileMenuItem_Click"/>
+                <MenuItem x:Name="OpenFileMenuItem" Header="Open" Command="{Binding OpenFileCommand}"/>
             </MenuItem>
         </Menu>
         <Grid x:Name="openGLControlWrapper" Grid.Row="1"/>
-        <Label Content="ffes" Grid.Row="2"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="FPS:" />
+            <Label Content="{Binding FPS}" />
+        </StackPanel>
+
     </Grid>
 </Window>

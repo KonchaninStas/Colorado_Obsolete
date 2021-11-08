@@ -16,7 +16,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
 
             VerticesValuesArray = new[] { StartPoint.X, StartPoint.Y, StartPoint.Z, EndPoint.X, EndPoint.Y, EndPoint.Z };
 
-            var Color = new RGBA(126, 126, 126);
+            var Color = new RGB(126, 126, 126);
             RGBColorsValuesArray = new double[]
            {
                 Color.Red, Color.Green, Color.Blue,

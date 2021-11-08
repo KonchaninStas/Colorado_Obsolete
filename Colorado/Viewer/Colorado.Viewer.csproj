@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common.UI\Colorado.Common.UI.csproj">
+      <Project>{158CC58D-8C53-4414-A349-964A0C669253}</Project>
+      <Name>Colorado.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
       <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
       <Name>Colorado.Documents</Name>
