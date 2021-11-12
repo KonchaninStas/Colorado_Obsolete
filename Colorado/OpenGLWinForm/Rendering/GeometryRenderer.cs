@@ -25,9 +25,13 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         #region Public logic
 
-        public void DrawSceneGeometry()
+        public void DrawGeometryPrimitives()
         {
             DrawOriginCoordianteSystem();
+        }
+
+        public void DrawSceneGeometry()
+        {
             DrawEntities();
         }
 
@@ -37,13 +41,15 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawOriginCoordianteSystem()
         {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 1);
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 5);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 5);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 5);
             OpenGLGeometryWrapper.DrawLine(
-               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor, 5);
+            OpenGLGeometryWrapper.DrawLine(
+               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor, 5);
         }
 
         private void DrawEntities()

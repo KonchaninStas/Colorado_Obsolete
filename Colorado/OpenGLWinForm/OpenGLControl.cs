@@ -98,9 +98,9 @@ namespace Colorado.OpenGLWinForm
 
         private void UpdateRenderingControlSettings()
         {
-            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox);
+            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox * 5);
             gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-                : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal);
+                : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5);
             Refresh();
         }
 
@@ -152,7 +152,7 @@ namespace Colorado.OpenGLWinForm
             OpenGLWrapper.ClearBuffers(OpenGLBufferType.Color, OpenGLBufferType.Depth);
             OpenGLViewportWrapper.SetViewport(0, 0, viewCamera.Width, viewCamera.Height);
             ApplyCamera();
-            lightsManager.ConfigureEnabledLights();
+
         }
 
         private void ApplyCamera()
@@ -174,7 +174,10 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
+            lightsManager.DisableLighting();
             gridPlane?.Draw();
+            geometryRenderer.DrawGeometryPrimitives();
+            lightsManager.ConfigureEnabledLights();
             geometryRenderer.DrawSceneGeometry();
         }
 

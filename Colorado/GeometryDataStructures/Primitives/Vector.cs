@@ -55,7 +55,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             }
         }
 
-        public double AngleToVector(Vector anotherVector)
+        public double AngleToVectorInRadians(Vector anotherVector)
         {
             return (float)Math.Acos(this.CosToVector(anotherVector));
         }

@@ -56,14 +56,18 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             });
         }
 
-        public static void DrawLine(Line line, RGB color)
+        public static void DrawLine(Line line, RGB color, float lineWidth)
         {
+            SetLineWidth(lineWidth);
             DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
             {
                 SetActiveColorWithoutAlpha(color);
+                
                 AppendVertex(line.StartPoint);
                 AppendVertex(line.EndPoint);
             });
+
+            ResetToDefaultLineWidth();
         }
 
         public static void DrawPoint(Point point, RGB color, float pointSize)
@@ -110,6 +114,16 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
         #endregion Public logic
 
         #region Private logic
+
+        private static void ResetToDefaultLineWidth()
+        {
+            OpenGLGeometryAPI.LineWidth(1);
+        }
+
+        private static void SetLineWidth(float lineWidth)
+        {
+            OpenGLGeometryAPI.LineWidth(lineWidth);
+        }
 
         private static void DrawMesh(Mesh mesh)
         {

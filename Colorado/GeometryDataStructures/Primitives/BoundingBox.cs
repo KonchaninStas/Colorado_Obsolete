@@ -51,5 +51,10 @@ namespace Colorado.GeometryDataStructures.Primitives
         {
             return points.Select(p => getValueFromPointAction(p));
         }
+
+        public static BoundingBox operator *(BoundingBox boundingBox, double scaleFactor)
+        {
+            return new BoundingBox(boundingBox.MaxPoint * scaleFactor, boundingBox.MinPoint * scaleFactor);
+        }
     }
 }

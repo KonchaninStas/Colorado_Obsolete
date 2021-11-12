@@ -44,7 +44,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI.Geometry
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glColorPointer")]
         public static extern void ColorPointer(int size, int type, int stride, IntPtr pointer);
 
-
+        [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glLineWidth")]
+        public static extern void LineWidth(float width);
 
         #endregion Fast
     }

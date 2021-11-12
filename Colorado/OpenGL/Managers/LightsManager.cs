@@ -87,7 +87,7 @@ namespace Colorado.OpenGL.Managers
             OpenGLGlobalLightWrapper.EnableLighting();
         }
 
-        private void DisableLighting()
+        public void DisableLighting()
         {
             OpenGLGlobalLightWrapper.DisableLighting();
         }

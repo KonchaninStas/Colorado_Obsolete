@@ -1,4 +1,5 @@
-﻿using Colorado.GeometryDataStructures.Primitives;
+﻿using Colorado.Common.Utilities;
+using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;
@@ -43,6 +44,7 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
             _FarClip = 0.0;
             _NearClipAssigned = _FarClipAssigned = false;
             _ObjectCenter = Point.ZeroPoint;
+            ResetToDefault();
         }
 
         #endregion Constructor
@@ -142,6 +144,9 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
             FocalLength = 0;
             CameraRotation = Quaternion.Identity;
             Origin = Point.ZeroPoint;
+
+            RotateAroundTarget(Vector.XAxis, 65);
+            RotateAroundTarget(Vector.ZAxis, 45);
         }
 
 
@@ -328,10 +333,14 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         internal void RotateAroundTarget(Vector direction, double angleInDegrees)
         {
-            Quaternion newRotation = Quaternion.Create(direction, angleInDegrees);
+            RotateAroundTarget(Quaternion.Create(direction, angleInDegrees));
+        }
+
+        internal void RotateAroundTarget(Quaternion quaternion)
+        {
             Quaternion curRotation = CameraRotation;
             Point target = Target;
-            CameraRotation = newRotation * curRotation;
+            CameraRotation = quaternion * curRotation;
             Origin = target - FocalLength * ViewDirection;
 
             if (target.Equals(Target))
