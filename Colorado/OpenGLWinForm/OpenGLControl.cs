@@ -86,6 +86,7 @@ namespace Colorado.OpenGLWinForm
         {
             documentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
             documentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
+            documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
             Load += (s, e) => InitializeGraphics();
             Paint += (s, e) => DrawScene();
             SizeChanged += (s, e) => SetViewportParameters();
@@ -94,7 +95,8 @@ namespace Colorado.OpenGLWinForm
         private void UpdateRenderingControlSettings()
         {
             viewCamera.SetObjectRange(documentsManager.TotalBoundingBox);
-            gridPlane = new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal);
+            gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane() 
+                : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal);
             Refresh();
         }
 

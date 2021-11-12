@@ -13,6 +13,7 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
     {
         private readonly Line[] lines;
 
+        public GridPlane() : this(5, 100) { }
         public GridPlane(double space, double size)
         {
             var linesList = new List<Line>();

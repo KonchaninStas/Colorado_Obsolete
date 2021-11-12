@@ -16,6 +16,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             X = x;
             Y = y;
             Z = z;
+            FloatArray = new float[] { (float)X, (float)Y, (float)Z, 1 };
         }
 
         public double X { get; }
@@ -36,6 +37,9 @@ namespace Colorado.GeometryDataStructures.Primitives
                 }.Max();
             }
         }
+
+        public float[] FloatArray { get; }
+
         public static Point MaxPoint => new Point(double.MaxValue, double.MaxValue, double.MaxValue);
 
         public static Point MinPoint => new Point(double.MinValue, double.MinValue, double.MinValue);

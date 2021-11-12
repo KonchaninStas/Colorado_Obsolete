@@ -12,7 +12,7 @@ namespace Colorado.GeometryDataStructures.Primitives
     {
         public Triangle(Vertex firstVertex, Vertex secondVertex, Vertex thirdVertex, Vector normal)
         {
-            Color = new RGB(0.5, 0.5, 0.5);
+            Color = new RGB(0, 0, 0);
             FirstVertex = firstVertex;
             SecondVertex = secondVertex;
             ThirdVertex = thirdVertex;

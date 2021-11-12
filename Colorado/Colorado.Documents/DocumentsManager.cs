@@ -31,8 +31,18 @@ namespace Colorado.Documents
             DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
         }
 
+        public void CloseAllDocuments()
+        {
+            documents.Clear();
+            GeometryToRender.Clear();
+            TotalBoundingBox = new BoundingBox();
+            AllDocumentsClosed?.Invoke(this, System.EventArgs.Empty);
+        }
+
         public event EventHandler<DocumentOpenedEventArgs> DocumentOpened;
 
         public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
+
+        public event EventHandler AllDocumentsClosed;
     }
 }

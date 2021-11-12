@@ -50,6 +50,11 @@ namespace Colorado.Viewer.ViewModels
             get { return new CommandHandler(OpenFile); }
         }
 
+        public ICommand CloseFileCommand
+        {
+            get { return new CommandHandler(CloseFile); }
+        }
+
         #endregion  Commands
 
         #region Private logic
@@ -74,6 +79,10 @@ namespace Colorado.Viewer.ViewModels
             }
         }
 
+        private void CloseFile()
+        {
+            application.CloseAllDocuments();
+        }
 
         #endregion Private logic
     }

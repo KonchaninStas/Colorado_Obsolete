@@ -37,45 +37,20 @@ namespace Colorado.OpenGLWinForm.Managers
 
         public void CreateHeadLight()
         {
+            OpenGLWrapper.EnableCapability(OpenGLCapability.Lighting);
+            OpenGLWrapper.SetLightModel(LightModel.LocalViewer, true);
             OpenGLWrapper.EnableLight(LightType.Light0);
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.ConstantAttenuation, 1.0f);
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.LinearAttenuation, 0.0f);
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.QuadraticAttenuation, 0.0f);
-            var color = new float[]
-            {
-                0.5f,
-                0.2f,
-                0.2f,
-                1.0f
-            };
+            
+            OpenGLWrapper.SetLightModel(LightModel.Ambient, new RGB(0.2, 0.2, 0.2).ToFloat4Array());
+            //OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.ConstantAttenuation, 1.0f);
+            //OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.LinearAttenuation, 0.0f);
+            //OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.QuadraticAttenuation, 0.0f);
 
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Ambient, color);
-            color[0] = 0.5f;
-            color[1] = 0.5f;
-            color[2] = 0.5f;
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Diffuse, color);
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Specular, color);
+            OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Ambient, new RGB(0, 0, 0).ToFloat4Array());
+            OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Diffuse, new RGB(1, 1, 1).ToFloat4Array());
+            OpenGLWrapper.SetLightParameter(LightType.Light0, LightColorType.Specular, new RGB(1, 1, 1).ToFloat4Array());
 
-            var position = new float[] { 0, 0, 0, 1 };
-            if (viewCamera.CameraType == CameraType.Orthographic)
-            {
-                Point cameraOrigin = viewCamera.Origin;
-                Vector cameraDir = viewCamera.ViewDirection;
-                cameraOrigin = cameraOrigin - cameraDir * 1E10;
-                position[0] = (float)cameraOrigin.X;
-                position[1] = (float)cameraOrigin.Y;
-                position[2] = (float)cameraOrigin.Z;
-                position[3] = 1.0f;
-            }
-            else
-            {
-                Point cameraOrigin = viewCamera.Origin;
-                position[0] = (float)cameraOrigin.X;
-                position[1] = (float)cameraOrigin.Y;
-                position[2] = (float)cameraOrigin.Z;
-                position[3] = 1.0f;
-            }
-            OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.Position, position);
+            //OpenGLWrapper.SetLightParameter(LightType.Light0, LightParameter.Position, new Point(0,1,1).FloatArray);
         }
 
         public RGB GetLightedColor(Vertex vertex, Vector normal)

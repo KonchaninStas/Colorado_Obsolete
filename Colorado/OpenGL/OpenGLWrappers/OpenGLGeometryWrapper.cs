@@ -58,6 +58,17 @@ namespace Colorado.OpenGL.OpenGLWrappers
                  });
         }
 
+        public static void DrawLine(Line line, RGB startPoint, RGB endPoint)
+        {
+            DrawingGeometryWrapper(GeometryType.Line, () =>
+            {
+                SetActiveColorWithoutAlpha(startPoint);
+                AppendVertex(line.StartPoint);
+                SetActiveColorWithoutAlpha(endPoint);
+                AppendVertex(line.EndPoint);
+            });
+        }
+
         public static void DrawLine(Line line, RGB color)
         {
             DrawingGeometryWrapper(GeometryType.Line, () =>

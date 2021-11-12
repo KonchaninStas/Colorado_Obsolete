@@ -13,28 +13,22 @@ namespace Colorado.OpenGL.Managers
     {
         public static void SetMaterial(Material material)
         {
-            OpenGLWrapper.EnableCapability(OpenGLCapability.Lighting);
-            OpenGLWrapper.EnableLight(LightType.Light0);
-            OpenGLWrapper.SetLightModel(LightModel.TwoSide, true);
             float[] color = new float[4];
             color[3] = 1.0f - material.Transparency;
-            OpenGLWrapper.SetMaterial(FaceSide.Front, MaterialColorType.Shininess, material.Shininess * 128);
-            OpenGLWrapper.SetMaterial(FaceSide.Back, MaterialColorType.Shininess, material.Shininess * 128);
+            OpenGLWrapper.SetMaterial(FaceSide.FrontAndBack, MaterialColorType.Shininess, material.Shininess * 128);
+
             color[0] = material.Diffuse.Red;
             color[1] = material.Diffuse.Green;
             color[2] = material.Diffuse.Blue;
-            OpenGLWrapper.SetMaterial(FaceSide.Front, MaterialColorType.Diffuse, color);
-            OpenGLWrapper.SetMaterial(FaceSide.Back, MaterialColorType.Diffuse, color);
+            OpenGLWrapper.SetMaterial(FaceSide.FrontAndBack, MaterialColorType.Diffuse, color);
             color[0] = material.Specular.Red;
             color[1] = material.Specular.Green;
             color[2] = material.Specular.Blue;
-            OpenGLWrapper.SetMaterial(FaceSide.Front, MaterialColorType.Specular, color);
-            OpenGLWrapper.SetMaterial(FaceSide.Back, MaterialColorType.Diffuse, color);
+            OpenGLWrapper.SetMaterial(FaceSide.FrontAndBack, MaterialColorType.Specular, color);
             color[0] = material.Ambient.Red;
             color[1] = material.Ambient.Green;
             color[2] = material.Ambient.Blue;
-            OpenGLWrapper.SetMaterial(FaceSide.Front, MaterialColorType.Emission, color);
-            OpenGLWrapper.SetMaterial(FaceSide.Back, MaterialColorType.Diffuse, color);
+            OpenGLWrapper.SetMaterial(FaceSide.FrontAndBack, MaterialColorType.Ambient, color);
             //if (((ICwTriTesselation)tesselation).OneSided)
             //{
             //OpenGLWrapper.SetMaterial(FaceSide.Back, MaterialColorType.Shininess, material.Shininess * 128);

@@ -5,23 +5,26 @@ namespace Colorado.Framework
 {
     public class Application
     {
+        private readonly DocumentsManager documentsManager;
         private readonly IRenderingControl renderingControl;
 
         public Application()
         {
-            DocumentsManager = new DocumentsManager();
-            OpenGLControl = new OpenGLControl(DocumentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
+            documentsManager = new DocumentsManager();
+            OpenGLControl = new OpenGLControl(documentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
             this.renderingControl = OpenGLControl;
         }
-
-
-        public DocumentsManager DocumentsManager { get; }
 
         public OpenGLControl OpenGLControl { get; }
 
         public void AddDocument(Document document)
         {
-            DocumentsManager.AddDocument(document);
+            documentsManager.AddDocument(document);
+        }
+
+        public void CloseAllDocuments( )
+        {
+            documentsManager.CloseAllDocuments();
         }
 
         public void Refresh()

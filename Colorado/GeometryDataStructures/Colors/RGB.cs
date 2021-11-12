@@ -13,6 +13,7 @@ namespace Colorado.GeometryDataStructures.Colors
             Red = red;
             Green = green;
             Blue = blue;
+
         }
 
         public RGB(double red, double green, double blue) : this((float)red, (float)green, (float)blue)
@@ -36,6 +37,11 @@ namespace Colorado.GeometryDataStructures.Colors
         public float[] ToFloat3Array()
         {
             return new[] { Red, Green, Blue };
+        }
+
+        public float[] ToFloat4Array()
+        {
+            return new[] { Red, Green, Blue, 1 };
         }
 
         public static RGB operator *(RGB color, double scaleFactor)

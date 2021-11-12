@@ -216,5 +216,10 @@ namespace Colorado.OpenGL.OpenGLWrappers
         {
             OpenGLAPI.LightModeli((int)lightModel, enable ? 1 : 0);
         }
+
+        public static void SetLightModel(LightModel lightModel, float[] values)
+        {
+            OpenGLAPI.LightModelfv((int)lightModel, values);
+        }
     }
 }

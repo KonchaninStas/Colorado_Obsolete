@@ -81,13 +81,18 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
 
         
 
-        [DllImport(DLLName, EntryPoint = "glLightModeli")]
-        public static extern void LightModeli(int pname, int param);
+       
 
         [DllImport(DLLName, EntryPoint = "glMaterialf")]
         public static extern void Materialf(int face, int pname, float param);
 
         [DllImport(DLLName, EntryPoint = "glMaterialfv")]
         public static extern void Materialfv(int face, int pname, float[] fparams);
+
+        [DllImport(DLLName, EntryPoint = "glLightModeli")]
+        public static extern void LightModeli(int pname, int param);
+
+        [DllImport(DLLName, EntryPoint = "glLightModelfv")]
+        public static extern void LightModelfv(int pname, float[] fparams);
     }
 }

@@ -16,6 +16,7 @@
         <Menu Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem x:Name="OpenFileMenuItem" Header="Open" Command="{Binding OpenFileCommand}"/>
+                <MenuItem x:Name="CloseFileMenuItem" Header="Close" Command="{Binding CloseFileCommand}"/>
             </MenuItem>
         </Menu>
         <Grid x:Name="openGLControlWrapper" Grid.Row="1"/>
