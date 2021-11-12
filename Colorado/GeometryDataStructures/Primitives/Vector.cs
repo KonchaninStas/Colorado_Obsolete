@@ -1,9 +1,5 @@
 ﻿using Colorado.Common.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.GeometryDataStructures.Primitives
 {
@@ -16,6 +12,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             Z = z;
 
             Length = CalculateLength();
+            FloatArray = new float[] { (float)X, (float)Y, (float)Z, 0 };
         }
 
         public Vector(Point startPoint, Point endPoint)
@@ -26,6 +23,8 @@ namespace Colorado.GeometryDataStructures.Primitives
         public double Y { get; }
 
         public double Z { get; }
+
+        public float[] FloatArray { get; }
 
         public double Length { get; }
 
@@ -42,6 +41,7 @@ namespace Colorado.GeometryDataStructures.Primitives
         public static Vector ZAxis => new Vector(0, 0, 1);
 
         public bool IsZero => X.IsZero() && Y.IsZero() && Z.IsZero();
+
 
         public Vector GetPerpendicularVector()
         {
@@ -179,15 +179,6 @@ namespace Colorado.GeometryDataStructures.Primitives
         public override int GetHashCode()
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
-        }
-
-        public static Vector Reflect(Vector vector, Vector normal)
-        {
-            double dot = vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z;
-            double tempX = normal.X * dot * 2f;
-            double tempY = normal.Y * dot * 2f;
-            double tempZ = normal.Z * dot * 2f;
-            return new Vector(vector.X - tempX, vector.Y - tempY, vector.Z - tempZ);
         }
     }
 }

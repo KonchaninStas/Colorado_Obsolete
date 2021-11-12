@@ -1,6 +1,6 @@
 ﻿namespace Colorado.OpenGL.Enumerations
 {
-    public enum LightParameter
+    internal enum LightParameter
     {
         Position = 0x1203,
         ConstantAttenuation = 0x1207,

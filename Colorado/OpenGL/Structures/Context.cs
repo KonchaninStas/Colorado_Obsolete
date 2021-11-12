@@ -1,12 +1,7 @@
-﻿using Colorado.OpenGL.Extensions;
-using Colorado.OpenGL.OpenGLWrappers;
+﻿using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGL.WindowsAPI.WindowsAPIWrappers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.OpenGL.Structures
 {

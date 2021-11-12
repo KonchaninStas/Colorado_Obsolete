@@ -4,20 +4,17 @@ using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations.Geometry;
-using Colorado.OpenGL.Interfaces;
-using Colorado.OpenGL.OpenGLLibrariesAPI;
-using Colorado.OpenGL.OpenGLWrappers.Geometry;
+using Colorado.OpenGL.OpenGLLibrariesAPI.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Colorado.OpenGL.OpenGLWrappers
+namespace Colorado.OpenGL.OpenGLWrappers.Geometry
 {
     public static class OpenGLGeometryWrapper
     {
-        public static void DrawGeometryObject(GeometryObject geometryObject, ILightsManager lightsManager)
+        #region Public logic
+
+        public static void DrawGeometryObject(GeometryObject geometryObject)
         {
             switch (geometryObject.GeometryType)
             {
@@ -26,19 +23,9 @@ namespace Colorado.OpenGL.OpenGLWrappers
                         DrawLine(geometryObject as Line);
                         break;
                     }
-                case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Circle:
-                    {
-                        DrawCircle(geometryObject as Circle);
-                        break;
-                    }
-                case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Sphere:
-                    {
-                        DrawSphere(geometryObject as Sphere);
-                        break;
-                    }
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Mesh:
                     {
-                        OpenGLFastRenderer.DrawMeshRgb(geometryObject as Mesh, lightsManager);
+                        OpenGLFastRenderer.DrawMesh(geometryObject as Mesh);
 
                         break;
                     }
@@ -51,16 +38,16 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         public static void DrawLine(Line line)
         {
-            DrawingGeometryWrapper(GeometryType.Line, () =>
-                 {
-                     AppendVertex(line.StartPoint);
-                     AppendVertex(line.EndPoint);
-                 });
+            DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
+            {
+                AppendVertex(line.StartPoint);
+                AppendVertex(line.EndPoint);
+            });
         }
 
         public static void DrawLine(Line line, RGB startPoint, RGB endPoint)
         {
-            DrawingGeometryWrapper(GeometryType.Line, () =>
+            DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
             {
                 SetActiveColorWithoutAlpha(startPoint);
                 AppendVertex(line.StartPoint);
@@ -71,7 +58,7 @@ namespace Colorado.OpenGL.OpenGLWrappers
 
         public static void DrawLine(Line line, RGB color)
         {
-            DrawingGeometryWrapper(GeometryType.Line, () =>
+            DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
             {
                 SetActiveColorWithoutAlpha(color);
                 AppendVertex(line.StartPoint);
@@ -79,30 +66,20 @@ namespace Colorado.OpenGL.OpenGLWrappers
             });
         }
 
-        public static void DrawSphere(Sphere sphere)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void DrawCircle(Circle circle)
-        {
-            throw new NotImplementedException();
-        }
-
         public static void DrawPoint(Point point, RGB color, float pointSize)
         {
             SetPointSize(pointSize);
-            DrawingGeometryWrapper(GeometryType.Point, () =>
-                 {
-                     SetActiveColorWithoutAlpha(color);
-                     AppendVertex(point);
-                 });
+            DrawingGeometryWrapper(OpenGLGeometryType.Point, () =>
+            {
+                SetActiveColorWithoutAlpha(color);
+                AppendVertex(point);
+            });
             SetDefaultPointSize();
         }
 
         public static void DrawMeshes(IEnumerable<Mesh> meshes)
         {
-            DrawingGeometryWrapper(GeometryType.Triangle, () =>
+            DrawingGeometryWrapper(OpenGLGeometryType.Triangle, () =>
             {
                 foreach (Mesh mesh in meshes)
                 {
@@ -129,12 +106,16 @@ namespace Colorado.OpenGL.OpenGLWrappers
             }
         }
 
+
+        #endregion Public logic
+
+        #region Private logic
+
         private static void DrawMesh(Mesh mesh)
         {
             //OpenGLFastRenderer.DrawMeshRgb(mesh);
-            DrawingGeometryWrapper(GeometryType.Triangle, () =>
+            DrawingGeometryWrapper(OpenGLGeometryType.Triangle, () =>
             {
-                SetActiveColorWithoutAlpha(RGB.RedColor);
                 foreach (Triangle triangle in mesh.Triangles)
                 {
                     AppendNormal(triangle.Normal);
@@ -155,14 +136,14 @@ namespace Colorado.OpenGL.OpenGLWrappers
                 //    AppendVertex(triangle.Center);
                 //    AppendVertex(triangle.Center + triangle.Normal * 10);
                 //});
-                DrawingGeometryWrapper(GeometryType.LineLoop, () =>
-            {
-                SetActiveColorWithoutAlpha(new RGB(204, 204, 204));
-                AppendVertex(triangle.FirstVertex);
-                AppendVertex(triangle.SecondVertex);
-                AppendVertex(triangle.ThirdVertex);
+                //DrawingGeometryWrapper(GeometryType.LineLoop, () =>
+                //{
+                //    SetActiveColorWithoutAlpha(new RGB(204, 204, 204));
+                //    AppendVertex(triangle.FirstVertex);
+                //    AppendVertex(triangle.SecondVertex);
+                //    AppendVertex(triangle.ThirdVertex);
 
-            });
+                //});
             }
         }
 
@@ -197,14 +178,14 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLGeometryAPI.glColor3fv(color.ToFloat3Array());
         }
 
-        private static void DrawingGeometryWrapper(GeometryType geometryType, Action drawAction)
+        private static void DrawingGeometryWrapper(OpenGLGeometryType geometryType, Action drawAction)
         {
             BeginDrawingGeometry(geometryType);
             drawAction.Invoke();
             EndDrawingGeometry();
         }
 
-        private static void BeginDrawingGeometry(GeometryType geometryType)
+        private static void BeginDrawingGeometry(OpenGLGeometryType geometryType)
         {
             OpenGLGeometryAPI.glBegin((uint)geometryType);
         }
@@ -214,7 +195,6 @@ namespace Colorado.OpenGL.OpenGLWrappers
             OpenGLGeometryAPI.glEnd();
         }
 
-
-
+        #endregion Private logic
     }
 }

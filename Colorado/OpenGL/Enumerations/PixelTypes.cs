@@ -1,6 +1,6 @@
 ﻿namespace Colorado.OpenGL.Enumerations
 {
-    public enum PixelTypes
+    internal enum PixelTypes
     {
         TYPE_RGBA = 0,
         TYPE_COLORINDEX = 1

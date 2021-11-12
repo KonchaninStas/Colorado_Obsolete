@@ -1,5 +1,6 @@
 ﻿using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace Colorado.OpenGLWinForm.Tools
 
         private void MouseMoveCallback(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            PointUnderMouse = OpenGLUWrapper.ScreenToWorld(e.X, e.Y);
+            PointUnderMouse = OpenGLViewportWrapper.ScreenToWorld(e.X, e.Y);
             openGLControl.Refresh();
         }
 

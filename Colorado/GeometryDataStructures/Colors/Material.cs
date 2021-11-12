@@ -1,28 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.GeometryDataStructures.Colors
 {
     public class Material
     {
-        public Material()
+        public Material(RGB ambient, RGB diffuse, RGB specular,
+            float shininess, RGB emission)
         {
-            Ambient = new RGB(1, 0.5, 0.31);
-            Diffuse = new RGB(1, 0.5, 0.31);
-            Specular = new RGB(0.5, 0.5, 0.5);
-            Shininess = 32;
+            Ambient = ambient;
+            Diffuse = diffuse;
+            Specular = specular;
+
+            if (shininess < 0 || shininess > 128)
+            {
+                throw new Exception();
+            }
+            ShininessRadius = shininess;
+            Emission = emission;
         }
 
-        public RGB Ambient { get; }
+        public RGB Ambient { get; set; }
 
-        public RGB Diffuse { get; }
+        public RGB Diffuse { get; set; }
 
-        public RGB Specular { get; }
+        public RGB Specular { get; set; }
 
-        public float Shininess { get; }
-        public float Transparency { get; }
+        public float ShininessRadius { get; set; }
+
+        public RGB Emission { get; set; }
+
+        public float Transparency { get; set; }
+
+        public static Material Default
+        {
+            get
+            {
+                return new Material(new RGB(0.2f, 0.2f, 0.2f), new RGB(0.8f, 0.8f, 0.8f),
+                   new RGB(0f, 0f, 0f), 0, new RGB(0.0, 0.0, 0.0));
+            }
+        }
     }
 }

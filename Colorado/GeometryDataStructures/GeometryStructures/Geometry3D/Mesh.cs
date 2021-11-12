@@ -17,20 +17,21 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         #region Constants
 
         private const int triangleVerticesCount = 3;
-        private const int rgbColorValuesCount = 3;
 
         #endregion Constants
 
 
         private readonly DynamicArray<double> verticesValuesArray;
         private readonly DynamicArray<double> normalsValuesArray;
-        private readonly DynamicArray<double> verticesColorsValuesArray;
-        private readonly DynamicArray<RGB> verticesColors;
+        private readonly DynamicArray<float> verticesColorsValuesArray;
+
         private readonly DynamicArray<Vector> verticesNormals;
         private readonly DynamicArray<Vertex> vertices;
 
         public Mesh(IList<Triangle> triangles)
         {
+            Material = Material.Default;
+            //Material.Diffuse = RGB.RedColor;
             Triangles = triangles;
             BoundingBox = GetBoundingBox();
 
@@ -39,8 +40,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
             verticesValuesArray = new DynamicArray<double>(triangles.Count * 9);
             normalsValuesArray = new DynamicArray<double>(triangles.Count * 9);
-            verticesColorsValuesArray = new DynamicArray<double>(triangles.Count * 9);
-            verticesColors = new DynamicArray<RGB>(VerticesCount);
+            verticesColorsValuesArray = new DynamicArray<float>(triangles.Count * 9);
             verticesNormals = new DynamicArray<Vector>(VerticesCount);
             vertices = new DynamicArray<Vertex>(VerticesCount);
 
@@ -48,7 +48,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             {
                 AddTriangleValues(triangles[i]);
             }
-            Material = new Material();
+            
         }
 
         public Material Material { get; }
@@ -57,13 +57,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         public double[] NormalsValuesArray => normalsValuesArray.Array;
 
-        public double[] VerticesColorsValuesArray => verticesColorsValuesArray.Array;
-
-        public RGB[] VerticesColors => verticesColors.Array;
-
-        public Vector[] VerticesNormals => verticesNormals.Array;
-
-        public Vertex[] Vertices => vertices.Array;
+        public float[] VerticesColorsValuesArray => verticesColorsValuesArray.Array;
 
         public IEnumerable<Triangle> Triangles { get; }
 
@@ -98,11 +92,9 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         {
             for (int i = 0; i < 3; i++)
             {
-                verticesColors.Add(triangle.Color);
-
-                verticesColorsValuesArray.Add(triangle.Color.Red);
-                verticesColorsValuesArray.Add(triangle.Color.Green);
-                verticesColorsValuesArray.Add(triangle.Color.Blue);
+                verticesColorsValuesArray.Add(Material.Diffuse.Red);
+                verticesColorsValuesArray.Add(Material.Diffuse.Green);
+                verticesColorsValuesArray.Add(Material.Diffuse.Blue);
 
                 verticesNormals.Add(triangle.Normal);
 

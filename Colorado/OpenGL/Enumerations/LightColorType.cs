@@ -1,6 +1,6 @@
 ﻿namespace Colorado.OpenGL.Enumerations
 {
-    public enum LightColorType
+    internal enum LightColorType
     {
         Ambient = 0x1200,
         Diffuse = 0x1201,

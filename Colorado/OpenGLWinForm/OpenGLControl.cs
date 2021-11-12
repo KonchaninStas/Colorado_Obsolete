@@ -2,9 +2,10 @@
 using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Enumerations;
+using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGL.Structures;
-using Colorado.OpenGLWinForm.Managers;
 using Colorado.OpenGLWinForm.Rendering;
 using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
@@ -48,9 +49,10 @@ namespace Colorado.OpenGLWinForm
             InitializeComponent();
             this.documentsManager = documentsManager;
             viewCamera = new ViewCamera();
-            lightsManager = new LightsManager(viewCamera);
+            lightsManager = new LightsManager();
+            lightsManager[LightType.Light0] = Light.GetDefault(LightType.Light0);
 
-            geometryRenderer = new GeometryRenderer(documentsManager, lightsManager);
+            geometryRenderer = new GeometryRenderer(documentsManager);
 
             mouseTool = new MouseTool(this, viewCamera);
             keyboardTool = new KeyboardTool(this, viewCamera);
@@ -69,6 +71,8 @@ namespace Colorado.OpenGLWinForm
         public FpsCalculator FpsCalculator { get; }
 
         public RGB BackgroundColor { get; set; }
+
+        public LightsManager LightsManager => lightsManager;
 
         #endregion Properties
 
@@ -95,7 +99,7 @@ namespace Colorado.OpenGLWinForm
         private void UpdateRenderingControlSettings()
         {
             viewCamera.SetObjectRange(documentsManager.TotalBoundingBox);
-            gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane() 
+            gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
                 : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal);
             Refresh();
         }
@@ -116,7 +120,7 @@ namespace Colorado.OpenGLWinForm
             try
             {
                 renderingContext = new Context(Handle, 32, 32, 8);
-                OpenGLWrapper.ClearColor(BackgroundColor);
+                OpenGLViewportWrapper.ClearColor(BackgroundColor);
                 OpenGLWrapper.SetShadingMode(ShadingModel.Smooth);
                 return true;
             }
@@ -143,29 +147,29 @@ namespace Colorado.OpenGLWinForm
         {
             renderingContext.MakeCurrent();
             OpenGLWrapper.EnableCapability(OpenGLCapability.DepthTest);
-            OpenGLWrapper.ClearColor(BackgroundColor);
+            OpenGLViewportWrapper.ClearColor(BackgroundColor);
             OpenGLWrapper.ClearDepthBufferValue();
             OpenGLWrapper.ClearBuffers(OpenGLBufferType.Color, OpenGLBufferType.Depth);
-            OpenGLWrapper.SetViewport(0, 0, viewCamera.Width, viewCamera.Height);
+            OpenGLViewportWrapper.SetViewport(0, 0, viewCamera.Width, viewCamera.Height);
             ApplyCamera();
-            lightsManager.CreateHeadLight();
+            lightsManager.ConfigureEnabledLights();
         }
 
         private void ApplyCamera()
         {
             // projection scale
-            OpenGLWrapper.SetActiveMatrixType(MatrixType.Projection);
-            OpenGLWrapper.MakeActiveMatrixIdentity();
+            OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.Projection);
+            OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
 
             viewCamera.ApplySettings();
 
             // offset & orientation
-            OpenGLWrapper.SetActiveMatrixType(MatrixType.ModelView);
-            OpenGLWrapper.MakeActiveMatrixIdentity();
+            OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.ModelView);
+            OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
 
-            OpenGLWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.AngleInRadians),
+            OpenGLMatrixOperationWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.AngleInRadians),
                 viewCamera.CameraRotation.Axis);
-            OpenGLWrapper.TranslateCurrentMatrix(viewCamera.Origin.Inverse);
+            OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.Origin.Inverse);
         }
 
         private void DrawEntities()

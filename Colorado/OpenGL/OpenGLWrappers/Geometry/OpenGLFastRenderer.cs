@@ -2,9 +2,8 @@
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.OpenGL.Enumerations.Geometry;
-using Colorado.OpenGL.Interfaces;
 using Colorado.OpenGL.Managers;
-using Colorado.OpenGL.OpenGLLibrariesAPI;
+using Colorado.OpenGL.OpenGLLibrariesAPI.Geometry;
 using System;
 using System.Linq;
 
@@ -12,43 +11,58 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
 {
     public static unsafe class OpenGLFastRenderer
     {
-        public static void DrawMeshRgb(Mesh mesh, ILightsManager lightsManager)
+        #region Constants
+
+        private const int vertexSize = 3;
+        private const int normalSize = 3;
+
+        #endregion Constants
+
+        #region Public logic
+
+        public static void DrawMesh(Mesh mesh)
         {
-            MaterialManager.SetMaterial(mesh.Material);
+            MaterialsManager.SetMaterial(mesh.Material);
             double[] verticesValues = mesh.VerticesValuesArray;
             double[] normalsValues = mesh.NormalsValuesArray;
-            double[] colorsValues = mesh.VerticesColorsValuesArray;
-            //double[] colorsValues = lightsManager.GetLightedColors(mesh);
+            float[] colorsValues = mesh.VerticesColorsValuesArray;
 
             fixed (double* cachedPoints = verticesValues)
             fixed (double* cachedNormals = normalsValues)
-            fixed (double* cachedColors = colorsValues)
+            fixed (float* cachedColors = colorsValues)
+            {
                 DrawTrianglesRgb(mesh.VerticesCount, cachedPoints, cachedNormals, cachedColors);
+            }    
         }
-
 
         public static void DrawLinesRgb(Line[] lines)
         {
             double[] verticesValues = ArrayHelper.MergeArrays(lines.Select(l => l.VerticesValuesArray));
-            double[] colorsValues = ArrayHelper.MergeArrays(lines.Select(l => l.RGBColorsValuesArray));
+            float[] colorsValues = ArrayHelper.MergeArrays(lines.Select(l => l.RGBColorsValuesArray));
 
             fixed (double* cachedPoints = verticesValues)
-            fixed (double* cachedColors = colorsValues)
-                DrawLinesRgb(lines.Length * 2, cachedPoints, cachedColors);
+            fixed (float* cachedColors = colorsValues)
+            {
+                DrawLines(lines.Length * 2, cachedPoints, cachedColors);
+            }
         }
 
-        public static void DrawLinesRgb(int nVertices, double* vertices, double* colors)
+        #endregion Public logic
+
+        #region Private logic
+
+        private static void DrawLines(int nVertices, double* vertices, float* colors)
         {
             EnableClientState(ArrayType.Vertex);
             EnableClientState(ArrayType.Color);
             VertexPointer((IntPtr)vertices);
             ColorPointerRGB((IntPtr)colors);
-            DrawArrays(GeometryType.Line, nVertices);
+            DrawArrays(OpenGLGeometryType.Line, nVertices);
             DisableClientState(ArrayType.Vertex);
             DisableClientState(ArrayType.Color);
         }
 
-        public static void DrawTrianglesRgb(int nVertices, double* vertices, double* normals, double* colors)
+        public static void DrawTrianglesRgb(int nVertices, double* vertices, double* normals, float* colors)
         {
             EnableClientState(ArrayType.Vertex);
             EnableClientState(ArrayType.Normal);
@@ -58,7 +72,7 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             NormalPointer((IntPtr)normals);
             ColorPointerRGB((IntPtr)colors);
 
-            DrawArrays(GeometryType.Triangle, nVertices);
+            DrawArrays(OpenGLGeometryType.Triangle, nVertices);
 
             DisableClientState(ArrayType.Vertex);
             DisableClientState(ArrayType.Normal);
@@ -74,9 +88,6 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
         {
             OpenGLGeometryAPI.DisableClientState((int)arrayType);
         }
-
-        private const int vertexSize = 3;
-        private const int normalSize = 3;
 
         private static void VertexPointer(IntPtr firstVertexPointer)
         {
@@ -100,12 +111,12 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
 
         private static void ColorPointerRGB(IntPtr firstColorComponentPointer)
         {
-            ColorPointer(ColorComponentSize.WithoutAlpha, DataType.Double, 0, firstColorComponentPointer);
+            ColorPointer(ColorComponentSize.WithoutAlpha, DataType.Float, 0, firstColorComponentPointer);
         }
 
         private static void ColorPointerRGBA(IntPtr firstColorComponentPointer)
         {
-            ColorPointer(ColorComponentSize.WithAlpha, DataType.Double, 4, firstColorComponentPointer);
+            ColorPointer(ColorComponentSize.WithAlpha, DataType.Float, 4, firstColorComponentPointer);
         }
 
 
@@ -114,9 +125,11 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             OpenGLGeometryAPI.ColorPointer((int)colorComponentSize, (int)dataType, stride, firstColorComponentPointer);
         }
 
-        private static void DrawArrays(GeometryType geometryType, int count)
+        private static void DrawArrays(OpenGLGeometryType geometryType, int count)
         {
             OpenGLGeometryAPI.DrawArrays((int)geometryType, 0, count);
         }
+
+        #endregion Private logic
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Colorado.Common.UI.Commands;
 using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Documents.STL;
+using Colorado.OpenGL.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace Colorado.Viewer.ViewModels
         #region Properties
 
         public OpenGLWPF.OpenGLControl OpenGLControl { get; }
+
+        public LightsManager LightsManager => application.RenderingControl.LightsManager;
 
         public int FPS
         {

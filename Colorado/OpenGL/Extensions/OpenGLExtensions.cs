@@ -84,9 +84,6 @@ namespace Colorado.OpenGL.Extensions
         public static glVertexAttrib3fARB VertexAttrib3fARB;
         public static glVertexAttrib4fARB VertexAttrib4fARB;
 
-        public static glStencilOpSeparateATI StencilOpSeparateATI;
-        public static glStencilFuncSeparateATI StencilFuncSeparateATI;
-
         public static glGetCompressedTexImageARB GetCompressedTexImageARB;
         public static glCompressedTexImage2DARB CompressedTexImage2DARB;
 

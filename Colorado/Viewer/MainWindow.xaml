@@ -13,6 +13,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem x:Name="OpenFileMenuItem" Header="Open" Command="{Binding OpenFileCommand}"/>
@@ -25,5 +29,6 @@
             <Label Content="{Binding FPS}" />
         </StackPanel>
 
+        <TabControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding Tabs}"/>
     </Grid>
 </Window>

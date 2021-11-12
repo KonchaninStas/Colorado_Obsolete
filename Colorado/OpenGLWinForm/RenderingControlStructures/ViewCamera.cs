@@ -1,5 +1,6 @@
 ﻿using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;
 using System;
 
@@ -271,11 +272,13 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
                 double xmax = imageSize.X / 2;
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
-                OpenGLWrapper.SetOrthographicViewSettings(xmin * Scale, xmax * Scale, ymin * Scale, ymax * Scale, NearClip, FarClip);
+                OpenGLViewportWrapper.SetOrthographicViewSettings(
+                    xmin * Scale, xmax * Scale, ymin * Scale, ymax * Scale, NearClip, FarClip);
             }
             else
             {
-                OpenGLUWrapper.SetPerspectiveCameraSettings(VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
+                OpenGLViewportWrapper.SetPerspectiveCameraSettings(
+                    VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
             }
         }
 

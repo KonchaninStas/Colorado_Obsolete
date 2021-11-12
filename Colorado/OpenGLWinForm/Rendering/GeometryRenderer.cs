@@ -1,10 +1,8 @@
 ﻿using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
-using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
-using Colorado.OpenGL.OpenGLWrappers;
-using Colorado.OpenGLWinForm.Managers;
+using Colorado.OpenGL.OpenGLWrappers.Geometry;
 
 namespace Colorado.OpenGLWinForm.Rendering
 {
@@ -13,23 +11,17 @@ namespace Colorado.OpenGLWinForm.Rendering
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
-        private readonly LightsManager lightsManager;
 
         #endregion Private fields
 
         #region Constructor
 
-        public GeometryRenderer(DocumentsManager documentsManager, LightsManager lightsManager)
+        public GeometryRenderer(DocumentsManager documentsManager)
         {
             this.documentsManager = documentsManager;
-            this.lightsManager = lightsManager;
         }
 
         #endregion Constructor 
-
-        #region Properties
-
-        #endregion Properties
 
         #region Public logic
 
@@ -56,10 +48,7 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawEntities()
         {
-            foreach (GeometryObject geometryObject in documentsManager.GeometryToRender)
-            {
-                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject, lightsManager);
-            }
+            documentsManager.GeometryToRender.ForEach(g => OpenGLGeometryWrapper.DrawGeometryObject(g));
         }
 
         #endregion Private logic

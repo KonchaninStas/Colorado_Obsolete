@@ -118,6 +118,10 @@
       <Project>{0cacffe7-8d8d-40b4-9416-ad712ef06ca9}</Project>
       <Name>Colorado.OpenGLWPF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OpenGL\Colorado.OpenGL.csproj">
+      <Project>{C8E9CE02-6D44-40F2-A0ED-87B8CC0D4C14}</Project>
+      <Name>Colorado.OpenGL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
