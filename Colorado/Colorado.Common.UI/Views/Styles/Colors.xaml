@@ -1,0 +1,18 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="ValidationErrorBrush" Color="#f44336"/>
+    <SolidColorBrush x:Key="BlueColor" Color="#4D9DE3"/>
+    <SolidColorBrush x:Key="LightBlueColor" Color="#FFC6DFF4"/>
+    <SolidColorBrush x:Key="WhiteColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="GrayColor" Color="#FFBDBDBD"/>
+    <SolidColorBrush x:Key="BlackColor" Color="#1B1A1A"/>
+    <SolidColorBrush x:Key="WarningIconBrushColor" Color="#FFDC5A61"/>
+    <SolidColorBrush x:Key="CheckBoxDisabled" Color="#FFBDBDBD"/>
+    <SolidColorBrush x:Key="CheckBoxOff" Color="#89000000"/>
+    <SolidColorBrush x:Key="BorderBrushLightGrayColor" Color="#DDDDDD"/>
+    <SolidColorBrush x:Key="BorderBrushGrayColor" Color="#CCCCCC"/>
+    <SolidColorBrush x:Key="BorderBrushBlueColor" Color="#4D9DE3"/>
+
+</ResourceDictionary>

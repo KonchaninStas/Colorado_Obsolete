@@ -59,5 +59,23 @@ namespace Colorado.Viewer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        internal static string AppearanceTabHeader {
+            get {
+                return ResourceManager.GetString("AppearanceTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable lighting.
+        /// </summary>
+        internal static string EnableLightingCheckBoxText {
+            get {
+                return ResourceManager.GetString("EnableLightingCheckBoxText", resourceCulture);
+            }
+        }
     }
 }

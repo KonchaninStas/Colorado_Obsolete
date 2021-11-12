@@ -1,7 +1,10 @@
 ﻿using Colorado.Common.UI.Commands;
 using Colorado.Common.UI.ViewModels.Base;
+using Colorado.Common.UI.ViewModels.Controls;
 using Colorado.Documents.STL;
 using Colorado.OpenGL.Managers;
+using Colorado.Viewer.Controls.Views;
+using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +17,7 @@ namespace Colorado.Viewer.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
+        private IEnumerable<TabItemViewModel> tabs;
         private readonly Colorado.Framework.Application application;
 
         private int fps;
@@ -23,9 +27,26 @@ namespace Colorado.Viewer.ViewModels
             application = new Framework.Application();
             OpenGLControl = new OpenGLWPF.OpenGLControl(application);
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
+            Tabs = new TabItemViewModel[]
+            {
+                new TabItemViewModel(Resources.AppearanceTabHeader,new AppearanceTabUserControl(application.RenderingControl))
+            };
         }
 
         #region Properties
+
+        public IEnumerable<TabItemViewModel> Tabs
+        {
+            get
+            {
+                return tabs;
+            }
+            set
+            {
+                tabs = value;
+                OnPropertyChanged(nameof(Tabs));
+            }
+        }
 
         public OpenGLWPF.OpenGLControl OpenGLControl { get; }
 
