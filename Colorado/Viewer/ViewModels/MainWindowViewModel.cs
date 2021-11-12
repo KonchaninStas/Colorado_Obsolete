@@ -29,7 +29,7 @@ namespace Colorado.Viewer.ViewModels
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
             Tabs = new TabItemViewModel[]
             {
-                new TabItemViewModel(Resources.AppearanceTabHeader,new AppearanceTabUserControl(application.RenderingControl))
+                new TabItemViewModel(Resources.AppearanceTabHeader,new AppearanceTabUserControl(application.RenderingControl), true)
             };
         }
 

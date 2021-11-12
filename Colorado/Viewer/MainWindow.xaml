@@ -27,18 +27,20 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="File">
                 <MenuItem x:Name="OpenFileMenuItem" Header="Open" Command="{Binding OpenFileCommand}"/>
                 <MenuItem x:Name="CloseFileMenuItem" Header="Close" Command="{Binding CloseFileCommand}"/>
             </MenuItem>
         </Menu>
-        <Grid x:Name="openGLControlWrapper" Grid.Row="1"/>
+        <Grid x:Name="openGLControlWrapper" Grid.Row="1" Background="AliceBlue"/>
+
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch"  Style="{StaticResource GridSplitterStyle}"/>
+        <TabControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" ItemsSource="{Binding Tabs}" Style="{StaticResource TabStyle}"/>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <Label Content="FPS:" />
             <Label Content="{Binding FPS}" />
         </StackPanel>
-        <Separator Grid.Column="1" Style="{StaticResource SeparatorStyle}"/>
-        <TabControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" ItemsSource="{Binding Tabs}" Style="{StaticResource TabStyle}"/>
     </Grid>
 </Window>

@@ -14,9 +14,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Label Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"/>
         <CheckBox Style="{StaticResource CheckBoxStyle}" 
-           
-            Checked="{Binding IsLightingEnabled}"/>
+                  Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"
+                  IsChecked="{Binding IsLightingEnabled}"/>
     </Grid>
 </UserControl>
