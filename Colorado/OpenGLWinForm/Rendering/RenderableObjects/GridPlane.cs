@@ -16,6 +16,7 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
         public GridPlane() : this(5, 100) { }
         public GridPlane(double space, double size)
         {
+            size = ((int)(size / space)) * space;
             var linesList = new List<Line>();
 
             int numberOfLines = (int)(size / space);

@@ -241,6 +241,24 @@ namespace Colorado.GeometryDataStructures.Primitives
             return identityTransform;
         }
 
+        /// <summary>
+        /// Creates a scaling matrix.
+        /// </summary>
+        /// <param name="xScale">Value to scale by on the X-axis.</param>
+        /// <param name="yScale">Value to scale by on the Y-axis.</param>
+        /// <param name="zScale">Value to scale by on the Z-axis.</param>
+        /// <returns>The scaling matrix.</returns>
+        public static Transform CreateScale(double xScale, double yScale, double zScale)
+        {
+            Transform result = Transform.Identity();
+
+            result[0,0] = xScale;
+            result[1,1] = yScale;
+            result[2,2] = zScale;
+
+            return result;
+        }
+
         #region Operator overrides
 
         public static Transform operator *(Transform left, Transform right)

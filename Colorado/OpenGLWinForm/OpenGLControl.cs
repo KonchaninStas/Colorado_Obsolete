@@ -98,9 +98,10 @@ namespace Colorado.OpenGLWinForm
 
         private void UpdateRenderingControlSettings()
         {
-            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox * 5);
+            var x = documentsManager.TotalBoundingBox * 5;
+            viewCamera.SetObjectRange(x);
             gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-                : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5);
+                : new GridPlane(5, x.Diagonal / 5);
             Refresh();
         }
 
