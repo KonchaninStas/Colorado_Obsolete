@@ -273,14 +273,17 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public Point ApplyToPoint(Point point)
         {
-            return point + Translation * Scale;
+            double x = this[0, 0] * point.X + this[0, 1] * point.Y + this[0, 2] * point.Z + this[0, 3];
+            double y = this[1, 0] * point.X + this[1, 1] * point.Y + this[1, 2] * point.Z + this[1, 3];
+            double z = this[2, 0] * point.X + this[2, 1] * point.Y + this[2, 2] * point.Z + this[2, 3];
+            return new Point(x, y, z);
         }
 
         public Vector ApplyToVector(Vector vector)
         {
-            double x = this[0, 0] * vector.X + this[0, 1] * vector.Y + this[0, 2] * vector.Z + this[0, 3];
-            double y = this[1, 0] * vector.X + this[1, 1] * vector.Y + this[1, 2] * vector.Z + this[1, 3];
-            double z = this[2, 0] * vector.X + this[2, 1] * vector.Y + this[2, 2] * vector.Z + this[2, 3];
+            double x = this[0, 0] * vector.X + this[0, 1] * vector.Y + this[0, 2] * vector.Z;
+            double y = this[1, 0] * vector.X + this[1, 1] * vector.Y + this[1, 2] * vector.Z;
+            double z = this[2, 0] * vector.X + this[2, 1] * vector.Y + this[2, 2] * vector.Z;
             return new Vector(x, y, z);
         }
 
@@ -443,7 +446,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             double M44 = +(a * fk_gj - b * ek_gi + c * ej_fi) * invDet;
 
             return new Transform(new double[]
-            { 
+            {
                 M11, M12, M13, M14,
                 M21, M22, M23, M24,
                 M31, M32, M33, M34,
