@@ -141,9 +141,9 @@ namespace Colorado.GeometryDataStructures.Primitives
             return !Equals(firstVector, secondVector);
         }
 
-        public Vector ToVector()
+        public Point ToPoint()
         {
-            return new Vector(X, Y, Z);
+            return new Point(X, Y, Z);
         }
 
         public bool Equals(Vector other)
