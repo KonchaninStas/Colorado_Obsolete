@@ -61,7 +61,7 @@ namespace Colorado.OpenGLWinForm
 
             FpsCalculator = new FpsCalculator(this);
             BackgroundColor = new RGB(0.8, 0.8, 0.8);
-            gridPlane = new GridPlane(5, 100);
+            UpdateRenderingControlSettings();
         }
 
         #endregion Constructor
@@ -98,10 +98,11 @@ namespace Colorado.OpenGLWinForm
 
         private void UpdateRenderingControlSettings()
         {
-            var x = documentsManager.TotalBoundingBox * 5;
-            viewCamera.SetObjectRange(x);
             gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-                : new GridPlane(5, x.Diagonal / 5);
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5);
+
+            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(gridPlane.BoundingBox));
+
             Refresh();
         }
 
@@ -170,6 +171,8 @@ namespace Colorado.OpenGLWinForm
 
             OpenGLMatrixOperationWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.AngleInRadians),
                 viewCamera.CameraRotation.Axis);
+
+            OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(viewCamera.Scale);
             OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.Origin.Inverse);
         }
 

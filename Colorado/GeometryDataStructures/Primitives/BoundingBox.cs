@@ -35,13 +35,13 @@ namespace Colorado.GeometryDataStructures.Primitives
                 GetPointWithMinValues(new[] { MinPoint, boundingBox.MinPoint }));
         }
 
-        internal static Point GetPointWithMinValues(IEnumerable<Point> points)
+        public static Point GetPointWithMinValues(IEnumerable<Point> points)
         {
             return new Point(GetValuesFromPoints(points, p => p.X).Min(), GetValuesFromPoints(points, p => p.Y).Min(),
                GetValuesFromPoints(points, p => p.Z).Min());
         }
 
-        internal static Point GetPointWithMaxValues(IEnumerable<Point> points)
+        public static Point GetPointWithMaxValues(IEnumerable<Point> points)
         {
             return new Point(GetValuesFromPoints(points, p => p.X).Max(), GetValuesFromPoints(points, p => p.Y).Max(),
                GetValuesFromPoints(points, p => p.Z).Max());

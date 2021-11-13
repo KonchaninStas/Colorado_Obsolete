@@ -11,9 +11,6 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
     {
         #region Private fields
 
-        private double width;
-        private double height;
-        private double scale;
         private double _FocalLength;                // distance from origin to target
         private double _VerticalFieldOfViewInDegrees;                // vertical field of view angle, in degrees
         private bool _HasNearClip;
@@ -36,7 +33,6 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
             CameraType = CameraType.Orthographic;
             CameraRotation = Quaternion.Identity;
             Origin = Point.ZeroPoint;
-            TranslateOrigin(new Vector(0, 0, 10));
             Scale = 1;
             FocalLength = 1;
             VerticalFieldOfViewInDegrees = 45.0;
@@ -59,17 +55,7 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
         /// <value>The origin.</value>
         public Point Origin { get; set; }
 
-        public double Scale
-        {
-            get
-            {
-                return scale;
-            }
-            set
-            {
-                scale = value;
-            }
-        }
+        public double Scale { get; set; }
 
         /// <summary>
         /// Gets the camera target (focus point)
@@ -278,7 +264,7 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
                 OpenGLViewportWrapper.SetOrthographicViewSettings(
-                    xmin * Scale, xmax * Scale, ymin * Scale, ymax * Scale, NearClip, FarClip);
+                    xmin, xmax, ymin, ymax, NearClip, FarClip);
             }
             else
             {
@@ -303,13 +289,13 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         public void ScaleIn()
         {
-            ScaleAtTarget(0.5);
+            ScaleAtTarget(1.5);
 
         }
 
         public void ScaleOut()
         {
-            ScaleAtTarget(1.5);
+            ScaleAtTarget(0.5);
         }
 
         /// <summary>
@@ -318,12 +304,7 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
         /// <param name="scale">The scale.</param>
         public void ScaleAtTarget(double scale)
         {
-
             Scale *= scale;
-            //double focal = FocalLength;
-            //double dz = -(focal - focal / scale);
-            //Vector offset = CameraRotation * new Vector(0.0, 0.0, dz);
-            //Translate(offset, focal / scale);
         }
 
         public void TranslateOrigin(Vector translationVector)

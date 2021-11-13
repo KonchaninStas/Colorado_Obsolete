@@ -36,9 +36,13 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
             linesList.Add(new Line(new Point(numberOfLines * -space, -size, 0), new Point(numberOfLines * -space, size, 0)));
 
             lines = linesList.ToArray();
+            IEnumerable<Point> points = lines.Skip(numberOfLines * 4).Select(l => new Point[] { l.StartPoint, l.EndPoint }).SelectMany(l => l);
+            BoundingBox = new BoundingBox(BoundingBox.GetPointWithMaxValues(points), BoundingBox.GetPointWithMinValues(points));
         }
 
         public bool Visible { get; set; }
+
+        public BoundingBox BoundingBox { get; }
 
         public void Draw()
         {
