@@ -12,14 +12,17 @@ namespace Colorado.OpenGL.Structures
     public class Light
     {
         public Light(LightType lightType, RGB ambient, RGB diffuse,
-            RGB specular, Vector direction)
+            RGB specular, double azimuthAngleInDegrees, double altitudeAngleInDegrees)
         {
             IsEnabled = true;
             LightType = lightType;
             Ambient = ambient;
             Diffuse = diffuse;
             Specular = specular;
-            Direction = direction;
+            AzimuthAngleInDegrees = azimuthAngleInDegrees;
+            AltitudeAngleInDegrees = altitudeAngleInDegrees;
+
+            Direction = new Vector(0, 0, 1);
         }
 
         public bool IsEnabled { get; set; }
@@ -32,14 +35,19 @@ namespace Colorado.OpenGL.Structures
 
         public RGB Specular { get; }
 
-        public Vector Direction { get; set; }
+        public Vector Direction { get; }
+
+        public double AzimuthAngleInDegrees { get; }
+
+        public double AltitudeAngleInDegrees { get; }
+
 
         public static Light GetDefault(LightType lightType)
         {
             return new Light(lightType, new RGB(0f, 0f, 0f),
                 lightType == LightType.Light0 ? new RGB(1f, 1f, 1f) : new RGB(0f, 0f, 0f),
                 lightType == LightType.Light0 ? new RGB(1f, 1f, 1f) : new RGB(0f, 0f, 0f),
-                new Vector(0, 0, 1));
+                90, 0);
         }
     }
 }

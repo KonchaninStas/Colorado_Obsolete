@@ -24,5 +24,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI
 
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glFlush")]
         public static extern void Flush();
+
+        [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glDepthFunc")]
+        public static extern void DepthFunc(int func);
     }
 }

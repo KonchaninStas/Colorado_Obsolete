@@ -102,7 +102,7 @@ namespace Colorado.OpenGLWinForm
         private void UpdateRenderingControlSettings()
         {
             gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5);
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5, documentsManager.TotalBoundingBox.MinPoint.Z);
 
             viewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(gridPlane.BoundingBox));
 

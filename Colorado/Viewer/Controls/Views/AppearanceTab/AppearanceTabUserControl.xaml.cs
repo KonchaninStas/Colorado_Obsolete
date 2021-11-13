@@ -1,9 +1,8 @@
-﻿using Colorado.OpenGL.Managers;
-using Colorado.OpenGLWinForm;
-using Colorado.Viewer.Controls.ViewModels.Tabs;
+﻿using Colorado.OpenGLWinForm;
+using Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab;
 using System.Windows.Controls;
 
-namespace Colorado.Viewer.Controls.Views
+namespace Colorado.Viewer.Controls.Views.AppearanceTab
 {
     /// <summary>
     /// Interaction logic for AppearanceTabUserControl.xaml

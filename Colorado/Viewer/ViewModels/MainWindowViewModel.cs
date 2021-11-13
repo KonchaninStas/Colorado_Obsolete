@@ -4,6 +4,7 @@ using Colorado.Common.UI.ViewModels.Controls;
 using Colorado.Documents.STL;
 using Colorado.OpenGL.Managers;
 using Colorado.Viewer.Controls.Views;
+using Colorado.Viewer.Controls.Views.AppearanceTab;
 using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;

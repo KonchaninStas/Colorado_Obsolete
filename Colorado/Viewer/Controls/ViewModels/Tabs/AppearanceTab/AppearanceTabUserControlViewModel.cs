@@ -1,17 +1,7 @@
 ﻿using Colorado.Common.UI.ViewModels.Base;
-using Colorado.Common.UI.ViewModels.Controls;
-using Colorado.Framework;
-using Colorado.OpenGL.Managers;
 using Colorado.OpenGLWinForm;
-using Colorado.Viewer.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
-namespace Colorado.Viewer.Controls.ViewModels.Tabs
+namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
 {
     public class AppearanceTabUserControlViewModel : ViewModelBase
     {
