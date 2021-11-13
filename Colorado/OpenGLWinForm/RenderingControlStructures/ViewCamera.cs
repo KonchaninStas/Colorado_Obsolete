@@ -13,12 +13,6 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         private double _FocalLength;                // distance from origin to target
         private double _VerticalFieldOfViewInDegrees;                // vertical field of view angle, in degrees
-        private bool _HasNearClip;
-        private bool _HasFarClip;
-        private double _NearClip;                   // distance of near clipping plane from origin
-        private double _FarClip;                    // distance of far clipping plane from origin
-        private bool _NearClipAssigned;
-        private bool _FarClipAssigned;
 
         // no accessible property, set through SetObjectRange() as reference of depth range
         private Point _ObjectCenter;              // this helps ortho projection
@@ -30,40 +24,27 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         public ViewCamera()
         {
+            ViewCameraTransform = new ViewCameraTransform();
             CameraType = CameraType.Orthographic;
-            CameraRotation = Quaternion.Identity;
-            Origin = Point.ZeroPoint;
-            Scale = 1;
             FocalLength = 1;
             VerticalFieldOfViewInDegrees = 45.0;
-            _NearClip = 0.0;
-            _FarClip = 0.0;
-            _NearClipAssigned = _FarClipAssigned = false;
             _ObjectCenter = Point.ZeroPoint;
-            ResetToDefault();
         }
 
         #endregion Constructor
 
         #region Properties
 
+        public ViewCameraTransform ViewCameraTransform { get; }
+
         #region Only getter
 
-        /// <summary>
-        /// Gets or sets the camera origin.
-        /// </summary>
-        /// <value>The origin.</value>
-        public Point Origin { get; set; }
-
-        public double Scale { get; set; }
-
-        /// <summary>
-        /// Gets the camera target (focus point)
-        /// </summary>
-        /// <value>The target.</value>
-        public Point Target
+        public Point TargetPoint
         {
-            get { return Origin + ViewDirection * FocalLength; }
+            get
+            {
+                return Point.ZeroPoint + ViewCameraTransform.Translation;
+            }
         }
 
         public Vector2D ImageSize
@@ -92,19 +73,9 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
         {
             get
             {
-                if (_HasFarClip)
-                {
-                    return _FarClip;
-                }
-
-                if (_FarClipAssigned)
-                {
-                    return _FarClip;
-                }
-
                 if (_ObjectRadius > 0.0)
                 {
-                    double farClip = (_ObjectCenter - Origin).DotProduct(ViewDirection) + _ObjectRadius;
+                    double farClip = (_ObjectCenter - ViewCameraTransform.Translation.ToPoint()).DotProduct(ViewDirection) + _ObjectRadius;
                     if (CameraType == CameraType.Orthographic)
                     {
                         return (farClip > 0.0) ? farClip * 1.001 : farClip * 0.999;
@@ -125,18 +96,6 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
             }
         }
 
-        internal void ResetToDefault()
-        {
-            FocalLength = 0;
-            CameraRotation = Quaternion.Identity;
-            Origin = Point.ZeroPoint;
-
-            RotateAroundTarget(Vector.XAxis, 65);
-            RotateAroundTarget(Vector.ZAxis, 45);
-        }
-
-
-
         /// <summary>
         /// Gets or sets the near clipping distance.
         /// </summary>
@@ -145,18 +104,9 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
         {
             get
             {
-                if (_HasFarClip)
-                {
-                    return _FarClip;
-                }
-                if (_FarClipAssigned)
-                {
-                    return _FarClip;
-                }
-
                 if (_ObjectRadius > 0.0)
                 {
-                    double nearClip = (_ObjectCenter - Origin).DotProduct(ViewDirection) - _ObjectRadius;
+                    double nearClip = (_ObjectCenter - ViewCameraTransform.Translation.ToPoint()).DotProduct(ViewDirection) - _ObjectRadius;
                     if (CameraType == CameraType.Orthographic)
                     {
                         return (nearClip > 0.0) ? nearClip * 0.999 : nearClip * 1.001;
@@ -180,39 +130,25 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         #region Axis
 
-        /// <summary>
-        /// Gets the view direction.
-        /// </summary>
-        /// <value>The view direction.</value>
         public Vector ViewDirection
         {
-            get { return CameraRotation * Vector.ZAxis.Inverse; }
+            get { return ViewCameraTransform.CameraRotation * Vector.ZAxis.Inverse; }
         }
 
-        /// <summary>
-        /// Gets the camera UP vector.
-        /// </summary>
-        /// <value>The camera UP vector.</value>
         public Vector UpVector
         {
-            get { return CameraRotation * Vector.YAxis; }
+            get { return ViewCameraTransform.CameraRotation * Vector.YAxis; }
         }
 
-        /// <summary>
-        /// Gets the reference X direction.
-        /// </summary>
-        /// <value>The X direction.</value>
         public Vector RightVector
         {
             get
             {
-                return CameraRotation * Vector.XAxis;
+                return ViewCameraTransform.CameraRotation * Vector.XAxis;
             }
         }
 
         #endregion Axis
-
-        public Quaternion CameraRotation { get; private set; }
 
         public CameraType CameraType { get; set; }
 
@@ -254,6 +190,11 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         #region Public fields
 
+        public void ResetToDefault()
+        {
+            ViewCameraTransform.ResetToDefault();
+        }
+
         public void ApplySettings()
         {
             if (CameraType == CameraType.Orthographic)
@@ -289,46 +230,16 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         public void ScaleIn()
         {
-            ScaleAtTarget(1.5);
+            ViewCameraTransform.ScaleAtTarget(1.5);
 
         }
 
         public void ScaleOut()
         {
-            ScaleAtTarget(0.5);
+            ViewCameraTransform.ScaleAtTarget(0.5);
         }
 
-        /// <summary>
-        /// Zoom in and out at the center of the view by moving eye closer to or away from target
-        /// </summary>
-        /// <param name="scale">The scale.</param>
-        public void ScaleAtTarget(double scale)
-        {
-            Scale *= scale;
-        }
 
-        public void TranslateOrigin(Vector translationVector)
-        {
-            Origin = Origin + translationVector;
-        }
-
-        internal void RotateAroundTarget(Vector direction, double angleInDegrees)
-        {
-            RotateAroundTarget(Quaternion.Create(direction, angleInDegrees));
-        }
-
-        internal void RotateAroundTarget(Quaternion quaternion)
-        {
-            Quaternion curRotation = CameraRotation;
-            Point target = Target;
-            CameraRotation = quaternion * curRotation;
-            Origin = target - FocalLength * ViewDirection;
-
-            if (target.Equals(Target))
-            {
-
-            }
-        }
 
         #endregion Public fields
 

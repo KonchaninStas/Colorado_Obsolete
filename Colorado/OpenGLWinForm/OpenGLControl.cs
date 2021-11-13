@@ -1,9 +1,12 @@
 ﻿using Colorado.Common.Utilities;
 using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
+using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.OpenGLWrappers;
+using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm.Rendering;
@@ -169,11 +172,12 @@ namespace Colorado.OpenGLWinForm
             OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.ModelView);
             OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
 
-            OpenGLMatrixOperationWrapper.RotateCurrentMatrix(-MathUtilities.ConvertRadiansToDegrees(viewCamera.CameraRotation.AngleInRadians),
-                viewCamera.CameraRotation.Axis);
+            OpenGLMatrixOperationWrapper.RotateCurrentMatrix(
+                -MathUtilities.ConvertRadiansToDegrees(viewCamera.ViewCameraTransform.CameraRotation.AngleInRadians),
+                viewCamera.ViewCameraTransform.CameraRotation.Axis);
 
-            OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(viewCamera.Scale);
-            OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.Origin.Inverse);
+            OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(viewCamera.ViewCameraTransform.Scale);
+            OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.ViewCameraTransform.Translation.Inverse);
         }
 
         private void DrawEntities()
@@ -181,6 +185,7 @@ namespace Colorado.OpenGLWinForm
             lightsManager.DisableLighting();
             gridPlane?.Draw();
             geometryRenderer.DrawGeometryPrimitives();
+
             lightsManager.ConfigureEnabledLights();
             geometryRenderer.DrawSceneGeometry();
         }

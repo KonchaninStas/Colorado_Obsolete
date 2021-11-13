@@ -45,18 +45,18 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         private Quaternion(Vector axis, double w) : this(axis.X, axis.Y, axis.Z, w) { }
 
-        public static Quaternion Create(Vector axis, double rotationAngleInDegrees)
+        public static Quaternion Create(Vector rotationAxis, double rotationAngleInDegrees)
         {
-            if (axis.IsZero)
+            if (rotationAxis.IsZero)
             {
                 return Identity;
             }
             double rotationAngleInRadians = MathUtilities.ConvertDegreesToRadians(rotationAngleInDegrees);
             rotationAngleInRadians *= 0.5;
-            axis = axis.UnitVector();
-            axis = axis * Math.Sin(rotationAngleInRadians);
+            rotationAxis = rotationAxis.UnitVector();
+            rotationAxis = rotationAxis * Math.Sin(rotationAngleInRadians);
 
-            return new Quaternion(axis.X, axis.Y, axis.Z, Math.Cos(rotationAngleInRadians)).GetNormalized();
+            return new Quaternion(rotationAxis.X, rotationAxis.Y, rotationAxis.Z, Math.Cos(rotationAngleInRadians)).GetNormalized();
         }
 
         public static Quaternion LookRotation(Vector forward, Vector up)
@@ -109,6 +109,7 @@ namespace Colorado.GeometryDataStructures.Primitives
                w * rhs.z + z * rhs.w + x * rhs.y - y * rhs.x,
                w * rhs.w - x * rhs.x - y * rhs.y - z * rhs.z);
         }
+
         public static Quaternion operator *(Quaternion lhs, Quaternion rhs)
         {
             return lhs.Multiply(rhs);
@@ -176,7 +177,5 @@ namespace Colorado.GeometryDataStructures.Primitives
         {
             get { return x.IsZero() && y.IsZero() && z.IsZero() && w.EqualsWithTolerance(1); }
         }
-
-
     }
 }

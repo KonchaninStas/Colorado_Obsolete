@@ -136,19 +136,19 @@ namespace Colorado.OpenGLWinForm.Tools
 
         private void ScaleAtTarget(double scale)
         {
-            viewCamera.ScaleAtTarget(scale);
+            viewCamera.ViewCameraTransform.ScaleAtTarget(scale);
             openGLControl.Refresh();
         }
 
         private void MoveOrigin(Vector direction)
         {
-            viewCamera.TranslateOrigin(direction * 0.5);
+            viewCamera.ViewCameraTransform.TranslateOrigin(direction * 0.5);
             openGLControl.Refresh();
         }
 
-        private void RotateAroundTarget(Vector direction, double angleInDegrees)
+        private void RotateAroundTarget(Vector rotationAxis, double angleInDegrees)
         {
-            viewCamera.RotateAroundTarget(direction, angleInDegrees);
+            viewCamera.ViewCameraTransform.RotateAroundTarget(rotationAxis, angleInDegrees);
             openGLControl.Refresh();
         }
     }
