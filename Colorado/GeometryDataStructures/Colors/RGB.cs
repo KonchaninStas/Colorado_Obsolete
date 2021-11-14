@@ -28,6 +28,8 @@ namespace Colorado.GeometryDataStructures.Colors
 
         public static RGB BlackColor => new RGB(0, 0, 0);
 
+        public static RGB WhiteColor => new RGB(1, 1, 1);
+
         public static RGB RedColor => new RGB(1, 0, 0);
 
         public static RGB GreenColor => new RGB(0, 1, 0);

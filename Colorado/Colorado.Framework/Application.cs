@@ -1,4 +1,5 @@
 ﻿using Colorado.Documents;
+using Colorado.Documents.STL;
 using Colorado.OpenGLWinForm;
 
 namespace Colorado.Framework
@@ -12,6 +13,8 @@ namespace Colorado.Framework
             documentsManager = new DocumentsManager();
             OpenGLControl = new OpenGLControl(documentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
             RenderingControl = OpenGLControl;
+
+            documentsManager.AddDocument(new STLDocument(@"C:\Users\skonchanin\Downloads\Rhino.stl"));
         }
 
         public OpenGLControl OpenGLControl { get; }

@@ -24,8 +24,9 @@
     <Style
         x:Key="CheckBoxStyle"
         TargetType="{x:Type CheckBox}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Noto Sans" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

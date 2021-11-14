@@ -45,8 +45,6 @@ namespace Colorado.OpenGLWinForm.Rendering
             OpenGLGeometryWrapper.DrawLine(
                 new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 5);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 5);
-            OpenGLGeometryWrapper.DrawLine(
                 new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor, 5);
             OpenGLGeometryWrapper.DrawLine(
                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor, 5);

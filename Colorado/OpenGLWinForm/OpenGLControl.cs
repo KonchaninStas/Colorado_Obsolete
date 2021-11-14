@@ -53,7 +53,6 @@ namespace Colorado.OpenGLWinForm
             this.documentsManager = documentsManager;
             viewCamera = new ViewCamera();
             lightsManager = new LightsManager();
-            lightsManager[LightType.Light0] = Light.GetDefault(LightType.Light0);
 
             geometryRenderer = new GeometryRenderer(documentsManager);
 
@@ -185,7 +184,7 @@ namespace Colorado.OpenGLWinForm
             lightsManager.DisableLighting();
             gridPlane?.Draw();
             geometryRenderer.DrawGeometryPrimitives();
-
+            lightsManager.DrawLightsSources();
             lightsManager.ConfigureEnabledLights();
             geometryRenderer.DrawSceneGeometry();
         }

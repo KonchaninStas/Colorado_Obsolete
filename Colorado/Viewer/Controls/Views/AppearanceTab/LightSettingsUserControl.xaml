@@ -2,11 +2,38 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views.AppearanceTab"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:properties="clr-namespace:Colorado.Viewer.Properties"
+             xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views.AppearanceTab" xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI"
+             HorizontalAlignment="Stretch"
+             Margin="0,20,0,0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/SliderStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-            
+        <Expander Style="{StaticResource LightSettingsExpanderStyle}" >
+            <Grid HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock 
+                        Style="{StaticResource GenericTextBlock}" 
+                               Text="{x:Static properties:Resources.AzimuthAngleText}"/>
+                    <controls:SliderWithNumberBox 
+                        Maximum="360" Minimum="0"
+                        Value="{Binding AzimuthInDegrees, Mode=TwoWay}" DataContext="{Binding .}"/>
+
+                    <TextBlock 
+                        Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.AltitudeAngleText}"/>
+                    <controls:SliderWithNumberBox 
+                        Maximum="90" Minimum="0" 
+                        Value="{Binding AltitudeInDegrees, Mode=TwoWay}" DataContext="{Binding .}"/>
+                </StackPanel>
+            </Grid>
+        </Expander>
     </Grid>
 </UserControl>

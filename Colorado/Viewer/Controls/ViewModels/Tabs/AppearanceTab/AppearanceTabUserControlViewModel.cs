@@ -1,5 +1,9 @@
 ﻿using Colorado.Common.UI.ViewModels.Base;
 using Colorado.OpenGLWinForm;
+using Colorado.Viewer.Controls.Views.AppearanceTab;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
 {
@@ -10,6 +14,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         public AppearanceTabUserControlViewModel(IRenderingControl renderingControl)
         {
             this.renderingControl = renderingControl;
+            Lights = renderingControl.LightsManager.Lights.Select(l => new LightSettingsUserControl(l));
         }
 
         public bool IsLightingEnabled
@@ -25,5 +30,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
                 OnPropertyChanged(nameof(IsLightingEnabled));
             }
         }
+
+        public IEnumerable<LightSettingsUserControl> Lights { get; }
     }
 }

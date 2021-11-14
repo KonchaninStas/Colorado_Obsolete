@@ -1,4 +1,7 @@
-﻿using Colorado.OpenGL.Enumerations;
+﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.Primitives;
+using Colorado.OpenGL.Enumerations;
+using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using Colorado.OpenGL.OpenGLWrappers.Light;
 using Colorado.OpenGL.Structures;
 using System.Collections.Generic;
@@ -18,7 +21,18 @@ namespace Colorado.OpenGL.Managers
 
         public LightsManager()
         {
-            lightTypeToLightMap = new Dictionary<LightType, Light>();
+            lightTypeToLightMap = new Dictionary<LightType, Light>()
+            {
+                { LightType.Light0, Light.GetDefault(LightType.Light0) },
+                { LightType.Light1, Light.GetDefault(LightType.Light1) },
+                { LightType.Light2, Light.GetDefault(LightType.Light2) },
+                { LightType.Light3, Light.GetDefault(LightType.Light3) },
+                { LightType.Light4, Light.GetDefault(LightType.Light4) },
+                { LightType.Light5, Light.GetDefault(LightType.Light5) },
+                { LightType.Light6, Light.GetDefault(LightType.Light6) },
+                { LightType.Light7, Light.GetDefault(LightType.Light7) },
+            };
+            EnableLight(LightType.Light0);
             IsLightingEnabled = true;
         }
 
@@ -32,11 +46,9 @@ namespace Colorado.OpenGL.Managers
             {
                 return lightTypeToLightMap.TryGetValue(lightType, out Light light) ? light : null;
             }
-            set
-            {
-                lightTypeToLightMap[lightType] = value;
-            }
         }
+
+        public IEnumerable<Light> Lights => lightTypeToLightMap.Values;
 
         public bool IsLightingEnabled { get; set; }
 
@@ -75,6 +87,17 @@ namespace Colorado.OpenGL.Managers
             else
             {
                 DisableLighting();
+            }
+        }
+
+        public void DrawLightsSources()
+        {
+            if (IsLightingEnabled)
+            {
+                foreach (Light light in lightTypeToLightMap.Values.Where(l => l.IsDrawn))
+                {
+                    OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint + light.Direction * 10, RGB.WhiteColor, 20);
+                }
             }
         }
 

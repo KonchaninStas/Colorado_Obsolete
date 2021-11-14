@@ -1,20 +1,19 @@
 ﻿using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.OpenGL.Structures
 {
     public class Light
     {
+        private double azimuthAngleInDegrees;
+        private double altitudeAngleInDegrees;
+
         public Light(LightType lightType, RGB ambient, RGB diffuse,
             RGB specular, double azimuthAngleInDegrees, double altitudeAngleInDegrees)
         {
-            IsEnabled = true;
+            IsEnabled = false;
+            IsDrawn = lightType == LightType.Light0;
             LightType = lightType;
             Ambient = ambient;
             Diffuse = diffuse;
@@ -22,24 +21,48 @@ namespace Colorado.OpenGL.Structures
             AzimuthAngleInDegrees = azimuthAngleInDegrees;
             AltitudeAngleInDegrees = altitudeAngleInDegrees;
 
-            Direction = new Vector(0, 0, 1);
+            CalculateDirection();
         }
 
         public bool IsEnabled { get; set; }
 
+        public bool IsDrawn { get; set; }
+
         public LightType LightType { get; }
 
-        public RGB Ambient { get; }
+        public RGB Ambient { get; set; }
 
-        public RGB Diffuse { get; }
+        public RGB Diffuse { get; set; }
 
-        public RGB Specular { get; }
+        public RGB Specular { get; set; }
 
-        public Vector Direction { get; }
+        public Vector Direction { get; private set; }
 
-        public double AzimuthAngleInDegrees { get; }
+        public double AzimuthAngleInDegrees
+        {
+            get
+            {
+                return azimuthAngleInDegrees;
+            }
+            set
+            {
+                azimuthAngleInDegrees = value;
+                CalculateDirection();
+            }
+        }
 
-        public double AltitudeAngleInDegrees { get; }
+        public double AltitudeAngleInDegrees
+        {
+            get
+            {
+                return altitudeAngleInDegrees;
+            }
+            set
+            {
+                altitudeAngleInDegrees = value;
+                CalculateDirection();
+            }
+        }
 
 
         public static Light GetDefault(LightType lightType)
@@ -47,7 +70,19 @@ namespace Colorado.OpenGL.Structures
             return new Light(lightType, new RGB(0f, 0f, 0f),
                 lightType == LightType.Light0 ? new RGB(1f, 1f, 1f) : new RGB(0f, 0f, 0f),
                 lightType == LightType.Light0 ? new RGB(1f, 1f, 1f) : new RGB(0f, 0f, 0f),
-                90, 0);
+                0, 90);
+        }
+
+        public override string ToString()
+        {
+            return LightType.ToString();
+        }
+
+        private void CalculateDirection()
+        {
+            Direction = Quaternion.Create(Vector.ZAxis, AzimuthAngleInDegrees).ApplyToVector(Vector.YAxis);
+            Direction = Quaternion.Create(Direction.CrossProduct(Vector.ZAxis), AltitudeAngleInDegrees).ApplyToVector(Direction);
+
         }
     }
 }

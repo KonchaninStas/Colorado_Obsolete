@@ -14,8 +14,14 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <CheckBox Style="{StaticResource CheckBoxStyle}" 
-                  Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"
-                  IsChecked="{Binding IsLightingEnabled}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <CheckBox 
+            Style="{StaticResource CheckBoxStyle}" 
+            Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"
+            IsChecked="{Binding IsLightingEnabled}"/>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Lights}" Margin="0,20,0,0"/>
     </Grid>
 </UserControl>

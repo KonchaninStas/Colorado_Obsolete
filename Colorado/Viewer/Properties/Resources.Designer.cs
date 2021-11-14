@@ -61,11 +61,29 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Altitude angle.
+        /// </summary>
+        public static string AltitudeAngleText {
+            get {
+                return ResourceManager.GetString("AltitudeAngleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appearance.
         /// </summary>
         public static string AppearanceTabHeader {
             get {
                 return ResourceManager.GetString("AppearanceTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Azimuth angle.
+        /// </summary>
+        public static string AzimuthAngleText {
+            get {
+                return ResourceManager.GetString("AzimuthAngleText", resourceCulture);
             }
         }
         
