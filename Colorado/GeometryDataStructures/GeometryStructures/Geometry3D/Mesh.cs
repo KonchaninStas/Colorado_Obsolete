@@ -23,7 +23,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         private readonly DynamicArray<double> verticesValuesArray;
         private readonly DynamicArray<double> normalsValuesArray;
-        private readonly DynamicArray<float> verticesColorsValuesArray;
+        private readonly DynamicArray<byte> verticesColorsValuesArray;
 
         private readonly DynamicArray<Vector> verticesNormals;
         private readonly DynamicArray<Vertex> vertices;
@@ -40,7 +40,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
             verticesValuesArray = new DynamicArray<double>(triangles.Count * 9);
             normalsValuesArray = new DynamicArray<double>(triangles.Count * 9);
-            verticesColorsValuesArray = new DynamicArray<float>(triangles.Count * 9);
+            verticesColorsValuesArray = new DynamicArray<byte>(triangles.Count * 9);
             verticesNormals = new DynamicArray<Vector>(VerticesCount);
             vertices = new DynamicArray<Vertex>(VerticesCount);
 
@@ -57,7 +57,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         public double[] NormalsValuesArray => normalsValuesArray.Array;
 
-        public float[] VerticesColorsValuesArray => verticesColorsValuesArray.Array;
+        public byte[] VerticesColorsValuesArray => verticesColorsValuesArray.Array;
 
         public IEnumerable<Triangle> Triangles { get; }
 

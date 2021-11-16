@@ -1,77 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace Colorado.GeometryDataStructures.Colors
 {
     public class RGB
     {
         public RGB(Color color) :
-            this(color.R / (float)byte.MaxValue, color.G / (float)byte.MaxValue, color.B / (float)byte.MaxValue)
+            this(color.R, color.G, color.B)
         {
         }
 
-        public RGB(float red, float green, float blue)
+        public RGB(float red, float green, float blue) :
+            this((byte)(red * byte.MaxValue), (byte)(green * byte.MaxValue), (byte)(blue * byte.MaxValue))
+        { }
+
+        public RGB(byte red, byte green, byte blue)
         {
             Red = red;
             Green = green;
             Blue = blue;
-
+            Intensity = 100;
         }
 
-        public RGB(double red, double green, double blue) : this((float)red, (float)green, (float)blue)
-        {
-        }
+        public byte Red { get; set; }
 
-        public float Red { get; }
+        public byte Green { get; set; }
 
-        public float Green { get; }
+        public byte Blue { get; set; }
 
-        public float Blue { get; }
+        public int Intensity { get; set; }
 
         public static RGB BlackColor => new RGB(0, 0, 0);
 
-        public static RGB WhiteColor => new RGB(1, 1, 1);
+        public static RGB WhiteColor => new RGB(255, 255, 255);
 
-        public static RGB RedColor => new RGB(1, 0, 0);
+        public static RGB RedColor => new RGB(255, 0, 0);
 
-        public static RGB GreenColor => new RGB(0, 1, 0);
+        public static RGB GreenColor => new RGB(0, 255, 0);
 
-        public static RGB BlueColor => new RGB(0, 0, 1);
+        public static RGB BlueColor => new RGB(0, 0, 255);
 
         public Color ToColor()
         {
-            return Color.FromRgb((byte)(Red * byte.MaxValue), (byte)(Green * byte.MaxValue), (byte)(Blue * byte.MaxValue));
+            return Color.FromRgb(Red, Green, Blue);
         }
 
         public float[] ToFloat3Array()
         {
-            return new[] { Red, Green, Blue };
+            return new[] { Red / (float)byte.MaxValue, Green / (float)byte.MaxValue, Blue / (float)byte.MaxValue };
         }
 
         public float[] ToFloat4Array()
         {
-            return new[] { Red, Green, Blue, 1 };
-        }
-
-        public static RGB operator *(RGB color, double scaleFactor)
-        {
-            return new RGB(color.Red * scaleFactor, color.Green * scaleFactor,
-                color.Blue * scaleFactor);
-        }
-
-        public static RGB operator +(RGB color, RGB anotherColor)
-        {
-            return new RGB(color.Red + anotherColor.Red, color.Green + anotherColor.Green,
-                color.Blue + anotherColor.Blue);
-        }
-
-        public static RGB operator *(RGB color, RGB anotherColor)
-        {
-            return new RGB(color.Red * anotherColor.Red, color.Green * anotherColor.Green, color.Blue * anotherColor.Blue);
+            return new[] { Red / (float)byte.MaxValue, Green / (float)byte.MaxValue, Blue / (float)byte.MaxValue, 1 };
         }
     }
 }

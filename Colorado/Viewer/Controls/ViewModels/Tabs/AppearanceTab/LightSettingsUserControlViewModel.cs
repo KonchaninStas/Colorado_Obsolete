@@ -2,6 +2,8 @@
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm;
+using Colorado.Viewer.Controls.Views.Common;
+using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,14 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         {
             this.renderingControl = renderingControl;
             this.light = light;
+            AmbientColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightAmbientColor, light.Ambient);
+            AmbientColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
+
+            DiffuseColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightDiffuseColor, light.Diffuse);
+            DiffuseColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
+
+            SpecularColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightSpecularColor, light.Specular);
+            SpecularColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
         }
 
         public bool IsLightEnabled
@@ -73,46 +83,10 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             }
         }
 
-        public Color AmbientColor
-        {
-            get
-            {
-                return light.Ambient.ToColor();
-            }
-            set
-            {
-                light.Ambient = new RGB(value.R, value.G, value.B);
-                OnPropertyChanged(nameof(AmbientColor));
-                renderingControl.RefreshView();
-            }
-        }
+        public RGBColorPickerUserControlViewModel AmbientColorViewModel { get; }
 
-        public Color DiffuseColor
-        {
-            get
-            {
-                return light.Diffuse.ToColor();
-            }
-            set
-            {
-                light.Diffuse = new RGB(value.R, value.G, value.B);
-                OnPropertyChanged(nameof(DiffuseColor));
-                renderingControl.RefreshView();
-            }
-        }
+        public RGBColorPickerUserControlViewModel DiffuseColorViewModel { get; }
 
-        public Color SpecularColor
-        {
-            get
-            {
-                return light.Specular.ToColor();
-            }
-            set
-            {
-                light.Specular = new RGB(value.R, value.G, value.B);
-                OnPropertyChanged(nameof(SpecularColor));
-                renderingControl.RefreshView();
-            }
-        }
+        public RGBColorPickerUserControlViewModel SpecularColorViewModel { get; }
     }
 }

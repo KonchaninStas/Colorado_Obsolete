@@ -62,7 +62,7 @@ namespace Colorado.OpenGLWinForm
             SubscribeToEvents();
 
             FpsCalculator = new FpsCalculator(this);
-            BackgroundColor = new RGB(0.8, 0.8, 0.8);
+            BackgroundColor = new RGB(204, 204, 204);
             UpdateRenderingControlSettings();
         }
 

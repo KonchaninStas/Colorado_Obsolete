@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Colorado.Common.UI.Controls
 {
@@ -19,6 +20,16 @@ namespace Colorado.Common.UI.Controls
         }
 
         #region Dependency properties
+
+        public Brush SliderBackgroundColor
+        {
+            get { return (Brush)GetValue(SliderBackgroundColorProperty); }
+            set { SetValue(SliderBackgroundColorProperty, value); }
+        }
+
+        public static readonly DependencyProperty SliderBackgroundColorProperty =
+            DependencyProperty.Register(nameof(SliderBackgroundColorProperty), typeof(Brush),
+              typeof(SliderWithNumberBox), new PropertyMetadata(default(Brush)));
 
         public int Maximum
         {
@@ -111,6 +122,10 @@ namespace Colorado.Common.UI.Controls
             {
                 Slider.Value = Value;
                 NumberBox.Text = Value.ToString();
+            }
+            else if (e.Property == SliderBackgroundColorProperty)
+            {
+                Slider.Background = SliderBackgroundColor;
             }
         }
 

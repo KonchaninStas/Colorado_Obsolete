@@ -123,6 +123,9 @@
   <data name="GreenColorTitle" xml:space="preserve">
     <value>Green</value>
   </data>
+  <data name="IntensityTitle" xml:space="preserve">
+    <value>Intensity</value>
+  </data>
   <data name="RedColorTitle" xml:space="preserve">
     <value>Red</value>
   </data>

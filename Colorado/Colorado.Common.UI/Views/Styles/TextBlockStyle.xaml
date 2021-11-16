@@ -40,4 +40,18 @@
         <Setter Property="Foreground" Value="{StaticResource BlackColor}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
+
+    <Style
+        x:Key="SmallTextBlock"
+        TargetType="{x:Type TextBlock}"
+        BasedOn="{StaticResource GenericTextBlock}">
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style
+        x:Key="TitleTextBlock"
+        TargetType="{x:Type TextBlock}"
+        BasedOn="{StaticResource GenericTextBlock}">
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
 </ResourceDictionary>

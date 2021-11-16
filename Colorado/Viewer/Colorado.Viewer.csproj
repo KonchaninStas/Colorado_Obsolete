@@ -65,6 +65,7 @@
     <Compile Include="Controls\Views\AppearanceTab\LightSettingsUserControl.xaml.cs">
       <DependentUpon>LightSettingsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Views\Common\RGBColorPickerUserControlViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Controls\Views\AppearanceTab\AppearanceTabUserControl.xaml">
       <SubType>Designer</SubType>
@@ -133,6 +134,9 @@
       <Project>{C8E9CE02-6D44-40F2-A0ED-87B8CC0D4C14}</Project>
       <Name>Colorado.OpenGL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\ViewModels\Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

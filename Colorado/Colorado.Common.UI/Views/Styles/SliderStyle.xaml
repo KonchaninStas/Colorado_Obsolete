@@ -11,7 +11,6 @@
         x:Key="SliderWithNumberbox"
         TargetType="{x:Type Slider}">
         <Setter Property="Minimum" Value="0" />
-        <Setter Property="Foreground" Value="{StaticResource BlueColor}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
@@ -125,59 +124,5 @@
     <Style x:Key="rdgColorSliderStyle" TargetType="{x:Type controls:SliderWithNumberBox}">
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="255"/>
-    </Style>
-
-    <Style x:Key="redColorSliderStyle" TargetType="{x:Type controls:SliderWithNumberBox}" 
-           BasedOn="{StaticResource rdgColorSliderStyle}">
-        <Style.Resources>
-            <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource rdgColorSliderStyle}">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStop Color="Black" Offset="0" />
-                                <GradientStop Color="Red" Offset="1" />
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Style.Resources>
-    </Style>
-
-    <Style x:Key="greenColorSliderStyle" TargetType="{x:Type controls:SliderWithNumberBox}" 
-           BasedOn="{StaticResource rdgColorSliderStyle}">
-        <Style.Resources>
-            <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource rdgColorSliderStyle}">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStop Color="Black" Offset="0" />
-                                <GradientStop Color="Green" Offset="1" />
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Style.Resources>
-    </Style>
-
-    <Style x:Key="blueColorSliderStyle" TargetType="{x:Type controls:SliderWithNumberBox}" 
-           BasedOn="{StaticResource rdgColorSliderStyle}">
-        <Style.Resources>
-            <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource rdgColorSliderStyle}">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStop Color="Black" Offset="0" />
-                                <GradientStop Color="Blue" Offset="1" />
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Style.Resources>
     </Style>
 </ResourceDictionary>

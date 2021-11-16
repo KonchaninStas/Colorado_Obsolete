@@ -15,4 +15,22 @@
     <SolidColorBrush x:Key="BorderBrushGrayColor" Color="#CCCCCC"/>
     <SolidColorBrush x:Key="BorderBrushBlueColor" Color="#4D9DE3"/>
 
+    <LinearGradientBrush x:Key="RedColorPickerBrush" StartPoint="0,0" EndPoint="1,0">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0" />
+            <GradientStop Color="Red" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="GreenColorPickerBrush" StartPoint="0,0" EndPoint="1,0">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0" />
+            <GradientStop Color="Green" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="BlueColorPickerBrush" StartPoint="0,0" EndPoint="1,0">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0" />
+            <GradientStop Color="Blue" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
 </ResourceDictionary>

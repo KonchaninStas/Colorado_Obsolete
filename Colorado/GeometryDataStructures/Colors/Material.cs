@@ -15,7 +15,7 @@ namespace Colorado.GeometryDataStructures.Colors
             {
                 throw new Exception();
             }
-            ShininessRadius = shininess;
+            ShininessRadius = 20;
             Emission = emission;
         }
 
@@ -36,7 +36,7 @@ namespace Colorado.GeometryDataStructures.Colors
             get
             {
                 return new Material(new RGB(0.2f, 0.2f, 0.2f), new RGB(0.8f, 0.8f, 0.8f),
-                   new RGB(0f, 0f, 0f), 0, new RGB(0.0, 0.0, 0.0));
+                   new RGB(0f, 0f, 0f), 0, new RGB(0.0f, 0.0f, 0.0f));
             }
         }
     }
