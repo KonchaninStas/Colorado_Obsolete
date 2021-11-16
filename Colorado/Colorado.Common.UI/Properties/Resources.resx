@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AltitudeAngleText" xml:space="preserve">
-    <value>Altitude angle</value>
+  <data name="BlueColorTitle" xml:space="preserve">
+    <value>Blue</value>
   </data>
-  <data name="AppearanceTabHeader" xml:space="preserve">
-    <value>Appearance</value>
+  <data name="GreenColorTitle" xml:space="preserve">
+    <value>Green</value>
   </data>
-  <data name="AzimuthAngleText" xml:space="preserve">
-    <value>Azimuth angle</value>
-  </data>
-  <data name="EnableLightingCheckBoxText" xml:space="preserve">
-    <value>Enable lighting</value>
-  </data>
-  <data name="LightAmbientColor" xml:space="preserve">
-    <value>Ambient:</value>
-  </data>
-  <data name="LightColorSettings" xml:space="preserve">
-    <value>Color settings:</value>
-  </data>
-  <data name="LightDiffuseColor" xml:space="preserve">
-    <value>Diffuse:</value>
-  </data>
-  <data name="LightPositionSettings" xml:space="preserve">
-    <value>Position settings:</value>
-  </data>
-  <data name="LightSpecularColor" xml:space="preserve">
-    <value>Specular:</value>
+  <data name="RedColorTitle" xml:space="preserve">
+    <value>Red</value>
   </data>
 </root>

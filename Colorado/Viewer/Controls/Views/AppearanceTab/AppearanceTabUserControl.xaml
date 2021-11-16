@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views"
              xmlns:properties="clr-namespace:Colorado.Viewer.Properties"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -19,9 +18,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <CheckBox 
+            Margin="0,10,0,0"
             Style="{StaticResource CheckBoxStyle}" 
             Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"
             IsChecked="{Binding IsLightingEnabled}"/>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding LightSettingsUserControls}" Margin="0,20,0,0"/>
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl  ItemsSource="{Binding LightSettingsUserControls}" Margin="0,20,0,0"/>
+        </ScrollViewer>
+       
     </Grid>
 </UserControl>

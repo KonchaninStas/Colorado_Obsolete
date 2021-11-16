@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Colorado.Viewer"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         xmlns:openGLWpf ="clr-namespace:Colorado.OpenGLWPF;assembly=Colorado"
         mc:Ignorable="d"
         FontSize="14"

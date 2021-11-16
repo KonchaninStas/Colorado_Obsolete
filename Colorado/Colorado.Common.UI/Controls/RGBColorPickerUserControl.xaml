@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Colorado.Common.UI.Controls.RGBColorPickerUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:Colorado.Common.UI.Properties"
+             xmlns:controls="clr-namespace:Colorado.Common.UI.Controls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/SliderStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
+        <TextBlock Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.RedColorTitle}"/>
+        <controls:SliderWithNumberBox Style="{StaticResource redColorSliderStyle}"/>
+        <TextBlock Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.GreenColorTitle}"/>
+        <controls:SliderWithNumberBox Style="{StaticResource redColorSliderStyle}"/>
+        <TextBlock Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.BlueColorTitle}"/>
+        <controls:SliderWithNumberBox Style="{StaticResource redColorSliderStyle}"/>
+    </StackPanel>
+</UserControl>

@@ -12,7 +12,7 @@ namespace Colorado.Common.UI.Controls
         private BitmapSource colourGradient;
         private object updateLock = new object();
         private bool isValueUpdating = false;
-        private bool isFirstTime = true;
+        private bool mustBeReCreated = true;
 
         static ColourSlider()
         {
@@ -59,13 +59,23 @@ namespace Colorado.Common.UI.Controls
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-
-            if (this.isFirstTime)
+            if (this.mustBeReCreated)
             {
-                this.CacheBitmap();
-                this.SetColour(this.SelectedColour);
-                this.isFirstTime = false;
+                Redraw();
+                this.mustBeReCreated = false;
             }
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            Redraw();
+        }
+
+        private void Redraw()
+        {
+            this.CacheBitmap();
+            this.SetColour(this.SelectedColour);
         }
 
         protected override void OnValueChanged(double oldValue, double newValue)

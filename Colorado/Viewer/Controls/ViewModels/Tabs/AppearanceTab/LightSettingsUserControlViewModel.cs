@@ -30,7 +30,14 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             }
             set
             {
-                light.IsEnabled = value;
+                if (value)
+                {
+                    renderingControl.LightsManager.EnableLight(light.LightType);
+                }
+                else
+                {
+                    renderingControl.LightsManager.DisableLight(light.LightType);
+                }
                 OnPropertyChanged(nameof(IsLightEnabled));
                 renderingControl.RefreshView();
             }

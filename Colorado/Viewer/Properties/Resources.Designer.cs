@@ -95,5 +95,50 @@ namespace Colorado.Viewer.Properties {
                 return ResourceManager.GetString("EnableLightingCheckBoxText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ambient:.
+        /// </summary>
+        public static string LightAmbientColor {
+            get {
+                return ResourceManager.GetString("LightAmbientColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color settings:.
+        /// </summary>
+        public static string LightColorSettings {
+            get {
+                return ResourceManager.GetString("LightColorSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diffuse:.
+        /// </summary>
+        public static string LightDiffuseColor {
+            get {
+                return ResourceManager.GetString("LightDiffuseColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position settings:.
+        /// </summary>
+        public static string LightPositionSettings {
+            get {
+                return ResourceManager.GetString("LightPositionSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specular:.
+        /// </summary>
+        public static string LightSpecularColor {
+            get {
+                return ResourceManager.GetString("LightSpecularColor", resourceCulture);
+            }
+        }
     }
 }

@@ -14,7 +14,8 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         public AppearanceTabUserControlViewModel(IRenderingControl renderingControl)
         {
             this.renderingControl = renderingControl;
-            LightSettingsUserControls = renderingControl.LightsManager.Lights.Select(l => new LightSettingsUserControl(l));
+            LightSettingsUserControls = renderingControl.LightsManager.Lights.Select(
+                l => new LightSettingsUserControl(renderingControl, l));
         }
 
         public bool IsLightingEnabled
@@ -32,7 +33,5 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         }
 
         public IEnumerable<LightSettingsUserControl> LightSettingsUserControls { get; }
-
-        public IEnumerable<ColorSettingsUserControl> ColorSettingsUserControls { get; }
     }
 }

@@ -9,8 +9,8 @@ namespace Colorado.GeometryDataStructures.Colors
 {
     public class RGB
     {
-        public RGB(byte red, byte green, byte blue) :
-            this(red / (float)byte.MaxValue, green / (float)byte.MaxValue, blue / (float)byte.MaxValue)
+        public RGB(Color color) :
+            this(color.R / (float)byte.MaxValue, color.G / (float)byte.MaxValue, color.B / (float)byte.MaxValue)
         {
         }
 
