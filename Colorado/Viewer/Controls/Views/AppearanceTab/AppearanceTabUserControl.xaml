@@ -22,6 +22,6 @@
             Style="{StaticResource CheckBoxStyle}" 
             Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"
             IsChecked="{Binding IsLightingEnabled}"/>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Lights}" Margin="0,20,0,0"/>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding LightSettingsUserControls}" Margin="0,20,0,0"/>
     </Grid>
 </UserControl>

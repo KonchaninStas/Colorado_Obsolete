@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\EventToCommand.cs" />
+    <Compile Include="Controls\ColorSlider.cs" />
     <Compile Include="Controls\SliderWithNumberBox.xaml.cs">
       <DependentUpon>SliderWithNumberBox.xaml</DependentUpon>
     </Compile>
@@ -62,7 +63,16 @@
       <DependentUpon>ProgressWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
+      <Project>{862d34d5-3582-4683-8ead-de07cc583952}</Project>
+      <Name>Colorado.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
+      <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
+      <Name>Colorado.GeometryDataStructures</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SliderWithNumberBox.xaml">
       <SubType>Designer</SubType>
@@ -104,6 +114,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

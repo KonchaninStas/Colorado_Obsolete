@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
 {
@@ -15,7 +16,9 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         public LightSettingsUserControlViewModel(Light light)
         {
             this.light = light;
-
+            AmbientColorSettingsViewModel = new ColorSettingsUserControlViewModel(light.Ambient);
+            DiffuseColorSettingsViewModel = new ColorSettingsUserControlViewModel(light.Diffuse);
+            SpecularColorSettingsViewModel = new ColorSettingsUserControlViewModel(light.Specular);
         }
 
         public bool IsLightEnabled
@@ -56,6 +59,25 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             {
                 light.AltitudeAngleInDegrees = value;
                 OnPropertyChanged(nameof(AltitudeInDegrees));
+            }
+        }
+
+        public ColorSettingsUserControlViewModel AmbientColorSettingsViewModel { get; }
+
+        public ColorSettingsUserControlViewModel DiffuseColorSettingsViewModel { get; }
+
+        public ColorSettingsUserControlViewModel SpecularColorSettingsViewModel { get; }
+
+        public Color SelectedColor
+        {
+            get
+            {
+                return Color.FromRgb(0,255,0);
+            }
+            set
+            {
+                
+                OnPropertyChanged(nameof(SelectedColor));
             }
         }
     }

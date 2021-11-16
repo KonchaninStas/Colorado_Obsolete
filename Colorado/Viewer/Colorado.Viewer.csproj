@@ -58,15 +58,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\AppearanceTabUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\ColorSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\LightSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\Views\AppearanceTab\AppearanceTabUserControl.xaml.cs">
       <DependentUpon>AppearanceTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\AppearanceTab\ColorSettingsUserControl.xaml.cs">
+      <DependentUpon>ColorSettingsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Views\AppearanceTab\LightSettingsUserControl.xaml.cs">
       <DependentUpon>LightSettingsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Controls\Views\AppearanceTab\AppearanceTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\AppearanceTab\ColorSettingsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,6 +124,10 @@
     <ProjectReference Include="..\Colorado.Framework\Colorado.Framework.csproj">
       <Project>{1c086597-835e-4d76-91df-b6e520b4c3ad}</Project>
       <Name>Colorado.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
+      <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
+      <Name>Colorado.GeometryDataStructures</Name>
     </ProjectReference>
     <ProjectReference Include="..\OpenGLWinForm\Colorado.OpenGLWinForm.csproj">
       <Project>{9340EBA1-3CB7-46DC-88B9-369763F5496D}</Project>

@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Colorado.GeometryDataStructures.Colors
 {
     public class RGB
     {
+        public RGB(byte red, byte green, byte blue) :
+            this(red / (float)byte.MaxValue, green / (float)byte.MaxValue, blue / (float)byte.MaxValue)
+        {
+        }
+
         public RGB(float red, float green, float blue)
         {
             Red = red;
@@ -35,6 +41,11 @@ namespace Colorado.GeometryDataStructures.Colors
         public static RGB GreenColor => new RGB(0, 1, 0);
 
         public static RGB BlueColor => new RGB(0, 0, 1);
+
+        public Color ToColor()
+        {
+            return Color.FromRgb((byte)(Red * byte.MaxValue), (byte)(Green * byte.MaxValue), (byte)(Blue * byte.MaxValue));
+        }
 
         public float[] ToFloat3Array()
         {
