@@ -1,5 +1,7 @@
 ﻿using Colorado.Common.UI.ViewModels.Base;
+using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Structures;
+using Colorado.OpenGLWinForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +13,13 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
 {
     public class LightSettingsUserControlViewModel : ViewModelBase
     {
+        private readonly IRenderingControl renderingControl;
         private readonly Light light;
 
-        public LightSettingsUserControlViewModel(Light light)
+        public LightSettingsUserControlViewModel(IRenderingControl renderingControl, Light light)
         {
+            this.renderingControl = renderingControl;
             this.light = light;
-            AmbientColorSettingsViewModel = new ColorSettingsUserControlViewModel(light.Ambient);
-            DiffuseColorSettingsViewModel = new ColorSettingsUserControlViewModel(light.Diffuse);
-            SpecularColorSettingsViewModel = new ColorSettingsUserControlViewModel(light.Specular);
         }
 
         public bool IsLightEnabled
@@ -31,6 +32,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             {
                 light.IsEnabled = value;
                 OnPropertyChanged(nameof(IsLightEnabled));
+                renderingControl.RefreshView();
             }
         }
 
@@ -46,6 +48,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             {
                 light.AzimuthAngleInDegrees = value;
                 OnPropertyChanged(nameof(AzimuthInDegrees));
+                renderingControl.RefreshView();
             }
         }
 
@@ -59,25 +62,49 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             {
                 light.AltitudeAngleInDegrees = value;
                 OnPropertyChanged(nameof(AltitudeInDegrees));
+                renderingControl.RefreshView();
             }
         }
 
-        public ColorSettingsUserControlViewModel AmbientColorSettingsViewModel { get; }
-
-        public ColorSettingsUserControlViewModel DiffuseColorSettingsViewModel { get; }
-
-        public ColorSettingsUserControlViewModel SpecularColorSettingsViewModel { get; }
-
-        public Color SelectedColor
+        public Color AmbientColor
         {
             get
             {
-                return Color.FromRgb(0,255,0);
+                return light.Ambient.ToColor();
             }
             set
             {
-                
-                OnPropertyChanged(nameof(SelectedColor));
+                light.Ambient = new RGB(value.R, value.G, value.B);
+                OnPropertyChanged(nameof(AmbientColor));
+                renderingControl.RefreshView();
+            }
+        }
+
+        public Color DiffuseColor
+        {
+            get
+            {
+                return light.Diffuse.ToColor();
+            }
+            set
+            {
+                light.Diffuse = new RGB(value.R, value.G, value.B);
+                OnPropertyChanged(nameof(DiffuseColor));
+                renderingControl.RefreshView();
+            }
+        }
+
+        public Color SpecularColor
+        {
+            get
+            {
+                return light.Specular.ToColor();
+            }
+            set
+            {
+                light.Specular = new RGB(value.R, value.G, value.B);
+                OnPropertyChanged(nameof(SpecularColor));
+                renderingControl.RefreshView();
             }
         }
     }

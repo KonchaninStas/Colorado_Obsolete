@@ -19,8 +19,8 @@ namespace Colorado.Common.UI.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColourSlider), new FrameworkPropertyMetadata(typeof(ColourSlider)));
         }
 
-        public static readonly DependencyProperty SelectedColoursProperty =
-            DependencyProperty.Register("SelectedColour", typeof(Color), typeof(ColourSlider),
+        public static readonly DependencyProperty SelectedColourProperty =
+            DependencyProperty.Register(nameof(SelectedColour), typeof(Color), typeof(ColourSlider),
             new UIPropertyMetadata(Colors.LightBlue, new PropertyChangedCallback(SelectedColourChangedCallBack)));
 
         public ColourSlider()
@@ -46,8 +46,14 @@ namespace Colorado.Common.UI.Controls
 
         public Color SelectedColour
         {
-            get { return (Color)this.GetValue(SelectedColoursProperty); }
-            set { this.SetValue(SelectedColoursProperty, value); }
+            get
+            {
+                return (Color)this.GetValue(SelectedColourProperty);
+            }
+            set
+            {
+                this.SetValue(SelectedColourProperty, value);
+            }
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -146,9 +152,7 @@ namespace Colorado.Common.UI.Controls
             byte[] tricolour = new byte[4];
 
             cb.CopyPixels(tricolour, 4, 0);
-            Color c = Color.FromRgb(tricolour[2], tricolour[1], tricolour[0]);
-
-            return c;
+            return Color.FromRgb(tricolour[2], tricolour[1], tricolour[0]);
         }
 
         private void CacheBitmap()

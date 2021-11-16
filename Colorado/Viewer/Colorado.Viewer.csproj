@@ -58,23 +58,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\AppearanceTabUserControlViewModel.cs" />
-    <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\ColorSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\LightSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\Views\AppearanceTab\AppearanceTabUserControl.xaml.cs">
       <DependentUpon>AppearanceTabUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Views\AppearanceTab\ColorSettingsUserControl.xaml.cs">
-      <DependentUpon>ColorSettingsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Views\AppearanceTab\LightSettingsUserControl.xaml.cs">
       <DependentUpon>LightSettingsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Controls\Views\AppearanceTab\AppearanceTabUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Views\AppearanceTab\ColorSettingsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

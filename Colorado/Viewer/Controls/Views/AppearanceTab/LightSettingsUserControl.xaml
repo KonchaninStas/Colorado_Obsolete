@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:properties="clr-namespace:Colorado.Viewer.Properties"
-             xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views.AppearanceTab" xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI"
+             xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views.AppearanceTab" 
+             xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI"
              HorizontalAlignment="Stretch"
              Margin="0,20,0,0">
     <UserControl.Resources>
@@ -18,27 +19,31 @@
     </UserControl.Resources>
     <Grid>
         <Expander Style="{StaticResource LightSettingsExpanderStyle}" >
-            <StackPanel Orientation="Vertical">
-                <Grid HorizontalAlignment="Stretch" Margin="0,10,0,0">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock 
+            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                <TextBlock Text="{x:Static properties:Resources.LightPositionSettings}" />
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                    <TextBlock 
                         Style="{StaticResource GenericTextBlock}" 
                                Text="{x:Static properties:Resources.AzimuthAngleText}"/>
-                        <controls:SliderWithNumberBox 
+                    <controls:SliderWithNumberBox 
                         Maximum="360" Minimum="0"
                         Value="{Binding AzimuthInDegrees, Mode=TwoWay}" DataContext="{Binding .}"/>
 
-                        <TextBlock 
+                    <TextBlock 
                         Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.AltitudeAngleText}"/>
-                        <controls:SliderWithNumberBox 
+                    <controls:SliderWithNumberBox 
                         Maximum="90" Minimum="0" 
                         Value="{Binding AltitudeInDegrees, Mode=TwoWay}" DataContext="{Binding .}"/>
-                    </StackPanel>
-                </Grid>
-                <StackPanel Orientation="Vertical">
-                    <local:ColorSettingsUserControl DataContext="{Binding AmbientColorSettingsViewModel}" />
-                    <local:ColorSettingsUserControl DataContext="{Binding DiffuseColorSettingsViewModel}" />
-                    <local:ColorSettingsUserControl DataContext="{Binding SpecularColorSettingsViewModel}" />
+                </StackPanel>
+
+                <TextBlock Text="{x:Static properties:Resources.LightColorSettings}"/>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                    <TextBlock Text="{x:Static properties:Resources.LightAmbientColor}"/>
+                    <controls:ColourSlider SelectedColour="{Binding AmbientColor, Mode=TwoWay}"/>
+                    <TextBlock Text="{x:Static properties:Resources.LightDiffuseColor}"/>
+                    <controls:ColourSlider SelectedColour="{Binding DiffuseColor, Mode=TwoWay}"/>
+                    <TextBlock Text="{x:Static properties:Resources.LightSpecularColor}"/>
+                    <controls:ColourSlider SelectedColour="{Binding SpecularColor, Mode=TwoWay}"/>
                 </StackPanel>
             </StackPanel>
         </Expander>
