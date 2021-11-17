@@ -176,7 +176,7 @@ namespace Colorado.OpenGLWinForm
                 viewCamera.ViewCameraTransform.CameraRotation.Axis);
             OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.ViewCameraTransform.Translation.Inverse);
 
-            OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(viewCamera.ViewCameraTransform.Scale);
+            
         }
 
         private void DrawEntities()

@@ -205,7 +205,8 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
                 OpenGLViewportWrapper.SetOrthographicViewSettings(
-                    xmin, xmax, ymin, ymax, NearClip, FarClip);
+                     xmin * ViewCameraTransform.Scale, xmax * ViewCameraTransform.Scale, ymin * ViewCameraTransform.Scale, 
+                     ymax * ViewCameraTransform.Scale, NearClip, FarClip);
             }
             else
             {
