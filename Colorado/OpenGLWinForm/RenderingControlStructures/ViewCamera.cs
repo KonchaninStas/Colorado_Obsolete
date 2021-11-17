@@ -231,13 +231,13 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         public void ScaleIn()
         {
-            ViewCameraTransform.ScaleAtTarget(1.5);
+            ViewCameraTransform.ScaleAtTarget(0.5);
 
         }
 
         public void ScaleOut()
         {
-            ViewCameraTransform.ScaleAtTarget(0.5);
+            ViewCameraTransform.ScaleAtTarget(1.5);
         }
 
 
