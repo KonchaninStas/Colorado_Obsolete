@@ -11,7 +11,7 @@ namespace Colorado.Documents.STL
     {
         public STLDocument(string pathToStlFile)
         {
-            AddGeometryObject(GetMeshFromStlDocument(pathToStlFile).GetTransformed(Transform.CreateScale(10,10,10)));
+            AddGeometryObject(GetMeshFromStlDocument(pathToStlFile));
 
           
         }
