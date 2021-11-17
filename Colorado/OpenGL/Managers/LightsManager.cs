@@ -118,6 +118,10 @@ namespace Colorado.OpenGL.Managers
         private void ConfigurateLight(Light light)
         {
             OpenGLLightWrapper.EnableLight(light.LightType);
+            OpenGLLightWrapper.SetLigthParameter(light.LightType, LightParameter.ConstantAttenuation, 1);
+            OpenGLLightWrapper.SetLigthParameter(light.LightType, LightParameter.LinearAttenuation, 0);
+            OpenGLLightWrapper.SetLigthParameter(light.LightType, LightParameter.QuadraticAttenuation, 0);
+
             OpenGLLightWrapper.SetAmbientColor(light.LightType, light.Ambient);
             OpenGLLightWrapper.SetDiffuseColor(light.LightType, light.Diffuse);
             OpenGLLightWrapper.SetSpecularColor(light.LightType, light.Specular);

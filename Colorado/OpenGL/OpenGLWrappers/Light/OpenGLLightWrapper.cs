@@ -67,6 +67,11 @@ namespace Colorado.OpenGL.OpenGLWrappers.Light
                 lightDirection.FloatArray);
         }
 
+        public static void SetLigthParameter(LightType lightType, LightParameter lightParameter, double value)
+        {
+            OpenGLLightAPI.Lightf((int)lightType, (int)lightParameter, (float)value);
+        }
+
         #endregion Public logic
 
         #region Private logic

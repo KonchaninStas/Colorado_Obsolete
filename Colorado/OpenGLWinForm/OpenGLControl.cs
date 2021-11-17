@@ -175,7 +175,7 @@ namespace Colorado.OpenGLWinForm
                 -MathUtilities.ConvertRadiansToDegrees(viewCamera.ViewCameraTransform.CameraRotation.AngleInRadians),
                 viewCamera.ViewCameraTransform.CameraRotation.Axis);
 
-            OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(viewCamera.ViewCameraTransform.Scale);
+            //OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(viewCamera.ViewCameraTransform.Scale);
             OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.ViewCameraTransform.Translation.Inverse);
         }
 
