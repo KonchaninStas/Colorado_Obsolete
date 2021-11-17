@@ -14,7 +14,7 @@ namespace Colorado.Framework
             OpenGLControl = new OpenGLControl(documentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
             RenderingControl = OpenGLControl;
 
-            documentsManager.AddDocument(new STLDocument(@"C:\Users\skonchanin\Downloads\Rhino.stl"));
+            documentsManager.AddDocument(new STLDocument(@"C:\Users\skonchanin\Downloads\Cube (2).stl"));
         }
 
         public OpenGLControl OpenGLControl { get; }

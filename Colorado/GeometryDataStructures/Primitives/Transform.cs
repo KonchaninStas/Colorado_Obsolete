@@ -26,6 +26,7 @@ namespace Colorado.GeometryDataStructures.Primitives
         private Transform()
         {
             matrix = new double[matrixSize];
+            MakeIdentity();
         }
 
         public Transform(double[] matrix) : this()
@@ -35,7 +36,6 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public Transform(Vector translation) : this()
         {
-            MakeIdentity();
             Translation = translation;
         }
 
