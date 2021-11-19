@@ -1,5 +1,6 @@
 ﻿using Colorado.Common.Utilities;
 using Colorado.GeometryDataStructures.Primitives;
+using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;
@@ -190,29 +191,47 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         #region Public fields
 
+        public void RotateAroundTarget(Vector2D from, Vector2D to)
+        {
+            Vector v1 = TrackballMapping(from);
+            Vector v2 = TrackballMapping(to);
+            Vector rotAxis = v2.CrossProduct(v1).UnitVector();
+            double rotAngle = v1.AngleToVectorInRadians(v2) * 1000;
+            ViewCameraTransform.RotateAroundTarget(rotAxis, MathUtilities.ConvertDegreesToRadians(rotAngle));
+        }
+
+        public void SetViewportParameters(System.Drawing.Rectangle clientRectangle)
+        {
+            Width = clientRectangle.Width;
+            Height = clientRectangle.Height;
+        }
+
+        public void Apply()
+        {
+            OpenGLViewportWrapper.SetViewport(0, 0, Width, Height);
+
+            // projection scale
+            OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.Projection);
+            OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
+
+            ApplySettings();
+
+            // offset & orientation
+            OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.ModelView);
+            OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
+
+            OpenGLMatrixOperationWrapper.ScaleCurrentMatrix(ViewCameraTransform.Scale);
+            OpenGLMatrixOperationWrapper.RotateCurrentMatrix(
+                -MathUtilities.ConvertRadiansToDegrees(ViewCameraTransform.CameraRotation.AngleInRadians),
+                ViewCameraTransform.CameraRotation.Axis);
+            OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(ViewCameraTransform.Translation.Inverse);
+
+            
+        }
+
         public void ResetToDefault()
         {
             ViewCameraTransform.ResetToDefault();
-        }
-
-        public void ApplySettings()
-        {
-            if (CameraType == CameraType.Orthographic)
-            {
-                Vector2D imageSize = ImageSize;
-                double xmin = -imageSize.X / 2;
-                double xmax = imageSize.X / 2;
-                double ymin = -imageSize.Y / 2;
-                double ymax = imageSize.Y / 2;
-                OpenGLViewportWrapper.SetOrthographicViewSettings(
-                     xmin * ViewCameraTransform.Scale, xmax * ViewCameraTransform.Scale, ymin * ViewCameraTransform.Scale, 
-                     ymax * ViewCameraTransform.Scale, NearClip, FarClip);
-            }
-            else
-            {
-                OpenGLViewportWrapper.SetPerspectiveCameraSettings(
-                    VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
-            }
         }
 
         public void SetObjectRange(BoundingBox boundingBox)
@@ -231,37 +250,38 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         public void ScaleIn()
         {
-            ViewCameraTransform.ScaleAtTarget(0.5);
+            ViewCameraTransform.ScaleAtTarget(1.5);
 
         }
 
         public void ScaleOut()
         {
-            ViewCameraTransform.ScaleAtTarget(1.5);
+            ViewCameraTransform.ScaleAtTarget(0.5);
         }
-
-
 
         #endregion Public fields
 
-        /// <summary>
-        /// Map the view coordinate to unit track ball centered at viewport center.
-        /// </summary>
-        /// <param name="screenPoint">The screen point.</param>
-        /// <returns>Point on unit sphere (unit trackball, centered at target)</returns>
-        private Vector TrackballMapping(Vector2D screenPoint)
-        {
-            double width = Width;
-            double height = Height;
-            Vector result = new Vector((2.0 * screenPoint.X - width) / width, (height - 2.0 * screenPoint.Y) / height, 0);
-            double d = result.Length;
-            d = (d < 1.0f) ? d : 1.0f;
-
-            result = new Vector(result.X, result.Y, Math.Sqrt(1.001 - d * d));
-            return result.UnitVector();
-        }
-
         #region Private fields
+
+        private void ApplySettings()
+        {
+            if (CameraType == CameraType.Orthographic)
+            {
+                Vector2D imageSize = ImageSize;
+                double xmin = -imageSize.X / 2;
+                double xmax = imageSize.X / 2;
+                double ymin = -imageSize.Y / 2;
+                double ymax = imageSize.Y / 2;
+                OpenGLViewportWrapper.SetOrthographicViewSettings(
+                     xmin, xmax , ymin ,
+                     ymax , NearClip, FarClip);
+            }
+            else
+            {
+                OpenGLViewportWrapper.SetPerspectiveCameraSettings(
+                    VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
+            }
+        }
 
         /// <summary>
         /// Map the view coordinate to unified values in the range of (-1, 1).
@@ -271,6 +291,16 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
         private Vector UnifiedMapping(Vector2D screenPoint)
         {
             return new Vector((2.0 * screenPoint.X - Width) / Width, (Height - 2.0 * screenPoint.Y) / Height, 0);
+        }
+
+        private Vector TrackballMapping(Vector2D screenPoint)
+        {
+            double width = Width ;
+            double height = Height ;
+            Vector result = new Vector((2.0 * screenPoint.X - width) / width, (height - 2.0 * screenPoint.Y) / height, 0);
+            double d = result.Length;
+            d = (d < 1.0f) ? d : 1.0f;
+            return new Vector(result.X, result.Y, Math.Sqrt(1.001 - d * d)).UnitVector();
         }
 
         #endregion Private fields

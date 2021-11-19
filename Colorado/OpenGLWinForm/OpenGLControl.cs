@@ -95,7 +95,7 @@ namespace Colorado.OpenGLWinForm
             documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
             Load += (s, e) => InitializeGraphics();
             Paint += (s, e) => DrawScene();
-            SizeChanged += (s, e) => SetViewportParameters();
+            SizeChanged += (s, e) => viewCamera.SetViewportParameters(ClientRectangle);
         }
 
         private void UpdateRenderingControlSettings()
@@ -106,12 +106,6 @@ namespace Colorado.OpenGLWinForm
             viewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(gridPlane.BoundingBox));
 
             Refresh();
-        }
-
-        private void SetViewportParameters()
-        {
-            viewCamera.Width = ClientRectangle.Width;
-            viewCamera.Height = ClientRectangle.Height;
         }
 
         private bool InitializeGraphics()
@@ -151,38 +145,19 @@ namespace Colorado.OpenGLWinForm
         {
             renderingContext.MakeCurrent();
             OpenGLWrapper.EnableCapability(OpenGLCapability.DepthTest);
+            OpenGLWrapper.EnableCapability(OpenGLCapability.NormalizeNormals);
             OpenGLViewportWrapper.ClearColor(BackgroundColor);
             OpenGLWrapper.ClearDepthBufferValue();
             OpenGLWrapper.ClearBuffers(OpenGLBufferType.Color, OpenGLBufferType.Depth);
-            OpenGLViewportWrapper.SetViewport(0, 0, viewCamera.Width, viewCamera.Height);
-            ApplyCamera();
-
-        }
-
-        private void ApplyCamera()
-        {
-            // projection scale
-            OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.Projection);
-            OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
-
-            viewCamera.ApplySettings();
-
-            // offset & orientation
-            OpenGLMatrixOperationWrapper.SetActiveMatrixType(MatrixType.ModelView);
-            OpenGLMatrixOperationWrapper.MakeActiveMatrixIdentity();
-
-            OpenGLMatrixOperationWrapper.RotateCurrentMatrix(
-                -MathUtilities.ConvertRadiansToDegrees(viewCamera.ViewCameraTransform.CameraRotation.AngleInRadians),
-                viewCamera.ViewCameraTransform.CameraRotation.Axis);
-            OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(viewCamera.ViewCameraTransform.Translation.Inverse);
-
-            
+            viewCamera.Apply();
         }
 
         private void DrawEntities()
         {
             lightsManager.DisableLighting();
             gridPlane?.Draw();
+            if(mouseTool.PointUnderMouse!=null)
+            OpenGLGeometryWrapper.DrawPoint(mouseTool.PointUnderMouse, RGB.RedColor, 10);
             geometryRenderer.DrawGeometryPrimitives();
             lightsManager.DrawLightsSources();
             lightsManager.ConfigureEnabledLights();

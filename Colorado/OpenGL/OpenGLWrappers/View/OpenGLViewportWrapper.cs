@@ -56,7 +56,7 @@ namespace Colorado.OpenGL.OpenGLWrappers.View
 
         public static Point ScreenToWorld(int x, int y)
         {
-            int realY = OpenGLViewportWrapper.GetViewportHeight() - y - 1;
+            int realY = GetViewportHeight() - y - 1;
             double wX = 0.0;
             double wY = 0.0;
             double wZ = 0.0;

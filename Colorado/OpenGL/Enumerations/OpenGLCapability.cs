@@ -4,6 +4,7 @@
     {
         DepthTest = 0x0B71,
         Viewport = 0x0BA2,
-        Lighting = 0x0B50
+        Lighting = 0x0B50,
+        NormalizeNormals = 0x0BA1,
     }
 }

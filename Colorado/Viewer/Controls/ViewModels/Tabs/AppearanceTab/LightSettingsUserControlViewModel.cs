@@ -1,4 +1,5 @@
-﻿using Colorado.Common.UI.ViewModels.Base;
+﻿using Colorado.Common.UI.Commands;
+using Colorado.Common.UI.ViewModels.Base;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm;
@@ -9,14 +10,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
 {
     public class LightSettingsUserControlViewModel : ViewModelBase
     {
+        #region Private fields
+
         private readonly IRenderingControl renderingControl;
         private readonly Light light;
+
+        #endregion Private fields
+
+        #region Constructor
 
         public LightSettingsUserControlViewModel(IRenderingControl renderingControl, Light light)
         {
@@ -31,6 +39,10 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             SpecularColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightSpecularColor, light.Specular);
             SpecularColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
         }
+
+        #endregion Constructor
+
+        #region Properties
 
         public bool IsLightEnabled
         {
@@ -65,7 +77,6 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             {
                 light.AzimuthAngleInDegrees = value;
                 OnPropertyChanged(nameof(AzimuthInDegrees));
-                renderingControl.RefreshView();
             }
         }
 
@@ -79,7 +90,6 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
             {
                 light.AltitudeAngleInDegrees = value;
                 OnPropertyChanged(nameof(AltitudeInDegrees));
-                renderingControl.RefreshView();
             }
         }
 
@@ -88,5 +98,21 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         public RGBColorPickerUserControlViewModel DiffuseColorViewModel { get; }
 
         public RGBColorPickerUserControlViewModel SpecularColorViewModel { get; }
+
+        #endregion Properties
+
+        #region Commands
+
+        public ICommand RefreshViewCommand
+        {
+            get { return new CommandHandler(() => NewMethod()); }
+        }
+
+        private void NewMethod()
+        {
+            renderingControl.RefreshView();
+        }
+
+        #endregion Commands
     }
 }

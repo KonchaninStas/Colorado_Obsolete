@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:properties="clr-namespace:Colorado.Viewer.Properties"
              xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views.AppearanceTab" 
-             xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI"
+             xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:commands="clr-namespace:Colorado.Common.UI.Commands;assembly=Colorado.Common.UI"
              HorizontalAlignment="Stretch"
              Margin="0,20,0,0">
     <UserControl.Resources>
@@ -27,13 +27,25 @@
                                Text="{x:Static properties:Resources.AzimuthAngleText}"/>
                     <controls:SliderWithNumberBox 
                         Maximum="360" Minimum="0"
-                        Value="{Binding AzimuthInDegrees, Mode=TwoWay}" DataContext="{Binding .}"/>
+                        Value="{Binding AzimuthInDegrees, Mode=TwoWay}" DataContext="{Binding .}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ValueChanged">
+                                <commands:EventToCommand Command="{Binding RefreshViewCommand}" PassEventArgsToCommand="False" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </controls:SliderWithNumberBox>
 
                     <TextBlock 
                         Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.AltitudeAngleText}"/>
                     <controls:SliderWithNumberBox 
                         Maximum="90" Minimum="0" 
-                        Value="{Binding AltitudeInDegrees, Mode=TwoWay}" DataContext="{Binding .}"/>
+                        Value="{Binding AltitudeInDegrees, Mode=TwoWay}" DataContext="{Binding .}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="ValueChanged">
+                                <commands:EventToCommand Command="{Binding RefreshViewCommand}" PassEventArgsToCommand="False" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </controls:SliderWithNumberBox>
                 </StackPanel>
 
                 <TextBlock Text="{x:Static properties:Resources.LightColorSettings}"/>

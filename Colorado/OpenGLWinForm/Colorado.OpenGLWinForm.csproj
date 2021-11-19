@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\CameraType.cs" />
+    <Compile Include="Enumerations\ViewManipulationType.cs" />
     <Compile Include="IRenderingControl.cs" />
     <Compile Include="OpenGLControl.cs">
       <SubType>UserControl</SubType>

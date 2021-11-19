@@ -13,11 +13,30 @@ namespace Colorado.Common.UI.Controls
     /// </summary>
     public partial class SliderWithNumberBox : UserControl
     {
+        #region Fields
+
+        private bool isSliderUpdating;
+        private int lastSavedValue;
+
+        #endregion Fields
+
+        #region Constructor
+
         public SliderWithNumberBox()
         {
             InitializeComponent();
             Value = 0;
+            Slider.PreviewMouseUp += PreviewMouseUpCallback;
+            Slider.PreviewMouseDown += PreviewMouseDownCallback;
         }
+
+        #endregion Constructor
+
+        #region Events
+
+        public event EventHandler ValueChanged;
+
+        #endregion Events
 
         #region Dependency properties
 
@@ -64,27 +83,41 @@ namespace Colorado.Common.UI.Controls
 
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(int),
-              typeof(SliderWithNumberBox), new PropertyMetadata(0, ValueProperty_PropertyChanged));
+              typeof(SliderWithNumberBox), new PropertyMetadata(0));
 
         #endregion Dependency properties
 
-        private static void ValueProperty_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        {
+        #region Event handlers
 
+        private void PreviewMouseDownCallback(object sender, MouseButtonEventArgs e)
+        {
+            lastSavedValue = Value;
+            isSliderUpdating = true;
         }
+
+        private void PreviewMouseUpCallback(object sender, MouseButtonEventArgs e)
+        {
+            isSliderUpdating = false;
+            if (lastSavedValue != Value)
+            {
+                Value = lastSavedValue;
+                ValueChangedEventInvoke();
+            }
+            
+        }
+
+        private void NumberBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = !IsNumberKey(e.Key) && !IsDelOrBackspaceOrTabKey(e.Key);
+        }
+
+        #endregion Event handlers
 
         #region Key logic
 
         private bool IsNumberKey(Key inKey)
         {
-            if (inKey < Key.D0 || inKey > Key.D9)
-            {
-                if (inKey < Key.NumPad0 || inKey > Key.NumPad9)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return inKey >= Key.D0 && inKey <= Key.D9 || inKey >= Key.NumPad0 && inKey <= Key.NumPad9;
         }
 
         private bool IsDelOrBackspaceOrTabKey(Key inKey)
@@ -92,12 +125,12 @@ namespace Colorado.Common.UI.Controls
             return inKey == Key.Delete || inKey == Key.Back || inKey == Key.Tab;
         }
 
-        private string LeaveOnlyNumbers(String inString)
+        private string LeaveOnlyNumbers(string inString)
         {
-            String tmp = inString;
+            string tmp = inString;
             foreach (char c in inString.ToCharArray())
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(c.ToString(), "^[0-9]*$"))
+                if (!Regex.IsMatch(c.ToString(), "^[0-9]*$"))
                 {
                     tmp = tmp.Replace(c.ToString(), "");
                 }
@@ -105,6 +138,8 @@ namespace Colorado.Common.UI.Controls
             return tmp.TrimStart('0');
         }
         #endregion Key logic
+
+        #region Protected logic
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -129,9 +164,14 @@ namespace Colorado.Common.UI.Controls
             }
         }
 
+        #endregion Protected logic
+
+        #region Private logic
+
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Value = (int)e.NewValue;
+            lastSavedValue = (int)e.NewValue;
+            NumberBox.Text = lastSavedValue.ToString();
         }
 
         private void NumberBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -156,17 +196,24 @@ namespace Colorado.Common.UI.Controls
                     {
                         Value = newValue;
                     }
+                    ValueChangedEventInvoke();
                 }
             }
             else
             {
                 Value = 0;
+                ValueChangedEventInvoke();
             }
         }
 
-        private void NumberBox_KeyDown(object sender, KeyEventArgs e)
+        private void ValueChangedEventInvoke()
         {
-            e.Handled = !IsNumberKey(e.Key) && !IsDelOrBackspaceOrTabKey(e.Key);
+            if (!isSliderUpdating)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
+
+        #endregion Private logic
     }
 }
