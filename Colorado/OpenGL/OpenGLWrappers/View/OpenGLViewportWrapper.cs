@@ -33,8 +33,8 @@ namespace Colorado.OpenGL.OpenGLWrappers.View
 
         public static void ClearColor(RGB colorToClear)
         {
-            OpenGLViewportAPI.ClearColor((float)colorToClear.Red, (float)colorToClear.Green,
-               (float)colorToClear.Blue, 1);
+            float[] valuesInFloat = colorToClear.ToFloat4Array();
+            OpenGLViewportAPI.ClearColor(valuesInFloat[0], valuesInFloat[1], valuesInFloat[2], valuesInFloat[3]);
         }
 
         public static int GetViewportWidth()

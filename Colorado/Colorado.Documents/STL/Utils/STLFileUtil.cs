@@ -9,7 +9,7 @@ namespace Colorado.Documents.STL.Utils
 
         internal static bool IsStlFile(string pathToStlFile)
         {
-            return Path.GetExtension(pathToStlFile) == stlFileExtension;
+            return Path.GetExtension(pathToStlFile).ToLower() == stlFileExtension;
         }
 
         internal static STLFileType GetStlFileType(string filePath)

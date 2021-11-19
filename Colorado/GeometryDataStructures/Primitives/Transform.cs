@@ -291,9 +291,9 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public Point ApplyToPoint(Point point)
         {
-            double x = this[0, 0] * point.X + this[0, 1] * point.Y + this[0, 2] * point.Z + this[0, 3];
-            double y = this[1, 0] * point.X + this[1, 1] * point.Y + this[1, 2] * point.Z + this[1, 3];
-            double z = this[2, 0] * point.X + this[2, 1] * point.Y + this[2, 2] * point.Z + this[2, 3];
+            double x = this[0, 0] * point.X + this[0, 1] * point.Y + this[0, 2] * point.Z + this[3, 0];
+            double y = this[1, 0] * point.X + this[1, 1] * point.Y + this[1, 2] * point.Z + this[3, 1];
+            double z = this[2, 0] * point.X + this[2, 1] * point.Y + this[2, 2] * point.Z + this[3, 2];
             return new Point(x, y, z);
         }
 
