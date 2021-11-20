@@ -20,7 +20,7 @@
       <Blue>161</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.6</ShininessRadius>
+    <ShininessRadius>76.8</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -49,7 +49,7 @@
       <Blue>80</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.1</ShininessRadius>
+    <ShininessRadius>12.8</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -78,7 +78,7 @@
       <Blue>88</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.3</ShininessRadius>
+    <ShininessRadius>38.4</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -107,7 +107,7 @@
       <Blue>75</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.088</ShininessRadius>
+    <ShininessRadius>11.264</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -136,7 +136,7 @@
       <Blue>159</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.6</ShininessRadius>
+    <ShininessRadius>76.8</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -165,7 +165,7 @@
       <Blue>78</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.1</ShininessRadius>
+    <ShininessRadius>12.8</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -194,7 +194,7 @@
       <Blue>205</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.21794872</ShininessRadius>
+    <ShininessRadius>27.8974361</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -223,7 +223,7 @@
       <Blue>42</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.2</ShininessRadius>
+    <ShininessRadius>25.6</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -252,7 +252,7 @@
       <Blue>197</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.6</ShininessRadius>
+    <ShininessRadius>76.8</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -281,7 +281,7 @@
       <Blue>21</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.1</ShininessRadius>
+    <ShininessRadius>12.8</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -310,7 +310,7 @@
       <Blue>93</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.4</ShininessRadius>
+    <ShininessRadius>51.2</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -339,7 +339,7 @@
       <Blue>129</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.4</ShininessRadius>
+    <ShininessRadius>51.2</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -368,7 +368,7 @@
       <Blue>127</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.25</ShininessRadius>
+    <ShininessRadius>32</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -397,7 +397,7 @@
       <Blue>127</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.25</ShininessRadius>
+    <ShininessRadius>32</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -426,7 +426,7 @@
       <Blue>114</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.25</ShininessRadius>
+    <ShininessRadius>32</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -455,7 +455,7 @@
       <Blue>153</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.25</ShininessRadius>
+    <ShininessRadius>32</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -484,7 +484,7 @@
       <Blue>178</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.25</ShininessRadius>
+    <ShininessRadius>32</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -513,7 +513,7 @@
       <Blue>127</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.25</ShininessRadius>
+    <ShininessRadius>32</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -542,7 +542,7 @@
       <Blue>102</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.078125</ShininessRadius>
+    <ShininessRadius>10</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -571,7 +571,7 @@
       <Blue>178</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.078125</ShininessRadius>
+    <ShininessRadius>10</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -600,7 +600,7 @@
       <Blue>10</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.078125</ShininessRadius>
+    <ShininessRadius>10</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -629,7 +629,7 @@
       <Blue>10</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.078125</ShininessRadius>
+    <ShininessRadius>10</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -658,7 +658,7 @@
       <Blue>178</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.078125</ShininessRadius>
+    <ShininessRadius>10</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
@@ -687,7 +687,7 @@
       <Blue>10</Blue>
       <Intensity>100</Intensity>
     </Specular>
-    <ShininessRadius>0.078125</ShininessRadius>
+    <ShininessRadius>10</ShininessRadius>
     <Emission>
       <Red>0</Red>
       <Green>0</Green>
