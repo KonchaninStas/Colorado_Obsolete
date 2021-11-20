@@ -63,11 +63,15 @@
     </ApplicationDefinition>
     <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\AppearanceTabUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\LightSettingsUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\AppearanceTab\MaterialSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\Views\AppearanceTab\AppearanceTabUserControl.xaml.cs">
       <DependentUpon>AppearanceTabUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Views\AppearanceTab\LightSettingsUserControl.xaml.cs">
       <DependentUpon>LightSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\AppearanceTab\MaterialSettingsUserControl.xaml.cs">
+      <DependentUpon>MaterialSettingsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Views\Common\RGBColorPickerUserControlViewModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -82,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Views\AppearanceTab\LightSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\AppearanceTab\MaterialSettingsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

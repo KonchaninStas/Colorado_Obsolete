@@ -54,7 +54,7 @@ namespace Colorado.OpenGLWinForm
             viewCamera = new ViewCamera();
             lightsManager = new LightsManager();
 
-            geometryRenderer = new GeometryRenderer(documentsManager);
+            geometryRenderer = new GeometryRenderer(documentsManager, viewCamera);
 
             mouseTool = new MouseTool(this, viewCamera);
             keyboardTool = new KeyboardTool(this, viewCamera);
@@ -145,6 +145,7 @@ namespace Colorado.OpenGLWinForm
         {
             renderingContext.MakeCurrent();
             OpenGLWrapper.EnableCapability(OpenGLCapability.DepthTest);
+            OpenGLWrapper.EnableCapability(OpenGLCapability.PointSmooth);
             OpenGLWrapper.EnableCapability(OpenGLCapability.NormalizeNormals);
             OpenGLViewportWrapper.ClearColor(BackgroundColor);
             OpenGLWrapper.ClearDepthBufferValue();
@@ -156,10 +157,8 @@ namespace Colorado.OpenGLWinForm
         {
             lightsManager.DisableLighting();
             gridPlane?.Draw();
-            if(mouseTool.PointUnderMouse!=null)
-            OpenGLGeometryWrapper.DrawPoint(mouseTool.PointUnderMouse, RGB.RedColor, 10);
             geometryRenderer.DrawGeometryPrimitives();
-            lightsManager.DrawLightsSources();
+            lightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal, viewCamera.ViewCameraTransform.Scale);
             lightsManager.ConfigureEnabledLights();
             geometryRenderer.DrawSceneGeometry();
         }

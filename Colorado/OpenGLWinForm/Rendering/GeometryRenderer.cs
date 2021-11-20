@@ -3,6 +3,7 @@ using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
+using Colorado.OpenGLWinForm.RenderingControlStructures;
 
 namespace Colorado.OpenGLWinForm.Rendering
 {
@@ -11,14 +12,16 @@ namespace Colorado.OpenGLWinForm.Rendering
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
+        private readonly ViewCamera viewCamera;
 
         #endregion Private fields
 
         #region Constructor
 
-        public GeometryRenderer(DocumentsManager documentsManager)
+        public GeometryRenderer(DocumentsManager documentsManager, ViewCamera viewCamera)
         {
             this.documentsManager = documentsManager;
+            this.viewCamera = viewCamera;
         }
 
         #endregion Constructor 
@@ -41,13 +44,13 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawOriginCoordianteSystem()
         {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 5);
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 2000 * (float)viewCamera.ViewCameraTransform.Scale);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 5);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 1000 * (float)viewCamera.ViewCameraTransform.Scale);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor, 5);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor, 1000 * (float)viewCamera.ViewCameraTransform.Scale);
             OpenGLGeometryWrapper.DrawLine(
-               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor, 5);
+               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor, 1000 * (float)viewCamera.ViewCameraTransform.Scale);
         }
 
         private void DrawEntities()

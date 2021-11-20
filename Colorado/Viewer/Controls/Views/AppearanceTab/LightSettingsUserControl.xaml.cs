@@ -12,10 +12,8 @@ namespace Colorado.Viewer.Controls.Views.AppearanceTab
     {
         public LightSettingsUserControl(IRenderingControl renderingControl, Light light)
         {
-            var x =  new LightSettingsUserControlViewModel(renderingControl, light);
-            DataContext = x;
+            DataContext = new LightSettingsUserControlViewModel(renderingControl, light);
             InitializeComponent();
-            ambientColorPicker.DataContext = x.AmbientColorViewModel;
         }
     }
 }

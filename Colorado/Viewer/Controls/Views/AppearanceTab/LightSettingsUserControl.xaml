@@ -50,9 +50,9 @@
 
                 <TextBlock Text="{x:Static properties:Resources.LightColorSettings}"/>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,10,0,0">
-                    <controls:RGBColorPickerUserControl x:Name="ambientColorPicker"/>
+                    <controls:RGBColorPickerUserControl DataContext="{Binding AmbientColorViewModel}"/>
                     <controls:RGBColorPickerUserControl DataContext="{Binding DiffuseColorViewModel}"/>
-                    <controls:RGBColorPickerUserControl DataContext="{Binding SpecularColorViewModel}"/>
+                    <controls:RGBColorPickerUserControl DataContext="{Binding SpecularColorViewModel}" Visibility="Collapsed"/>
                 </StackPanel>
             </StackPanel>
         </Expander>

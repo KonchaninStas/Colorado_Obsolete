@@ -50,6 +50,7 @@
     <Compile Include="GeometryStructures\Geometry2D\Circle.cs" />
     <Compile Include="GeometryStructures\Geometry2D\Line.cs" />
     <Compile Include="GeometryStructures\Geometry3D\Mesh.cs" />
+    <Compile Include="GeometryStructures\Geometry3D\Quadrangle.cs" />
     <Compile Include="GeometryStructures\Geometry3D\Sphere.cs" />
     <Compile Include="Primitives\BoundingBox.cs" />
     <Compile Include="Primitives\Point.cs" />

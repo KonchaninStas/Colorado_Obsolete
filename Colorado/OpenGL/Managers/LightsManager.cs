@@ -90,13 +90,14 @@ namespace Colorado.OpenGL.Managers
             }
         }
 
-        public void DrawLightsSources()
+        public void DrawLightsSources(double radius, double scale)
         {
             if (IsLightingEnabled)
             {
-                foreach (Light light in lightTypeToLightMap.Values.Where(l => l.IsDrawn))
+                foreach (Light light in lightTypeToLightMap.Values.Where(l => l.IsEnabled))
                 {
-                    OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint + light.Direction * 10, RGB.WhiteColor, 20);
+                    OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint + light.Direction * (radius == 0 ? 10 : radius),
+                        light.Diffuse, 2000 * (float)scale);
                 }
             }
         }

@@ -42,12 +42,15 @@
             Style="{StaticResource rdgColorSliderStyle}"
             SliderBackgroundColor="{StaticResource BlueColorPickerBrush}"
             Value="{Binding BlueColorValue, Mode=TwoWay}"/>
-        <TextBlock 
+        <StackPanel Visibility="Collapsed">
+            <TextBlock 
             Style="{StaticResource SmallTextBlock}"
             Text="{x:Static properties:Resources.IntensityTitle}"/>
-        <controls:SliderWithNumberBox 
+            <controls:SliderWithNumberBox 
             DataContext="{Binding .}"
             Maximum="100"
             Value="{Binding IntensityValue, Mode=TwoWay}"/>
+        </StackPanel>
+        
     </StackPanel>
 </UserControl>

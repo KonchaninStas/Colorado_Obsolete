@@ -6,5 +6,6 @@
         Viewport = 0x0BA2,
         Lighting = 0x0B50,
         NormalizeNormals = 0x0BA1,
+        PointSmooth = 0x0B10,
     }
 }

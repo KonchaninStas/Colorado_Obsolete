@@ -1,4 +1,5 @@
 ﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 
@@ -13,7 +14,6 @@ namespace Colorado.OpenGL.Structures
             RGB specular, double azimuthAngleInDegrees, double altitudeAngleInDegrees)
         {
             IsEnabled = false;
-            IsDrawn = lightType == LightType.Light0;
             LightType = lightType;
             Ambient = ambient;
             Diffuse = diffuse;
@@ -25,8 +25,6 @@ namespace Colorado.OpenGL.Structures
         }
 
         public bool IsEnabled { get; set; }
-
-        public bool IsDrawn { get; set; }
 
         public LightType LightType { get; }
 

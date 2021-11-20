@@ -28,6 +28,7 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI.Geometry
         public static extern void DrawArrays(int mode, int first, int count);
 
         #region Fast
+
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glEnableClientState")]
         public static extern void EnableClientState(int array);
 
