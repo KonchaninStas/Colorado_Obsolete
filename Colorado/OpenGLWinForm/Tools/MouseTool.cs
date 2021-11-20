@@ -44,13 +44,8 @@ namespace Colorado.OpenGLWinForm.Tools
 
         private void MouseMoveCallback(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (lastPoint != null)
-            {
-                Console.WriteLine(lastPoint.ToString());
-
-            }
             PointUnderMouse = OpenGLViewportWrapper.ScreenToWorld(e.X, e.Y);
-            Console.WriteLine(PointUnderMouse.ToString());
+
             if (viewManipulationType == ViewManipulationType.Rotation)
             {
                 Vector2D curPoint = new Vector2D(e.X, e.Y);
@@ -88,7 +83,6 @@ namespace Colorado.OpenGLWinForm.Tools
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                Console.WriteLine("MouseDownCallback");
                 viewManipulationType = ViewManipulationType.Rotation;
                 lastPoint = new Vector2D(e.X, e.Y);
             }

@@ -191,13 +191,37 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         #region Public fields
 
-        public void RotateAroundTarget(Vector2D from, Vector2D to)
+        public void RotateAroundTarget(Point from, Point to)
         {
-            Vector v1 = TrackballMapping(from);
-            Vector v2 = TrackballMapping(to);
+
+            Vector v1 = from.ToVector();
+            Vector v2 = to.ToVector();
             Vector rotAxis = v2.CrossProduct(v1).UnitVector();
             double rotAngle = v1.AngleToVectorInRadians(v2) * 1000;
             ViewCameraTransform.RotateAroundTarget(rotAxis, MathUtilities.ConvertDegreesToRadians(rotAngle));
+        }
+
+        public void RotateAroundTarget(Vector2D from, Vector2D to)
+        {
+            double deltaX = to.X - from.X;
+            double deltaY = to.Y - from.Y;
+            var upVector = UpVector;
+            var rightVector = RightVector;
+            if (deltaX != 0)
+            {
+                Console.WriteLine(deltaX);
+                ViewCameraTransform.RotateAroundTarget(Vector.ZAxis, -deltaX/5);
+            }
+            if (deltaY != 0)
+            {
+                Console.WriteLine(deltaX);
+                ViewCameraTransform.RotateAroundTarget(RightVector, -deltaY / 5);
+            }
+            //Vector v1 = TrackballMapping(from);
+            //Vector v2 = TrackballMapping(to);
+            //Vector rotAxis = v2.CrossProduct(v1).UnitVector();
+            //double rotAngle = v1.AngleToVectorInRadians(v2) * 1000;
+            //ViewCameraTransform.RotateAroundTarget(rotAxis, MathUtilities.ConvertDegreesToRadians(rotAngle));
         }
 
         public void SetViewportParameters(System.Drawing.Rectangle clientRectangle)
@@ -226,7 +250,7 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
                 ViewCameraTransform.CameraRotation.Axis);
             OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(ViewCameraTransform.Translation.Inverse);
 
-            
+
         }
 
         public void ResetToDefault()
@@ -273,8 +297,8 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
                 double ymin = -imageSize.Y / 2;
                 double ymax = imageSize.Y / 2;
                 OpenGLViewportWrapper.SetOrthographicViewSettings(
-                     xmin, xmax , ymin ,
-                     ymax , NearClip, FarClip);
+                     xmin, xmax, ymin,
+                     ymax, NearClip, FarClip);
             }
             else
             {
@@ -295,8 +319,8 @@ namespace Colorado.OpenGLWinForm.RenderingControlStructures
 
         private Vector TrackballMapping(Vector2D screenPoint)
         {
-            double width = Width ;
-            double height = Height ;
+            double width = Width;
+            double height = Height;
             Vector result = new Vector((2.0 * screenPoint.X - width) / width, (height - 2.0 * screenPoint.Y) / height, 0);
             double d = result.Length;
             d = (d < 1.0f) ? d : 1.0f;
