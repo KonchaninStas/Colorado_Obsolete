@@ -100,10 +100,8 @@ namespace Colorado.Common.UI.Controls
             isSliderUpdating = false;
             if (lastSavedValue != Value)
             {
-                Value = lastSavedValue;
                 ValueChangedEventInvoke();
-            }
-            
+            }  
         }
 
         private void NumberBox_KeyDown(object sender, KeyEventArgs e)
@@ -170,8 +168,7 @@ namespace Colorado.Common.UI.Controls
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            lastSavedValue = (int)e.NewValue;
-            NumberBox.Text = lastSavedValue.ToString();
+            NumberBox.Text = ((int)e.NewValue).ToString();
         }
 
         private void NumberBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -211,7 +208,7 @@ namespace Colorado.Common.UI.Controls
             if (!isSliderUpdating)
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
-            }
+            }    
         }
 
         #endregion Private logic
