@@ -1,34 +1,23 @@
-﻿using Colorado.Common.UI.Commands;
-using Colorado.Common.UI.ViewModels.Base;
-using Colorado.GeometryDataStructures.Colors;
+﻿using Colorado.Common.UI.ViewModels.Controls;
 using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm;
-using Colorado.Viewer.Controls.Views.Common;
+using Colorado.Viewer.Controls.ViewModels.Common;
 using Colorado.Viewer.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
 
-namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
+namespace Colorado.Viewer.Controls.ViewModels.Tabs.LightingTab
 {
-    public class LightSettingsUserControlViewModel : ViewModelBase
+    public class LightSettingsUserControlViewModel : ViewerBaseViewModel
     {
         #region Private fields
 
-        private readonly IRenderingControl renderingControl;
         private readonly Light light;
 
         #endregion Private fields
 
         #region Constructor
 
-        public LightSettingsUserControlViewModel(IRenderingControl renderingControl, Light light)
+        public LightSettingsUserControlViewModel(IRenderingControl renderingControl, Light light) : base(renderingControl)
         {
-            this.renderingControl = renderingControl;
             this.light = light;
             AmbientColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightAmbientColor, light.Ambient);
             AmbientColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
@@ -100,19 +89,5 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         public RGBColorPickerUserControlViewModel SpecularColorViewModel { get; }
 
         #endregion Properties
-
-        #region Commands
-
-        public ICommand RefreshViewCommand
-        {
-            get { return new CommandHandler(() => NewMethod()); }
-        }
-
-        private void NewMethod()
-        {
-            renderingControl.RefreshView();
-        }
-
-        #endregion Commands
     }
 }

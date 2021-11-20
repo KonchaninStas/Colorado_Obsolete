@@ -1,6 +1,7 @@
 ﻿using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLLibrariesAPI.Material;
+using Colorado.OpenGL.Properties;
 using System;
 
 namespace Colorado.OpenGL.OpenGLWrappers.Material
@@ -104,9 +105,9 @@ namespace Colorado.OpenGL.OpenGLWrappers.Material
         {
             if (shininessIntensityValue < 0 || shininessIntensityValue > 128)
             {
-                throw new Exception();
+                throw new Exception(Resources.Error_ShininessValueIsOutOfRange);
             }
-            SetMaterialValue(faceSide, MaterialColorType.Shininess, shininessIntensityValue);
+            SetMaterialValue(faceSide, MaterialColorType.Shininess, 128 - shininessIntensityValue);
         }
 
         /// <summary>

@@ -1,9 +1,13 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 
 namespace Colorado.GeometryDataStructures.Colors
 {
+    [Serializable]
     public class RGB
     {
+        public RGB() { }
+
         public RGB(Color color) :
             this(color.R, color.G, color.B)
         {
@@ -52,6 +56,11 @@ namespace Colorado.GeometryDataStructures.Colors
         public float[] ToFloat4Array()
         {
             return new[] { Red / (float)byte.MaxValue, Green / (float)byte.MaxValue, Blue / (float)byte.MaxValue, 1 };
+        }
+
+        public RGB GetCopy()
+        {
+            return new RGB(Red, Green, Blue);
         }
     }
 }

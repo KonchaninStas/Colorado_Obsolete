@@ -7,7 +7,7 @@ using Colorado.OpenGLWinForm.RenderingControlStructures;
 
 namespace Colorado.OpenGLWinForm.Rendering
 {
-    internal class GeometryRenderer
+    public class GeometryRenderer
     {
         #region Private fields
 
@@ -22,9 +22,18 @@ namespace Colorado.OpenGLWinForm.Rendering
         {
             this.documentsManager = documentsManager;
             this.viewCamera = viewCamera;
+            GlobalMaterial = Material.Default;
         }
 
         #endregion Constructor 
+
+        #region Properties
+
+        public bool UseGlobalMaterial { get; set; }
+
+        public Material GlobalMaterial { get; set; }
+
+        #endregion Properties
 
         #region Public logic
 
@@ -55,7 +64,8 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawEntities()
         {
-            documentsManager.GeometryToRender.ForEach(g => OpenGLGeometryWrapper.DrawGeometryObject(g));
+            documentsManager.GeometryToRender.ForEach(
+                g => OpenGLGeometryWrapper.DrawGeometryObject(g, UseGlobalMaterial ? GlobalMaterial : null));
         }
 
         #endregion Private logic

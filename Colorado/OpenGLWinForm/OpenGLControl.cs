@@ -5,6 +5,7 @@ using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.Managers;
+using Colorado.OpenGL.Managers.Materials;
 using Colorado.OpenGL.OpenGLWrappers;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using Colorado.OpenGL.OpenGLWrappers.View;
@@ -33,9 +34,7 @@ namespace Colorado.OpenGLWinForm
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
-        private readonly GeometryRenderer geometryRenderer;
         private readonly ViewCamera viewCamera;
-        private readonly LightsManager lightsManager;
         private readonly MouseTool mouseTool;
         private readonly KeyboardTool keyboardTool;
 
@@ -52,9 +51,9 @@ namespace Colorado.OpenGLWinForm
             InitializeComponent();
             this.documentsManager = documentsManager;
             viewCamera = new ViewCamera();
-            lightsManager = new LightsManager();
-
-            geometryRenderer = new GeometryRenderer(documentsManager, viewCamera);
+            LightsManager = new LightsManager();
+            DefaultMaterialsManager = DefaultMaterialsManager.Instance;
+            GeometryRenderer = new GeometryRenderer(documentsManager, viewCamera);
 
             mouseTool = new MouseTool(this, viewCamera);
             keyboardTool = new KeyboardTool(this, viewCamera);
@@ -74,7 +73,11 @@ namespace Colorado.OpenGLWinForm
 
         public RGB BackgroundColor { get; set; }
 
-        public LightsManager LightsManager => lightsManager;
+        public LightsManager LightsManager { get; }
+
+        public DefaultMaterialsManager DefaultMaterialsManager { get; }
+
+        public GeometryRenderer GeometryRenderer { get; }
 
         #endregion Properties
 
@@ -155,12 +158,12 @@ namespace Colorado.OpenGLWinForm
 
         private void DrawEntities()
         {
-            lightsManager.DisableLighting();
+            LightsManager.DisableLighting();
             gridPlane?.Draw();
-            geometryRenderer.DrawGeometryPrimitives();
-            lightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal, viewCamera.ViewCameraTransform.Scale);
-            lightsManager.ConfigureEnabledLights();
-            geometryRenderer.DrawSceneGeometry();
+            GeometryRenderer.DrawGeometryPrimitives();
+            LightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal, viewCamera.ViewCameraTransform.Scale);
+            LightsManager.ConfigureEnabledLights();
+            GeometryRenderer.DrawSceneGeometry();
         }
 
         private void EndDrawScene()

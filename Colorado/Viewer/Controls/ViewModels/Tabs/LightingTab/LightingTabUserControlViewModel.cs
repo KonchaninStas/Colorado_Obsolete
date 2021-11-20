@@ -1,22 +1,24 @@
-﻿using Colorado.Common.UI.ViewModels.Base;
-using Colorado.OpenGLWinForm;
-using Colorado.Viewer.Controls.Views.AppearanceTab;
-using System.Collections;
+﻿using Colorado.OpenGLWinForm;
+using Colorado.Viewer.Controls.ViewModels.Common;
+using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
+namespace Colorado.Viewer.Controls.ViewModels.Tabs.LightingTab
 {
-    public class AppearanceTabUserControlViewModel : ViewModelBase
+    public class LightingTabUserControlViewModel : ViewerBaseViewModel
     {
-        private readonly IRenderingControl renderingControl;
+        #region Constructor
 
-        public AppearanceTabUserControlViewModel(IRenderingControl renderingControl)
+        public LightingTabUserControlViewModel(IRenderingControl renderingControl) : base(renderingControl)
         {
-            this.renderingControl = renderingControl;
             LightSettingsUserControls = renderingControl.LightsManager.Lights.Select(
                 l => new LightSettingsUserControl(renderingControl, l));
         }
+
+        #endregion Constructor
+
+        #region Properties
 
         public bool IsLightingEnabled
         {
@@ -33,5 +35,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab
         }
 
         public IEnumerable<LightSettingsUserControl> LightSettingsUserControls { get; }
+
+        #endregion Properties
     }
 }

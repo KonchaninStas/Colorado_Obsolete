@@ -4,15 +4,34 @@
         <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CommonStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CheckBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+
+    <Style x:Key="TitleExpanderStyle" TargetType="{x:Type Expander}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Header">
+            <Setter.Value>
+                <StackPanel Orientation="Horizontal"  FlowDirection="LeftToRight" HorizontalAlignment="Left">
+                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsLightEnabled}" Style="{StaticResource CheckBoxStyle}"/>
+                    <TextBlock Style="{StaticResource TitleTextBlock}" Margin="5,0,0,0" Text="{Binding Header}"/>
+                </StackPanel>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="ToggleButton">
+                <Setter Property="Background" Value="{StaticResource BlueColor}"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+    
     <Style x:Key="LightSettingsExpanderStyle" TargetType="{x:Type Expander}">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Header">
             <Setter.Value>
                 <StackPanel Orientation="Horizontal"  FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsLightEnabled}" Style="{StaticResource CheckBoxStyle}"/>
-                    <TextBlock Margin="5,0,0,0" Text="{Binding Header}"/>
+                    <TextBlock Style="{StaticResource GenericTextBlock}" Margin="5,0,0,0" Text="{Binding Header}"/>
                 </StackPanel>
             </Setter.Value>
         </Setter>

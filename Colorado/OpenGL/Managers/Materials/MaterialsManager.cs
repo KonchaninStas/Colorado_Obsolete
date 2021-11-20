@@ -2,7 +2,7 @@
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLWrappers.Material;
 
-namespace Colorado.OpenGL.Managers
+namespace Colorado.OpenGL.Managers.Materials
 {
     internal static class MaterialsManager
     {

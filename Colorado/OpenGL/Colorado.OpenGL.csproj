@@ -65,7 +65,8 @@
     <Compile Include="Extensions\Delegates.cs" />
     <Compile Include="Extensions\OpenGLExtensions.cs" />
     <Compile Include="Managers\LightsManager.cs" />
-    <Compile Include="Managers\MaterialsManager.cs" />
+    <Compile Include="Managers\Materials\DefaultMaterialsManager.cs" />
+    <Compile Include="Managers\Materials\MaterialsManager.cs" />
     <Compile Include="OpenGLLibrariesAPI\Geometry\OpenGLGeometryAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\Helpers\OpenGLHelperAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\Light\OpenGLGlobalLightAPI.cs" />
@@ -88,6 +89,11 @@
     <Compile Include="OpenGLWrappers\View\OpenGLMatrixOperationWrapper.cs" />
     <Compile Include="OpenGLWrappers\View\OpenGLViewportWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Structures\Context.cs" />
     <Compile Include="Structures\Light.cs" />
     <Compile Include="Structures\PixelFormatDescriptor.cs" />
@@ -99,6 +105,10 @@
     <Compile Include="WindowsAPI\WindowsAPI\User32LibraryAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common.UI\Colorado.Common.UI.csproj">
+      <Project>{158CC58D-8C53-4414-A349-964A0C669253}</Project>
+      <Name>Colorado.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
       <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
       <Name>Colorado.Common</Name>
@@ -108,6 +118,16 @@
       <Name>Colorado.GeometryDataStructures</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Managers\Materials\Content\DefaultMaterials.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,7 @@
-﻿using Colorado.OpenGL.Managers;
+﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.OpenGL.Managers;
+using Colorado.OpenGL.Managers.Materials;
+using Colorado.OpenGLWinForm.Rendering;
 
 namespace Colorado.OpenGLWinForm
 {
@@ -7,5 +10,9 @@ namespace Colorado.OpenGLWinForm
         void RefreshView();
 
         LightsManager LightsManager { get; }
+
+        DefaultMaterialsManager DefaultMaterialsManager { get; }
+
+        GeometryRenderer GeometryRenderer { get; }
     }
 }

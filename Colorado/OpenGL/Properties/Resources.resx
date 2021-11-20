@@ -117,37 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BlueColorTitle" xml:space="preserve">
-    <value>Blue</value>
-  </data>
-  <data name="Error_DefaultMaterialsFileDoesNotExist" xml:space="preserve">
-    <value>Default materials could not be loaded because the configuration file is not present</value>
-  </data>
-  <data name="Error_DefaultMaterialsFileIsNotValid" xml:space="preserve">
-    <value>Default materials could not be loaded because the configuration file is not valid.</value>
-  </data>
-  <data name="GreenColorTitle" xml:space="preserve">
-    <value>Green</value>
-  </data>
-  <data name="IntensityTitle" xml:space="preserve">
-    <value>Intensity</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="Okay" xml:space="preserve">
-    <value>Okay</value>
-  </data>
-  <data name="RedColorTitle" xml:space="preserve">
-    <value>Red</value>
-  </data>
-  <data name="SmthWentWrong" xml:space="preserve">
-    <value>Something went wrong. Exception message is "{0}".</value>
-  </data>
-  <data name="ViewerTitle" xml:space="preserve">
-    <value>Colorado 3D Viewer</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+  <data name="Error_ShininessValueIsOutOfRange" xml:space="preserve">
+    <value>Shininess value is out of range</value>
   </data>
 </root>

@@ -2,7 +2,7 @@
 using Colorado.GeometryDataStructures.Colors;
 using System;
 
-namespace Colorado.Viewer.Controls.Views.Common
+namespace Colorado.Common.UI.ViewModels.Controls
 {
     public class RGBColorPickerUserControlViewModel : ViewModelBase
     {

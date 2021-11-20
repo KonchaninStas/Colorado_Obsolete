@@ -1,9 +1,9 @@
 ﻿using Colorado.OpenGL.Structures;
 using Colorado.OpenGLWinForm;
-using Colorado.Viewer.Controls.ViewModels.Tabs.AppearanceTab;
+using Colorado.Viewer.Controls.ViewModels.Tabs.LightingTab;
 using System.Windows.Controls;
 
-namespace Colorado.Viewer.Controls.Views.AppearanceTab
+namespace Colorado.Viewer.Controls.Views.Tabs.LightingTab
 {
     /// <summary>
     /// Interaction logic for LightSettingsUserControl.xaml

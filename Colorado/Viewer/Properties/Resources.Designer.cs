@@ -88,11 +88,29 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default materials:.
+        /// </summary>
+        public static string DefaultMaterials {
+            get {
+                return ResourceManager.GetString("DefaultMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable lighting.
         /// </summary>
         public static string EnableLightingCheckBoxText {
             get {
                 return ResourceManager.GetString("EnableLightingCheckBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global material settings.
+        /// </summary>
+        public static string GlobalMaterialSettings {
+            get {
+                return ResourceManager.GetString("GlobalMaterialSettings", resourceCulture);
             }
         }
         
@@ -124,6 +142,24 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lighting settings.
+        /// </summary>
+        public static string LightingExpanderHeader {
+            get {
+                return ResourceManager.GetString("LightingExpanderHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lighting.
+        /// </summary>
+        public static string LightingTabHeader {
+            get {
+                return ResourceManager.GetString("LightingTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position settings:.
         /// </summary>
         public static string LightPositionSettings {
@@ -138,6 +174,87 @@ namespace Colorado.Viewer.Properties {
         public static string LightSpecularColor {
             get {
                 return ResourceManager.GetString("LightSpecularColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ambient:.
+        /// </summary>
+        public static string MaterialAmbientColor {
+            get {
+                return ResourceManager.GetString("MaterialAmbientColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diffuse:.
+        /// </summary>
+        public static string MaterialDiffuseColor {
+            get {
+                return ResourceManager.GetString("MaterialDiffuseColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emission:.
+        /// </summary>
+        public static string MaterialEmissionColor {
+            get {
+                return ResourceManager.GetString("MaterialEmissionColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material settings.
+        /// </summary>
+        public static string MaterialExpanderHeader {
+            get {
+                return ResourceManager.GetString("MaterialExpanderHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specular:.
+        /// </summary>
+        public static string MaterialSpecularColor {
+            get {
+                return ResourceManager.GetString("MaterialSpecularColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material.
+        /// </summary>
+        public static string MaterialTabHeader {
+            get {
+                return ResourceManager.GetString("MaterialTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shininess radius:.
+        /// </summary>
+        public static string Shininess {
+            get {
+                return ResourceManager.GetString("Shininess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unhandled exception has been occurred. The application will be terminated.
+        /// </summary>
+        public static string UnhandledExceptionOccured {
+            get {
+                return ResourceManager.GetString("UnhandledExceptionOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use global material.
+        /// </summary>
+        public static string UseGlobalMaterial {
+            get {
+                return ResourceManager.GetString("UseGlobalMaterial", resourceCulture);
             }
         }
     }

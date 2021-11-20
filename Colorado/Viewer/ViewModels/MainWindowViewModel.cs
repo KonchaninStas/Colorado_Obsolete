@@ -3,14 +3,11 @@ using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Common.UI.ViewModels.Controls;
 using Colorado.Documents.STL;
 using Colorado.OpenGL.Managers;
-using Colorado.Viewer.Controls.Views;
-using Colorado.Viewer.Controls.Views.AppearanceTab;
+using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
+using Colorado.Viewer.Controls.Views.Tabs.MaterialTab;
 using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -30,7 +27,8 @@ namespace Colorado.Viewer.ViewModels
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
             Tabs = new TabItemViewModel[]
             {
-                new TabItemViewModel(Resources.AppearanceTabHeader,new AppearanceTabUserControl(application.RenderingControl), true)
+                new TabItemViewModel(Resources.LightingTabHeader, new LightingTabViewUserControl(application.RenderingControl), true),
+                new TabItemViewModel(Resources.MaterialTabHeader, new MaterialSettingsTabUserControl(application.RenderingControl), false),
             };
         }
 

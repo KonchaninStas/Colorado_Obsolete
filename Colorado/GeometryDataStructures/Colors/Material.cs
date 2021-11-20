@@ -2,22 +2,37 @@
 
 namespace Colorado.GeometryDataStructures.Colors
 {
+    [Serializable]
     public class Material
     {
-        public Material(RGB ambient, RGB diffuse, RGB specular,
-            float shininess, RGB emission)
+        public const string DefaultMaterialName = "Default";
+
+        public Material()
+        { }
+
+        public Material(string name, RGB ambient, RGB diffuse, RGB specular,
+           float shininess, RGB emission)
         {
+            Name = name;
             Ambient = ambient;
             Diffuse = diffuse;
             Specular = specular;
 
             if (shininess < 0 || shininess > 128)
             {
-                throw new Exception();
+                ShininessRadius = 0;
             }
-            ShininessRadius = 20;
+            ShininessRadius = shininess;
             Emission = emission;
         }
+
+        public Material(string name, RGB ambient, RGB diffuse, RGB specular,
+           float shininess) : this(name, ambient, diffuse, specular, shininess, Default.Emission) { }
+
+        public Material(RGB ambient, RGB diffuse, RGB specular,
+            float shininess, RGB emission) : this(string.Empty, ambient, diffuse, specular, shininess, emission) { }
+
+        public string Name { get; set; }
 
         public RGB Ambient { get; set; }
 
@@ -35,9 +50,19 @@ namespace Colorado.GeometryDataStructures.Colors
         {
             get
             {
-                return new Material(new RGB(0.2f, 0.2f, 0.2f), new RGB(0.8f, 0.8f, 0.8f),
+                return new Material(DefaultMaterialName, new RGB(0.2f, 0.2f, 0.2f), new RGB(0.8f, 0.8f, 0.8f),
                    new RGB(0f, 0f, 0f), 0, new RGB(0.0f, 0.0f, 0.0f));
             }
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public Material GetCopy()
+        {
+            return new Material(Name, Ambient.GetCopy(), Diffuse.GetCopy(), Specular.GetCopy(), ShininessRadius, Emission.GetCopy());
         }
     }
 }

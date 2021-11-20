@@ -126,8 +126,14 @@
   <data name="AzimuthAngleText" xml:space="preserve">
     <value>Azimuth angle</value>
   </data>
+  <data name="DefaultMaterials" xml:space="preserve">
+    <value>Default materials:</value>
+  </data>
   <data name="EnableLightingCheckBoxText" xml:space="preserve">
     <value>Enable lighting</value>
+  </data>
+  <data name="GlobalMaterialSettings" xml:space="preserve">
+    <value>Global material settings</value>
   </data>
   <data name="LightAmbientColor" xml:space="preserve">
     <value>Ambient:</value>
@@ -138,10 +144,43 @@
   <data name="LightDiffuseColor" xml:space="preserve">
     <value>Diffuse:</value>
   </data>
+  <data name="LightingExpanderHeader" xml:space="preserve">
+    <value>Lighting settings</value>
+  </data>
+  <data name="LightingTabHeader" xml:space="preserve">
+    <value>Lighting</value>
+  </data>
   <data name="LightPositionSettings" xml:space="preserve">
     <value>Position settings:</value>
   </data>
   <data name="LightSpecularColor" xml:space="preserve">
     <value>Specular:</value>
+  </data>
+  <data name="MaterialAmbientColor" xml:space="preserve">
+    <value>Ambient:</value>
+  </data>
+  <data name="MaterialDiffuseColor" xml:space="preserve">
+    <value>Diffuse:</value>
+  </data>
+  <data name="MaterialEmissionColor" xml:space="preserve">
+    <value>Emission:</value>
+  </data>
+  <data name="MaterialExpanderHeader" xml:space="preserve">
+    <value>Material settings</value>
+  </data>
+  <data name="MaterialSpecularColor" xml:space="preserve">
+    <value>Specular:</value>
+  </data>
+  <data name="MaterialTabHeader" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Shininess" xml:space="preserve">
+    <value>Shininess radius:</value>
+  </data>
+  <data name="UnhandledExceptionOccured" xml:space="preserve">
+    <value>An unhandled exception has been occurred. The application will be terminated</value>
+  </data>
+  <data name="UseGlobalMaterial" xml:space="preserve">
+    <value>Use global material</value>
   </data>
 </root>

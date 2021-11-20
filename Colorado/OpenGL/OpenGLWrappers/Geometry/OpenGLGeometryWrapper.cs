@@ -14,7 +14,7 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
     {
         #region Public logic
 
-        public static void DrawGeometryObject(GeometryObject geometryObject)
+        public static void DrawGeometryObject(GeometryObject geometryObject, GeometryDataStructures.Colors.Material globalMaterial)
         {
             switch (geometryObject.GeometryType)
             {
@@ -25,7 +25,7 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
                     }
                 case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Mesh:
                     {
-                        OpenGLFastRenderer.DrawMesh(geometryObject as Mesh);
+                        OpenGLFastRenderer.DrawMesh(geometryObject as Mesh, globalMaterial);
 
                         break;
                     }

@@ -70,6 +70,24 @@ namespace Colorado.Common.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default materials could not be loaded because the configuration file is not present.
+        /// </summary>
+        public static string Error_DefaultMaterialsFileDoesNotExist {
+            get {
+                return ResourceManager.GetString("Error_DefaultMaterialsFileDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default materials could not be loaded because the configuration file is not valid..
+        /// </summary>
+        public static string Error_DefaultMaterialsFileIsNotValid {
+            get {
+                return ResourceManager.GetString("Error_DefaultMaterialsFileIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Green.
         /// </summary>
         public static string GreenColorTitle {
@@ -88,11 +106,56 @@ namespace Colorado.Common.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Okay.
+        /// </summary>
+        public static string Okay {
+            get {
+                return ResourceManager.GetString("Okay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Red.
         /// </summary>
         public static string RedColorTitle {
             get {
                 return ResourceManager.GetString("RedColorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong. Exception message is &quot;{0}&quot;..
+        /// </summary>
+        public static string SmthWentWrong {
+            get {
+                return ResourceManager.GetString("SmthWentWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colorado 3D Viewer.
+        /// </summary>
+        public static string ViewerTitle {
+            get {
+                return ResourceManager.GetString("ViewerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
