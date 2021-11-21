@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="Colorado.Viewer.Controls.Views.Tabs.MaterialTab.MaterialSettingsTabUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:properties="clr-namespace:Colorado.Viewer.Properties" 
-             xmlns:materialtab="clr-namespace:Colorado.Viewer.Controls.Views.Tabs.MaterialTab">
+﻿<UserControl 
+    x:Class="Colorado.Viewer.Controls.Views.Tabs.MaterialTab.MaterialSettingsTabUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialtab="clr-namespace:Colorado.Viewer.Controls.Views.Tabs.MaterialTab">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,7 +12,5 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <materialtab:MaterialSettingsUserControl DataContext="{Binding GlobalMaterialSettingsUserControlViewModel}"/>
-    </Grid>
+    <materialtab:MaterialSettingsUserControl DataContext="{Binding GlobalMaterialSettingsUserControlViewModel}"/>
 </UserControl>
