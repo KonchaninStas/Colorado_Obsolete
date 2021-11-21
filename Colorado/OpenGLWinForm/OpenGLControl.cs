@@ -40,8 +40,6 @@ namespace Colorado.OpenGLWinForm
 
         private Context renderingContext;
 
-        private GridPlane gridPlane;
-
         #endregion Private fields
 
         #region Constructor
@@ -71,7 +69,7 @@ namespace Colorado.OpenGLWinForm
 
         public FpsCalculator FpsCalculator { get; }
 
-        public RGB BackgroundColor { get; set; }
+        public RGB BackgroundColor { get; }
 
         public LightsManager LightsManager { get; }
 
@@ -103,10 +101,7 @@ namespace Colorado.OpenGLWinForm
 
         private void UpdateRenderingControlSettings()
         {
-            gridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5, documentsManager.TotalBoundingBox.MinPoint.Z);
-
-            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(gridPlane.BoundingBox));
+            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox));
 
             Refresh();
         }
@@ -159,7 +154,6 @@ namespace Colorado.OpenGLWinForm
         private void DrawEntities()
         {
             LightsManager.DisableLighting();
-            gridPlane?.Draw();
             GeometryRenderer.DrawGeometryPrimitives();
             LightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal, viewCamera.ViewCameraTransform.Scale);
             LightsManager.ConfigureEnabledLights();

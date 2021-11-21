@@ -66,6 +66,7 @@
     <Compile Include="Controls\ViewModels\Tabs\LightingTab\LightSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsTabViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\Rendering\RenderingSettingsTabUserControlViewModel.cs" />
     <Compile Include="Controls\Views\Tabs\LightingTab\LightingTabViewUserControl.xaml.cs">
       <DependentUpon>LightingTabViewUserControl.xaml</DependentUpon>
     </Compile>
@@ -77,6 +78,9 @@
     </Compile>
     <Compile Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsUserControl.xaml.cs">
       <DependentUpon>MaterialSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\Rendering\RenderingSettingsTabUserControl.xaml.cs">
+      <DependentUpon>RenderingSettingsTabUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -98,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\Rendering\RenderingSettingsTabUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

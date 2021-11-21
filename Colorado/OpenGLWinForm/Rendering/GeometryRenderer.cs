@@ -3,6 +3,7 @@ using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
+using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
 
 namespace Colorado.OpenGLWinForm.Rendering
@@ -23,15 +24,22 @@ namespace Colorado.OpenGLWinForm.Rendering
             this.documentsManager = documentsManager;
             this.viewCamera = viewCamera;
             GlobalMaterial = Material.Default;
+            DrawCoordinateSystem = true;
+            SubscribeToEvents();
+            UpdateRenderingControlSettings();
         }
 
         #endregion Constructor 
 
         #region Properties
 
+        public GridPlane GridPlane { get; private set; }
+
         public bool UseGlobalMaterial { get; set; }
 
         public Material GlobalMaterial { get; set; }
+
+        public bool DrawCoordinateSystem { get; set; }
 
         #endregion Properties
 
@@ -39,7 +47,11 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         public void DrawGeometryPrimitives()
         {
-            DrawOriginCoordianteSystem();
+            GridPlane.Draw();
+            if (DrawCoordinateSystem)
+            {
+                DrawOriginCoordinateSystem();
+            }
         }
 
         public void DrawSceneGeometry()
@@ -51,7 +63,20 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         #region Private logic
 
-        private void DrawOriginCoordianteSystem()
+        private void SubscribeToEvents()
+        {
+            documentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
+            documentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
+            documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
+        }
+
+        private void UpdateRenderingControlSettings()
+        {
+            GridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5, documentsManager.TotalBoundingBox.MinPoint.Z);
+        }
+
+        private void DrawOriginCoordinateSystem()
         {
             OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 2000 * (float)viewCamera.ViewCameraTransform.Scale);
             OpenGLGeometryWrapper.DrawLine(

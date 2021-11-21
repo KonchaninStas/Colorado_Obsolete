@@ -37,7 +37,7 @@
                       SelectedItem="{Binding SelectedMaterial}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="2">
-                <TextBlock Style="{StaticResource TitleTextBlock}" Text="{x:Static properties:Resources.GlobalMaterialSettings}" />
+                <TextBlock Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.GlobalMaterialSettings}" />
                 <controls:RGBColorPickerUserControl DataContext="{Binding AmbientColorViewModel}"/>
                 <controls:RGBColorPickerUserControl DataContext="{Binding DiffuseColorViewModel}"/>
                 <controls:RGBColorPickerUserControl DataContext="{Binding SpecularColorViewModel}"/>

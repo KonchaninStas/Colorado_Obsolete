@@ -126,6 +126,9 @@
   <data name="AzimuthAngleText" xml:space="preserve">
     <value>Azimuth angle</value>
   </data>
+  <data name="BackgroundColorSettings" xml:space="preserve">
+    <value>Background color settings:</value>
+  </data>
   <data name="DefaultMaterials" xml:space="preserve">
     <value>Default materials:</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="MaterialTabHeader" xml:space="preserve">
     <value>Material</value>
+  </data>
+  <data name="RenderingTabHeader" xml:space="preserve">
+    <value>Rendering</value>
   </data>
   <data name="Shininess" xml:space="preserve">
     <value>Shininess radius:</value>

@@ -5,6 +5,7 @@ using Colorado.Documents.STL;
 using Colorado.OpenGL.Managers;
 using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
 using Colorado.Viewer.Controls.Views.Tabs.MaterialTab;
+using Colorado.Viewer.Controls.Views.Tabs.Rendering;
 using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace Colorado.Viewer.ViewModels
             {
                 new TabItemViewModel(Resources.LightingTabHeader, new LightingTabViewUserControl(application.RenderingControl), true),
                 new TabItemViewModel(Resources.MaterialTabHeader, new MaterialSettingsTabUserControl(application.RenderingControl), false),
+                new TabItemViewModel(Resources.RenderingTabHeader, new RenderingSettingsTabUserControl(application.RenderingControl), false),
             };
         }
 

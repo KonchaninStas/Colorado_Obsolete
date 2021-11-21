@@ -88,6 +88,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Background color settings:.
+        /// </summary>
+        public static string BackgroundColorSettings {
+            get {
+                return ResourceManager.GetString("BackgroundColorSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default materials:.
         /// </summary>
         public static string DefaultMaterials {
@@ -228,6 +237,15 @@ namespace Colorado.Viewer.Properties {
         public static string MaterialTabHeader {
             get {
                 return ResourceManager.GetString("MaterialTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rendering.
+        /// </summary>
+        public static string RenderingTabHeader {
+            get {
+                return ResourceManager.GetString("RenderingTabHeader", resourceCulture);
             }
         }
         

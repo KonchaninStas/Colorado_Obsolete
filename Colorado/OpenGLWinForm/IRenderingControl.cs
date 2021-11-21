@@ -14,5 +14,7 @@ namespace Colorado.OpenGLWinForm
         DefaultMaterialsManager DefaultMaterialsManager { get; }
 
         GeometryRenderer GeometryRenderer { get; }
+
+        RGB BackgroundColor { get; }
     }
 }
