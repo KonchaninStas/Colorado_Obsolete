@@ -35,12 +35,16 @@
         <Setter Property="BorderBrush" Value="{StaticResource GrayColor}" />
         <Setter Property="BorderThickness" Value="3" />
     </Style>
-
+    
     <Style
         x:Key="GridSplitterStyle"
         TargetType="{x:Type GridSplitter}">
         <Setter Property="BorderBrush" Value="{StaticResource BlueColor}" />
         <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="ShowsPreview" Value="False" />
+        <Setter Property="Width" Value="3" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
     
     <Style

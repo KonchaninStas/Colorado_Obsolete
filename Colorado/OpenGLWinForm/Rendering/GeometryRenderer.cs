@@ -84,8 +84,10 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void UpdateRenderingControlSettings()
         {
+            bool visible = GridPlane != null ? GridPlane.Visible : true;
             GridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 5, documentsManager.TotalBoundingBox.MinPoint.Z);
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 2, documentsManager.TotalBoundingBox.MinPoint.Z);
+            GridPlane.Visible = visible;
         }
 
         private void DrawOriginCoordinateSystem()

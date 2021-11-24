@@ -78,11 +78,5 @@ namespace Colorado.OpenGLWinForm.Tools
         }
 
         #endregion Event handlers
-
-        #region Private logic
-
-
-
-        #endregion Private logic
     }
 }

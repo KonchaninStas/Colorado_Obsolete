@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Colorado.Documents
 {
-    public class Document
+    public abstract class Document
     {
         #region Private fields
 
@@ -23,6 +23,8 @@ namespace Colorado.Documents
         #endregion Constructor
 
         #region Properties
+
+        public abstract string Name { get; }
 
         public IEnumerable<GeometryObject> Geometries => geometryObjects;
 

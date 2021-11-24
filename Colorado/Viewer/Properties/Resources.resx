@@ -135,6 +135,9 @@
   <data name="DefaultMaterials" xml:space="preserve">
     <value>Default materials:</value>
   </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
   <data name="DrawCoordinateSystem" xml:space="preserve">
     <value>Draw Coordinate system</value>
   </data>

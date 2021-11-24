@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Colorado.Viewer"
-        xmlns:openGLWpf ="clr-namespace:Colorado.OpenGLWPF;assembly=Colorado"
+        xmlns:openGLWpf ="clr-namespace:Colorado.OpenGLWPF;assembly=Colorado" 
+        xmlns:documents="clr-namespace:Colorado.Viewer.Controls.Views.Documents"
         mc:Ignorable="d"
         FontSize="14"
         FontFamily ="Noto Sans"
@@ -25,22 +26,29 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto" MinWidth="300"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0" Grid.ColumnSpan="3">
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
             <MenuItem Header="File">
                 <MenuItem x:Name="OpenFileMenuItem" Header="Open" Command="{Binding OpenFileCommand}"/>
                 <MenuItem x:Name="CloseFileMenuItem" Header="Close" Command="{Binding CloseFileCommand}"/>
             </MenuItem>
         </Menu>
-        <Grid x:Name="openGLControlWrapper" Grid.Row="1" Background="AliceBlue"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <documents:DocumentsTreeUserControl DataContext="{Binding DocumentsTreeUserControlViewModel}"/>
+        </Grid>
+        <GridSplitter Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"  Style="{StaticResource GridSplitterStyle}"/>
 
-        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch"  Style="{StaticResource GridSplitterStyle}"/>
-        <TabControl Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" ItemsSource="{Binding Tabs}" Style="{StaticResource TabStyle}" Padding="10" />
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
+        <Grid Grid.Row="1" Grid.Column="2" x:Name="openGLControlWrapper" Background="AliceBlue"/>
+
+        <GridSplitter Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Style="{StaticResource GridSplitterStyle}"/>
+        <TabControl Grid.Row="1" Grid.Column="4" Grid.RowSpan="2"  ItemsSource="{Binding Tabs}" 
+                    Style="{StaticResource TabStyle}" Padding="10" />
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2">
             <Label Content="FPS:" />
             <Label Content="{Binding FPS}" />
         </StackPanel>

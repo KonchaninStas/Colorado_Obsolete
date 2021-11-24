@@ -39,6 +39,8 @@ namespace Colorado.Documents
             AllDocumentsClosed?.Invoke(this, System.EventArgs.Empty);
         }
 
+        public IEnumerable<Document> Documents => documents;
+
         public event EventHandler<DocumentOpenedEventArgs> DocumentOpened;
 
         public event EventHandler<DocumentClosedEventArgs> DocumentClosed;

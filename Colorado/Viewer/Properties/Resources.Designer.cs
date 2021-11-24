@@ -115,6 +115,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Documents.
+        /// </summary>
+        public static string Documents {
+            get {
+                return ResourceManager.GetString("Documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Draw Coordinate system.
         /// </summary>
         public static string DrawCoordinateSystem {

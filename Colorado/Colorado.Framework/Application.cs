@@ -6,30 +6,20 @@ namespace Colorado.Framework
 {
     public class Application
     {
-        private readonly DocumentsManager documentsManager;
-
         public Application()
         {
-            documentsManager = new DocumentsManager();
-            OpenGLControl = new OpenGLControl(documentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
+            DocumentsManager = new DocumentsManager();
+            OpenGLControl = new OpenGLControl(DocumentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
             RenderingControl = OpenGLControl;
 
             //documentsManager.AddDocument(new STLDocument(@"C:\Users\skonchanin\Downloads\Rhino.stl"));
         }
 
+        public DocumentsManager DocumentsManager { get; }
+
         public OpenGLControl OpenGLControl { get; }
 
         public IRenderingControl RenderingControl { get; }
-
-        public void AddDocument(Document document)
-        {
-            documentsManager.AddDocument(document);
-        }
-
-        public void CloseAllDocuments()
-        {
-            documentsManager.CloseAllDocuments();
-        }
 
         public void Refresh()
         {

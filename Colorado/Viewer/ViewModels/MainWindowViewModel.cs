@@ -3,6 +3,7 @@ using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Common.UI.ViewModels.Controls;
 using Colorado.Documents.STL;
 using Colorado.OpenGL.Managers;
+using Colorado.Viewer.Controls.ViewModels.Documents;
 using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
 using Colorado.Viewer.Controls.Views.Tabs.MaterialTab;
 using Colorado.Viewer.Controls.Views.Tabs.RenderingTab;
@@ -27,6 +28,7 @@ namespace Colorado.Viewer.ViewModels
             application = new Framework.Application();
             OpenGLControl = new OpenGLWPF.OpenGLControl(application);
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
+            DocumentsTreeUserControlViewModel = new DocumentsTreeUserControlViewModel(application.DocumentsManager, application.RenderingControl);
             Tabs = new TabItemViewModel[]
             {
                 new TabItemViewModel(Resources.LightingTabHeader, new LightingTabViewUserControl(application.RenderingControl), true),
@@ -37,6 +39,8 @@ namespace Colorado.Viewer.ViewModels
         }
 
         #region Properties
+
+        public DocumentsTreeUserControlViewModel DocumentsTreeUserControlViewModel { get; }
 
         public IEnumerable<TabItemViewModel> Tabs
         {
@@ -52,8 +56,6 @@ namespace Colorado.Viewer.ViewModels
         }
 
         public OpenGLWPF.OpenGLControl OpenGLControl { get; }
-
-        public LightsManager LightsManager => application.RenderingControl.LightsManager;
 
         public int FPS
         {
@@ -101,14 +103,14 @@ namespace Colorado.Viewer.ViewModels
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                application.AddDocument(new STLDocument(openFileDialog.FileName));
+                application.DocumentsManager.AddDocument(new STLDocument(openFileDialog.FileName));
                 application.Refresh();
             }
         }
 
         private void CloseFile()
         {
-            application.CloseAllDocuments();
+            application.DocumentsManager.CloseAllDocuments();
         }
 
         #endregion Private logic

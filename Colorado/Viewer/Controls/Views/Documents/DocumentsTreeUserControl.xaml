@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Colorado.Viewer.Controls.Views.Documents.DocumentsTreeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:properties="clr-namespace:Colorado.Viewer.Properties" 
+             xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI"
+             HorizontalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CommonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ComboBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TreeViewStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/RadioButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <TreeView Style="{StaticResource DocumentsTreeView}" ItemsSource="{Binding Documents}" />
+    </Grid>
+</UserControl>
