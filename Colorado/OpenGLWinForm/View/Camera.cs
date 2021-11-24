@@ -1,30 +1,39 @@
-﻿using Colorado.Common.Utilities;
-using Colorado.GeometryDataStructures.Primitives;
+﻿using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.OpenGLWinForm.View
 {
     public class Camera
     {
-        private Point objectCenter;              // this helps ortho projection
-        private double objectRadius;               // this helps ortho projection
+        #region Private fields
+
+        private Point objectCenter;
+        private double objectRadius;
 
         private Point position;
         private double verticalFieldOfViewInDegrees;
+
+        #endregion Private fields
+
+        #region Constructor
 
         public Camera()
         {
             ResetToDefault();
         }
 
+        #endregion Constructor
+
+        #region Events
+
         public event EventHandler SettingsChanged;
+
+        #endregion Events
+
+        #region Properties
 
         public double AspectRatio
         {
@@ -59,7 +68,6 @@ namespace Colorado.OpenGLWinForm.View
             }
         }
 
-
         public Point TargetPoint { get; private set; }
 
         public Vector DirectionVector => new Vector(Position, TargetPoint).UnitVector();
@@ -82,15 +90,9 @@ namespace Colorado.OpenGLWinForm.View
                 {
                     return (farClip > 0.01) ? farClip * 1.01 : 0.01;
                 }
-
-
             }
         }
 
-        /// <summary>
-        /// Gets or sets the near clipping distance.
-        /// </summary>
-        /// <value>The near clipping distance (from camera origin, positive on front).</value>
         public double NearClip
         {
             get
@@ -103,7 +105,6 @@ namespace Colorado.OpenGLWinForm.View
 
                 double minClip = 500 * 0.001;
                 return (nearClip > minClip) ? nearClip * 0.999 : minClip;
-
             }
         }
 
@@ -126,11 +127,9 @@ namespace Colorado.OpenGLWinForm.View
             }
         }
 
-        private void TranslatePositionAndTarget(Vector translationVector)
-        {
-            Position += translationVector;
-            TargetPoint += translationVector;
-        }
+        #endregion Properties
+
+        #region Public logic
 
         public void SetViewportParameters(System.Drawing.Rectangle clientRectangle)
         {
@@ -152,11 +151,6 @@ namespace Colorado.OpenGLWinForm.View
             }
         }
 
-        public Transform GetViewMatrix()
-        {
-            return Transform.LookAt(Position, TargetPoint, UpVector);
-        }
-
         public void Apply()
         {
             OpenGLViewportWrapper.SetViewport(0, 0, Width, Height);
@@ -175,26 +169,6 @@ namespace Colorado.OpenGLWinForm.View
             OpenGLMatrixOperationWrapper.TranslateCurrentMatrix(Position);
         }
 
-        private void ApplySettings()
-        {
-            if (CameraType == CameraType.Orthographic)
-            {
-                Vector2D imageSize = ImageSize;
-                double xmin = -imageSize.X / 2;
-                double xmax = imageSize.X / 2;
-                double ymin = -imageSize.Y / 2;
-                double ymax = imageSize.Y / 2;
-                OpenGLViewportWrapper.SetOrthographicViewSettings(
-                     xmin, xmax, ymin,
-                     ymax, NearClip, FarClip);
-            }
-            else
-            {
-                OpenGLViewportWrapper.SetPerspectiveCameraSettings(
-                    VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
-            }
-        }
-
         public void ResetToDefault()
         {
             TargetPoint = Point.ZeroPoint;
@@ -202,7 +176,12 @@ namespace Colorado.OpenGLWinForm.View
             UpVector = Vector.YAxis;
             VerticalFieldOfViewInDegrees = 45;
             SettingsChanged?.Invoke(this, EventArgs.Empty);
+
+            RotateAroundTarget(Vector.XAxis, 65);
+            RotateAroundTarget(Vector.ZAxis, 45);
         }
+
+        #endregion Public logic
 
         #region Transformation
 
@@ -296,7 +275,7 @@ namespace Colorado.OpenGLWinForm.View
             RotateAroundTarget(Quaternion.Create(rotationAxis, angleInDegrees));
         }
 
-        public void RotateAroundTarget(Quaternion quaternion)
+        private void RotateAroundTarget(Quaternion quaternion)
         {
             Vector newDirection = quaternion.ApplyToVector(DirectionVector);
             UpVector = quaternion.ApplyToVector(UpVector);
@@ -304,5 +283,38 @@ namespace Colorado.OpenGLWinForm.View
         }
 
         #endregion Transformation
+
+        #region Private logic
+
+        private void TranslatePositionAndTarget(Vector translationVector)
+        {
+            Position += translationVector;
+            TargetPoint += translationVector;
+        }
+
+        private void ApplySettings()
+        {
+            if (CameraType == CameraType.Orthographic)
+            {
+                Vector2D imageSize = ImageSize;
+                double xmin = -imageSize.X / 2;
+                double xmax = imageSize.X / 2;
+                double ymin = -imageSize.Y / 2;
+                double ymax = imageSize.Y / 2;
+                OpenGLViewportWrapper.SetOrthographicViewSettings(xmin, xmax, ymin, ymax, NearClip, FarClip);
+            }
+            else
+            {
+                OpenGLViewportWrapper.SetPerspectiveCameraSettings(
+                    VerticalFieldOfViewInDegrees, AspectRatio, NearClip, FarClip);
+            }
+        }
+
+        private Transform GetViewMatrix()
+        {
+            return Transform.LookAt(Position, TargetPoint, UpVector);
+        }
+
+        #endregion Private logic
     }
 }

@@ -247,24 +247,20 @@ namespace Colorado.GeometryDataStructures.Primitives
             Vector rightVector = upVector.CrossProduct(direction).UnitVector();
             Vector upVectorUpdated = direction.CrossProduct(rightVector).UnitVector();
 
-            Transform rotation = Transform.Identity();
+            Transform rotation = Identity();
             rotation[0, 0] = rightVector.X;
             rotation[1, 0] = rightVector.Y;
             rotation[2, 0] = rightVector.Z;
 
-            rotation[0, 1] = upVector.X;
-            rotation[1, 1] = upVector.Y;
-            rotation[2, 1] = upVector.Z;
+            rotation[0, 1] = upVectorUpdated.X;
+            rotation[1, 1] = upVectorUpdated.Y;
+            rotation[2, 1] = upVectorUpdated.Z;
 
             rotation[0, 2] = -direction.X;
             rotation[1, 2] = -direction.Y;
             rotation[2, 2] = -direction.Z;
 
-            //rotation.Translate(cameraPosition.ToVector().Inverse);
             return rotation;
-            Transform translation = Transform.CreateTranslation(cameraPosition.ToVector());
-
-            return translation * rotation;
         }
 
         /// <summary>

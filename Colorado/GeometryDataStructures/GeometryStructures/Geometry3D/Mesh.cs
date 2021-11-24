@@ -1,14 +1,10 @@
 ﻿using Colorado.Common.Collections;
-using Colorado.Common.Helpers;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Enumerations;
 using Colorado.GeometryDataStructures.Primitives;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 {
@@ -20,6 +16,8 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         #endregion Constants
 
+        #region Private fields
+
         private readonly DynamicArray<double> verticesValuesArray;
         private readonly DynamicArray<double> normalsValuesArray;
         private readonly DynamicArray<byte> verticesColorsValuesArray;
@@ -27,11 +25,14 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         private readonly DynamicArray<Vector> verticesNormals;
         private readonly DynamicArray<Vertex> vertices;
 
+        #endregion Private fields
+
+        #region Constructor
+
         public Mesh(IList<Triangle> triangles)
         {
             Transform = Transform.Identity();
             Material = Material.Default;
-            //Material.Diffuse = RGB.RedColor;
             Triangles = triangles;
             BoundingBox = GetBoundingBox();
 
@@ -50,7 +51,11 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             }
         }
 
-        public Transform Transform { get; set; }
+        #endregion Constructor
+
+        #region Properties
+
+        public Transform Transform { get; private set; }
 
         public Material Material { get; }
 
@@ -67,7 +72,26 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         public override BoundingBox BoundingBox { get; }
 
         public int VerticesCount { get; }
+
         public int TrianglesCount { get; }
+
+        #endregion Properties
+
+        #region Public logic
+
+        public void RestoreTransformToDefault()
+        {
+            Transform = Transform.Identity();
+        }
+
+        public void ApplyTransform(Transform transform)
+        {
+            Transform *= transform;
+        }
+
+        #endregion Public logic
+
+        #region Private logic
 
         private BoundingBox GetBoundingBox()
         {
@@ -75,18 +99,6 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
                 new[] { t.FirstVertex.Position, t.SecondVertex.Position, t.ThirdVertex.Position });
 
             return new BoundingBox(BoundingBox.GetPointWithMaxValues(points), BoundingBox.GetPointWithMinValues(points));
-        }
-
-        public Mesh GetTransformed(Transform transform)
-        {
-            var transformedTriangles = new List<Triangle>(TrianglesCount);
-
-            foreach (Triangle triangle in Triangles)
-            {
-                transformedTriangles.Add(triangle.GetTransformed(transform));
-            }
-
-            return new Mesh(transformedTriangles);
         }
 
         private void AddTriangleValues(Triangle triangle)
@@ -125,5 +137,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             verticesValuesArray.Add(triangle.ThirdVertex.Position.Y);
             verticesValuesArray.Add(triangle.ThirdVertex.Position.Z);
         }
+
+        #endregion Private logic
     }
 }

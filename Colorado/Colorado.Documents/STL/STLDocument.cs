@@ -2,17 +2,22 @@
 using Colorado.Documents.STL.Readers;
 using Colorado.Documents.STL.Utils;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
-using Colorado.GeometryDataStructures.Primitives;
 using System.IO;
 
 namespace Colorado.Documents.STL
 {
     public class STLDocument : Document
     {
+        #region Constructor
+
         public STLDocument(string pathToStlFile)
         {
             AddGeometryObject(GetMeshFromStlDocument(pathToStlFile));
         }
+
+        #endregion Constructor
+
+        #region Private logic
 
         private Mesh GetMeshFromStlDocument(string pathToStlFile)
         {
@@ -32,5 +37,7 @@ namespace Colorado.Documents.STL
                     new STLASCIIFileReader(pathToStlFile).Read() : new STLBinaryFileReader(pathToStlFile).Read();
             }
         }
+
+        #endregion Private logic
     }
 }

@@ -47,18 +47,16 @@ namespace Colorado.OpenGLWinForm.Tools
             if (viewManipulationType == ViewManipulationType.Rotation)
             {
                 Vector2D curPoint = new Vector2D(e.X, e.Y);
-                Vector2D direction = curPoint - lastPoint;
                 viewCamera.RotateAroundTarget(lastPoint, curPoint);
                 lastPoint = curPoint;
             }
-
 
             openGLControl.Refresh();
         }
 
         private void MouseWheelCallback(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            viewCamera.Move(e.Delta > 0 ? MoveDirection.Forward : MoveDirection.Backward, 5);
+            viewCamera.Move(e.Delta > 0 ? MoveDirection.Forward : MoveDirection.Backward, 10);
             openGLControl.Refresh();
         }
 

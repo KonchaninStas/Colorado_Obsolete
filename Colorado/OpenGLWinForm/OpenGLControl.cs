@@ -29,8 +29,6 @@ namespace Colorado.OpenGLWinForm
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
-        private readonly MouseTool mouseTool;
-        private readonly KeyboardTool keyboardTool;
 
         private Context renderingContext;
 
@@ -47,8 +45,8 @@ namespace Colorado.OpenGLWinForm
             DefaultMaterialsManager = DefaultMaterialsManager.Instance;
             GeometryRenderer = new GeometryRenderer(documentsManager, ViewCamera);
 
-            mouseTool = new MouseTool(this, ViewCamera);
-            keyboardTool = new KeyboardTool(this, ViewCamera);
+            new MouseTool(this, ViewCamera);
+            new KeyboardTool(this, ViewCamera);
 
             SubscribeToEvents();
 

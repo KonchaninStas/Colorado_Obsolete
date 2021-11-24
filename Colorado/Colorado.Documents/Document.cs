@@ -1,42 +1,43 @@
 ﻿using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
-using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.Documents
 {
     public class Document
     {
+        #region Private fields
+
         private readonly IList<GeometryObject> geometryObjects;
-        private readonly IList<Mesh> meshes;
+
+        #endregion Private fields
+
+        #region Constructor
 
         public Document()
         {
             geometryObjects = new List<GeometryObject>();
-            meshes = new List<Mesh>();
             BoundingBox = new BoundingBox();
         }
 
-        public IEnumerable<GeometryObject> Geometries => geometryObjects;
+        #endregion Constructor
 
-        public IEnumerable<Mesh> Meshes => meshes;
+        #region Properties
+
+        public IEnumerable<GeometryObject> Geometries => geometryObjects;
 
         public BoundingBox BoundingBox { get; private set; }
 
-        public void AddMeshGeometryObject(Mesh mesh)
-        {
-            meshes.Add(mesh);
-            AddGeometryObject(mesh);
-        }
+        #endregion Properties
+
+        #region Public logic
 
         public void AddGeometryObject(GeometryObject geometryObject)
         {
             geometryObjects.Add(geometryObject);
             BoundingBox = BoundingBox.Add(geometryObject.BoundingBox);
         }
+
+        #endregion Public logic
     }
 }
