@@ -215,7 +215,6 @@ namespace Colorado.OpenGLWinForm.View
                         Position += DirectionVector * speed;
                         break;
                     }
-
                 case MoveDirection.Backward:
                     {
                         Position -= DirectionVector * speed;
@@ -271,22 +270,22 @@ namespace Colorado.OpenGLWinForm.View
             {
                 case RotationDirection.Up:
                     {
-                        RotateAroundTarget(RightVector, angleInDegrees);
+                        RotateAroundTarget(RightVector, -angleInDegrees);
                         break;
                     }
                 case RotationDirection.Down:
                     {
-                        RotateAroundTarget(RightVector, -angleInDegrees);
+                        RotateAroundTarget(RightVector, +angleInDegrees);
                         break;
                     }
                 case RotationDirection.Right:
                     {
-                        RotateAroundTarget(Vector.ZAxis, angleInDegrees);
+                        RotateAroundTarget(Vector.ZAxis, -angleInDegrees);
                         break;
                     }
                 case RotationDirection.Left:
                     {
-                        RotateAroundTarget(Vector.ZAxis, -angleInDegrees);
+                        RotateAroundTarget(Vector.ZAxis, angleInDegrees);
                         break;
                     }
             }
