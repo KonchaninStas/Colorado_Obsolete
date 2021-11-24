@@ -7,7 +7,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
 {
     public class Line : GeometryObject
     {
-        public Line(Point startPoint, Point endPoint)
+        public Line(Point startPoint, Point endPoint, RGB color)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
@@ -16,13 +16,14 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry2D
 
             VerticesValuesArray = new[] { StartPoint.X, StartPoint.Y, StartPoint.Z, EndPoint.X, EndPoint.Y, EndPoint.Z };
 
-            var Color = new RGB(126, 126, 126);
             RGBColorsValuesArray = new byte[]
-           {
-                Color.Red, Color.Green, Color.Blue,
-                Color.Red, Color.Green, Color.Blue
-           };
+            {
+                color.Red, color.Green, color.Blue,
+                color.Red, color.Green, color.Blue
+            };
         }
+
+        public Line(Point startPoint, Point endPoint) : this(startPoint, endPoint, RGB.GridDefaultColor) { }
 
         public const int VerticesValuesArrayLength = 6;
 

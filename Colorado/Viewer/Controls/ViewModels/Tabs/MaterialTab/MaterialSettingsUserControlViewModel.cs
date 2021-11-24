@@ -21,16 +21,18 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
 
         public MaterialSettingsUserControlViewModel(IRenderingControl renderingControl) : base(renderingControl)
         {
+            Material defaultMaterial = Material.Default;
+
             AmbientColorViewModel = new RGBColorPickerUserControlViewModel(Resources.MaterialAmbientColor,
-                renderingControl.GeometryRenderer.GlobalMaterial.Ambient);
+                renderingControl.GeometryRenderer.GlobalMaterial.Ambient, defaultMaterial.Ambient);
             AmbientColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
             DiffuseColorViewModel = new RGBColorPickerUserControlViewModel(Resources.MaterialDiffuseColor,
-                renderingControl.GeometryRenderer.GlobalMaterial.Diffuse);
+                renderingControl.GeometryRenderer.GlobalMaterial.Diffuse, defaultMaterial.Diffuse);
             DiffuseColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
             SpecularColorViewModel = new RGBColorPickerUserControlViewModel(Resources.MaterialSpecularColor,
-                renderingControl.GeometryRenderer.GlobalMaterial.Specular);
+                renderingControl.GeometryRenderer.GlobalMaterial.Specular, defaultMaterial.Specular);
             SpecularColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
             SelectedMaterial = DefaultMaterialsManager.Instance[Material.DefaultMaterialName];
@@ -63,7 +65,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
             }
             set
             {
-                if(value.Name == DefaultMaterialsManager.LastConfiguratedMaterialName)
+                if (value.Name == DefaultMaterialsManager.LastConfiguratedMaterialName)
                 {
                     value = DefaultMaterialsManager.Instance[DefaultMaterialsManager.LastConfiguratedMaterialName];
                 }

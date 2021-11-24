@@ -5,7 +5,8 @@ using Colorado.Documents.STL;
 using Colorado.OpenGL.Managers;
 using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
 using Colorado.Viewer.Controls.Views.Tabs.MaterialTab;
-using Colorado.Viewer.Controls.Views.Tabs.Rendering;
+using Colorado.Viewer.Controls.Views.Tabs.RenderingTab;
+using Colorado.Viewer.Controls.Views.Tabs.ViewTab;
 using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Colorado.Viewer.ViewModels
     internal class MainWindowViewModel : ViewModelBase
     {
         private IEnumerable<TabItemViewModel> tabs;
-        private readonly Colorado.Framework.Application application;
+        private readonly Framework.Application application;
 
         private int fps;
 
@@ -31,6 +32,7 @@ namespace Colorado.Viewer.ViewModels
                 new TabItemViewModel(Resources.LightingTabHeader, new LightingTabViewUserControl(application.RenderingControl), true),
                 new TabItemViewModel(Resources.MaterialTabHeader, new MaterialSettingsTabUserControl(application.RenderingControl), false),
                 new TabItemViewModel(Resources.RenderingTabHeader, new RenderingSettingsTabUserControl(application.RenderingControl), false),
+                new TabItemViewModel(Resources.ViewTabHeader, new ViewSettingsTabUserControl(application.RenderingControl), false),
             };
         }
 

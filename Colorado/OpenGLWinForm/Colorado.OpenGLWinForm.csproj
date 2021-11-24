@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\CameraType.cs" />
+    <Compile Include="Enumerations\MoveDirection.cs" />
+    <Compile Include="Enumerations\RotationDirection.cs" />
     <Compile Include="Enumerations\ViewManipulationType.cs" />
     <Compile Include="IRenderingControl.cs" />
     <Compile Include="OpenGLControl.cs">
@@ -53,14 +55,13 @@
       <DependentUpon>OpenGLControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenderingControlStructures\ViewCamera.cs" />
-    <Compile Include="RenderingControlStructures\ViewCameraTransform.cs" />
     <Compile Include="Rendering\GeometryRenderer.cs" />
     <Compile Include="Rendering\RenderableObjects\GridPlane.cs" />
     <Compile Include="Tools\KeyboardTool.cs" />
     <Compile Include="Tools\MouseTool.cs" />
     <Compile Include="Utilities\ApplicationTimer.cs" />
     <Compile Include="Utilities\FpsCalculator.cs" />
+    <Compile Include="View\Camera.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>

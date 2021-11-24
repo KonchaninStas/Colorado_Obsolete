@@ -18,14 +18,16 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.LightingTab
 
         public LightSettingsUserControlViewModel(IRenderingControl renderingControl, Light light) : base(renderingControl)
         {
+            Light defaultLightSettings = Light.GetDefault(light.LightType);
+
             this.light = light;
-            AmbientColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightAmbientColor, light.Ambient);
+            AmbientColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightAmbientColor, light.Ambient, defaultLightSettings.Ambient);
             AmbientColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
-            DiffuseColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightDiffuseColor, light.Diffuse);
+            DiffuseColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightDiffuseColor, light.Diffuse, defaultLightSettings.Diffuse);
             DiffuseColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
-            SpecularColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightSpecularColor, light.Specular);
+            SpecularColorViewModel = new RGBColorPickerUserControlViewModel(Resources.LightSpecularColor, light.Specular, defaultLightSettings.Specular);
             SpecularColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
         }
 

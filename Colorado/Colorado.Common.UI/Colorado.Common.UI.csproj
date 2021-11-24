@@ -52,6 +52,7 @@
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\EventToCommand.cs" />
     <Compile Include="Controls\ColorSlider.cs" />
+    <Compile Include="Controls\NumberBox.cs" />
     <Compile Include="Controls\RGBColorPickerUserControl.xaml.cs">
       <DependentUpon>RGBColorPickerUserControl.xaml</DependentUpon>
     </Compile>
@@ -119,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\ExpanderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\RadioButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

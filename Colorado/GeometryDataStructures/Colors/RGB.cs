@@ -6,6 +6,10 @@ namespace Colorado.GeometryDataStructures.Colors
     [Serializable]
     public class RGB
     {
+        private byte red;
+        private byte green;
+        private byte blue;
+
         public RGB() { }
 
         public RGB(Color color) :
@@ -25,11 +29,44 @@ namespace Colorado.GeometryDataStructures.Colors
             Intensity = 100;
         }
 
-        public byte Red { get; set; }
+        public byte Red
+        {
+            get
+            {
+                return red;
+            }
+            set
+            {
+                red = value;
+                Changed?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
-        public byte Green { get; set; }
+        public byte Green
+        {
+            get
+            {
+                return green;
+            }
+            set
+            {
+                green = value;
+                Changed?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
-        public byte Blue { get; set; }
+        public byte Blue
+        {
+            get
+            {
+                return blue;
+            }
+            set
+            {
+                blue = value;
+                Changed?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         public int Intensity { get; set; }
 
@@ -42,6 +79,14 @@ namespace Colorado.GeometryDataStructures.Colors
         public static RGB GreenColor => new RGB(0, 255, 0);
 
         public static RGB BlueColor => new RGB(0, 0, 255);
+
+        public static RGB BackgroundDefaultColor => new RGB(204, 204, 204);
+
+        public static RGB GridDefaultColor => new RGB(126, 126, 126);
+
+        public static RGB TargetPointDefaultColor => RGB.BlackColor;
+
+        public event EventHandler Changed;
 
         public Color ToColor()
         {

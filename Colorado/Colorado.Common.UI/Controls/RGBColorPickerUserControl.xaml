@@ -7,6 +7,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ButtonStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ExpanderStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
@@ -51,6 +52,7 @@
             Maximum="100"
             Value="{Binding IntensityValue, Mode=TwoWay}"/>
         </StackPanel>
-        
+        <Button Style="{StaticResource ControlButtonStyle}" Content="{x:Static properties:Resources.RestoreDefaultColorSettings}"
+                    Command="{Binding RestoreDefaultColorSettingsCommand}"/>
     </StackPanel>
 </UserControl>

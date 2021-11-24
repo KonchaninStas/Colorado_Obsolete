@@ -48,7 +48,7 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public double DistanceTo(Point secondPoint)
         {
-            return Math.Sqrt(X * secondPoint.X + Y * secondPoint.Y + Z * secondPoint.Z);
+            return Math.Abs((this - secondPoint).Length);
         }
 
         public static Vector operator -(Point left, Point right)

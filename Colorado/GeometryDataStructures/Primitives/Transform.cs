@@ -34,7 +34,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             this.matrix = matrix;
         }
 
-        public Transform(Vector translation) : this()
+        private Transform(Vector translation) : this()
         {
             Translation = translation;
         }
@@ -71,15 +71,15 @@ namespace Colorado.GeometryDataStructures.Primitives
             get
             {
                 return new Vector(
-                    this[3, 0],
-                    this[3, 1],
-                    this[3, 2]);
+                    this[0, 3],
+                    this[1, 3],
+                    this[2, 3]);
             }
             private set
             {
-                this[3, 0] = value.X;
-                this[3, 1] = value.Y;
-                this[3, 2] = value.Z;
+                this[0, 3] = value.X;
+                this[1, 3] = value.Y;
+                this[2, 3] = value.Z;
             }
         }
 
@@ -241,6 +241,32 @@ namespace Colorado.GeometryDataStructures.Primitives
             return identityTransform;
         }
 
+        public static Transform LookAt(Point cameraPosition, Point targetPoint, Vector upVector)
+        {
+            Vector direction = new Vector(targetPoint, cameraPosition).UnitVector();
+            Vector rightVector = upVector.CrossProduct(direction).UnitVector();
+            Vector upVectorUpdated = direction.CrossProduct(rightVector).UnitVector();
+
+            Transform rotation = Transform.Identity();
+            rotation[0, 0] = rightVector.X;
+            rotation[1, 0] = rightVector.Y;
+            rotation[2, 0] = rightVector.Z;
+
+            rotation[0, 1] = upVector.X;
+            rotation[1, 1] = upVector.Y;
+            rotation[2, 1] = upVector.Z;
+
+            rotation[0, 2] = -direction.X;
+            rotation[1, 2] = -direction.Y;
+            rotation[2, 2] = -direction.Z;
+
+            //rotation.Translate(cameraPosition.ToVector().Inverse);
+            return rotation;
+            Transform translation = Transform.CreateTranslation(cameraPosition.ToVector());
+
+            return translation * rotation;
+        }
+
         /// <summary>
         /// Creates a scaling matrix.
         /// </summary>
@@ -252,9 +278,29 @@ namespace Colorado.GeometryDataStructures.Primitives
         {
             Transform result = Transform.Identity();
 
-            result[0,0] = xScale;
-            result[1,1] = yScale;
-            result[2,2] = zScale;
+            result[0, 0] = xScale;
+            result[1, 1] = yScale;
+            result[2, 2] = zScale;
+
+            return result;
+        }
+
+        public static Transform CreateScale(double scale)
+        {
+            Transform result = Transform.Identity();
+
+            result[0, 0] = scale;
+            result[1, 1] = scale;
+            result[2, 2] = scale;
+
+            return result;
+        }
+
+        public static Transform CreateTranslation(Vector translationVector)
+        {
+            Transform result = Transform.Identity();
+
+            result.Translation = translationVector;
 
             return result;
         }
@@ -291,9 +337,9 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public Point ApplyToPoint(Point point)
         {
-            double x = this[0, 0] * point.X + this[0, 1] * point.Y + this[0, 2] * point.Z + this[3, 0];
-            double y = this[1, 0] * point.X + this[1, 1] * point.Y + this[1, 2] * point.Z + this[3, 1];
-            double z = this[2, 0] * point.X + this[2, 1] * point.Y + this[2, 2] * point.Z + this[3, 2];
+            double x = this[0, 0] * point.X + this[0, 1] * point.Y + this[0, 2] * point.Z + this[0, 3];
+            double y = this[1, 0] * point.X + this[1, 1] * point.Y + this[1, 2] * point.Z + this[1, 3];
+            double z = this[2, 0] * point.X + this[2, 1] * point.Y + this[2, 2] * point.Z + this[2, 3];
             return new Point(x, y, z);
         }
 

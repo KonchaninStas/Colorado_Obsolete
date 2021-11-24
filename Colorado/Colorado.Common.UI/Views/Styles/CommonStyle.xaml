@@ -119,4 +119,18 @@
         </Setter>
     </Style>
 
+    <Style
+        x:Key="StackPanel" TargetType="{x:Type StackPanel}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style
+        x:Key="HorizontalStackPanel" TargetType="{x:Type StackPanel}" BasedOn="{StaticResource StackPanel}">
+        <Setter Property="Orientation" Value="Horizontal"/>
+    </Style>
+
+    <Style
+        x:Key="VerticalStackPanel" TargetType="{x:Type StackPanel}" BasedOn="{StaticResource StackPanel}">
+        <Setter Property="Orientation" Value="Vertical"/>
+    </Style>
 </ResourceDictionary>

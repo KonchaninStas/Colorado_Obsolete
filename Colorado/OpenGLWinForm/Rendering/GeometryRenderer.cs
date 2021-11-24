@@ -5,6 +5,7 @@ using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
+using Colorado.OpenGLWinForm.View;
 
 namespace Colorado.OpenGLWinForm.Rendering
 {
@@ -13,20 +14,22 @@ namespace Colorado.OpenGLWinForm.Rendering
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
-        private readonly ViewCamera viewCamera;
+        private readonly Camera viewCamera;
 
         #endregion Private fields
 
         #region Constructor
 
-        public GeometryRenderer(DocumentsManager documentsManager, ViewCamera viewCamera)
+        public GeometryRenderer(DocumentsManager documentsManager, Camera viewCamera)
         {
             this.documentsManager = documentsManager;
             this.viewCamera = viewCamera;
             GlobalMaterial = Material.Default;
             DrawCoordinateSystem = true;
+            TargetPointColor = RGB.TargetPointDefaultColor;
             SubscribeToEvents();
             UpdateRenderingControlSettings();
+            CoordinateSystemAxisLength = 100;
         }
 
         #endregion Constructor 
@@ -41,6 +44,12 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         public bool DrawCoordinateSystem { get; set; }
 
+        public bool DrawTargetPoint { get; set; }
+
+        public RGB TargetPointColor { get; }
+
+        public double CoordinateSystemAxisLength { get; set; }
+
         #endregion Properties
 
         #region Public logic
@@ -48,6 +57,10 @@ namespace Colorado.OpenGLWinForm.Rendering
         public void DrawGeometryPrimitives()
         {
             GridPlane.Draw();
+            if (DrawTargetPoint)
+            {
+                OpenGLGeometryWrapper.DrawPoint(viewCamera.TargetPoint.Inverse, TargetPointColor, 20);
+            }
             if (DrawCoordinateSystem)
             {
                 DrawOriginCoordinateSystem();
@@ -78,13 +91,13 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawOriginCoordinateSystem()
         {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 2000 * (float)viewCamera.ViewCameraTransform.Scale);
+            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 20);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * 100), RGB.RedColor, 1000 * (float)viewCamera.ViewCameraTransform.Scale);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * CoordinateSystemAxisLength), RGB.RedColor, 10);
             OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * 100), RGB.GreenColor, 1000 * (float)viewCamera.ViewCameraTransform.Scale);
+                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * CoordinateSystemAxisLength), RGB.GreenColor, 10);
             OpenGLGeometryWrapper.DrawLine(
-               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * 100), RGB.BlueColor, 1000 * (float)viewCamera.ViewCameraTransform.Scale);
+               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * CoordinateSystemAxisLength), RGB.BlueColor, 10);
         }
 
         private void DrawEntities()

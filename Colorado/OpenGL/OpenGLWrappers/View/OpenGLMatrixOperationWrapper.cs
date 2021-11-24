@@ -32,6 +32,11 @@ namespace Colorado.OpenGL.OpenGLWrappers.View
             OpenGLMatrixOperationAPI.MultMatrixd(transform.Array);
         }
 
+        public static void LoadMatrix(Transform transform)
+        {
+            OpenGLMatrixOperationAPI.LoadMatrixd(transform.Array);
+        }
+
         public static void RotateCurrentMatrix(double rotationAngleInDegrees, Vector rotationVector)
         {
             OpenGLMatrixOperationAPI.Rotated(rotationAngleInDegrees,

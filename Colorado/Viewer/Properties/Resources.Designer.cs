@@ -97,11 +97,47 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coordinate system axes length.
+        /// </summary>
+        public static string CoordinateSystemAxisLength {
+            get {
+                return ResourceManager.GetString("CoordinateSystemAxisLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default materials:.
         /// </summary>
         public static string DefaultMaterials {
             get {
                 return ResourceManager.GetString("DefaultMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw Coordinate system.
+        /// </summary>
+        public static string DrawCoordinateSystem {
+            get {
+                return ResourceManager.GetString("DrawCoordinateSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw sources of lights.
+        /// </summary>
+        public static string DrawLights {
+            get {
+                return ResourceManager.GetString("DrawLights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw Target point.
+        /// </summary>
+        public static string DrawTargetPoint {
+            get {
+                return ResourceManager.GetString("DrawTargetPoint", resourceCulture);
             }
         }
         
@@ -115,11 +151,56 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field of View.
+        /// </summary>
+        public static string FieldOfView {
+            get {
+                return ResourceManager.GetString("FieldOfView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Global material settings.
         /// </summary>
         public static string GlobalMaterialSettings {
             get {
                 return ResourceManager.GetString("GlobalMaterialSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid color settings:.
+        /// </summary>
+        public static string GridColorSettings {
+            get {
+                return ResourceManager.GetString("GridColorSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid settings:.
+        /// </summary>
+        public static string GridSettings {
+            get {
+                return ResourceManager.GetString("GridSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space.
+        /// </summary>
+        public static string GridSpace {
+            get {
+                return ResourceManager.GetString("GridSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid Visibility.
+        /// </summary>
+        public static string GridVisibility {
+            get {
+                return ResourceManager.GetString("GridVisibility", resourceCulture);
             }
         }
         
@@ -138,6 +219,15 @@ namespace Colorado.Viewer.Properties {
         public static string LightColorSettings {
             get {
                 return ResourceManager.GetString("LightColorSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light source diameter.
+        /// </summary>
+        public static string LightDiameter {
+            get {
+                return ResourceManager.GetString("LightDiameter", resourceCulture);
             }
         }
         
@@ -241,6 +331,33 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Orthographic.
+        /// </summary>
+        public static string OrthographicView {
+            get {
+                return ResourceManager.GetString("OrthographicView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perspective.
+        /// </summary>
+        public static string PerspectiveView {
+            get {
+                return ResourceManager.GetString("PerspectiveView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projection Mode:.
+        /// </summary>
+        public static string ProjectionMode {
+            get {
+                return ResourceManager.GetString("ProjectionMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rendering.
         /// </summary>
         public static string RenderingTabHeader {
@@ -250,11 +367,29 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore View.
+        /// </summary>
+        public static string RestoreView {
+            get {
+                return ResourceManager.GetString("RestoreView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shininess radius:.
         /// </summary>
         public static string Shininess {
             get {
                 return ResourceManager.GetString("Shininess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target point color settings:.
+        /// </summary>
+        public static string TargetPointColorSettings {
+            get {
+                return ResourceManager.GetString("TargetPointColorSettings", resourceCulture);
             }
         }
         
@@ -273,6 +408,15 @@ namespace Colorado.Viewer.Properties {
         public static string UseGlobalMaterial {
             get {
                 return ResourceManager.GetString("UseGlobalMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string ViewTabHeader {
+            get {
+                return ResourceManager.GetString("ViewTabHeader", resourceCulture);
             }
         }
     }

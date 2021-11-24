@@ -12,7 +12,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Header">
             <Setter.Value>
-                <StackPanel Orientation="Horizontal"  FlowDirection="LeftToRight" HorizontalAlignment="Left">
+                <StackPanel Style="{StaticResource HorizontalStackPanel}"  FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsLightEnabled}" Style="{StaticResource CheckBoxStyle}"/>
                     <TextBlock Style="{StaticResource TitleTextBlock}" Margin="5,0,0,0" Text="{Binding Header}"/>
                 </StackPanel>
@@ -29,7 +29,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Header">
             <Setter.Value>
-                <StackPanel Orientation="Horizontal"  FlowDirection="LeftToRight" HorizontalAlignment="Left">
+                <StackPanel Style="{StaticResource HorizontalStackPanel}"  FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsLightEnabled}" Style="{StaticResource CheckBoxStyle}"/>
                     <TextBlock Style="{StaticResource GenericTextBlock}" Margin="5,0,0,0" Text="{Binding Header}"/>
                 </StackPanel>

@@ -3,6 +3,7 @@ using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
+using Colorado.OpenGLWinForm.View;
 using System;
 
 namespace Colorado.OpenGLWinForm.Tools
@@ -12,7 +13,7 @@ namespace Colorado.OpenGLWinForm.Tools
         #region Private fields
 
         private readonly OpenGLControl openGLControl;
-        private readonly ViewCamera viewCamera;
+        private readonly Camera viewCamera;
 
         private Vector2D lastPoint;
         private ViewManipulationType viewManipulationType;
@@ -20,7 +21,7 @@ namespace Colorado.OpenGLWinForm.Tools
 
         #region Constructor
 
-        internal MouseTool(OpenGLControl openGLControl, ViewCamera viewCamera)
+        internal MouseTool(OpenGLControl openGLControl, Camera viewCamera)
         {
             this.openGLControl = openGLControl;
             this.viewCamera = viewCamera;
@@ -54,20 +55,13 @@ namespace Colorado.OpenGLWinForm.Tools
                 lastPoint = curPoint;
             }
 
-            
+
             openGLControl.Refresh();
         }
 
         private void MouseWheelCallback(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (e.Delta > 0)
-            {
-                viewCamera.ScaleIn();
-            }
-            else
-            {
-                viewCamera.ScaleOut();
-            }
+            viewCamera.Move(e.Delta > 0 ? MoveDirection.Forward : MoveDirection.Backward, 5);
             openGLControl.Refresh();
         }
 

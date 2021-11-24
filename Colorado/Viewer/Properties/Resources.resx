@@ -129,20 +129,50 @@
   <data name="BackgroundColorSettings" xml:space="preserve">
     <value>Background color settings:</value>
   </data>
+  <data name="CoordinateSystemAxisLength" xml:space="preserve">
+    <value>Coordinate system axes length</value>
+  </data>
   <data name="DefaultMaterials" xml:space="preserve">
     <value>Default materials:</value>
+  </data>
+  <data name="DrawCoordinateSystem" xml:space="preserve">
+    <value>Draw Coordinate system</value>
+  </data>
+  <data name="DrawLights" xml:space="preserve">
+    <value>Draw sources of lights</value>
+  </data>
+  <data name="DrawTargetPoint" xml:space="preserve">
+    <value>Draw Target point</value>
   </data>
   <data name="EnableLightingCheckBoxText" xml:space="preserve">
     <value>Enable lighting</value>
   </data>
+  <data name="FieldOfView" xml:space="preserve">
+    <value>Field of View</value>
+  </data>
   <data name="GlobalMaterialSettings" xml:space="preserve">
     <value>Global material settings</value>
+  </data>
+  <data name="GridColorSettings" xml:space="preserve">
+    <value>Grid color settings:</value>
+  </data>
+  <data name="GridSettings" xml:space="preserve">
+    <value>Grid settings:</value>
+  </data>
+  <data name="GridSpace" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="GridVisibility" xml:space="preserve">
+    <value>Grid Visibility</value>
   </data>
   <data name="LightAmbientColor" xml:space="preserve">
     <value>Ambient:</value>
   </data>
   <data name="LightColorSettings" xml:space="preserve">
     <value>Color settings:</value>
+  </data>
+  <data name="LightDiameter" xml:space="preserve">
+    <value>Light source diameter</value>
   </data>
   <data name="LightDiffuseColor" xml:space="preserve">
     <value>Diffuse:</value>
@@ -177,16 +207,34 @@
   <data name="MaterialTabHeader" xml:space="preserve">
     <value>Material</value>
   </data>
+  <data name="OrthographicView" xml:space="preserve">
+    <value>Orthographic</value>
+  </data>
+  <data name="PerspectiveView" xml:space="preserve">
+    <value>Perspective</value>
+  </data>
+  <data name="ProjectionMode" xml:space="preserve">
+    <value>Projection Mode:</value>
+  </data>
   <data name="RenderingTabHeader" xml:space="preserve">
     <value>Rendering</value>
   </data>
+  <data name="RestoreView" xml:space="preserve">
+    <value>Restore View</value>
+  </data>
   <data name="Shininess" xml:space="preserve">
     <value>Shininess radius:</value>
+  </data>
+  <data name="TargetPointColorSettings" xml:space="preserve">
+    <value>Target point color settings:</value>
   </data>
   <data name="UnhandledExceptionOccured" xml:space="preserve">
     <value>An unhandled exception has been occurred. The application will be terminated</value>
   </data>
   <data name="UseGlobalMaterial" xml:space="preserve">
     <value>Use global material</value>
+  </data>
+  <data name="ViewTabHeader" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>

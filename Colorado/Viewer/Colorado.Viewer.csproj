@@ -66,7 +66,8 @@
     <Compile Include="Controls\ViewModels\Tabs\LightingTab\LightSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsTabViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsUserControlViewModel.cs" />
-    <Compile Include="Controls\ViewModels\Tabs\Rendering\RenderingSettingsTabUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\RenderingTab\RenderingSettingsTabUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\ViewTab\ViewSettingsTabUserControlViewModel.cs" />
     <Compile Include="Controls\Views\Tabs\LightingTab\LightingTabViewUserControl.xaml.cs">
       <DependentUpon>LightingTabViewUserControl.xaml</DependentUpon>
     </Compile>
@@ -79,8 +80,11 @@
     <Compile Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsUserControl.xaml.cs">
       <DependentUpon>MaterialSettingsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Views\Tabs\Rendering\RenderingSettingsTabUserControl.xaml.cs">
+    <Compile Include="Controls\Views\Tabs\RenderingTab\RenderingSettingsTabUserControl.xaml.cs">
       <DependentUpon>RenderingSettingsTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\ViewTab\ViewSettingsTabUserControl.xaml.cs">
+      <DependentUpon>ViewSettingsTabUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -105,7 +109,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Views\Tabs\Rendering\RenderingSettingsTabUserControl.xaml">
+    <Page Include="Controls\Views\Tabs\RenderingTab\RenderingSettingsTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\ViewTab\ViewSettingsTabUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

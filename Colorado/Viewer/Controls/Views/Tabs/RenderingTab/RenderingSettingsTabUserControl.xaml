@@ -1,0 +1,99 @@
+﻿<UserControl 
+    x:Class="Colorado.Viewer.Controls.Views.Tabs.RenderingTab.RenderingSettingsTabUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:properties="clr-namespace:Colorado.Viewer.Properties"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CommonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ComboBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ExpanderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBoxStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <controls:RGBColorPickerUserControl 
+            Grid.Row="0" Grid.ColumnSpan="2" DataContext="{Binding BackgroundColorViewModel}"/>
+            <Separator
+            Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource SeparatorStyle}"/>
+            <TextBlock 
+            Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.GridSettings}"/>
+            <CheckBox 
+            Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource CheckBoxStyle}" Content="{x:Static properties:Resources.GridVisibility}"
+            IsChecked="{Binding IsGridVisible}"/>
+            <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource GenericTextBlock}"
+                   Text="{x:Static properties:Resources.GridSpace}"/>
+            <controls:NumberBox 
+            Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource TextBoxStyle}"
+            Value="{Binding GridSpace, Mode=TwoWay}" Minimum="1" Maximum="100" />
+            <controls:RGBColorPickerUserControl  
+            Grid.Row="5" Grid.ColumnSpan="2" DataContext="{Binding GridColorViewModel}"/>
+            <Separator  
+            Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource SeparatorStyle}"/>
+            <CheckBox 
+            Grid.Row="7" Grid.ColumnSpan="2" Style="{StaticResource CheckBoxStyle}" 
+            Content="{x:Static properties:Resources.DrawCoordinateSystem}"
+            IsChecked="{Binding DrawCoordinateSystem}"/>
+            <TextBlock  
+            Grid.Row="8" Grid.ColumnSpan="2" Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.CoordinateSystemAxisLength}"/>
+            <controls:NumberBox  
+            Grid.Row="8"  Grid.Column="1"
+            HorizontalAlignment="Right" Style="{StaticResource TextBoxStyle}"
+            Value="{Binding CoordinateSystemAxisLength, Mode=TwoWay}" Minimum="100" Maximum="100000" />
+
+            <Separator 
+            Grid.Row="9" Grid.ColumnSpan="2" Style="{StaticResource SeparatorStyle}"/>
+            <CheckBox 
+            Grid.Row="10" Grid.ColumnSpan="2" Style="{StaticResource CheckBoxStyle}" Content="{x:Static properties:Resources.DrawLights}"
+            IsChecked="{Binding DrawLights}"/>
+
+            <TextBlock  
+                Grid.Row="11" Grid.ColumnSpan="2" Style="{StaticResource GenericTextBlock}" 
+                Text="{x:Static properties:Resources.LightDiameter}"/>
+            <controls:NumberBox  
+                Grid.Row="11"  Grid.Column="1"
+                HorizontalAlignment="Right" Style="{StaticResource TextBoxStyle}"
+                Value="{Binding LightSourceDrawDiameter, Mode=TwoWay}" Minimum="1" Maximum="100" />
+            <Separator 
+            Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource SeparatorStyle}"/>
+            <CheckBox 
+                Grid.Row="13" Grid.ColumnSpan="2" Style="{StaticResource CheckBoxStyle}" Content="{x:Static properties:Resources.DrawTargetPoint}"
+                IsChecked="{Binding DrawTargetPoint}"/>
+            <controls:RGBColorPickerUserControl  
+            Grid.Row="14" Grid.ColumnSpan="2" DataContext="{Binding TargetPointColorViewModel}"/>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

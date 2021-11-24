@@ -133,6 +133,15 @@ namespace Colorado.Common.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore default color settings.
+        /// </summary>
+        public static string RestoreDefaultColorSettings {
+            get {
+                return ResourceManager.GetString("RestoreDefaultColorSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong. Exception message is &quot;{0}&quot;..
         /// </summary>
         public static string SmthWentWrong {

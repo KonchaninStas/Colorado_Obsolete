@@ -34,6 +34,8 @@ namespace Colorado.OpenGL.Managers
             };
             EnableLight(LightType.Light0);
             IsLightingEnabled = true;
+            DrawLights = true;
+            LightSourceDrawDiameter = 20;
         }
 
         #endregion Constructor
@@ -51,6 +53,10 @@ namespace Colorado.OpenGL.Managers
         public IEnumerable<Light> Lights => lightTypeToLightMap.Values;
 
         public bool IsLightingEnabled { get; set; }
+
+        public bool DrawLights { get; set; }
+
+        public double LightSourceDrawDiameter { get; set; }
 
         #endregion Properties
 
@@ -90,14 +96,14 @@ namespace Colorado.OpenGL.Managers
             }
         }
 
-        public void DrawLightsSources(double radius, double scale)
+        public void DrawLightsSources(double radius)
         {
-            if (IsLightingEnabled)
+            if (IsLightingEnabled && DrawLights)
             {
                 foreach (Light light in lightTypeToLightMap.Values.Where(l => l.IsEnabled))
                 {
                     OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint + light.Direction * (radius == 0 ? 10 : radius),
-                        light.Diffuse, 2000 * (float)scale);
+                        light.Diffuse, (float) LightSourceDrawDiameter);
                 }
             }
         }

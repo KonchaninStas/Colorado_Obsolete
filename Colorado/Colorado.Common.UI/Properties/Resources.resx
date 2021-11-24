@@ -141,6 +141,9 @@
   <data name="RedColorTitle" xml:space="preserve">
     <value>Red</value>
   </data>
+  <data name="RestoreDefaultColorSettings" xml:space="preserve">
+    <value>Restore default color settings</value>
+  </data>
   <data name="SmthWentWrong" xml:space="preserve">
     <value>Something went wrong. Exception message is "{0}".</value>
   </data>

@@ -22,5 +22,8 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI.View
 
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glRotated")]
         public static extern void Rotated(double angle, double x, double y, double z);
+
+        [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glLoadMatrixd")]
+        public static extern void LoadMatrixd(double[] m);
     }
 }

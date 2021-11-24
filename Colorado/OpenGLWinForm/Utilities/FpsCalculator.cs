@@ -30,6 +30,8 @@ namespace Colorado.OpenGLWinForm.Utilities
 
         public int FramesPerSecond { get; private set; }
 
+        public double LastFrameRenderingTime { get; private set; }
+
         #endregion Properties
 
         #region Private logic
@@ -41,8 +43,9 @@ namespace Colorado.OpenGLWinForm.Utilities
 
         private void DrawSceneFinishedCallback(object sender, EventArgs e)
         {
-            double render_time = ApplicationTimer.SysTime - drawSceneStartTime;
-            FramesPerSecond = render_time == 0.0 ? defaultFpsValue : (int)(1.0 / render_time + 0.5);
+            LastFrameRenderingTime = ApplicationTimer.SysTime - drawSceneStartTime;
+            FramesPerSecond = LastFrameRenderingTime == 0.0 ? defaultFpsValue : (int)(1.0 / LastFrameRenderingTime + 0.5);
+            FramesPerSecond = FramesPerSecond > 60 ? 60 : FramesPerSecond;
         }
 
         #endregion Private logic

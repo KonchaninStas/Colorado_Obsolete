@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -28,6 +27,7 @@ namespace Colorado.Common.UI.Controls
             Value = 0;
             Slider.PreviewMouseUp += PreviewMouseUpCallback;
             Slider.PreviewMouseDown += PreviewMouseDownCallback;
+            NumberBox.ValueChanged += NumberBox_ValueChanged;
         }
 
         #endregion Constructor
@@ -101,41 +101,10 @@ namespace Colorado.Common.UI.Controls
             if (lastSavedValue != Value)
             {
                 ValueChangedEventInvoke();
-            }  
-        }
-
-        private void NumberBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.Handled = !IsNumberKey(e.Key) && !IsDelOrBackspaceOrTabKey(e.Key);
+            }
         }
 
         #endregion Event handlers
-
-        #region Key logic
-
-        private bool IsNumberKey(Key inKey)
-        {
-            return inKey >= Key.D0 && inKey <= Key.D9 || inKey >= Key.NumPad0 && inKey <= Key.NumPad9;
-        }
-
-        private bool IsDelOrBackspaceOrTabKey(Key inKey)
-        {
-            return inKey == Key.Delete || inKey == Key.Back || inKey == Key.Tab;
-        }
-
-        private string LeaveOnlyNumbers(string inString)
-        {
-            string tmp = inString;
-            foreach (char c in inString.ToCharArray())
-            {
-                if (!Regex.IsMatch(c.ToString(), "^[0-9]*$"))
-                {
-                    tmp = tmp.Replace(c.ToString(), "");
-                }
-            }
-            return tmp.TrimStart('0');
-        }
-        #endregion Key logic
 
         #region Protected logic
 
@@ -146,10 +115,12 @@ namespace Colorado.Common.UI.Controls
             if (e.Property == MaximumProperty)
             {
                 Slider.Maximum = Maximum;
+                NumberBox.Maximum = Maximum;
             }
             else if (e.Property == MinimumProperty)
             {
                 Slider.Minimum = Minimum;
+                NumberBox.Minimum = Minimum;
             }
             else if (e.Property == ValueProperty)
             {
@@ -171,36 +142,19 @@ namespace Colorado.Common.UI.Controls
             NumberBox.Text = ((int)e.NewValue).ToString();
         }
 
-        private void NumberBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void NumberBox_ValueChanged(object sender, EventArgs e)
         {
-            string text = LeaveOnlyNumbers(NumberBox.Text);
-
-            if (double.TryParse(text, out double value))
+            int newValue = NumberBox.Value;
+            if (Value == 0 && newValue != 0)
             {
-                if (value < Minimum || value > Maximum)
-                {
-                    NumberBox.Text = Value.ToString();
-                }
-                else
-                {
-                    int newValue = (int)value;
-                    if (Value == 0 && newValue != 0)
-                    {
-                        Value = int.Parse(newValue.ToString().Replace("0", string.Empty));
-                        NumberBox.CaretIndex = NumberBox.Text.Length;
-                    }
-                    else
-                    {
-                        Value = newValue;
-                    }
-                    ValueChangedEventInvoke();
-                }
+                Value = int.Parse(newValue.ToString().Replace("0", string.Empty));
+                NumberBox.CaretIndex = NumberBox.Text.Length;
             }
             else
             {
-                Value = 0;
-                ValueChangedEventInvoke();
+                Value = newValue;
             }
+            ValueChangedEventInvoke();
         }
 
         private void ValueChangedEventInvoke()
@@ -208,7 +162,7 @@ namespace Colorado.Common.UI.Controls
             if (!isSliderUpdating)
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
-            }    
+            }
         }
 
         #endregion Private logic

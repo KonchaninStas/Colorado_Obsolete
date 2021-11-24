@@ -19,21 +19,6 @@ namespace Colorado.Common.Helpers
                     mergedArrays.Add(value);
                 }
             }
-            //for (int i = 0; i < arraysToMerge.Count; i++)
-            //{
-            //    for (int y = 0; y < arraysToMerge[i].Length; y++)
-            //    {
-            //        mergedArrays[i * arrayLength + y] = arraysToMerge[i][y];
-            //    }
-            //}
-
-            //for (int i = 0; i < arraysToMerge.Count; i++)
-            //{
-            //    for (int y = 0; y < arraysToMerge[i].Length; y++)
-            //    {
-            //        mergedArrays[i * arrayLength + y] = arraysToMerge[i][y];
-            //    }
-            //}
 
             return mergedArrays.ToArray();
         }

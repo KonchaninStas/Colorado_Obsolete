@@ -1,4 +1,5 @@
-﻿using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
+﻿using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using System.Collections.Generic;
@@ -10,17 +11,20 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
     {
         private readonly double zValue;
 
-        private double space;
+        private int space;
         private double size;
         private Line[] lines;
 
         public GridPlane() : this(5, 100, 0) { }
 
-        public GridPlane(double space, double size, double zValue)
+        public GridPlane(int space, double size, double zValue)
         {
             this.space = space;
             this.size = size;
             this.zValue = zValue;
+            Visible = true;
+            Color = RGB.GridDefaultColor;
+            Color.Changed += (s, e) => PrepareLines();
             PrepareLines();
         }
 
@@ -28,7 +32,7 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
 
         public BoundingBox BoundingBox { get; private set; }
 
-        public double Space
+        public int Space
         {
             get
             {
@@ -41,6 +45,8 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
             }
         }
 
+        public RGB Color { get; }
+
         public void Draw()
         {
             if (Visible)
@@ -51,24 +57,28 @@ namespace Colorado.OpenGLWinForm.Rendering.RenderableObjects
 
         private void PrepareLines()
         {
-            size = ((int)(size / space)) * space;
+            int updatedSize = ((int)(size / space)) * space;
             var linesList = new List<Line>();
 
-            int numberOfLines = (int)(size / space);
+            int numberOfLines = (int)(updatedSize / space);
+            if (numberOfLines < 1)
+            {
+                numberOfLines = 1;
+            }
             for (int x = 0; x < numberOfLines; x++)
             {
-                linesList.Add(new Line(new Point(-size, x * space, zValue), new Point(size, x * space, zValue)));
-                linesList.Add(new Line(new Point(-size, x * -space, zValue), new Point(size, x * -space, zValue)));
+                linesList.Add(new Line(new Point(-updatedSize, x * space, zValue), new Point(updatedSize, x * space, zValue), Color));
+                linesList.Add(new Line(new Point(-updatedSize, x * -space, zValue), new Point(updatedSize, x * -space, zValue), Color));
 
-                linesList.Add(new Line(new Point(x * space, -size, zValue), new Point(x * space, size, zValue)));
-                linesList.Add(new Line(new Point(x * -space, -size, zValue), new Point(x * -space, size, zValue)));
+                linesList.Add(new Line(new Point(x * space, -updatedSize, zValue), new Point(x * space, updatedSize, zValue), Color));
+                linesList.Add(new Line(new Point(x * -space, -updatedSize, zValue), new Point(x * -space, updatedSize, zValue), Color));
             };
 
-            linesList.Add(new Line(new Point(-size, numberOfLines * space, zValue), new Point(size, numberOfLines * space, zValue)));
-            linesList.Add(new Line(new Point(-size, numberOfLines * -space, zValue), new Point(size, numberOfLines * -space, zValue)));
+            linesList.Add(new Line(new Point(-updatedSize, numberOfLines * space, zValue), new Point(updatedSize, numberOfLines * space, zValue), Color));
+            linesList.Add(new Line(new Point(-updatedSize, numberOfLines * -space, zValue), new Point(updatedSize, numberOfLines * -space, zValue), Color));
 
-            linesList.Add(new Line(new Point(numberOfLines * space, -size, zValue), new Point(numberOfLines * space, size, zValue)));
-            linesList.Add(new Line(new Point(numberOfLines * -space, -size, zValue), new Point(numberOfLines * -space, size, zValue)));
+            linesList.Add(new Line(new Point(numberOfLines * space, -updatedSize, zValue), new Point(numberOfLines * space, updatedSize, zValue), Color));
+            linesList.Add(new Line(new Point(numberOfLines * -space, -updatedSize, zValue), new Point(numberOfLines * -space, updatedSize, zValue), Color));
 
             lines = linesList.ToArray();
             IEnumerable<Point> points = lines.Skip(numberOfLines * 4).Select(l => new Point[] { l.StartPoint, l.EndPoint }).SelectMany(l => l);

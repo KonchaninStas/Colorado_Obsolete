@@ -15,6 +15,7 @@ using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
 using Colorado.OpenGLWinForm.RenderingControlStructures;
 using Colorado.OpenGLWinForm.Tools;
 using Colorado.OpenGLWinForm.Utilities;
+using Colorado.OpenGLWinForm.View;
 using System;
 using System.Windows.Forms;
 
@@ -34,7 +35,6 @@ namespace Colorado.OpenGLWinForm
         #region Private fields
 
         private readonly DocumentsManager documentsManager;
-        private readonly ViewCamera viewCamera;
         private readonly MouseTool mouseTool;
         private readonly KeyboardTool keyboardTool;
 
@@ -48,24 +48,26 @@ namespace Colorado.OpenGLWinForm
         {
             InitializeComponent();
             this.documentsManager = documentsManager;
-            viewCamera = new ViewCamera();
+            ViewCamera = new Camera();
             LightsManager = new LightsManager();
             DefaultMaterialsManager = DefaultMaterialsManager.Instance;
-            GeometryRenderer = new GeometryRenderer(documentsManager, viewCamera);
+            GeometryRenderer = new GeometryRenderer(documentsManager, ViewCamera);
 
-            mouseTool = new MouseTool(this, viewCamera);
-            keyboardTool = new KeyboardTool(this, viewCamera);
+            mouseTool = new MouseTool(this, ViewCamera);
+            keyboardTool = new KeyboardTool(this, ViewCamera);
 
             SubscribeToEvents();
 
             FpsCalculator = new FpsCalculator(this);
-            BackgroundColor = new RGB(204, 204, 204);
+            BackgroundColor = RGB.BackgroundDefaultColor;
             UpdateRenderingControlSettings();
         }
 
         #endregion Constructor
 
         #region Properties
+
+        public Camera ViewCamera { get; }
 
         public FpsCalculator FpsCalculator { get; }
 
@@ -96,12 +98,12 @@ namespace Colorado.OpenGLWinForm
             documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
             Load += (s, e) => InitializeGraphics();
             Paint += (s, e) => DrawScene();
-            SizeChanged += (s, e) => viewCamera.SetViewportParameters(ClientRectangle);
+            SizeChanged += (s, e) => ViewCamera.SetViewportParameters(ClientRectangle);
         }
 
         private void UpdateRenderingControlSettings()
         {
-            viewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox));
+            ViewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox));
 
             Refresh();
         }
@@ -148,14 +150,14 @@ namespace Colorado.OpenGLWinForm
             OpenGLViewportWrapper.ClearColor(BackgroundColor);
             OpenGLWrapper.ClearDepthBufferValue();
             OpenGLWrapper.ClearBuffers(OpenGLBufferType.Color, OpenGLBufferType.Depth);
-            viewCamera.Apply();
+            ViewCamera.Apply();
         }
 
         private void DrawEntities()
         {
             LightsManager.DisableLighting();
             GeometryRenderer.DrawGeometryPrimitives();
-            LightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal, viewCamera.ViewCameraTransform.Scale);
+            LightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal);
             LightsManager.ConfigureEnabledLights();
             GeometryRenderer.DrawSceneGeometry();
         }
