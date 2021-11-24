@@ -12,8 +12,6 @@ namespace Colorado.Documents.STL
         public STLDocument(string pathToStlFile)
         {
             AddGeometryObject(GetMeshFromStlDocument(pathToStlFile));
-
-          
         }
 
         private Mesh GetMeshFromStlDocument(string pathToStlFile)
@@ -31,7 +29,7 @@ namespace Colorado.Documents.STL
                 STLFileType fileType = STLFileUtil.GetStlFileType(pathToStlFile);
 
                 return fileType == STLFileType.ASCII ?
-                    STLASCIIFileReader.Read(pathToStlFile) : STLBinaryFileReader.Read(pathToStlFile);
+                    new STLASCIIFileReader(pathToStlFile).Read() : new STLBinaryFileReader(pathToStlFile).Read();
             }
         }
     }

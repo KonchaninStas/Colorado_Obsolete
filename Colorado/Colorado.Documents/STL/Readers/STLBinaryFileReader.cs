@@ -4,43 +4,54 @@ using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.Documents.STL.Readers
 {
-    internal static class STLBinaryFileReader
+    internal class STLBinaryFileReader
     {
-        internal static Mesh Read(string pathToStlFile)
+        private readonly string pathToStlFile;
+        private readonly List<Triangle> triangles;
+        private int byteIndex;
+
+        public STLBinaryFileReader(string pathToStlFile)
+        {
+            this.pathToStlFile = pathToStlFile;
+            triangles = new List<Triangle>();
+            byteIndex = 0;
+        }
+
+        public Mesh Read()
         {
             try
             {
-                var triangles = new List<Triangle>();
-                int numOfMesh = 0;
-                int i = 0;
-                int byteIndex = 0;
                 byte[] fileBytes = File.ReadAllBytes(pathToStlFile);
-
-                byte[] temp = new byte[4];
 
                 /* 80 bytes title + 4 byte num of triangles + 50 bytes (1 of triangular mesh)  */
                 if (fileBytes.Length > 120)
                 {
-                    temp[0] = fileBytes[80];
-                    temp[1] = fileBytes[81];
-                    temp[2] = fileBytes[82];
-                    temp[3] = fileBytes[83];
+                    int numOfTriangles = GetNumberOfTriangles(fileBytes);
 
-                    numOfMesh = BitConverter.ToInt32(temp, 0);
                     byteIndex = 84;
 
-                    for (i = 0; i < numOfMesh; i++)
+                    for (int i = 0; i < numOfTriangles; i++)
                     {
-                        triangles.Add(new Triangle(GetVertex(ref byteIndex, fileBytes), GetVertex(ref byteIndex, fileBytes),
-                            GetVertex(ref byteIndex, fileBytes), GetNormalVector(ref byteIndex, fileBytes)));
 
-                        byteIndex += 2; // Attribute byte count
+                        /* this try-catch block will be reviewed */
+                        try
+                        {
+                            Vector normal = GetNormal(fileBytes);
+                            Vertex vertex1 = GetVertex(fileBytes);
+                            Vertex vertex2 = GetVertex(fileBytes);
+                            Vertex vertex3 = GetVertex(fileBytes);
+
+                            byteIndex += 2; // Attribute byte count
+
+                            triangles.Add(new Triangle(vertex1, vertex2, vertex3, normal));
+                        }
+                        catch
+                        {
+                            break;
+                        }
                     }
                 }
                 else
@@ -55,30 +66,46 @@ namespace Colorado.Documents.STL.Readers
             }
         }
 
-        private static Vector GetNormalVector(ref int byteIndex, byte[] fileBytes)
+        private Vector GetNormal(byte[] fileBytes)
         {
-            return GetPoint(ref byteIndex, fileBytes).ToVector();
+            GetData(fileBytes, out double x, out double y, out double z);
+
+            return new Vector(x, y, z);
         }
 
-        private static Vertex GetVertex(ref int byteIndex, byte[] fileBytes)
+
+        private Vertex GetVertex(byte[] fileBytes)
         {
-            return new Vertex(GetPoint(ref byteIndex, fileBytes));
+            GetData(fileBytes, out double x, out double y, out double z);
+
+            return new Vertex(x, y, z);
         }
 
-        private static Point GetPoint(ref int byteIndex, byte[] fileBytes)
+        private void GetData(byte[] fileBytes, out double x, out double y, out double z)
         {
-            double vertexX = BitConverter.ToSingle(new byte[] { fileBytes[byteIndex], fileBytes[byteIndex + 1],
-                fileBytes[byteIndex + 2], fileBytes[byteIndex + 3] }, 0);
+            x = GetDoubleValue(fileBytes);
             byteIndex += 4;
-            double vertexY = BitConverter.ToSingle(new byte[] { fileBytes[byteIndex], fileBytes[byteIndex + 1],
-                fileBytes[byteIndex + 2], fileBytes[byteIndex + 3] }, 0);
+            y = GetDoubleValue(fileBytes);
             byteIndex += 4;
-            double vertexZ = BitConverter.ToSingle(new byte[] { fileBytes[byteIndex], fileBytes[byteIndex + 1],
-                fileBytes[byteIndex + 2], fileBytes[byteIndex + 3] }, 0);
+            z = GetDoubleValue(fileBytes);
             byteIndex += 4;
+        }
 
-            return new Point(vertexX, vertexY, vertexZ);
+        private float GetDoubleValue(byte[] fileBytes)
+        {
+            return BitConverter.ToSingle(new byte[] { fileBytes[byteIndex], fileBytes[byteIndex + 1], fileBytes[byteIndex + 2], fileBytes[byteIndex + 3] }, 0);
+        }
+
+        private int GetNumberOfTriangles(byte[] fileBytes)
+        {
+            byte[] temp = new byte[4];
+
+            temp[0] = fileBytes[80];
+            temp[1] = fileBytes[81];
+            temp[2] = fileBytes[82];
+            temp[3] = fileBytes[83];
+
+            return BitConverter.ToInt32(temp, 0);
         }
     }
 }
-

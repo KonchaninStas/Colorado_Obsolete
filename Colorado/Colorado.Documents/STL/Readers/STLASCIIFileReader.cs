@@ -1,93 +1,98 @@
-﻿using Colorado.Common.Exceptions;
-using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
+﻿using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace Colorado.Documents.STL.Readers
 {
-    internal static class STLASCIIFileReader
+    internal class STLASCIIFileReader
     {
         #region Constants
 
-        private const string normalSearchWord = "normal";
-        private const string vertexSearchWord = "vertex";
+        private const string solidSearchWord = "solid";
+        private const string endsolidSearchWord = "endsolid";
 
         #endregion Constants
 
-        #region Private fields
+        private readonly string pathToStlFile;
+        private readonly List<Triangle> triangles;
 
-        private static readonly Regex regex;
-
-        #endregion Private fields
-
-        #region Constructors
-
-        static STLASCIIFileReader()
+        public STLASCIIFileReader(string pathToStlFile)
         {
-            regex = new Regex(@"[+-]?\d+(\.\d+)?");
+            this.pathToStlFile = pathToStlFile;
+            triangles = new List<Triangle>();
         }
 
-        #endregion Constructors
-
-        #region Internal logic
-
-        public static Mesh Read(string pathToStlFile)
+        public Mesh Read()
         {
-            try
+            using (StreamReader txtReader = new StreamReader(pathToStlFile))
             {
-                var triangles = new List<Triangle>();
-                using (var sr = new StreamReader(pathToStlFile))
+                while (!txtReader.EndOfStream)
                 {
-                    string line;
-                    Vector normal = null;
-                    while ((line = sr.ReadLine()) != null)
+                    string lineString = GetNextLine(txtReader);
+                    string[] lineData = GetLineData(lineString);
+
+                    if (lineData[0] == solidSearchWord)
                     {
-                        if (line.Contains(normalSearchWord))
+                        while (lineData[0] != endsolidSearchWord)
                         {
-                            normal = GetVectorFromLine(line);
-                        }
-                        else if (line.Contains(vertexSearchWord))
-                        {
-                            Vertex firstVertex = GetVertexFromLine(line);
-                            Vertex secondVertex = GetVertexFromLine(sr.ReadLine());
-                            Vertex thirdVertex = GetVertexFromLine(sr.ReadLine());
-                            triangles.Add(new Triangle(firstVertex, secondVertex, thirdVertex, normal));
+                            lineString = GetNextLine(txtReader);
+                            lineData = GetLineData(lineString);
+
+                            if (lineData[0] == endsolidSearchWord)
+                            {
+                                break;
+                            }
+
+                            try
+                            {
+                                Vector normal = GetNormalVector(lineData);
+
+                                txtReader.ReadLine(); // Just skip the OuterLoop line
+
+                                triangles.Add(new Triangle(GetVertex(txtReader), GetVertex(txtReader), GetVertex(txtReader), normal));
+                            }
+                            catch
+                            {
+                                break;
+                            }
+
+                            txtReader.ReadLine(); // Just skip the endloop
+                            txtReader.ReadLine(); // Just skip the endfacet
                         }
                     }
                 }
 
                 return new Mesh(triangles);
             }
-            catch (Exception ex)
+        }
+
+        private Vertex GetVertex(StreamReader txtReader)
+        {
+            var lineString = GetNextLine(txtReader);
+            /* reduce spaces until string has proper format for split */
+            while (lineString.IndexOf("  ") != -1)
             {
-                throw new StlFileIsInvalidException(ex);
+                lineString = lineString.Replace("  ", " ");
             }
+            string[] lineData = GetLineData(lineString);
+
+            return new Vertex(new Point(double.Parse(lineData[1]), double.Parse(lineData[2]), double.Parse(lineData[3])));
         }
 
-        #endregion Internal logic
-
-        #region Private logic
-
-        private static Vertex GetVertexFromLine(string line)
+        private Vector GetNormalVector(string[] lineData)
         {
-            return new Vertex(GetPointFromLine(line));
+            return new Vector(double.Parse(lineData[2]), double.Parse(lineData[3]), double.Parse(lineData[4]));
         }
 
-        private static Vector GetVectorFromLine(string line)
+        private string[] GetLineData(string lineString)
         {
-            return GetPointFromLine(line).ToVector();
+            return lineString.Split(' ');
         }
 
-        private static Point GetPointFromLine(string line)
+        private string GetNextLine(StreamReader txtReader)
         {
-            MatchCollection matches = regex.Matches(line);
-            return new Point(double.Parse(matches[0].Value), double.Parse(matches[1].Value), double.Parse(matches[2].Value));
+            return txtReader.ReadLine().Trim();
         }
-
-        #endregion Private logic
     }
 }
-
