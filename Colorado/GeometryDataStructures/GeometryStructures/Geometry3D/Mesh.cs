@@ -20,7 +20,6 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         #endregion Constants
 
-
         private readonly DynamicArray<double> verticesValuesArray;
         private readonly DynamicArray<double> normalsValuesArray;
         private readonly DynamicArray<byte> verticesColorsValuesArray;
@@ -30,6 +29,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         public Mesh(IList<Triangle> triangles)
         {
+            Transform = Transform.Identity();
             Material = Material.Default;
             //Material.Diffuse = RGB.RedColor;
             Triangles = triangles;
@@ -48,8 +48,9 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
             {
                 AddTriangleValues(triangles[i]);
             }
-            
         }
+
+        public Transform Transform { get; set; }
 
         public Material Material { get; }
 

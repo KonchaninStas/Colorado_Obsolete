@@ -5,6 +5,7 @@ using Colorado.OpenGL.Enumerations.Geometry;
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.Managers.Materials;
 using Colorado.OpenGL.OpenGLLibrariesAPI.Geometry;
+using Colorado.OpenGL.OpenGLWrappers.View;
 using System;
 using System.Linq;
 
@@ -28,12 +29,15 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             double[] normalsValues = mesh.NormalsValuesArray;
             byte[] colorsValues = mesh.VerticesColorsValuesArray;
 
-            fixed (double* cachedPoints = verticesValues)
-            fixed (double* cachedNormals = normalsValues)
-            fixed (byte* cachedColors = colorsValues)
+            OpenGLMatrixOperationWrapper.ApplyTransform(mesh.Transform, () =>
             {
-                DrawTrianglesRgb(mesh.VerticesCount, cachedPoints, cachedNormals, cachedColors);
-            }
+                fixed (double* cachedPoints = verticesValues)
+                fixed (double* cachedNormals = normalsValues)
+                fixed (byte* cachedColors = colorsValues)
+                {
+                    DrawTrianglesRgb(mesh.VerticesCount, cachedPoints, cachedNormals, cachedColors);
+                }
+            });
         }
 
         public static void DrawLinesRgb(Line[] lines)

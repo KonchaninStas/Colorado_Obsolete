@@ -25,5 +25,11 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI.View
 
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glLoadMatrixd")]
         public static extern void LoadMatrixd(double[] m);
+
+        [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glPushMatrix")]
+        public static extern void PushMatrix();
+
+        [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glPopMatrix")]
+        public static extern void PopMatrix();
     }
 }

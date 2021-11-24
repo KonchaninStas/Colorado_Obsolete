@@ -2,6 +2,7 @@
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLLibrariesAPI.View;
 using Colorado.OpenGL.OpenGLWrappers.Helpers;
+using System;
 
 namespace Colorado.OpenGL.OpenGLWrappers.View
 {
@@ -56,6 +57,14 @@ namespace Colorado.OpenGL.OpenGLWrappers.View
         public static void MakeActiveMatrixIdentity()
         {
             OpenGLMatrixOperationAPI.LoadIdentity();
+        }
+
+        public static void ApplyTransform(Transform transform, Action actionToExecute)
+        {
+            OpenGLMatrixOperationAPI.PushMatrix();
+            MultiplyWithCurrentMatrix(transform);
+            actionToExecute?.Invoke();
+            OpenGLMatrixOperationAPI.PopMatrix();
         }
     }
 }
