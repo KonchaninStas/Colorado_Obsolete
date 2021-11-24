@@ -2,7 +2,6 @@
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.Managers.Materials;
 using Colorado.OpenGLWinForm.Rendering;
-using Colorado.OpenGLWinForm.RenderingControlStructures;
 using Colorado.OpenGLWinForm.View;
 
 namespace Colorado.OpenGLWinForm

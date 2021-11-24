@@ -1,10 +1,7 @@
-﻿using Colorado.Common.Utilities;
-using Colorado.GeometryDataStructures.Primitives;
+﻿using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;
-using Colorado.OpenGLWinForm.RenderingControlStructures;
 using Colorado.OpenGLWinForm.View;
-using System;
 
 namespace Colorado.OpenGLWinForm.Tools
 {

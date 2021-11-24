@@ -1,12 +1,5 @@
-﻿using Colorado.GeometryDataStructures.Primitives;
-using Colorado.OpenGLWinForm.Enumerations;
-using Colorado.OpenGLWinForm.RenderingControlStructures;
+﻿using Colorado.OpenGLWinForm.Enumerations;
 using Colorado.OpenGLWinForm.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Colorado.OpenGLWinForm.Tools

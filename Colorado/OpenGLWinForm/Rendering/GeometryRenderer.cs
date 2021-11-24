@@ -4,7 +4,6 @@ using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
 using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
-using Colorado.OpenGLWinForm.RenderingControlStructures;
 using Colorado.OpenGLWinForm.View;
 
 namespace Colorado.OpenGLWinForm.Rendering
