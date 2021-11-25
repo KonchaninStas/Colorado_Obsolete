@@ -28,8 +28,6 @@ namespace Colorado.OpenGLWinForm
 
         #region Private fields
 
-        private readonly DocumentsManager documentsManager;
-
         private Context renderingContext;
 
         #endregion Private fields
@@ -39,7 +37,7 @@ namespace Colorado.OpenGLWinForm
         public OpenGLControl(DocumentsManager documentsManager)
         {
             InitializeComponent();
-            this.documentsManager = documentsManager;
+            DocumentsManager = documentsManager;
             ViewCamera = new Camera();
             LightsManager = new LightsManager();
             DefaultMaterialsManager = DefaultMaterialsManager.Instance;
@@ -58,6 +56,8 @@ namespace Colorado.OpenGLWinForm
         #endregion Constructor
 
         #region Properties
+
+        public DocumentsManager DocumentsManager { get; }
 
         public Camera ViewCamera { get; }
 
@@ -85,9 +85,9 @@ namespace Colorado.OpenGLWinForm
 
         private void SubscribeToEvents()
         {
-            documentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
-            documentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
-            documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
+            DocumentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
+            DocumentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
+            DocumentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
             Load += (s, e) => InitializeGraphics();
             Paint += (s, e) => DrawScene();
             SizeChanged += (s, e) => ViewCamera.SetViewportParameters(ClientRectangle);
@@ -95,7 +95,7 @@ namespace Colorado.OpenGLWinForm
 
         private void UpdateRenderingControlSettings()
         {
-            ViewCamera.SetObjectRange(documentsManager.TotalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox));
+            ViewCamera.SetObjectRange(DocumentsManager.TotalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox));
 
             Refresh();
         }
@@ -149,7 +149,7 @@ namespace Colorado.OpenGLWinForm
         {
             LightsManager.DisableLighting();
             GeometryRenderer.DrawGeometryPrimitives();
-            LightsManager.DrawLightsSources(documentsManager.TotalBoundingBox.Diagonal);
+            LightsManager.DrawLightsSources(DocumentsManager.TotalBoundingBox.Diagonal);
             LightsManager.ConfigureEnabledLights();
             GeometryRenderer.DrawSceneGeometry();
         }

@@ -1,4 +1,5 @@
-﻿using Colorado.GeometryDataStructures.Colors;
+﻿using Colorado.Documents;
+using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.Managers.Materials;
 using Colorado.OpenGLWinForm.Rendering;
@@ -8,6 +9,8 @@ namespace Colorado.OpenGLWinForm
 {
     public interface IRenderingControl
     {
+        DocumentsManager DocumentsManager { get; }
+
         void RefreshView();
 
         LightsManager LightsManager { get; }

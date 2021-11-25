@@ -4,8 +4,6 @@ using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colorado.Documents
 {
@@ -14,29 +12,59 @@ namespace Colorado.Documents
         private readonly List<Document> documents;
 
         public BoundingBox TotalBoundingBox { get; set; }
-        public List<GeometryObject> GeometryToRender { get; }
+
+        public IEnumerable<GeometryObject> GeometryToRender => documents.Where(d => d.Visible).SelectMany(d => d.Geometries);
+
+        public int DocumentsCount => documents.Count;
 
         public DocumentsManager()
         {
             documents = new List<Document>();
-            GeometryToRender = new List<GeometryObject>();
             TotalBoundingBox = new BoundingBox();
         }
 
         public void AddDocument(Document document)
         {
             documents.Add(document);
-            GeometryToRender.AddRange(document.Geometries);
             TotalBoundingBox = TotalBoundingBox.Add(document.BoundingBox);
             DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
+        }
+
+        public void CloseDocument(Document documentToClose)
+        {
+            documents.Remove(documentToClose);
+            TotalBoundingBox = new BoundingBox();
+            foreach (var document in documents)
+            {
+                TotalBoundingBox = TotalBoundingBox.Add(document.BoundingBox);
+            }
+            DocumentClosed?.Invoke(this, new DocumentClosedEventArgs(documentToClose));
         }
 
         public void CloseAllDocuments()
         {
             documents.Clear();
-            GeometryToRender.Clear();
             TotalBoundingBox = new BoundingBox();
             AllDocumentsClosed?.Invoke(this, System.EventArgs.Empty);
+        }
+
+        public void ShowDocument(Document document)
+        {
+            document.Visible = true;
+        }
+
+        public void HideDocument(Document document)
+        {
+            document.Visible = false;
+        }
+
+        public void IsolateDocument(Document documentToIsolate)
+        {
+            foreach (Document document in Documents)
+            {
+                HideDocument(document);
+            }
+            documentToIsolate.Visible = true;
         }
 
         public IEnumerable<Document> Documents => documents;
@@ -46,5 +74,7 @@ namespace Colorado.Documents
         public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
 
         public event EventHandler AllDocumentsClosed;
+
+        
     }
 }

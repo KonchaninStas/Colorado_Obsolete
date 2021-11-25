@@ -21,6 +21,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TreeView Style="{StaticResource DocumentsTreeView}" ItemsSource="{Binding Documents}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TreeView HorizontalAlignment="Left" Style="{StaticResource DocumentsTreeView}" ItemsSource="{Binding Documents}"/>
     </Grid>
 </UserControl>

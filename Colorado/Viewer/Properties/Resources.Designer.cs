@@ -97,6 +97,24 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close All.
+        /// </summary>
+        public static string CloseAll {
+            get {
+                return ResourceManager.GetString("CloseAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coordinate system axes length.
         /// </summary>
         public static string CoordinateSystemAxisLength {
@@ -169,6 +187,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Global material settings.
         /// </summary>
         public static string GlobalMaterialSettings {
@@ -210,6 +237,24 @@ namespace Colorado.Viewer.Properties {
         public static string GridVisibility {
             get {
                 return ResourceManager.GetString("GridVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Isolate.
+        /// </summary>
+        public static string Isolate {
+            get {
+                return ResourceManager.GetString("Isolate", resourceCulture);
             }
         }
         
@@ -340,6 +385,24 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Folder.
+        /// </summary>
+        public static string OpenFolder {
+            get {
+                return ResourceManager.GetString("OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Orthographic.
         /// </summary>
         public static string OrthographicView {
@@ -390,6 +453,15 @@ namespace Colorado.Viewer.Properties {
         public static string Shininess {
             get {
                 return ResourceManager.GetString("Shininess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
             }
         }
         

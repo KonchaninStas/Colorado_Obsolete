@@ -16,6 +16,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CommonStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TabControlStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ContextMenuStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -26,18 +27,15 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="150"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto" MinWidth="300"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
-            <MenuItem Header="File">
-                <MenuItem x:Name="OpenFileMenuItem" Header="Open" Command="{Binding OpenFileCommand}"/>
-                <MenuItem x:Name="CloseFileMenuItem" Header="Close" Command="{Binding CloseFileCommand}"/>
-            </MenuItem>
-        </Menu>
+        <Menu
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+            Style="{StaticResource MenuStyle}"/>
         <Grid Grid.Row="1" Grid.Column="0">
             <documents:DocumentsTreeUserControl DataContext="{Binding DocumentsTreeUserControlViewModel}"/>
         </Grid>

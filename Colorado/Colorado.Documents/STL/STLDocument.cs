@@ -12,6 +12,7 @@ namespace Colorado.Documents.STL
 
         public STLDocument(string pathToStlFile)
         {
+            PathToFile = pathToStlFile;
             AddGeometryObject(GetMeshFromStlDocument(pathToStlFile));
 
             Name = Path.GetFileNameWithoutExtension(pathToStlFile);
@@ -22,6 +23,8 @@ namespace Colorado.Documents.STL
         #region Properties
 
         public override string Name { get; }
+
+        public override string PathToFile { get; }
 
         #endregion Properties
 

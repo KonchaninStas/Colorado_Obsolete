@@ -1,5 +1,6 @@
 ﻿using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
@@ -103,8 +104,10 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void DrawEntities()
         {
-            documentsManager.GeometryToRender.ForEach(
-                g => OpenGLGeometryWrapper.DrawGeometryObject(g, UseGlobalMaterial ? GlobalMaterial : null));
+            foreach (GeometryObject geometryObject in documentsManager.GeometryToRender)
+            {
+                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject, UseGlobalMaterial ? GlobalMaterial : null);
+            }
         }
 
         #endregion Private logic

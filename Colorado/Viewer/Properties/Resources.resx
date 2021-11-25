@@ -129,6 +129,12 @@
   <data name="BackgroundColorSettings" xml:space="preserve">
     <value>Background color settings:</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseAll" xml:space="preserve">
+    <value>Close All</value>
+  </data>
   <data name="CoordinateSystemAxisLength" xml:space="preserve">
     <value>Coordinate system axes length</value>
   </data>
@@ -153,6 +159,9 @@
   <data name="FieldOfView" xml:space="preserve">
     <value>Field of View</value>
   </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
   <data name="GlobalMaterialSettings" xml:space="preserve">
     <value>Global material settings</value>
   </data>
@@ -167,6 +176,12 @@
   </data>
   <data name="GridVisibility" xml:space="preserve">
     <value>Grid Visibility</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Isolate" xml:space="preserve">
+    <value>Isolate</value>
   </data>
   <data name="LightAmbientColor" xml:space="preserve">
     <value>Ambient:</value>
@@ -210,6 +225,12 @@
   <data name="MaterialTabHeader" xml:space="preserve">
     <value>Material</value>
   </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
   <data name="OrthographicView" xml:space="preserve">
     <value>Orthographic</value>
   </data>
@@ -227,6 +248,9 @@
   </data>
   <data name="Shininess" xml:space="preserve">
     <value>Shininess radius:</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
   </data>
   <data name="TargetPointColorSettings" xml:space="preserve">
     <value>Target point color settings:</value>

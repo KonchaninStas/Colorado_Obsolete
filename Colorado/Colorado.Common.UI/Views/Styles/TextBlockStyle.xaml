@@ -68,7 +68,7 @@
         <Setter Property="Margin" Value="20,4,20.8,0.2"/>
         <Setter Property="Height" Value="43"/>
     </Style>
-    
+
     <Style
         x:Key="MessageViewTextBlock"
         TargetType="{x:Type TextBlock}"
@@ -76,5 +76,39 @@
         <Setter Property="Margin" Value="30,5,30,5" />
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style
+        x:Key="MenuHeaderStyle"
+        TargetType="{x:Type TextBlock}"
+        BasedOn="{StaticResource GenericTextBlock}">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontFamily" Value="Noto Sans" />
+        <Setter Property="Foreground" Value="{StaticResource BlackColor}" />
+        <Setter Property="Text" Value="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" />
+    </Style>
+
+    <Style x:Key="TreeItemTextBlock" BasedOn="{StaticResource GenericTextBlock}" TargetType="{x:Type TextBlock}">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ExpanderVisibility}" Value="Visible" />
+                    <Condition Binding="{Binding ElementName=treeItemText, Path=IsMouseOver}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="TextDecorations" Value="Underline" />
+                <Setter Property="Cursor" Value="Hand" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsExpanded}" Value="False" />
+                    <Condition Binding="{Binding ElementName=treeItemText, Path=IsMouseOver}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="TextDecorations" Value="" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding IsItalic}" Value="True">
+                <Setter Property="FontStyle" Value="Italic" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

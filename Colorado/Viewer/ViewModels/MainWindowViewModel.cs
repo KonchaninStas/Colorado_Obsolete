@@ -11,6 +11,7 @@ using Colorado.Viewer.Controls.Views.Tabs.ViewTab;
 using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -28,7 +29,7 @@ namespace Colorado.Viewer.ViewModels
             application = new Framework.Application();
             OpenGLControl = new OpenGLWPF.OpenGLControl(application);
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
-            DocumentsTreeUserControlViewModel = new DocumentsTreeUserControlViewModel(application.DocumentsManager, application.RenderingControl);
+            DocumentsTreeUserControlViewModel = new DocumentsTreeUserControlViewModel(application.RenderingControl);
             Tabs = new TabItemViewModel[]
             {
                 new TabItemViewModel(Resources.LightingTabHeader, new LightingTabViewUserControl(application.RenderingControl), true),
@@ -36,9 +37,23 @@ namespace Colorado.Viewer.ViewModels
                 new TabItemViewModel(Resources.RenderingTabHeader, new RenderingSettingsTabUserControl(application.RenderingControl), false),
                 new TabItemViewModel(Resources.ViewTabHeader, new ViewSettingsTabUserControl(application.RenderingControl), false),
             };
+
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            {
+                new MenuItemViewModel(Resources.File)
+                {
+                     MenuItems = new ObservableCollection<MenuItemViewModel>()
+                    {
+                        new MenuItemViewModel(Resources.Open, OpenFileCommand),
+                        new MenuItemViewModel(Resources.CloseAll, CloseAllCommand),
+                    }
+                }
+            };
         }
 
         #region Properties
+
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; }
 
         public DocumentsTreeUserControlViewModel DocumentsTreeUserControlViewModel { get; }
 
@@ -79,9 +94,9 @@ namespace Colorado.Viewer.ViewModels
             get { return new CommandHandler(OpenFile); }
         }
 
-        public ICommand CloseFileCommand
+        public ICommand CloseAllCommand
         {
-            get { return new CommandHandler(CloseFile); }
+            get { return new CommandHandler(CloseAll); }
         }
 
         #endregion  Commands
@@ -108,7 +123,7 @@ namespace Colorado.Viewer.ViewModels
             }
         }
 
-        private void CloseFile()
+        private void CloseAll()
         {
             application.DocumentsManager.CloseAllDocuments();
         }

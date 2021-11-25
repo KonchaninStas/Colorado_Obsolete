@@ -14,7 +14,8 @@
     <SolidColorBrush x:Key="BorderBrushLightGrayColor" Color="#DDDDDD"/>
     <SolidColorBrush x:Key="BorderBrushGrayColor" Color="#CCCCCC"/>
     <SolidColorBrush x:Key="BorderBrushBlueColor" Color="#4D9DE3"/>
-
+    <SolidColorBrush x:Key="ToggleButtonForeground" Color="#A5A5A5" />
+    
     <LinearGradientBrush x:Key="RedColorPickerBrush" StartPoint="0,0" EndPoint="1,0">
         <LinearGradientBrush.GradientStops>
             <GradientStop Color="Black" Offset="0" />
