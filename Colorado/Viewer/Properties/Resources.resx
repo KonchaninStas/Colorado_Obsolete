@@ -153,6 +153,9 @@
   <data name="DrawTargetPoint" xml:space="preserve">
     <value>Draw Target point</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="EnableLightingCheckBoxText" xml:space="preserve">
     <value>Enable lighting</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
+  </data>
+  <data name="FinishEditing" xml:space="preserve">
+    <value>Finish Editing</value>
   </data>
   <data name="GlobalMaterialSettings" xml:space="preserve">
     <value>Global material settings</value>

@@ -43,9 +43,10 @@ namespace Colorado.Documents
 
         public void CloseAllDocuments()
         {
+            var closedDocuments = new List<Document>(documents);
             documents.Clear();
             TotalBoundingBox = new BoundingBox();
-            AllDocumentsClosed?.Invoke(this, System.EventArgs.Empty);
+            AllDocumentsClosed?.Invoke(this, new AllDocumentsClosedEventArgs(closedDocuments));
         }
 
         public void ShowDocument(Document document)
@@ -73,8 +74,8 @@ namespace Colorado.Documents
 
         public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
 
-        public event EventHandler AllDocumentsClosed;
+        public event EventHandler<AllDocumentsClosedEventArgs> AllDocumentsClosed;
 
-        
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+﻿using Colorado.Documents.EventArgs;
+using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -51,10 +52,31 @@ namespace Colorado.Documents
         public BoundingBox BoundingBox { get; private set; }
 
         public bool Visible { get; set; }
+        public bool IsEditing { get; private set; }
 
         #endregion Properties
 
+        #region Events
+
+        public event EventHandler<DocumentEditingStartedEventArgs> EditingStarted;
+
+        public event EventHandler<DocumentEditingFinishedEventArgs> EditingFinished;
+
+        #endregion Events
+
         #region Public logic
+
+        public void StartEditing()
+        {
+            IsEditing = true;
+            EditingStarted?.Invoke(this, new DocumentEditingStartedEventArgs(this));
+        }
+
+        public void FinishEditing()
+        {
+            IsEditing = false;
+            EditingFinished?.Invoke(this, new DocumentEditingFinishedEventArgs(this));
+        }
 
         public void OpenFolder()
         {

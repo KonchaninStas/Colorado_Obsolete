@@ -27,12 +27,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             MenuItems.Add(new MenuItemViewModel(Resources.Isolate, IsolateCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Close, CloseCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.OpenFolder, OpenFolderCommand));
+            MenuItems.Add(new MenuItemViewModel(Resources.Edit, EditCommand));
             MenuItems.CollectionChanged += (s, args) => OnPropertyChanged(nameof(ContextMenuVisible));
         }
 
         #region Commands
-
-
 
         public ICommand ShowCommand
         {
@@ -73,6 +72,16 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
                 return new CommandHandler(document.OpenFolder, () => document.IsFolderPresent);
             }
         }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new CommandHandler(document.StartEditing);
+            }
+        }
+
+        public bool Document { get; internal set; }
 
         #endregion  Commands
 

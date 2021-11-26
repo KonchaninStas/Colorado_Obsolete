@@ -46,6 +46,18 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
+
+    <Style
+        x:Key="HorizontalGridSplitterStyle"
+        TargetType="{x:Type GridSplitter}">
+        <Setter Property="BorderBrush" Value="{StaticResource BlueColor}" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="Height" Value="3" />
+        <Setter Property="ShowsPreview" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="ResizeDirection" Value="Rows"/>
+    </Style>
     
     <Style
         x:Key="MainGridStyle"

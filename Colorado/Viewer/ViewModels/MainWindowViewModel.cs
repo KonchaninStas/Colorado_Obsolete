@@ -12,6 +12,8 @@ using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -29,7 +31,9 @@ namespace Colorado.Viewer.ViewModels
             application = new Framework.Application();
             OpenGLControl = new OpenGLWPF.OpenGLControl(application);
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
-            DocumentsTreeUserControlViewModel = new DocumentsTreeUserControlViewModel(application.RenderingControl);
+            DocumentsSettingsUserControlViewModel = new DocumentsSettingsUserControlViewModel(application.RenderingControl);
+            DocumentsSettingsUserControlViewModel.PropertyChanged += (s, args) => OnPropertyChanged(nameof(IsMenuEnabled));
+
             Tabs = new TabItemViewModel[]
             {
                 new TabItemViewModel(Resources.LightingTabHeader, new LightingTabViewUserControl(application.RenderingControl), true),
@@ -52,10 +56,10 @@ namespace Colorado.Viewer.ViewModels
         }
 
         #region Properties
-
+        
         public ObservableCollection<MenuItemViewModel> MenuItems { get; }
 
-        public DocumentsTreeUserControlViewModel DocumentsTreeUserControlViewModel { get; }
+        public DocumentsSettingsUserControlViewModel DocumentsSettingsUserControlViewModel { get; }
 
         public IEnumerable<TabItemViewModel> Tabs
         {
@@ -82,6 +86,14 @@ namespace Colorado.Viewer.ViewModels
             {
                 fps = value;
                 OnPropertyChanged(nameof(FPS));
+            }
+        }
+
+        public bool IsMenuEnabled
+        {
+            get
+            {
+                return !application.RenderingControl.DocumentsManager.Documents.Any(d => d.IsEditing);
             }
         }
 

@@ -34,4 +34,10 @@
             </Style>
         </Style.Resources>
     </Style>
+
+    <Style x:Key="RedButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ControlButtonStyle}">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Red"/>
+    </Style>
 </ResourceDictionary>

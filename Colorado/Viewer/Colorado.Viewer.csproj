@@ -62,16 +62,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\ViewModels\Common\ViewerBaseViewModel.cs" />
-    <Compile Include="Controls\ViewModels\Documents\DocumentsTreeUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Documents\DocumentsSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Documents\DocumentTreeItemViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Documents\EditDocumentUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\LightingTab\LightingTabUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\LightingTab\LightSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsTabViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\RenderingTab\RenderingSettingsTabUserControlViewModel.cs" />
     <Compile Include="Controls\ViewModels\Tabs\ViewTab\ViewSettingsTabUserControlViewModel.cs" />
-    <Compile Include="Controls\Views\Documents\DocumentsTreeUserControl.xaml.cs">
-      <DependentUpon>DocumentsTreeUserControl.xaml</DependentUpon>
+    <Compile Include="Controls\Views\Documents\DocumentsSettingsUserControl.xaml.cs">
+      <DependentUpon>DocumentsSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Documents\EditDocumentUserControl.xaml.cs">
+      <DependentUpon>EditDocumentUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Views\Tabs\LightingTab\LightingTabViewUserControl.xaml.cs">
       <DependentUpon>LightingTabViewUserControl.xaml</DependentUpon>
@@ -98,7 +102,11 @@
     </Compile>
     <Compile Include="Utilities\UserPreferences.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Page Include="Controls\Views\Documents\DocumentsTreeUserControl.xaml">
+    <Page Include="Controls\Views\Documents\DocumentsSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Documents\EditDocumentUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,6 +198,5 @@
       <Name>Colorado.OpenGL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

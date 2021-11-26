@@ -1,10 +1,7 @@
-﻿<UserControl x:Class="Colorado.Viewer.Controls.Views.Documents.DocumentsTreeUserControl"
+﻿<UserControl x:Class="Colorado.Viewer.Controls.Views.Documents.DocumentsSettingsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:properties="clr-namespace:Colorado.Viewer.Properties" 
-             xmlns:controls="clr-namespace:Colorado.Common.UI.Controls;assembly=Colorado.Common.UI"
-             HorizontalAlignment="Stretch"
-             HorizontalContentAlignment="Stretch">
+             xmlns:local="clr-namespace:Colorado.Viewer.Controls.Views.Documents">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,9 +18,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <TreeView HorizontalAlignment="Left" Style="{StaticResource DocumentsTreeView}" ItemsSource="{Binding Documents}"/>
+        <TreeView Visibility="{Binding IsDocumentsTreeVisible}" HorizontalAlignment="Left"
+                  Style="{StaticResource DocumentsTreeView}" ItemsSource="{Binding Documents}"/>
+        <Grid Visibility="{Binding EditDocumentUserControlVisible}">
+            <local:EditDocumentUserControl DataContext="{Binding EditDocumentUserControlViewModel}"/>
+        </Grid>
+
     </Grid>
 </UserControl>

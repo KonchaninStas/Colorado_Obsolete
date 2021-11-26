@@ -169,6 +169,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable lighting.
         /// </summary>
         public static string EnableLightingCheckBoxText {
@@ -192,6 +201,15 @@ namespace Colorado.Viewer.Properties {
         public static string File {
             get {
                 return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finish Editing.
+        /// </summary>
+        public static string FinishEditing {
+            get {
+                return ResourceManager.GetString("FinishEditing", resourceCulture);
             }
         }
         
