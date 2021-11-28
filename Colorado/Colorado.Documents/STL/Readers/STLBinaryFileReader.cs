@@ -1,4 +1,6 @@
 ﻿using Colorado.Common.Exceptions;
+using Colorado.Common.ProgressTracking;
+using Colorado.Documents.Properties;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
@@ -30,6 +32,7 @@ namespace Colorado.Documents.STL.Readers
                 if (fileBytes.Length > 120)
                 {
                     int numOfTriangles = GetNumberOfTriangles(fileBytes);
+                    ProgressTracker.Instance.Init(numOfTriangles);
 
                     byteIndex = 84;
 
@@ -52,6 +55,10 @@ namespace Colorado.Documents.STL.Readers
                         {
                             break;
                         }
+                        finally
+                        {
+                            ProgressTracker.Instance.NextStep(Resources.ReadingTriangles);
+                        }
                     }
                 }
                 else
@@ -59,6 +66,10 @@ namespace Colorado.Documents.STL.Readers
                     // nitentionally left blank
                 }
                 return new Mesh(triangles);
+            }
+            catch (OperationAbortException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

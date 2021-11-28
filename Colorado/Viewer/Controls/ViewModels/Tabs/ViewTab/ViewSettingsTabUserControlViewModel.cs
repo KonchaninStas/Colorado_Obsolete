@@ -1,6 +1,9 @@
 ﻿using Colorado.Common.UI.Commands;
+using Colorado.Common.UI.ViewModels.Controls;
+using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Controls.ViewModels.Common;
+using Colorado.Viewer.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,14 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.ViewTab
         public ViewSettingsTabUserControlViewModel(IRenderingControl renderingControl) : base(renderingControl)
         {
             renderingControl.ViewCamera.SettingsChanged += (s, args) => OnPropertyChanged(nameof(FieldOfView));
+
+            TargetPointColorViewModel = new RGBColorPickerUserControlViewModel(Resources.TargetPointColorSettings,
+               renderingControl.GeometryRenderer.TargetPointRenderingSettings.TargetPointColor, RGB.TargetPointDefaultColor);
+            TargetPointColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
+
+            BackgroundColorViewModel = new RGBColorPickerUserControlViewModel(Resources.BackgroundColorSettings,
+                renderingControl.BackgroundColor, RGB.BackgroundDefaultColor);
+            BackgroundColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
         }
 
         public bool IsPerspectiveViewChecked
@@ -72,6 +83,29 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.ViewTab
             }
         }
 
+        #region Target point
+
+        public bool DrawTargetPoint
+        {
+            get
+            {
+                return renderingControl.GeometryRenderer.TargetPointRenderingSettings.DrawTargetPoint;
+            }
+            set
+            {
+                renderingControl.GeometryRenderer.TargetPointRenderingSettings.DrawTargetPoint = value;
+                renderingControl.RefreshView();
+            }
+        }
+
+        public RGBColorPickerUserControlViewModel TargetPointColorViewModel { get; }
+
+        #endregion Target point
+
+        public RGBColorPickerUserControlViewModel BackgroundColorViewModel { get; }
+
+        #region Commands
+
         public ICommand RestoreView
         {
             get
@@ -83,5 +117,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.ViewTab
                 });
             }
         }
+
+        #endregion Commands
     }
 }

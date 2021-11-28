@@ -6,6 +6,7 @@ namespace Colorado.GeometryDataStructures.Colors
     public class Material
     {
         public const string DefaultMaterialName = "Default";
+        public const string BlackMaterialName = "Black";
 
         public Material()
         { }
@@ -51,6 +52,15 @@ namespace Colorado.GeometryDataStructures.Colors
             get
             {
                 return new Material(DefaultMaterialName, new RGB(0.2f, 0.2f, 0.2f), new RGB(0.8f, 0.8f, 0.8f),
+                   new RGB(0f, 0f, 0f), 0, new RGB(0.0f, 0.0f, 0.0f));
+            }
+        }
+
+        public static Material Black
+        {
+            get
+            {
+                return new Material(BlackMaterialName, new RGB(0f, 0f, 0f), new RGB(0f, 0f, 0f),
                    new RGB(0f, 0f, 0f), 0, new RGB(0.0f, 0.0f, 0.0f));
             }
         }

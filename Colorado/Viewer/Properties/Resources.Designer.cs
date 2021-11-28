@@ -151,6 +151,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Draw fill triangles (Default mode).
+        /// </summary>
+        public static string DrawFillTriangles {
+            get {
+                return ResourceManager.GetString("DrawFillTriangles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Draw sources of lights.
         /// </summary>
         public static string DrawLights {
@@ -169,6 +178,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Draw vertices of the triangles.
+        /// </summary>
+        public static string DrawTrianglesVertices {
+            get {
+                return ResourceManager.GetString("DrawTrianglesVertices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -183,6 +201,15 @@ namespace Colorado.Viewer.Properties {
         public static string EnableLightingCheckBoxText {
             get {
                 return ResourceManager.GetString("EnableLightingCheckBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Wireframe mode.
+        /// </summary>
+        public static string EnableWireframeMode {
+            get {
+                return ResourceManager.GetString("EnableWireframeMode", resourceCulture);
             }
         }
         
@@ -403,6 +430,24 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mesh rendering settings.
+        /// </summary>
+        public static string MeshRenderingSettings {
+            get {
+                return ResourceManager.GetString("MeshRenderingSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to Origin.
+        /// </summary>
+        public static string MoveToOrigin {
+            get {
+                return ResourceManager.GetString("MoveToOrigin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string Open {
@@ -453,6 +498,15 @@ namespace Colorado.Viewer.Properties {
         public static string RenderingTabHeader {
             get {
                 return ResourceManager.GetString("RenderingTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore default position.
+        /// </summary>
+        public static string RestoreDefaultPosition {
+            get {
+                return ResourceManager.GetString("RestoreDefaultPosition", resourceCulture);
             }
         }
         

@@ -12,25 +12,15 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
 
         public RenderingSettingsTabUserControlViewModel(IRenderingControl renderingControl) : base(renderingControl)
         {
-            BackgroundColorViewModel = new RGBColorPickerUserControlViewModel(Resources.BackgroundColorSettings,
-                renderingControl.BackgroundColor, RGB.BackgroundDefaultColor);
-            BackgroundColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
-
             GridColorViewModel = new RGBColorPickerUserControlViewModel(Resources.GridColorSettings,
                renderingControl.GeometryRenderer.GridPlane.Color, RGB.GridDefaultColor);
             GridColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
             DrawLights = false;
-
-            TargetPointColorViewModel = new RGBColorPickerUserControlViewModel(Resources.TargetPointColorSettings,
-               renderingControl.GeometryRenderer.TargetPointColor, RGB.TargetPointDefaultColor);
-            TargetPointColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
         }
 
         #endregion Constructor
 
         #region Properties
-
-        public RGBColorPickerUserControlViewModel BackgroundColorViewModel { get; }
 
         #region Lights
 
@@ -68,11 +58,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
         {
             get
             {
-                return renderingControl.GeometryRenderer.DrawCoordinateSystem;
+                return renderingControl.GeometryRenderer.CoordinateSystemRenderer.DrawCoordinateSystem;
             }
             set
             {
-                renderingControl.GeometryRenderer.DrawCoordinateSystem = value;
+                renderingControl.GeometryRenderer.CoordinateSystemRenderer.DrawCoordinateSystem = value;
                 renderingControl.RefreshView();
             }
         }
@@ -81,11 +71,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
         {
             get
             {
-                return renderingControl.GeometryRenderer.CoordinateSystemAxisLength;
+                return renderingControl.GeometryRenderer.CoordinateSystemRenderer.CoordinateSystemAxisLength;
             }
             set
             {
-                renderingControl.GeometryRenderer.CoordinateSystemAxisLength = value;
+                renderingControl.GeometryRenderer.CoordinateSystemRenderer.CoordinateSystemAxisLength = value;
                 renderingControl.RefreshView();
             }
         }
@@ -124,24 +114,48 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
 
         #endregion Grid
 
-        #region Target point
+        #region Mesh rendering settings
 
-        public bool DrawTargetPoint
+        public bool DrawFillTriangles
         {
             get
             {
-                return renderingControl.GeometryRenderer.DrawTargetPoint;
+                return renderingControl.GeometryRenderer.MeshRenderingSettings.DrawFillTriangles;
             }
             set
             {
-                renderingControl.GeometryRenderer.DrawTargetPoint = value;
+                renderingControl.GeometryRenderer.MeshRenderingSettings.DrawFillTriangles = value;
                 renderingControl.RefreshView();
             }
         }
 
-        public RGBColorPickerUserControlViewModel TargetPointColorViewModel { get; }
+        public bool EnableWireframeMode
+        {
+            get
+            {
+                return renderingControl.GeometryRenderer.MeshRenderingSettings.EnableWireframeMode;
+            }
+            set
+            {
+                renderingControl.GeometryRenderer.MeshRenderingSettings.EnableWireframeMode = value;
+                renderingControl.RefreshView();
+            }
+        }
 
-        #endregion Target point
+        public bool DrawTrianglesVertices
+        {
+            get
+            {
+                return renderingControl.GeometryRenderer.MeshRenderingSettings.DrawTrianglesVertices;
+            }
+            set
+            {
+                renderingControl.GeometryRenderer.MeshRenderingSettings.DrawTrianglesVertices = value;
+                renderingControl.RefreshView();
+            }
+        }
+        
+        #endregion Mesh rendering settings
 
         #endregion Properties
     }

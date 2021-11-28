@@ -147,17 +147,26 @@
   <data name="DrawCoordinateSystem" xml:space="preserve">
     <value>Draw Coordinate system</value>
   </data>
+  <data name="DrawFillTriangles" xml:space="preserve">
+    <value>Draw fill triangles (Default mode)</value>
+  </data>
   <data name="DrawLights" xml:space="preserve">
     <value>Draw sources of lights</value>
   </data>
   <data name="DrawTargetPoint" xml:space="preserve">
     <value>Draw Target point</value>
   </data>
+  <data name="DrawTrianglesVertices" xml:space="preserve">
+    <value>Draw vertices of the triangles</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="EnableLightingCheckBoxText" xml:space="preserve">
     <value>Enable lighting</value>
+  </data>
+  <data name="EnableWireframeMode" xml:space="preserve">
+    <value>Enable Wireframe mode</value>
   </data>
   <data name="FieldOfView" xml:space="preserve">
     <value>Field of View</value>
@@ -231,6 +240,12 @@
   <data name="MaterialTabHeader" xml:space="preserve">
     <value>Material</value>
   </data>
+  <data name="MeshRenderingSettings" xml:space="preserve">
+    <value>Mesh rendering settings</value>
+  </data>
+  <data name="MoveToOrigin" xml:space="preserve">
+    <value>Move to Origin</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
@@ -248,6 +263,9 @@
   </data>
   <data name="RenderingTabHeader" xml:space="preserve">
     <value>Rendering</value>
+  </data>
+  <data name="RestoreDefaultPosition" xml:space="preserve">
+    <value>Restore default position</value>
   </data>
   <data name="RestoreView" xml:space="preserve">
     <value>Restore View</value>

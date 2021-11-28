@@ -31,7 +31,6 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         public Mesh(IList<Triangle> triangles)
         {
-            Transform = Transform.Identity();
             Material = Material.Default;
             Triangles = triangles;
             BoundingBox = GetBoundingBox();
@@ -55,8 +54,6 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         #region Properties
 
-        public Transform Transform { get; private set; }
-
         public Material Material { get; }
 
         public double[] VerticesValuesArray => verticesValuesArray.Array;
@@ -76,20 +73,6 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         public int TrianglesCount { get; }
 
         #endregion Properties
-
-        #region Public logic
-
-        public void RestoreTransformToDefault()
-        {
-            Transform = Transform.Identity();
-        }
-
-        public void ApplyTransform(Transform transform)
-        {
-            Transform *= transform;
-        }
-
-        #endregion Public logic
 
         #region Private logic
 

@@ -4,7 +4,7 @@
         <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style 
-        x:Key="SwitchTogleButton"
+        x:Key="SwitchToggleButton"
         TargetType="ToggleButton">
         <Setter Property="IsChecked" Value="True"/>
         <Setter Property="IsThreeState" Value="False"/>

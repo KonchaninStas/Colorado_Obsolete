@@ -19,7 +19,7 @@
     </UserControl.Resources>
     <Grid>
         <Expander Style="{StaticResource LightSettingsExpanderStyle}" >
-            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+            <StackPanel Orientation="Vertical" Margin="0,10,0,0" IsEnabled="{Binding IsLightEnabled}">
                 <TextBlock Text="{x:Static properties:Resources.LightPositionSettings}" />
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,10,0,0">
                     <TextBlock 

@@ -48,6 +48,9 @@ namespace Colorado.OpenGL.OpenGLLibrariesAPI.Geometry
         [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glLineWidth")]
         public static extern void LineWidth(float width);
 
+        [DllImport(OpenGLLibraryNames.OpenGLLibraryName, EntryPoint = "glPolygonMode")]
+        public static extern void PolygonMode(int face, int mode);
+
         #endregion Fast
     }
 }

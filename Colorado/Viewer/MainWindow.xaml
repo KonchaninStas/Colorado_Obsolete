@@ -45,6 +45,7 @@
         <GridSplitter Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Style="{StaticResource GridSplitterStyle}"/>
         <TabControl Grid.Row="1" Grid.Column="4" Grid.RowSpan="2"  ItemsSource="{Binding Tabs}" 
                     Style="{StaticResource TabStyle}" Padding="10" />
+        
         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2">
             <Label Content="FPS:" />
             <Label Content="{Binding FPS}" />

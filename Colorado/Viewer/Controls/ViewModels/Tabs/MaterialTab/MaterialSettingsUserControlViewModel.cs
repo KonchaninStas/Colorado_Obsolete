@@ -5,7 +5,6 @@ using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Controls.ViewModels.Common;
 using Colorado.Viewer.Properties;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
 {
@@ -24,15 +23,15 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
             Material defaultMaterial = Material.Default;
 
             AmbientColorViewModel = new RGBColorPickerUserControlViewModel(Resources.MaterialAmbientColor,
-                renderingControl.GeometryRenderer.GlobalMaterial.Ambient, defaultMaterial.Ambient);
+                renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.GlobalMaterial.Ambient, defaultMaterial.Ambient);
             AmbientColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
             DiffuseColorViewModel = new RGBColorPickerUserControlViewModel(Resources.MaterialDiffuseColor,
-                renderingControl.GeometryRenderer.GlobalMaterial.Diffuse, defaultMaterial.Diffuse);
+                renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.GlobalMaterial.Diffuse, defaultMaterial.Diffuse);
             DiffuseColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
             SpecularColorViewModel = new RGBColorPickerUserControlViewModel(Resources.MaterialSpecularColor,
-                renderingControl.GeometryRenderer.GlobalMaterial.Specular, defaultMaterial.Specular);
+                renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.GlobalMaterial.Specular, defaultMaterial.Specular);
             SpecularColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
 
             SelectedMaterial = DefaultMaterialsManager.Instance[Material.DefaultMaterialName];
@@ -46,11 +45,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
         {
             get
             {
-                return renderingControl.GeometryRenderer.UseGlobalMaterial;
+                return renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.UseGlobalMaterial;
             }
             set
             {
-                renderingControl.GeometryRenderer.UseGlobalMaterial = value;
+                renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.UseGlobalMaterial = value;
 
                 OnPropertyChanged(nameof(UseGlobalMaterial));
                 renderingControl.RefreshView();
@@ -71,7 +70,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
                 }
                 selectedMaterial = value;
 
-                DefaultMaterialsManager.Instance.SetLastConfiguratedMaterial(renderingControl.GeometryRenderer.GlobalMaterial.GetCopy());
+                DefaultMaterialsManager.Instance.SetLastConfiguratedMaterial(renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.GlobalMaterial.GetCopy());
                 SetActiveMaterialParameters(value);
 
                 OnPropertyChanged(nameof(DefaultMaterials));
@@ -95,11 +94,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.MaterialTab
         {
             get
             {
-                return renderingControl.GeometryRenderer.GlobalMaterial.ShininessRadius;
+                return renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.GlobalMaterial.ShininessRadius;
             }
             set
             {
-                renderingControl.GeometryRenderer.GlobalMaterial.ShininessRadius = value;
+                renderingControl.GeometryRenderer.GlobalMaterialRenderingSettings.GlobalMaterial.ShininessRadius = value;
                 OnPropertyChanged(nameof(ShininessRadius));
             }
         }

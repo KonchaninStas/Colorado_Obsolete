@@ -1,5 +1,7 @@
-﻿using Colorado.Documents.EventArgs;
-using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+﻿using Colorado.Common.ProgressTracking;
+using Colorado.Documents.EventArgs;
+using Colorado.Documents.Properties;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,8 @@ namespace Colorado.Documents
 {
     public abstract class Document : IEquatable<Document>
     {
+        #region Next Id logic
+
         private static int lastId;
 
         private static int GetNextId()
@@ -17,9 +21,11 @@ namespace Colorado.Documents
             return lastId++;
         }
 
+        #endregion Next Id logic
+
         #region Private fields
 
-        private readonly IList<GeometryObject> geometryObjects;
+        private readonly IList<Mesh> meshes;
 
         #endregion Private fields
 
@@ -28,9 +34,10 @@ namespace Colorado.Documents
         public Document()
         {
             Id = GetNextId();
-            geometryObjects = new List<GeometryObject>();
+            meshes = new List<Mesh>();
             BoundingBox = new BoundingBox();
             Visible = true;
+            DocumentTransformation = new DocumentTransformation(BoundingBox);
         }
 
         #endregion Constructor
@@ -39,20 +46,23 @@ namespace Colorado.Documents
 
         public int Id { get; }
 
+        public abstract string Name { get; }
+
         public abstract string PathToFile { get; }
 
         public bool IsFilePresent => !string.IsNullOrEmpty(PathToFile) && File.Exists(PathToFile);
 
         public bool IsFolderPresent => !string.IsNullOrEmpty(PathToFile) && Directory.Exists(Path.GetDirectoryName(PathToFile));
 
-        public abstract string Name { get; }
+        public IEnumerable<Mesh> Meshes => meshes;
 
-        public IEnumerable<GeometryObject> Geometries => geometryObjects;
-
-        public BoundingBox BoundingBox { get; private set; }
+        public BoundingBox BoundingBox { get; }
 
         public bool Visible { get; set; }
+
         public bool IsEditing { get; private set; }
+
+        public DocumentTransformation DocumentTransformation { get; }
 
         #endregion Properties
 
@@ -65,6 +75,8 @@ namespace Colorado.Documents
         #endregion Events
 
         #region Public logic
+
+        public abstract void ImportGeometry();
 
         public void StartEditing()
         {
@@ -84,11 +96,14 @@ namespace Colorado.Documents
                 Process.Start(Path.GetDirectoryName(PathToFile));
         }
 
-        public void AddGeometryObject(GeometryObject geometryObject)
+        public void AddMesh(Mesh mesh)
         {
-            geometryObjects.Add(geometryObject);
-            BoundingBox = BoundingBox.Add(geometryObject.BoundingBox);
+            ProgressTracker.Instance.StartIndeterminate(Resources.ProcessingTriangles);
+            meshes.Add(mesh);
+            BoundingBox.Add(mesh.BoundingBox);
         }
+
+        #region Equals
 
         public bool Equals(Document other)
         {
@@ -98,11 +113,6 @@ namespace Colorado.Documents
             }
 
             return Id == other.Id;
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
 
         public override bool Equals(object obj)
@@ -123,6 +133,13 @@ namespace Colorado.Documents
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        #endregion Equals
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         #endregion Public logic

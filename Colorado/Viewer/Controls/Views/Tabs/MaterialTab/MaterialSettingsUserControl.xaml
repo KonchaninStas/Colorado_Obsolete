@@ -25,18 +25,19 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <CheckBox 
+                x:Name="useGlobalMaterial"
                 Grid.Row="0"
                 Margin="5,10,0,10"
                 Style="{StaticResource CheckBoxStyle}" 
                 Content="{x:Static properties:Resources.UseGlobalMaterial}"
                 IsChecked="{Binding UseGlobalMaterial}"/>
-            <StackPanel Grid.Row="1" Orientation="Vertical">
+            <StackPanel Grid.Row="1" Orientation="Vertical" IsEnabled="{Binding IsChecked, ElementName=useGlobalMaterial}">
                 <TextBlock Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.DefaultMaterials}" />
                 <ComboBox Style="{StaticResource BlueComboBoxStyle}"
                       ItemsSource="{Binding DefaultMaterials}"
                       SelectedItem="{Binding SelectedMaterial}"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0,10,0,0">
+            <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0,10,0,0" IsEnabled="{Binding IsChecked, ElementName=useGlobalMaterial}">
                 <TextBlock Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.GlobalMaterialSettings}" />
                 <controls:RGBColorPickerUserControl DataContext="{Binding AmbientColorViewModel}"/>
                 <controls:RGBColorPickerUserControl DataContext="{Binding DiffuseColorViewModel}"/>

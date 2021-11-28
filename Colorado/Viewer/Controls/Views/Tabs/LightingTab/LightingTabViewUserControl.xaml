@@ -16,14 +16,16 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <CheckBox 
+        <CheckBox
+            x:Name="enableLighting"
             Grid.Row="0"
             Margin="0,10,0,0"
             Style="{StaticResource CheckBoxStyle}" 
             Content="{x:Static properties:Resources.EnableLightingCheckBoxText}"
             IsChecked="{Binding IsLightingEnabled}"/>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,15,0,0">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,15,0,0"
+                      IsEnabled="{Binding IsChecked, ElementName=enableLighting}">
             <ItemsControl ItemsSource="{Binding LightSettingsUserControls}" />
         </ScrollViewer>
     </Grid>

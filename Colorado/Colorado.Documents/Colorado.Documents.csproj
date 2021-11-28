@@ -43,12 +43,18 @@
   <ItemGroup>
     <Compile Include="Document.cs" />
     <Compile Include="DocumentsManager.cs" />
+    <Compile Include="DocumentTransformation.cs" />
     <Compile Include="EventArgs\AllDocumentsClosedEventArgs.cs" />
     <Compile Include="EventArgs\DocumentClosedEventArgs.cs" />
     <Compile Include="EventArgs\DocumentEditingFinishedEventArgs.cs" />
     <Compile Include="EventArgs\DocumentEditingStartedEventArgs.cs" />
     <Compile Include="EventArgs\DocumentOpenedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="STL\Readers\STLASCIIFileReader.cs" />
     <Compile Include="STL\Readers\STLBinaryFileReader.cs" />
     <Compile Include="STL\STLDocument.cs" />
@@ -57,6 +63,10 @@
     <Compile Include="STL\Writers\STLASCIIFileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common.UI\Colorado.Common.UI.csproj">
+      <Project>{158CC58D-8C53-4414-A349-964A0C669253}</Project>
+      <Name>Colorado.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
       <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
       <Name>Colorado.Common</Name>
@@ -66,6 +76,14 @@
       <Name>Colorado.GeometryDataStructures</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

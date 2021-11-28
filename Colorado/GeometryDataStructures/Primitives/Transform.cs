@@ -34,11 +34,6 @@ namespace Colorado.GeometryDataStructures.Primitives
             this.matrix = matrix;
         }
 
-        private Transform(Vector translation) : this()
-        {
-            Translation = translation;
-        }
-
         #endregion Constructors
 
         #region Properties
@@ -92,6 +87,14 @@ namespace Colorado.GeometryDataStructures.Primitives
             {
                 return Math.Sqrt(this[0, 0] * this[0, 0] + this[0, 1] * this[0, 1] + this[0, 2] * this[0, 2]);
             }
+        }
+
+        public Transform GetRotationTransform()
+        {
+            Transform rotationTransform = Clone();
+            rotationTransform.Translation = Vector.ZeroVector;
+
+            return rotationTransform;
         }
 
         #endregion Properties
@@ -299,6 +302,21 @@ namespace Colorado.GeometryDataStructures.Primitives
             result.Translation = translationVector;
 
             return result;
+        }
+
+        public double[] GetOpenGLArray()
+        {
+            Transform openGLTransform = Transform.Identity();
+
+            for (int rowIndex = 0; rowIndex < oneDimentionalSize; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < oneDimentionalSize; columnIndex++)
+                {
+                    this[columnIndex, rowIndex] = this[rowIndex, columnIndex];
+                }
+            }
+
+            return openGLTransform.Array;
         }
 
         #region Operator overrides

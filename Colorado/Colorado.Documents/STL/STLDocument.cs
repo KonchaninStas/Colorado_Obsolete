@@ -1,7 +1,11 @@
 ﻿using Colorado.Common.Exceptions;
+using Colorado.Common.ProgressTracking;
+using Colorado.Common.UI.Handlers;
+using Colorado.Documents.Properties;
 using Colorado.Documents.STL.Readers;
 using Colorado.Documents.STL.Utils;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
+using System;
 using System.IO;
 
 namespace Colorado.Documents.STL
@@ -13,8 +17,6 @@ namespace Colorado.Documents.STL
         public STLDocument(string pathToStlFile)
         {
             PathToFile = pathToStlFile;
-            AddGeometryObject(GetMeshFromStlDocument(pathToStlFile));
-
             Name = Path.GetFileNameWithoutExtension(pathToStlFile);
         }
 
@@ -27,6 +29,15 @@ namespace Colorado.Documents.STL
         public override string PathToFile { get; }
 
         #endregion Properties
+
+        #region Public logic
+
+        public override void ImportGeometry()
+        {
+            AddMesh(GetMeshFromStlDocument(PathToFile));
+        }
+
+        #endregion Public logic
 
         #region Private logic
 

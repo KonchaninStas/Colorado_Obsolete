@@ -88,12 +88,6 @@
         <Setter Property="Height" Value="20" />
         <Setter Property="Foreground" Value="{StaticResource BlueColor}" />
         <Setter Property="Value" Value="{Binding ProgressValue}" />
-        <Style.Resources>
-            <Style 
-                TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="5" />
-            </Style>
-        </Style.Resources>
     </Style>
 
     <Style

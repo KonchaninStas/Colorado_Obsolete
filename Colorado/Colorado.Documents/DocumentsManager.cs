@@ -1,5 +1,10 @@
-﻿using Colorado.Documents.EventArgs;
+﻿using Colorado.Common.Exceptions;
+using Colorado.Common.ProgressTracking;
+using Colorado.Common.UI.Handlers;
+using Colorado.Documents.EventArgs;
+using Colorado.Documents.Properties;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -11,9 +16,9 @@ namespace Colorado.Documents
     {
         private readonly List<Document> documents;
 
-        public BoundingBox TotalBoundingBox { get; set; }
+        public BoundingBox TotalBoundingBox { get; }
 
-        public IEnumerable<GeometryObject> GeometryToRender => documents.Where(d => d.Visible).SelectMany(d => d.Geometries);
+        public IEnumerable<Document> DocumentsToRender => documents.Where(d => d.Visible);
 
         public int DocumentsCount => documents.Count;
 
@@ -25,18 +30,39 @@ namespace Colorado.Documents
 
         public void AddDocument(Document document)
         {
-            documents.Add(document);
-            TotalBoundingBox = TotalBoundingBox.Add(document.BoundingBox);
-            DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
+            ProgressHandler progressHandler = new ProgressHandler(string.Format(Resources.OpeningDocument, document.Name));
+            try
+            {
+                ProgressTracker.Instance.ShowWindow();
+                document.ImportGeometry();
+
+                ProgressTracker.Instance.StartIndeterminate(Resources.BoundingBoxCalculation);
+                documents.Add(document);
+                TotalBoundingBox.Add(document.BoundingBox);
+                DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
+                document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
+            }
+            catch (OperationAbortException)
+            {
+            }
+            catch (Exception ex)
+            {
+                MessageViewHandler.ShowExceptionMessage(Resources.OpeningDocument, ex);
+            }
+            finally
+            {
+                progressHandler.Abort();
+            }
         }
 
         public void CloseDocument(Document documentToClose)
         {
             documents.Remove(documentToClose);
-            TotalBoundingBox = new BoundingBox();
-            foreach (var document in documents)
+            TotalBoundingBox.ResetToDefault();
+            foreach (Document document in documents)
             {
-                TotalBoundingBox = TotalBoundingBox.Add(document.BoundingBox);
+                TotalBoundingBox.Add(document.BoundingBox);
+                document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
             }
             DocumentClosed?.Invoke(this, new DocumentClosedEventArgs(documentToClose));
         }
@@ -45,7 +71,7 @@ namespace Colorado.Documents
         {
             var closedDocuments = new List<Document>(documents);
             documents.Clear();
-            TotalBoundingBox = new BoundingBox();
+            TotalBoundingBox.ResetToDefault();
             AllDocumentsClosed?.Invoke(this, new AllDocumentsClosedEventArgs(closedDocuments));
         }
 
@@ -76,6 +102,6 @@ namespace Colorado.Documents
 
         public event EventHandler<AllDocumentsClosedEventArgs> AllDocumentsClosed;
 
-
+        public event EventHandler DocumentUpdated;
     }
 }

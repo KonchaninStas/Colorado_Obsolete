@@ -7,5 +7,6 @@
         Lighting = 0x0B50,
         NormalizeNormals = 0x0BA1,
         PointSmooth = 0x0B10,
+        LineSmooth = 0x0B20,
     }
 }

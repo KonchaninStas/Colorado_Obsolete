@@ -56,7 +56,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\GeometryRenderer.cs" />
+    <Compile Include="Rendering\PrimitivesRenderers\CoordinateSystemRenderer.cs" />
     <Compile Include="Rendering\RenderableObjects\GridPlane.cs" />
+    <Compile Include="Rendering\Settings\GlobalMaterialRenderingSettings.cs" />
+    <Compile Include="Rendering\Settings\MeshRenderingSettings.cs" />
+    <Compile Include="Rendering\Settings\TargetPointRenderingSettings.cs" />
     <Compile Include="Tools\KeyboardTool.cs" />
     <Compile Include="Tools\MouseTool.cs" />
     <Compile Include="Utilities\ApplicationTimer.cs" />
@@ -87,5 +91,6 @@
       <DependentUpon>OpenGLControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

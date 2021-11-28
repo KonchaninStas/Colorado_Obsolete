@@ -1,10 +1,13 @@
-﻿using Colorado.Documents;
+﻿using Colorado.Common.Utilities;
+using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
-using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.OpenGLWrappers.Geometry;
+using Colorado.OpenGLWinForm.Rendering.PrimitivesRenderers;
 using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
+using Colorado.OpenGLWinForm.Rendering.Settings;
 using Colorado.OpenGLWinForm.View;
 
 namespace Colorado.OpenGLWinForm.Rendering
@@ -24,12 +27,14 @@ namespace Colorado.OpenGLWinForm.Rendering
         {
             this.documentsManager = documentsManager;
             this.viewCamera = viewCamera;
-            GlobalMaterial = Material.Default;
-            DrawCoordinateSystem = true;
-            TargetPointColor = RGB.TargetPointDefaultColor;
+
+            GlobalMaterialRenderingSettings = new GlobalMaterialRenderingSettings();
+            TargetPointRenderingSettings = new TargetPointRenderingSettings();
+            CoordinateSystemRenderer = new CoordinateSystemRenderer();
+            MeshRenderingSettings = new MeshRenderingSettings();
+
             SubscribeToEvents();
             UpdateRenderingControlSettings();
-            CoordinateSystemAxisLength = 100;
         }
 
         #endregion Constructor 
@@ -38,17 +43,13 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         public GridPlane GridPlane { get; private set; }
 
-        public bool UseGlobalMaterial { get; set; }
+        public GlobalMaterialRenderingSettings GlobalMaterialRenderingSettings { get; }
 
-        public Material GlobalMaterial { get; set; }
+        public TargetPointRenderingSettings TargetPointRenderingSettings { get; }
 
-        public bool DrawCoordinateSystem { get; set; }
+        public CoordinateSystemRenderer CoordinateSystemRenderer { get; }
 
-        public bool DrawTargetPoint { get; set; }
-
-        public RGB TargetPointColor { get; }
-
-        public double CoordinateSystemAxisLength { get; set; }
+        public MeshRenderingSettings MeshRenderingSettings { get; }
 
         #endregion Properties
 
@@ -57,14 +58,11 @@ namespace Colorado.OpenGLWinForm.Rendering
         public void DrawGeometryPrimitives()
         {
             GridPlane.Draw();
-            if (DrawTargetPoint)
+            if (TargetPointRenderingSettings.DrawTargetPoint)
             {
-                OpenGLGeometryWrapper.DrawPoint(viewCamera.TargetPoint.Inverse, TargetPointColor, 20);
+                OpenGLGeometryWrapper.DrawPoint(viewCamera.TargetPoint.Inverse, TargetPointRenderingSettings.TargetPointColor, 20);
             }
-            if (DrawCoordinateSystem)
-            {
-                DrawOriginCoordinateSystem();
-            }
+            CoordinateSystemRenderer.Draw();
         }
 
         public void DrawSceneGeometry()
@@ -91,22 +89,28 @@ namespace Colorado.OpenGLWinForm.Rendering
             GridPlane.Visible = visible;
         }
 
-        private void DrawOriginCoordinateSystem()
-        {
-            OpenGLGeometryWrapper.DrawPoint(Point.ZeroPoint, RGB.BlackColor, 20);
-            OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.XAxis * CoordinateSystemAxisLength), RGB.RedColor, 10);
-            OpenGLGeometryWrapper.DrawLine(
-                new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.YAxis * CoordinateSystemAxisLength), RGB.GreenColor, 10);
-            OpenGLGeometryWrapper.DrawLine(
-               new Line(Point.ZeroPoint, Point.ZeroPoint + Vector.ZAxis * CoordinateSystemAxisLength), RGB.BlueColor, 10);
-        }
-
         private void DrawEntities()
         {
-            foreach (GeometryObject geometryObject in documentsManager.GeometryToRender)
+            foreach (Document document in documentsManager.DocumentsToRender)
             {
-                OpenGLGeometryWrapper.DrawGeometryObject(geometryObject, UseGlobalMaterial ? GlobalMaterial : null);
+                foreach (Mesh mesh in document.Meshes)
+                {
+                    if (MeshRenderingSettings.DrawFillTriangles)
+                    {
+                        OpenGLFastRenderer.DrawMesh(mesh, GlobalMaterialRenderingSettings.UseGlobalMaterial ?
+                           GlobalMaterialRenderingSettings.GlobalMaterial : null, document.DocumentTransformation.ActiveTransform);
+                    }
+
+                    if (MeshRenderingSettings.EnableWireframeMode)
+                    {
+                        OpenGLFastRenderer.DrawMeshLines(mesh, Material.Black, document.DocumentTransformation.ActiveTransform);
+                    }
+
+                    if (MeshRenderingSettings.DrawTrianglesVertices)
+                    {
+                        OpenGLFastRenderer.DrawMeshVertices(mesh, Material.Black, document.DocumentTransformation.ActiveTransform);
+                    }
+                }
             }
         }
 

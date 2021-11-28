@@ -27,12 +27,18 @@
             <RadioButton Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding IsOrthographicViewChecked}"
                          Content="{x:Static properties:Resources.OrthographicView}" GroupName="View"/>
         </StackPanel>
-        <Separator Style="{StaticResource SeparatorStyle}" Visibility="{Binding FieldOfViewSettingsVisible}"/>
         <StackPanel Margin="0,10,0,10" Style="{StaticResource VerticalStackPanel}" Visibility="{Binding FieldOfViewSettingsVisible}">
             <TextBlock  Style="{StaticResource GenericTextBlock}" Text="{x:Static properties:Resources.FieldOfView}"/>
             <controls:SliderWithNumberBox Minimum="5" Maximum="180" Value="{Binding FieldOfView, Mode=TwoWay}" DataContext="{Binding .}"/>
         </StackPanel>
         <Button Style="{StaticResource ControlButtonStyle}" Content="{x:Static properties:Resources.RestoreView}"
                     Command="{Binding RestoreView}"/>
+
+        <Separator  Style="{StaticResource SeparatorStyle}"/>
+        <CheckBox x:Name="drawTargetPoint" Style="{StaticResource CheckBoxStyle}" Content="{x:Static properties:Resources.DrawTargetPoint}"
+                IsChecked="{Binding DrawTargetPoint}"/>
+        <controls:RGBColorPickerUserControl DataContext="{Binding TargetPointColorViewModel}" IsEnabled="{Binding IsChecked, ElementName=drawTargetPoint}"/>
+        <Separator  Style="{StaticResource SeparatorStyle}" />
+        <controls:RGBColorPickerUserControl DataContext="{Binding BackgroundColorViewModel}"/>
     </StackPanel>
 </UserControl>

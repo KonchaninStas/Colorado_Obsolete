@@ -70,6 +70,15 @@ namespace Colorado.Common.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default materials could not be loaded because the configuration file is not present.
         /// </summary>
         public static string Error_DefaultMaterialsFileDoesNotExist {

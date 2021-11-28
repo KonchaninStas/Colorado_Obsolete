@@ -46,6 +46,8 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public static Point ZeroPoint => new Point(default(double), default(double), default(double));
 
+        public bool IsZero => X.EqualsWithTolerance(0) && Y.EqualsWithTolerance(0) && Z.EqualsWithTolerance(0);
+
         public double DistanceTo(Point secondPoint)
         {
             return Math.Abs((this - secondPoint).Length);

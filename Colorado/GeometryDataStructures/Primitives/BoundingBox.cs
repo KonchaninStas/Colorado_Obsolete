@@ -10,28 +10,24 @@ namespace Colorado.GeometryDataStructures.Primitives
 
         public BoundingBox(Point maxPoint, Point minPoint)
         {
-            MaxPoint = GetPointWithMaxValues(new[] { maxPoint, minPoint });
-            MinPoint = GetPointWithMinValues(new[] { maxPoint, minPoint });
-
-            var diagonalVector = new Vector(minPoint, maxPoint);
-
-            Diagonal = diagonalVector.Length;
-            Center = minPoint + diagonalVector.UnitVector() * Diagonal / 2;
+            Init(maxPoint, minPoint);
         }
 
-        public Point MaxPoint { get; }
+        public Point MaxPoint { get; private set; }
 
-        public Point MinPoint { get; }
+        public Point MinPoint { get; private set; }
 
         public bool IsEmpty => MaxPoint.Equals(MinPoint);
 
-        public Point Center { get; }
+        public Point Center { get; private set; }
 
-        public double Diagonal { get; }
+        public double Diagonal { get; private set; }
 
-        public BoundingBox Add(BoundingBox boundingBox)
+        public event EventHandler Updated;
+
+        public void Add(BoundingBox boundingBox)
         {
-            return new BoundingBox(GetPointWithMaxValues(new[] { MaxPoint, boundingBox.MaxPoint }), 
+            Init(GetPointWithMaxValues(new[] { MaxPoint, boundingBox.MaxPoint }),
                 GetPointWithMinValues(new[] { MinPoint, boundingBox.MinPoint }));
         }
 
@@ -47,14 +43,37 @@ namespace Colorado.GeometryDataStructures.Primitives
                GetValuesFromPoints(points, p => p.Z).Max());
         }
 
+        public void ApplyTransform(Transform transform)
+        {
+            Init(transform.ApplyToPoint(MaxPoint), transform.ApplyToPoint(MinPoint));
+        }
+
+        private void Init(Point maxPoint, Point minPoint)
+        {
+            MaxPoint = GetPointWithMaxValues(new[] { maxPoint, minPoint });
+            MinPoint = GetPointWithMinValues(new[] { maxPoint, minPoint });
+
+            var diagonalVector = new Vector(minPoint, maxPoint);
+
+            Diagonal = diagonalVector.Length;
+            Center = minPoint + diagonalVector.UnitVector() * Diagonal / 2;
+
+            Updated?.Invoke(this, EventArgs.Empty);
+        }
+
         private static IEnumerable<double> GetValuesFromPoints(IEnumerable<Point> points, Func<Point, double> getValueFromPointAction)
         {
             return points.Select(p => getValueFromPointAction(p));
         }
 
-        public static BoundingBox operator *(BoundingBox boundingBox, double scaleFactor)
+        public void ResetToDefault()
         {
-            return new BoundingBox(boundingBox.MaxPoint * scaleFactor, boundingBox.MinPoint * scaleFactor);
+            Init(Point.ZeroPoint, Point.ZeroPoint);
+        }
+
+        public BoundingBox Clone()
+        {
+            return new BoundingBox(MaxPoint, MinPoint);
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿<Window x:Class="Colorado.Common.UI.Windows.ProgressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:commands="clr-namespace:Colorado.Common.UI.Commands"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Colorado.Common.UI.Properties"
+        Title="{Binding Title}"
+        Visibility="{Binding Path=Visibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Height="300"
+        Width="700">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <commands:EventToCommand Command="{Binding CloseCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CommonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Center"
+            Grid.Row="0"
+            Style="{StaticResource TitleTextBlock}"
+            Text="{Binding Title}" />
+
+        <StackPanel
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            Orientation="Vertical"
+            Margin="20">
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource GenericTextBlock}"
+                Text="{Binding ProgressInformation}" />
+
+            <ProgressBar
+                Style="{StaticResource ProgressBarStyle}" IsIndeterminate="{Binding IsIndeterminate}" />
+
+        </StackPanel>
+
+        <Button
+            Grid.Row="2"
+            Style="{StaticResource ControlButtonStyle}"
+            Content="{x:Static properties:Resources.Cancel}"
+            Command="{Binding CancelCommand}"/>
+    </Grid>
+</Window>

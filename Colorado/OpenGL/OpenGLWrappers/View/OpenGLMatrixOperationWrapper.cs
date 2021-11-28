@@ -62,7 +62,8 @@ namespace Colorado.OpenGL.OpenGLWrappers.View
         public static void ApplyTransform(Transform transform, Action actionToExecute)
         {
             OpenGLMatrixOperationAPI.PushMatrix();
-            MultiplyWithCurrentMatrix(transform);
+            MultiplyWithCurrentMatrix(transform.GetRotationTransform());
+            TranslateCurrentMatrix(transform.Translation);
             actionToExecute?.Invoke();
             OpenGLMatrixOperationAPI.PopMatrix();
         }

@@ -1,6 +1,8 @@
 ﻿using Colorado.Common.Helpers;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry2D;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
+using Colorado.GeometryDataStructures.Primitives;
+using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.Enumerations.Geometry;
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.Managers.Materials;
@@ -22,14 +24,33 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
 
         #region Public logic
 
-        public static void DrawMesh(Mesh mesh, GeometryDataStructures.Colors.Material globalMaterial)
+        public static void DrawMeshVertices(Mesh mesh, GeometryDataStructures.Colors.Material globalMaterial, Transform transform)
         {
+            PolygonMode(FaceSide.FrontAndBack, TriangleMode.Point);
+            OpenGLGeometryWrapper.SetPointSize(6);
+            DrawMesh(mesh, globalMaterial, transform);
+            PolygonMode(FaceSide.FrontAndBack, TriangleMode.Fill);
+            OpenGLGeometryWrapper.SetDefaultPointSize();
+        }
+
+        public static void DrawMeshLines(Mesh mesh, GeometryDataStructures.Colors.Material globalMaterial, Transform transform)
+        {
+            PolygonMode(FaceSide.FrontAndBack, TriangleMode.Line);
+            OpenGLGeometryWrapper.SetLineWidth(3);
+            DrawMesh(mesh, globalMaterial, transform);
+            PolygonMode(FaceSide.FrontAndBack, TriangleMode.Fill);
+            OpenGLGeometryWrapper.ResetToDefaultLineWidth();
+        }
+
+        public static void DrawMesh(Mesh mesh, GeometryDataStructures.Colors.Material globalMaterial, Transform transform)
+        {
+
             MaterialsManager.SetMaterial(globalMaterial ?? mesh.Material);
             double[] verticesValues = mesh.VerticesValuesArray;
             double[] normalsValues = mesh.NormalsValuesArray;
             byte[] colorsValues = mesh.VerticesColorsValuesArray;
 
-            OpenGLMatrixOperationWrapper.ApplyTransform(mesh.Transform, () =>
+            OpenGLMatrixOperationWrapper.ApplyTransform(transform, () =>
             {
                 fixed (double* cachedPoints = verticesValues)
                 fixed (double* cachedNormals = normalsValues)
@@ -82,6 +103,11 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             DisableClientState(ArrayType.Vertex);
             DisableClientState(ArrayType.Normal);
             DisableClientState(ArrayType.Color);
+        }
+
+        private static void PolygonMode(FaceSide faceSide, TriangleMode triangleMode)
+        {
+            OpenGLGeometryAPI.PolygonMode((int)faceSide, (int)triangleMode);
         }
 
         private static void EnableClientState(ArrayType arrayType)

@@ -1,5 +1,6 @@
 ﻿using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.Managers.Materials;
@@ -88,6 +89,7 @@ namespace Colorado.OpenGLWinForm
             DocumentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
             DocumentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
             DocumentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
+            DocumentsManager.DocumentUpdated += (s, e) => UpdateRenderingControlSettings();
             Load += (s, e) => InitializeGraphics();
             Paint += (s, e) => DrawScene();
             SizeChanged += (s, e) => ViewCamera.SetViewportParameters(ClientRectangle);
@@ -95,7 +97,9 @@ namespace Colorado.OpenGLWinForm
 
         private void UpdateRenderingControlSettings()
         {
-            ViewCamera.SetObjectRange(DocumentsManager.TotalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox));
+            BoundingBox totalBoundingBox = DocumentsManager.TotalBoundingBox.Clone();
+            totalBoundingBox.Add(GeometryRenderer.GridPlane.BoundingBox);
+            ViewCamera.SetObjectRange(totalBoundingBox);
 
             Refresh();
         }

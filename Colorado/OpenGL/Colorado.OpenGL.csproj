@@ -61,6 +61,7 @@
     <Compile Include="Enumerations\PixelBufferFlags.cs" />
     <Compile Include="Enumerations\PixelTypes.cs" />
     <Compile Include="Enumerations\ShadingModel.cs" />
+    <Compile Include="Enumerations\TriangleMode.cs" />
     <Compile Include="Enumerations\ViewMatrixArrayType.cs" />
     <Compile Include="Extensions\Delegates.cs" />
     <Compile Include="Extensions\OpenGLExtensions.cs" />

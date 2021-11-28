@@ -63,6 +63,7 @@
     <Compile Include="Enumerations\MessageViewResult.cs" />
     <Compile Include="Enumerations\MessageViewType.cs" />
     <Compile Include="Handlers\MessageViewHandler.cs" />
+    <Compile Include="Handlers\ProgressHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,12 +76,12 @@
     <Compile Include="ViewModels\Controls\RGBColorPickerUserControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModels\MessageViewModel.cs" />
-    <Compile Include="ViewModels\WindowViewModels\ProgressWindowViewModel.cs" />
+    <Compile Include="ViewModels\WindowViewModels\ProgressViewModel.cs" />
     <Compile Include="Windows\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ProgressWindow.xaml.cs">
-      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    <Compile Include="Windows\ProgressView.xaml.cs">
+      <DependentUpon>ProgressView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +163,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ProgressWindow.xaml">
+    <Page Include="Windows\ProgressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

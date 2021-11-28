@@ -14,28 +14,6 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
     {
         #region Public logic
 
-        public static void DrawGeometryObject(GeometryObject geometryObject, GeometryDataStructures.Colors.Material globalMaterial)
-        {
-            switch (geometryObject.GeometryType)
-            {
-                case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Line:
-                    {
-                        DrawLine(geometryObject as Line);
-                        break;
-                    }
-                case GeometryDataStructures.GeometryStructures.Enumerations.GeometryType.Mesh:
-                    {
-                        OpenGLFastRenderer.DrawMesh(geometryObject as Mesh, globalMaterial);
-
-                        break;
-                    }
-                default:
-                    {
-                        throw new ArgumentException();
-                    }
-            }
-        }
-
         public static void DrawLine(Line line)
         {
             DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
@@ -62,7 +40,7 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
             {
                 SetActiveColorWithoutAlpha(color);
-                
+
                 AppendVertex(line.StartPoint);
                 AppendVertex(line.EndPoint);
             });
@@ -110,54 +88,48 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
             }
         }
 
+        public static void ResetToDefaultLineWidth()
+        {
+            OpenGLGeometryAPI.LineWidth(1);
+        }
+
+        public static void SetLineWidth(float lineWidth)
+        {
+            OpenGLGeometryAPI.LineWidth(lineWidth);
+        }
+
+        public static void SetPointSize(float pointSize)
+        {
+            OpenGLGeometryAPI.glPointSize(pointSize);
+        }
+
+        public static void SetDefaultPointSize()
+        {
+            OpenGLGeometryAPI.glPointSize(1f);
+        }
 
         #endregion Public logic
 
         #region Private logic
 
-        private static void ResetToDefaultLineWidth()
-        {
-            OpenGLGeometryAPI.LineWidth(1);
-        }
-
-        private static void SetLineWidth(float lineWidth)
-        {
-            OpenGLGeometryAPI.LineWidth(lineWidth);
-        }
-
-        private static void DrawMesh(Mesh mesh)
-        {
-            //OpenGLFastRenderer.DrawMeshRgb(mesh);
-            DrawingGeometryWrapper(OpenGLGeometryType.Triangle, () =>
-            {
-                foreach (Triangle triangle in mesh.Triangles)
-                {
-                    AppendNormal(triangle.Normal);
-                    AppendVertex(triangle.FirstVertex);
-                    AppendVertex(triangle.SecondVertex);
-                    AppendVertex(triangle.ThirdVertex);
-                }
-            });
-        }
-
         private static void DrawWireframeMesh(Mesh mesh)
         {
             foreach (Triangle triangle in mesh.Triangles)
             {
-                //DrawingGeometryWrapper(GeometryType.Line, () =>
-                //{
-                //    SetActiveColorWithoutAlpha(RGBA.RedColor);
-                //    AppendVertex(triangle.Center);
-                //    AppendVertex(triangle.Center + triangle.Normal * 10);
-                //});
-                //DrawingGeometryWrapper(GeometryType.LineLoop, () =>
-                //{
-                //    SetActiveColorWithoutAlpha(new RGB(204, 204, 204));
-                //    AppendVertex(triangle.FirstVertex);
-                //    AppendVertex(triangle.SecondVertex);
-                //    AppendVertex(triangle.ThirdVertex);
+                DrawingGeometryWrapper(OpenGLGeometryType.Line, () =>
+                {
+                    SetActiveColorWithoutAlpha(RGB.RedColor);
+                    AppendVertex(triangle.Center);
+                    AppendVertex(triangle.Center + triangle.Normal * 10);
+                });
+                DrawingGeometryWrapper(OpenGLGeometryType.LineLoop, () =>
+                {
+                    SetActiveColorWithoutAlpha(new RGB(204, 204, 204));
+                    AppendVertex(triangle.FirstVertex);
+                    AppendVertex(triangle.SecondVertex);
+                    AppendVertex(triangle.ThirdVertex);
 
-                //});
+                });
             }
         }
 
@@ -175,16 +147,6 @@ namespace Colorado.OpenGL.OpenGLWrappers.Geometry
         private static void AppendVertex(Vertex vertex)
         {
             OpenGLGeometryAPI.glVertex3d(vertex.Position.X, vertex.Position.Y, vertex.Position.Z);
-        }
-
-        private static void SetPointSize(float pointSize)
-        {
-            OpenGLGeometryAPI.glPointSize(pointSize);
-        }
-
-        private static void SetDefaultPointSize()
-        {
-            OpenGLGeometryAPI.glPointSize(1f);
         }
 
         private static void SetActiveColorWithoutAlpha(RGB color)

@@ -15,12 +15,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
     public class DocumentTreeViewItemViewModel : BaseTreeItemViewModel
     {
         private readonly IRenderingControl renderingControl;
-        private readonly Document document;
 
         public DocumentTreeViewItemViewModel(IRenderingControl renderingControl, Document document) : base(document.Name)
         {
             this.renderingControl = renderingControl;
-            this.document = document;
+            Document = document;
 
             MenuItems.Add(new MenuItemViewModel(Resources.Show, ShowCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Hide, HideCommand));
@@ -28,8 +27,16 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             MenuItems.Add(new MenuItemViewModel(Resources.Close, CloseCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.OpenFolder, OpenFolderCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Edit, EditCommand));
+            MenuItems.Add(new MenuItemViewModel(Resources.MoveToOrigin, MoveToOriginCommand));
+            MenuItems.Add(new MenuItemViewModel(Resources.RestoreDefaultPosition, RestoreDefaultPositionCommand));
             MenuItems.CollectionChanged += (s, args) => OnPropertyChanged(nameof(ContextMenuVisible));
         }
+
+        #region Properties
+
+        public Document Document { get; }
+
+        #endregion Properties
 
         #region Commands
 
@@ -37,7 +44,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return new CommandHandler(ShowDocument, () => !document.Visible);
+                return new CommandHandler(ShowDocument, () => !Document.Visible);
             }
         }
 
@@ -45,7 +52,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return new CommandHandler(HideDocument, () => document.Visible);
+                return new CommandHandler(HideDocument, () => Document.Visible);
             }
         }
 
@@ -69,7 +76,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return new CommandHandler(document.OpenFolder, () => document.IsFolderPresent);
+                return new CommandHandler(Document.OpenFolder, () => Document.IsFolderPresent);
             }
         }
 
@@ -77,35 +84,51 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return new CommandHandler(document.StartEditing);
+                return new CommandHandler(Document.StartEditing);
             }
         }
 
-        public bool Document { get; internal set; }
+        public ICommand MoveToOriginCommand
+        {
+            get
+            {
+                return new CommandHandler(Document.DocumentTransformation.MoveToOrigin,
+                    () => !Document.DocumentTransformation.WasMovedToOrigin && Document.DocumentTransformation.CanBeMovedToOrigin);
+            }
+        }
+
+        public ICommand RestoreDefaultPositionCommand
+        {
+            get
+            {
+                return new CommandHandler(Document.DocumentTransformation.RestoreDefaultPosition, 
+                    () => Document.DocumentTransformation.WasMovedToOrigin && Document.DocumentTransformation.CanBeMovedToOrigin);
+            }
+        }
 
         #endregion  Commands
 
         private void ShowDocument()
         {
-            renderingControl.DocumentsManager.ShowDocument(document);
+            renderingControl.DocumentsManager.ShowDocument(Document);
             renderingControl.RefreshView();
         }
 
         private void HideDocument()
         {
-            renderingControl.DocumentsManager.HideDocument(document);
+            renderingControl.DocumentsManager.HideDocument(Document);
             renderingControl.RefreshView();
         }
 
         private void IsolateDocument()
         {
-            renderingControl.DocumentsManager.IsolateDocument(document);
+            renderingControl.DocumentsManager.IsolateDocument(Document);
             renderingControl.RefreshView();
         }
 
         private void CloseDocument()
         {
-            renderingControl.DocumentsManager.CloseDocument(document);
+            renderingControl.DocumentsManager.CloseDocument(Document);
             renderingControl.RefreshView();
         }
     }
