@@ -1,4 +1,5 @@
-﻿using Colorado.GeometryDataStructures.Primitives;
+﻿using Colorado.Common.Enumerations;
+using Colorado.GeometryDataStructures.Primitives;
 using Colorado.OpenGL.Enumerations;
 using Colorado.OpenGL.OpenGLWrappers.View;
 using Colorado.OpenGLWinForm.Enumerations;

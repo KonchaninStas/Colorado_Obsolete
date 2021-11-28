@@ -48,7 +48,7 @@ namespace Colorado.GeometryDataStructures.Primitives
             Init(transform.ApplyToPoint(MaxPoint), transform.ApplyToPoint(MinPoint));
         }
 
-        private void Init(Point maxPoint, Point minPoint)
+        public void Init(Point maxPoint, Point minPoint)
         {
             MaxPoint = GetPointWithMaxValues(new[] { maxPoint, minPoint });
             MinPoint = GetPointWithMinValues(new[] { maxPoint, minPoint });

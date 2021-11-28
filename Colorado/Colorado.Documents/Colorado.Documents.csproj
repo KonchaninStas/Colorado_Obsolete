@@ -31,14 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="STL\STLFileType.cs" />
     <Compile Include="STL\Utils\STLFileUtil.cs" />
     <Compile Include="STL\Writers\STLASCIIFileWriter.cs" />
+    <Compile Include="Utilities\DocumentTransformationEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Colorado.Common.UI\Colorado.Common.UI.csproj">
@@ -76,9 +80,7 @@
       <Name>Colorado.GeometryDataStructures</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

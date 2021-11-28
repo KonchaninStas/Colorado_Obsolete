@@ -1,5 +1,6 @@
-﻿using Colorado.Common.ProgressTracking;
-using Colorado.Documents.EventArgs;
+﻿using Colorado.Common.Extensions;
+using Colorado.Common.ProgressTracking;
+using Colorado.Common.Tools.Keyboard;
 using Colorado.Documents.Properties;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Colorado.Documents
 {
@@ -25,19 +27,19 @@ namespace Colorado.Documents
 
         #region Private fields
 
-        private readonly IList<Mesh> meshes;
+        private readonly List<Mesh> meshes;
 
         #endregion Private fields
 
         #region Constructor
 
-        public Document()
+        public Document(KeyboardToolsManager keyboardToolsManager)
         {
             Id = GetNextId();
             meshes = new List<Mesh>();
             BoundingBox = new BoundingBox();
             Visible = true;
-            DocumentTransformation = new DocumentTransformation(BoundingBox);
+            DocumentTransformation = new DocumentTransformation(this, keyboardToolsManager);
         }
 
         #endregion Constructor
@@ -60,34 +62,29 @@ namespace Colorado.Documents
 
         public bool Visible { get; set; }
 
-        public bool IsEditing { get; private set; }
-
-        public DocumentTransformation DocumentTransformation { get; }
+        public DocumentTransformation DocumentTransformation { get; private set; }
 
         #endregion Properties
-
-        #region Events
-
-        public event EventHandler<DocumentEditingStartedEventArgs> EditingStarted;
-
-        public event EventHandler<DocumentEditingFinishedEventArgs> EditingFinished;
-
-        #endregion Events
 
         #region Public logic
 
         public abstract void ImportGeometry();
 
-        public void StartEditing()
+        public void PrepareLocalTransform()
         {
-            IsEditing = true;
-            EditingStarted?.Invoke(this, new DocumentEditingStartedEventArgs(this));
-        }
+            ProgressTracker.Instance.Init(meshes.Count);
 
-        public void FinishEditing()
-        {
-            IsEditing = false;
-            EditingFinished?.Invoke(this, new DocumentEditingFinishedEventArgs(this));
+            if (!BoundingBox.Center.IsZero)
+            {
+                Transform transform = Transform.CreateTranslation(BoundingBox.Center.ToVector().Inverse);
+                IEnumerable<Mesh> tempMeshes = meshes.Select(m => m.GetTransformed(transform)).ToList();
+                meshes.Clear();
+                BoundingBox.ResetToDefault();
+                tempMeshes.ForEach(m => AddMesh(m));
+
+                DocumentTransformation.ApplyTransform(transform.GetInverted());
+                DocumentTransformation.InitialTransform = transform.GetInverted();
+            }
         }
 
         public void OpenFolder()
@@ -98,7 +95,6 @@ namespace Colorado.Documents
 
         public void AddMesh(Mesh mesh)
         {
-            ProgressTracker.Instance.StartIndeterminate(Resources.ProcessingTriangles);
             meshes.Add(mesh);
             BoundingBox.Add(mesh.BoundingBox);
         }

@@ -2,7 +2,6 @@
 using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Common.UI.ViewModels.Controls;
 using Colorado.Documents.STL;
-using Colorado.OpenGL.Managers;
 using Colorado.Viewer.Controls.ViewModels.Documents;
 using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
 using Colorado.Viewer.Controls.Views.Tabs.MaterialTab;
@@ -13,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -56,7 +54,7 @@ namespace Colorado.Viewer.ViewModels
         }
 
         #region Properties
-        
+
         public ObservableCollection<MenuItemViewModel> MenuItems { get; }
 
         public DocumentsSettingsUserControlViewModel DocumentsSettingsUserControlViewModel { get; }
@@ -93,7 +91,7 @@ namespace Colorado.Viewer.ViewModels
         {
             get
             {
-                return !application.RenderingControl.DocumentsManager.Documents.Any(d => d.IsEditing);
+                return !application.RenderingControl.DocumentsManager.Documents.Any(d => d.DocumentTransformation.IsEditing);
             }
         }
 
@@ -130,7 +128,7 @@ namespace Colorado.Viewer.ViewModels
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                application.DocumentsManager.AddDocument(new STLDocument(openFileDialog.FileName));
+                application.DocumentsManager.AddDocument(new STLDocument(application.KeyboardToolsManager, openFileDialog.FileName));
                 application.Refresh();
             }
         }

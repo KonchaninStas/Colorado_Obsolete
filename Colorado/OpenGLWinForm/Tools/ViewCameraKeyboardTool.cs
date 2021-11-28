@@ -1,92 +1,103 @@
-﻿using Colorado.OpenGLWinForm.Enumerations;
+﻿using Colorado.Common.Enumerations;
+using Colorado.Common.Tools.Keyboard;
+using Colorado.OpenGLWinForm.Enumerations;
 using Colorado.OpenGLWinForm.View;
 using System.Windows.Forms;
 
 namespace Colorado.OpenGLWinForm.Tools
 {
-    internal class KeyboardTool
+    public class ViewCameraKeyboardTool : KeyboardToolHandler
     {
-        double speed = 1.5;
+        private const double speed = 1.5;
 
         private readonly OpenGLControl openGLControl;
         private readonly Camera viewCamera;
 
-        internal KeyboardTool(OpenGLControl openGLControl, Camera viewCamera)
+        internal ViewCameraKeyboardTool(OpenGLControl openGLControl, Camera viewCamera)
         {
             this.openGLControl = openGLControl;
             this.viewCamera = viewCamera;
-
-            openGLControl.PreviewKeyDown += PreviewKeyDownCallback;
-            openGLControl.KeyDown += KeyDownCallback;
         }
 
-        private void PreviewKeyDownCallback(object sender, PreviewKeyDownEventArgs e)
+        public override string Name => nameof(ViewCameraKeyboardTool);
+
+        public override void PreviewKeyDownCallback(PreviewKeyDownEventArgs args)
         {
-            switch (e.KeyCode)
+            switch (args.KeyCode)
             {
                 case Keys.Up:
                 case Keys.Down:
                 case Keys.Left:
                 case Keys.Right:
                     {
-                        e.IsInputKey = true;
+                        args.IsInputKey = true;
                         break;
                     }
             }
         }
 
-        private void KeyDownCallback(object sender, KeyEventArgs e)
+        public override void KeyDownCallback(KeyEventArgs args)
         {
-            switch (e.KeyCode)
+            switch (args.KeyCode)
             {
                 case Keys.W:
                     {
                         viewCamera.Move(MoveDirection.Forward, speed);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.S:
                     {
                         viewCamera.Move(MoveDirection.Backward, speed);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.A:
                     {
                         viewCamera.Move(MoveDirection.Left, speed);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.D:
                     {
                         viewCamera.Move(MoveDirection.Right, speed);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.ShiftKey:
                     {
                         viewCamera.Move(MoveDirection.Up, speed);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.ControlKey:
                     {
                         viewCamera.Move(MoveDirection.Down, speed);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.Up:
                     {
                         viewCamera.RotateAroundTarget(RotationDirection.Up, 5);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.Down:
                     {
                         viewCamera.RotateAroundTarget(RotationDirection.Down, 5);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.Left:
                     {
                         viewCamera.RotateAroundTarget(RotationDirection.Left, 5);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.Right:
                     {
                         viewCamera.RotateAroundTarget(RotationDirection.Right, 5);
+                        args.Handled = true;
                         break;
                     }
                 case Keys.Space:
@@ -100,4 +111,3 @@ namespace Colorado.OpenGLWinForm.Tools
         }
     }
 }
-

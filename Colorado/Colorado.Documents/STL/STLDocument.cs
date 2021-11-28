@@ -1,5 +1,6 @@
 ﻿using Colorado.Common.Exceptions;
 using Colorado.Common.ProgressTracking;
+using Colorado.Common.Tools.Keyboard;
 using Colorado.Common.UI.Handlers;
 using Colorado.Documents.Properties;
 using Colorado.Documents.STL.Readers;
@@ -14,7 +15,7 @@ namespace Colorado.Documents.STL
     {
         #region Constructor
 
-        public STLDocument(string pathToStlFile)
+        public STLDocument(KeyboardToolsManager keyboardToolsManager, string pathToStlFile): base(keyboardToolsManager)
         {
             PathToFile = pathToStlFile;
             Name = Path.GetFileNameWithoutExtension(pathToStlFile);
@@ -34,6 +35,7 @@ namespace Colorado.Documents.STL
 
         public override void ImportGeometry()
         {
+            ProgressTracker.Instance.StartIndeterminate(Resources.ProcessingTriangles);
             AddMesh(GetMeshFromStlDocument(PathToFile));
         }
 

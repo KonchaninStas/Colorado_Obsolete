@@ -3,11 +3,6 @@ using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Documents;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Colorado.Viewer.Controls.ViewModels.Documents
@@ -28,7 +23,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             MenuItems.Add(new MenuItemViewModel(Resources.OpenFolder, OpenFolderCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Edit, EditCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.MoveToOrigin, MoveToOriginCommand));
-            MenuItems.Add(new MenuItemViewModel(Resources.RestoreDefaultPosition, RestoreDefaultPositionCommand));
+            MenuItems.Add(new MenuItemViewModel(Resources.RestoreDefaultTransform, RestoreDefaultTransformCommand));
             MenuItems.CollectionChanged += (s, args) => OnPropertyChanged(nameof(ContextMenuVisible));
         }
 
@@ -84,7 +79,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return new CommandHandler(Document.StartEditing);
+                return new CommandHandler(Document.DocumentTransformation.StartEditing);
             }
         }
 
@@ -93,16 +88,16 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             get
             {
                 return new CommandHandler(Document.DocumentTransformation.MoveToOrigin,
-                    () => !Document.DocumentTransformation.WasMovedToOrigin && Document.DocumentTransformation.CanBeMovedToOrigin);
+                    () => Document.DocumentTransformation.CanBeMovedToOrigin);
             }
         }
 
-        public ICommand RestoreDefaultPositionCommand
+        public ICommand RestoreDefaultTransformCommand
         {
             get
             {
-                return new CommandHandler(Document.DocumentTransformation.RestoreDefaultPosition, 
-                    () => Document.DocumentTransformation.WasMovedToOrigin && Document.DocumentTransformation.CanBeMovedToOrigin);
+                return new CommandHandler(Document.DocumentTransformation.RestoreDefaultTransform, 
+                    () => Document.DocumentTransformation.CanBeRestoredToDefault);
             }
         }
 

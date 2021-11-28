@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Colorado.Common.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,7 +86,7 @@ namespace Colorado.GeometryDataStructures.Primitives
         {
             get
             {
-                return Math.Sqrt(this[0, 0] * this[0, 0] + this[0, 1] * this[0, 1] + this[0, 2] * this[0, 2]);
+                return Math.Sqrt(this[0, 0] * this[0, 0] + this[1, 1] * this[1, 1] + this[3, 2] * this[3, 2]);
             }
         }
 
@@ -236,6 +237,26 @@ namespace Colorado.GeometryDataStructures.Primitives
             return result;
         }
 
+        public bool IsIdentity()
+        {
+            for (int rowIndex = 0; rowIndex < oneDimentionalSize; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < oneDimentionalSize; columnIndex++)
+                {
+                    if(rowIndex == columnIndex && !this[rowIndex, columnIndex].EqualsWithTolerance(1))
+                    {
+                        return false;
+                    }
+                    if (rowIndex != columnIndex && !this[rowIndex, columnIndex].EqualsWithTolerance(0))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public static Transform Identity()
         {
             var identityTransform = new Transform();
@@ -334,6 +355,30 @@ namespace Colorado.GeometryDataStructures.Primitives
         public Transform Multiply(Transform anotherOne)
         {
             var result = new Transform();
+
+            result[0,0] = this[0,0] * anotherOne[0,0] + this[0,1] * anotherOne[1,0] + this[0,2] * anotherOne[2,0] + this[0,3] * anotherOne[3,0];
+            result[0,1] = this[0,0] * anotherOne[0,1] + this[0,1] * anotherOne[1,1] + this[0,2] * anotherOne[2,1] + this[0,3] * anotherOne[3,1];
+            result[0,2] = this[0,0] * anotherOne[0,2] + this[0,1] * anotherOne[1,2] + this[0,2] * anotherOne[2,2] + this[0,3] * anotherOne[3,2];
+            result[0,3] = this[0,0] * anotherOne[0,3] + this[0,1] * anotherOne[1,3] + this[0,2] * anotherOne[2,3] + this[0,3] * anotherOne[3,3];
+                           
+            result[1,0] = this[1,0] * anotherOne[0,0] + this[1,1] * anotherOne[1,0] + this[1,2] * anotherOne[2,0] + this[1,3] * anotherOne[3,0];
+            result[1,1] = this[1,0] * anotherOne[0,1] + this[1,1] * anotherOne[1,1] + this[1,2] * anotherOne[2,1] + this[1,3] * anotherOne[3,1];
+            result[1,2] = this[1,0] * anotherOne[0,2] + this[1,1] * anotherOne[1,2] + this[1,2] * anotherOne[2,2] + this[1,3] * anotherOne[3,2];
+            result[1,3] = this[1,0] * anotherOne[0,3] + this[1,1] * anotherOne[1,3] + this[1,2] * anotherOne[2,3] + this[1,3] * anotherOne[3,3];
+             
+            result[2,0] = this[2,0] * anotherOne[0,0] + this[2,1] * anotherOne[1,0] + this[2,2] * anotherOne[2,0] + this[2,3] * anotherOne[3,0];
+            result[2,1] = this[2,0] * anotherOne[0,1] + this[2,1] * anotherOne[1,1] + this[2,2] * anotherOne[2,1] + this[2,3] * anotherOne[3,1];
+            result[2,2] = this[2,0] * anotherOne[0,2] + this[2,1] * anotherOne[1,2] + this[2,2] * anotherOne[2,2] + this[2,3] * anotherOne[3,2];
+            result[2,3] = this[2,0] * anotherOne[0,3] + this[2,1] * anotherOne[1,3] + this[2,2] * anotherOne[2,3] + this[2,3] * anotherOne[3,3];
+             
+            result[3,0] = this[3,0] * anotherOne[0,0] + this[3,1] * anotherOne[1,0] + this[3,2] * anotherOne[2,0] + this[3,3] * anotherOne[3,0];
+            result[3,1] = this[3,0] * anotherOne[0,1] + this[3,1] * anotherOne[1,1] + this[3,2] * anotherOne[2,1] + this[3,3] * anotherOne[3,1];
+            result[3,2] = this[3,0] * anotherOne[0,2] + this[3,1] * anotherOne[1,2] + this[3,2] * anotherOne[2,2] + this[3,3] * anotherOne[3,2];
+            result[3,3] = this[3,0] * anotherOne[0,3] + this[3,1] * anotherOne[1,3] + this[3,2] * anotherOne[2,3] + this[3,3] * anotherOne[3,3];
+
+            return result;
+
+            
 
             for (int row = 0; row < oneDimentionalSize; row++)
             {

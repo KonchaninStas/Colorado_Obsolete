@@ -264,8 +264,8 @@
   <data name="RenderingTabHeader" xml:space="preserve">
     <value>Rendering</value>
   </data>
-  <data name="RestoreDefaultPosition" xml:space="preserve">
-    <value>Restore default position</value>
+  <data name="RestoreDefaultTransform" xml:space="preserve">
+    <value>Restore default</value>
   </data>
   <data name="RestoreView" xml:space="preserve">
     <value>Restore View</value>

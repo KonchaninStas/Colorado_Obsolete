@@ -1,8 +1,8 @@
-﻿namespace Colorado.OpenGLWinForm.Enumerations
+﻿namespace Colorado.Common.Enumerations
 {
     public enum MoveDirection
     {
-        Forward, 
+        Forward,
         Backward,
         Up,
         Down,

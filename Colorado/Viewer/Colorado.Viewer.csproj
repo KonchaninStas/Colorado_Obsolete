@@ -173,6 +173,10 @@
       <Project>{158CC58D-8C53-4414-A349-964A0C669253}</Project>
       <Name>Colorado.Common.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
+      <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
+      <Name>Colorado.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
       <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
       <Name>Colorado.Documents</Name>

@@ -3,6 +3,7 @@ using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Enumerations;
 using Colorado.GeometryDataStructures.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -73,6 +74,15 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
         public int TrianglesCount { get; }
 
         #endregion Properties
+
+        #region Public logic
+
+        public Mesh GetTransformed(Transform transform)
+        {
+            return new Mesh(Triangles.Select(t => t.GetTransformed(transform)).ToList());
+        }
+
+        #endregion Public logic
 
         #region Private logic
 

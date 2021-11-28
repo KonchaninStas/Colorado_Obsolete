@@ -95,5 +95,14 @@ namespace Colorado.Documents.Properties {
                 return ResourceManager.GetString("ReadingTriangles", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices transformation.
+        /// </summary>
+        internal static string VerticesTransformation {
+            get {
+                return ResourceManager.GetString("VerticesTransformation", resourceCulture);
+            }
+        }
     }
 }

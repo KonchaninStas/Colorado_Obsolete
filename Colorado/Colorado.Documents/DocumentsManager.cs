@@ -36,11 +36,13 @@ namespace Colorado.Documents
                 ProgressTracker.Instance.ShowWindow();
                 document.ImportGeometry();
 
+                ProgressTracker.Instance.StartIndeterminate(Resources.VerticesTransformation);
+                document.PrepareLocalTransform();
+
                 ProgressTracker.Instance.StartIndeterminate(Resources.BoundingBoxCalculation);
                 documents.Add(document);
                 TotalBoundingBox.Add(document.BoundingBox);
                 DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
-                document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
             }
             catch (OperationAbortException)
             {

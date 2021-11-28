@@ -502,11 +502,11 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restore default position.
+        ///   Looks up a localized string similar to Restore default.
         /// </summary>
-        public static string RestoreDefaultPosition {
+        public static string RestoreDefaultTransform {
             get {
-                return ResourceManager.GetString("RestoreDefaultPosition", resourceCulture);
+                return ResourceManager.GetString("RestoreDefaultTransform", resourceCulture);
             }
         }
         

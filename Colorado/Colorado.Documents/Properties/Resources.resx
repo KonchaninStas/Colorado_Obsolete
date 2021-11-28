@@ -129,4 +129,7 @@
   <data name="ReadingTriangles" xml:space="preserve">
     <value>Reading triangles</value>
   </data>
+  <data name="VerticesTransformation" xml:space="preserve">
+    <value>Vertices transformation</value>
+  </data>
 </root>

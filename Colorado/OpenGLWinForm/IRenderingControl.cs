@@ -1,8 +1,11 @@
-﻿using Colorado.Documents;
+﻿using Colorado.Common.Tools;
+using Colorado.Common.Tools.Keyboard;
+using Colorado.Documents;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGL.Managers;
 using Colorado.OpenGL.Managers.Materials;
 using Colorado.OpenGLWinForm.Rendering;
+using Colorado.OpenGLWinForm.Tools;
 using Colorado.OpenGLWinForm.View;
 
 namespace Colorado.OpenGLWinForm

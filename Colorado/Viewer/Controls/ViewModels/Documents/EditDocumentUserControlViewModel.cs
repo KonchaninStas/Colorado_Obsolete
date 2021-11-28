@@ -2,12 +2,6 @@
 using Colorado.Documents;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Controls.ViewModels.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Colorado.Viewer.Controls.ViewModels.Documents
@@ -19,13 +13,14 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         public EditDocumentUserControlViewModel(IRenderingControl renderingControl, Document document) : base(renderingControl)
         {
             this.document = document;
+            document.DocumentTransformation.TransformChanged += (s,args) => renderingControl.RefreshView();
         }
 
         #region Commands
 
         public ICommand FinishEditingCommand
         {
-            get { return new CommandHandler(document.FinishEditing); }
+            get { return new CommandHandler(document.DocumentTransformation.FinishEditing); }
         }
 
         #endregion Commands

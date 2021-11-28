@@ -3,7 +3,6 @@ using Colorado.Documents;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Controls.ViewModels.Common;
 using Colorado.Viewer.Properties;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -20,7 +19,6 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             documentsNode.Children.CollectionChanged += (s, args) => documentsNode.IsExpanded = true;
             Documents = new ObservableCollection<BaseTreeItemViewModel>();
             Documents.Add(documentsNode);
-            this.renderingControl = renderingControl;
 
             renderingControl.DocumentsManager.DocumentOpened += DocumentsManager_DocumentOpened;
             renderingControl.DocumentsManager.DocumentClosed += DocumentsManager_DocumentClosed;
@@ -33,7 +31,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return !renderingControl.DocumentsManager.Documents.Any(d => d.IsEditing);
+                return !renderingControl.DocumentsManager.Documents.Any(d => d.DocumentTransformation.IsEditing);
             }
         }
 
@@ -51,15 +49,15 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             get
             {
-                return renderingControl.DocumentsManager.Documents.Any(d => d.IsEditing) ? Visibility.Visible : Visibility.Collapsed;
+                return renderingControl.DocumentsManager.Documents.Any(d => d.DocumentTransformation.IsEditing) ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
         private void DocumentsManager_DocumentOpened(object sender, Colorado.Documents.EventArgs.DocumentOpenedEventArgs e)
         {
             documentsNode.Children.Add(new DocumentTreeViewItemViewModel(renderingControl, e.OpenedDocument));
-            e.OpenedDocument.EditingStarted += DocumentEditingStarted;
-            e.OpenedDocument.EditingFinished += DocumentEditingFinished;
+            e.OpenedDocument.DocumentTransformation.EditingStarted += DocumentEditingStarted;
+            e.OpenedDocument.DocumentTransformation.EditingFinished += DocumentEditingFinished;
         }
 
         private void DocumentsManager_DocumentClosed(object sender, Colorado.Documents.EventArgs.DocumentClosedEventArgs e)
@@ -81,8 +79,8 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
 
         private void UnsubscribeFromDocumentEvents(Document document)
         {
-            document.EditingStarted -= DocumentEditingStarted;
-            document.EditingFinished -= DocumentEditingFinished;
+            document.DocumentTransformation.EditingStarted -= DocumentEditingStarted;
+            document.DocumentTransformation.EditingFinished -= DocumentEditingFinished;
         }
 
         private void DocumentEditingStarted(object sender, Colorado.Documents.EventArgs.DocumentEditingStartedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using Colorado.Documents;
+﻿using Colorado.Common.Tools.Keyboard;
+using Colorado.Documents;
 using Colorado.Documents.STL;
 using Colorado.OpenGLWinForm;
 
@@ -11,8 +12,8 @@ namespace Colorado.Framework
             DocumentsManager = new DocumentsManager();
             OpenGLControl = new OpenGLControl(DocumentsManager) { Dock = System.Windows.Forms.DockStyle.Fill };
             RenderingControl = OpenGLControl;
-
-            //documentsManager.AddDocument(new STLDocument(@"C:\Users\skonchanin\Downloads\Rhino.stl"));
+            KeyboardToolsManager = new KeyboardToolsManager(OpenGLControl);
+            KeyboardToolsManager.RegisterKeyboardToolHandler(OpenGLControl.ViewCameraKeyboardTool);
         }
 
         public DocumentsManager DocumentsManager { get; }
@@ -20,6 +21,8 @@ namespace Colorado.Framework
         public OpenGLControl OpenGLControl { get; }
 
         public IRenderingControl RenderingControl { get; }
+
+        public KeyboardToolsManager KeyboardToolsManager { get; }
 
         public void Refresh()
         {

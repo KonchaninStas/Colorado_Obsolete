@@ -45,7 +45,7 @@ namespace Colorado.OpenGLWinForm
             GeometryRenderer = new GeometryRenderer(documentsManager, ViewCamera);
 
             new MouseTool(this, ViewCamera);
-            new KeyboardTool(this, ViewCamera);
+            ViewCameraKeyboardTool = new ViewCameraKeyboardTool(this, ViewCamera);
 
             SubscribeToEvents();
 
@@ -57,6 +57,8 @@ namespace Colorado.OpenGLWinForm
         #endregion Constructor
 
         #region Properties
+
+        public ViewCameraKeyboardTool ViewCameraKeyboardTool { get; }
 
         public DocumentsManager DocumentsManager { get; }
 

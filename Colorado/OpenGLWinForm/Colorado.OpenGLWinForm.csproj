@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\CameraType.cs" />
-    <Compile Include="Enumerations\MoveDirection.cs" />
     <Compile Include="Enumerations\RotationDirection.cs" />
     <Compile Include="Enumerations\ViewManipulationType.cs" />
     <Compile Include="IRenderingControl.cs" />
@@ -61,8 +60,8 @@
     <Compile Include="Rendering\Settings\GlobalMaterialRenderingSettings.cs" />
     <Compile Include="Rendering\Settings\MeshRenderingSettings.cs" />
     <Compile Include="Rendering\Settings\TargetPointRenderingSettings.cs" />
-    <Compile Include="Tools\KeyboardTool.cs" />
     <Compile Include="Tools\MouseTool.cs" />
+    <Compile Include="Tools\ViewCameraKeyboardTool.cs" />
     <Compile Include="Utilities\ApplicationTimer.cs" />
     <Compile Include="Utilities\FpsCalculator.cs" />
     <Compile Include="View\Camera.cs" />

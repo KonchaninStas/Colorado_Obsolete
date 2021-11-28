@@ -46,6 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
+      <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
+      <Name>Colorado.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
       <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
       <Name>Colorado.Documents</Name>
