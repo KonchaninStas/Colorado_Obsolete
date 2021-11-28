@@ -56,6 +56,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         private void DocumentsManager_DocumentOpened(object sender, Colorado.Documents.EventArgs.DocumentOpenedEventArgs e)
         {
             documentsNode.Children.Add(new DocumentTreeViewItemViewModel(renderingControl, e.OpenedDocument));
+            e.OpenedDocument.DocumentTransformation.TransformChanged += DocumentTransformationTransformChanged;
             e.OpenedDocument.DocumentTransformation.EditingStarted += DocumentEditingStarted;
             e.OpenedDocument.DocumentTransformation.EditingFinished += DocumentEditingFinished;
         }
@@ -79,8 +80,14 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
 
         private void UnsubscribeFromDocumentEvents(Document document)
         {
+            document.DocumentTransformation.TransformChanged += DocumentTransformationTransformChanged;
             document.DocumentTransformation.EditingStarted -= DocumentEditingStarted;
             document.DocumentTransformation.EditingFinished -= DocumentEditingFinished;
+        }
+
+        private void DocumentTransformationTransformChanged(object sender, System.EventArgs e)
+        {
+            renderingControl.RefreshView();
         }
 
         private void DocumentEditingStarted(object sender, Colorado.Documents.EventArgs.DocumentEditingStartedEventArgs e)

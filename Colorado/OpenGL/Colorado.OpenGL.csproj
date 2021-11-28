@@ -78,7 +78,6 @@
     <Compile Include="OpenGLLibrariesAPI\OpenGlWglAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\View\OpenGLMatrixOperationAPI.cs" />
     <Compile Include="OpenGLLibrariesAPI\View\OpenGLViewportAPI.cs" />
-    <Compile Include="OpenGLWrappers\Geometry\MeshFastRendererInputData.cs" />
     <Compile Include="OpenGLWrappers\Geometry\OpenGLFastRenderer.cs" />
     <Compile Include="OpenGLWrappers\Geometry\OpenGLGeometryWrapper.cs" />
     <Compile Include="OpenGLWrappers\Helpers\OpenGLHelper.cs" />

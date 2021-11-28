@@ -13,7 +13,6 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         public EditDocumentUserControlViewModel(IRenderingControl renderingControl, Document document) : base(renderingControl)
         {
             this.document = document;
-            document.DocumentTransformation.TransformChanged += (s,args) => renderingControl.RefreshView();
         }
 
         #region Commands
