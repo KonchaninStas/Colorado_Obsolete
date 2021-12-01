@@ -53,6 +53,7 @@
     <Compile Include="GeometryStructures\Geometry3D\Quadrangle.cs" />
     <Compile Include="GeometryStructures\Geometry3D\Sphere.cs" />
     <Compile Include="Primitives\BoundingBox.cs" />
+    <Compile Include="Primitives\EulerAngles.cs" />
     <Compile Include="Primitives\Point.cs" />
     <Compile Include="Primitives\Point2D.cs" />
     <Compile Include="Primitives\Quaternion.cs" />

@@ -258,6 +258,18 @@
   <data name="PerspectiveView" xml:space="preserve">
     <value>Perspective</value>
   </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="PositionX" xml:space="preserve">
+    <value>X:</value>
+  </data>
+  <data name="PositionY" xml:space="preserve">
+    <value>Y:</value>
+  </data>
+  <data name="PositionZ" xml:space="preserve">
+    <value>Z:</value>
+  </data>
   <data name="ProjectionMode" xml:space="preserve">
     <value>Projection Mode:</value>
   </data>
@@ -269,6 +281,21 @@
   </data>
   <data name="RestoreView" xml:space="preserve">
     <value>Restore View</value>
+  </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="RotationAroundXAxis" xml:space="preserve">
+    <value>Around X axis:</value>
+  </data>
+  <data name="RotationAroundYAxis" xml:space="preserve">
+    <value>Around Y axis:</value>
+  </data>
+  <data name="RotationAroundZAxis" xml:space="preserve">
+    <value>Around Z axis:</value>
+  </data>
+  <data name="Scale" xml:space="preserve">
+    <value>Scale:</value>
   </data>
   <data name="Shininess" xml:space="preserve">
     <value>Shininess radius:</value>

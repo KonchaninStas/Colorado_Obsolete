@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:properties="clr-namespace:Colorado.Viewer.Properties" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,13 +21,105 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Button Grid.Row="1"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="1" Grid.ColumnSpan="2"  Margin="5"
                 Style="{StaticResource RedButton}"  Content="{x:Static properties:Resources.FinishEditing}"
                 Command="{Binding FinishEditingCommand}"
                 VerticalAlignment="Top" HorizontalAlignment="Right">
         </Button>
-        <StackPanel Style="{StaticResource VerticalStackPanel}">
-            
-        </StackPanel>
+        <TextBlock 
+            Style="{StaticResource TitleTextBlock}" 
+            Text="{x:Static properties:Resources.Position}"
+            Grid.Row="2" Grid.ColumnSpan="2"/>
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.PositionX}"
+            Grid.Row="3" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}"
+            Text="{Binding PositionX, Mode=OneWay}"
+            Grid.Row="3" Grid.Column="2"/>
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.PositionY}"
+            Grid.Row="4" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}"
+            Text="{Binding PositionY, Mode=OneWay}"
+            Grid.Row="4" Grid.Column="2"/>
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.PositionZ}"
+            Grid.Row="5" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}"
+            Text="{Binding PositionZ, Mode=OneWay}"
+            Grid.Row="5" Grid.Column="2"/>
+
+        <TextBlock 
+            Style="{StaticResource TitleTextBlock}" 
+            Text="{x:Static properties:Resources.Rotation}"
+            Grid.Row="6" Grid.ColumnSpan="2"/>
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.RotationAroundXAxis}"
+            Grid.Row="7" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}"
+            Text="{Binding RotationAroundXAxis, Mode=OneWay}"
+            Grid.Row="7" Grid.Column="2"/>
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.RotationAroundYAxis}"
+            Grid.Row="8" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}"
+            Text="{Binding RotationAroundYAxis, Mode=OneWay}"
+            Grid.Row="8" Grid.Column="2"/>
+
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.RotationAroundZAxis}"
+            Grid.Row="9" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}"
+            Text="{Binding RotationAroundZAxis, Mode=OneWay}"
+            Grid.Row="9" Grid.Column="2"/>
+
+        <TextBlock 
+            Style="{StaticResource GenericTextBlock}" 
+            Text="{x:Static properties:Resources.Scale}"
+            Grid.Row="10" Grid.ColumnSpan="2"/>
+        <TextBox
+            Style="{StaticResource ReadonlyTextBoxStyle}" 
+            Text="{Binding Scale, Mode=OneWay}"
+            Grid.Row="10" Grid.Column="2"/>
+        <Button Grid.Row="11" Grid.Column="0"  Margin="5"
+                Style="{StaticResource ControlButtonStyle}" 
+                Content="{x:Static properties:Resources.MoveToOrigin}"
+                Command="{Binding MoveToOriginCommand}"/>
+        <Button Grid.Row="11" Grid.Column="1" Margin="5"
+                Style="{StaticResource ControlButtonStyle}"  
+                Content="{x:Static properties:Resources.RestoreDefaultTransform}"
+                Command="{Binding RestoreDefaultTransformCommand}"/>
     </Grid>
 </UserControl>

@@ -484,6 +484,42 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X:.
+        /// </summary>
+        public static string PositionX {
+            get {
+                return ResourceManager.GetString("PositionX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y:.
+        /// </summary>
+        public static string PositionY {
+            get {
+                return ResourceManager.GetString("PositionY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:.
+        /// </summary>
+        public static string PositionZ {
+            get {
+                return ResourceManager.GetString("PositionZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projection Mode:.
         /// </summary>
         public static string ProjectionMode {
@@ -516,6 +552,51 @@ namespace Colorado.Viewer.Properties {
         public static string RestoreView {
             get {
                 return ResourceManager.GetString("RestoreView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotation.
+        /// </summary>
+        public static string Rotation {
+            get {
+                return ResourceManager.GetString("Rotation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Around X axis:.
+        /// </summary>
+        public static string RotationAroundXAxis {
+            get {
+                return ResourceManager.GetString("RotationAroundXAxis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Around Y axis:.
+        /// </summary>
+        public static string RotationAroundYAxis {
+            get {
+                return ResourceManager.GetString("RotationAroundYAxis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Around Z axis:.
+        /// </summary>
+        public static string RotationAroundZAxis {
+            get {
+                return ResourceManager.GetString("RotationAroundZAxis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale:.
+        /// </summary>
+        public static string Scale {
+            get {
+                return ResourceManager.GetString("Scale", resourceCulture);
             }
         }
         

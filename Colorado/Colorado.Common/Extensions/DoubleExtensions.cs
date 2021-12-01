@@ -18,5 +18,15 @@ namespace Colorado.Common.Extensions
         {
             return Math.Abs(firstValue - secondValue) <= tolerance;
         }
+
+        public static double CopySign(this double value, double sign)
+        {
+            return (value.IsNegative() == sign.IsNegative()) ? value : -value;
+        }
+
+        public static bool IsNegative(this double value)
+        {
+            return Math.Sign(value) == -1;
+        }
     }
 }

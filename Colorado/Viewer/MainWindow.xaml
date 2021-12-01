@@ -37,7 +37,9 @@
         <Menu IsEnabled="{Binding IsMenuEnabled}"
             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
             Style="{StaticResource MenuStyle}"/>
-        <documents:DocumentsSettingsUserControl Grid.Row="1" Grid.Column="0" DataContext="{Binding DocumentsSettingsUserControlViewModel}"/>
+        <documents:DocumentsSettingsUserControl 
+            Grid.Row="1" Grid.Column="0"
+            DataContext="{Binding DocumentsSettingsUserControlViewModel}"/>
         <GridSplitter Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"  Style="{StaticResource GridSplitterStyle}"/>
 
         <Grid Grid.Row="1" Grid.Column="2" x:Name="openGLControlWrapper" Background="AliceBlue"/>
