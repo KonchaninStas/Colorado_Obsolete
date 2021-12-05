@@ -27,7 +27,7 @@ namespace Colorado.Viewer.ViewModels
         public MainWindowViewModel()
         {
             application = new Framework.Application();
-            OpenGLControl = new OpenGLWPF.OpenGLControl(application);
+            OpenGLControl = application.WPFOpenGLControl;
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
             DocumentsSettingsUserControlViewModel = new DocumentsSettingsUserControlViewModel(application.RenderingControl);
             DocumentsSettingsUserControlViewModel.PropertyChanged += (s, args) => OnPropertyChanged(nameof(IsMenuEnabled));
