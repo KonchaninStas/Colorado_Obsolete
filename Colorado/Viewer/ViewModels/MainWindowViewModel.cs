@@ -128,7 +128,8 @@ namespace Colorado.Viewer.ViewModels
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                application.DocumentsManager.AddDocument(new STLDocument(application.KeyboardToolsManager, openFileDialog.FileName));
+                application.DocumentsManager.AddDocument(
+                    new STLDocument(application.KeyboardToolsManager, openFileDialog.FileName));
                 application.Refresh();
             }
         }

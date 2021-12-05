@@ -43,6 +43,7 @@ namespace Colorado.Documents
                 documents.Add(document);
                 TotalBoundingBox.Add(document.BoundingBox);
                 DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
+                document.DocumentTransformation.TransformChanged += DocumentTransformation_TransformChanged;
             }
             catch (OperationAbortException)
             {
@@ -55,6 +56,11 @@ namespace Colorado.Documents
             {
                 progressHandler.Abort();
             }
+        }
+
+        private void DocumentTransformation_TransformChanged(object sender, System.EventArgs e)
+        {
+            //
         }
 
         public void CloseDocument(Document documentToClose)

@@ -59,6 +59,9 @@ namespace Colorado.Documents.STL.Readers
 
                             txtReader.ReadLine(); // Just skip the endloop
                             txtReader.ReadLine(); // Just skip the endfacet
+
+                            lineString = GetNextLine(txtReader);
+                            lineData = GetLineData(lineString);
                         }
                     }
                 }
@@ -92,7 +95,15 @@ namespace Colorado.Documents.STL.Readers
 
         private string GetNextLine(StreamReader txtReader)
         {
-            return txtReader.ReadLine().Trim();
+            string nextLine = string.Empty;
+            do
+            {
+                nextLine = txtReader.ReadLine().Trim();
+            }
+            while (string.IsNullOrEmpty(nextLine));
+
+
+            return nextLine;
         }
     }
 }

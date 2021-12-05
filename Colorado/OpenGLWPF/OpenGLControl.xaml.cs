@@ -1,5 +1,4 @@
-﻿using Colorado.Framework;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace Colorado.OpenGLWPF
 {
@@ -8,10 +7,10 @@ namespace Colorado.OpenGLWPF
     /// </summary>
     public partial class OpenGLControl : UserControl
     {
-        public OpenGLControl(Application application)
+        public OpenGLControl(Colorado.OpenGLWinForm.OpenGLControl openGLControl)
         {
             InitializeComponent();
-            winFormOpenGlControlHost.Child = application.OpenGLControl;
+            winFormOpenGlControlHost.Child = openGLControl;
         }
     }
 }

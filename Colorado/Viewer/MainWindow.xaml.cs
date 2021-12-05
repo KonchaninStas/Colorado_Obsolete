@@ -21,7 +21,6 @@ namespace Colorado.Viewer
             openGLControlWrapper.Children.Add(mainWindowViewModel.OpenGLControl);
 
             RestoreWindowSettings();
-
         }
 
         private void RestoreWindowSettings()

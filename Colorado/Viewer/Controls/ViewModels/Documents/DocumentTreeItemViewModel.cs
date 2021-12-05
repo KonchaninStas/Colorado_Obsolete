@@ -3,6 +3,7 @@ using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Documents;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Properties;
+using System;
 using System.Windows.Input;
 
 namespace Colorado.Viewer.Controls.ViewModels.Documents
@@ -20,6 +21,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             MenuItems.Add(new MenuItemViewModel(Resources.Hide, HideCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Isolate, IsolateCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Close, CloseCommand));
+            MenuItems.Add(new MenuItemViewModel(Resources.Save, SaveCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.OpenFolder, OpenFolderCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.Edit, EditCommand));
             MenuItems.Add(new MenuItemViewModel(Resources.MoveToOrigin, MoveToOriginCommand));
@@ -64,6 +66,14 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             get
             {
                 return new CommandHandler(CloseDocument);
+            }
+        }
+
+        public ICommand SaveCommand
+        {
+            get
+            {
+                return new CommandHandler(SaveDocument);
             }
         }
 
@@ -125,6 +135,11 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         {
             renderingControl.DocumentsManager.CloseDocument(Document);
             renderingControl.RefreshView();
+        }
+
+        private void SaveDocument()
+        {
+            Document.Save();
         }
     }
 }

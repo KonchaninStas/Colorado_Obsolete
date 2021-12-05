@@ -138,6 +138,8 @@ namespace Colorado.Documents
             return Name;
         }
 
+        public abstract void Save();
+
         #endregion Public logic
     }
 }

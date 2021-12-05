@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Colorado.Documents.STL.Utils
 {
-    internal static class STLFileUtil
+    public static class STLFileUtil
     {
         private const string stlFileExtension = ".stl";
 
-        internal static bool IsStlFile(string pathToStlFile)
+        public static bool IsStlFile(string pathToStlFile)
         {
             return Path.GetExtension(pathToStlFile).ToLower() == stlFileExtension;
         }

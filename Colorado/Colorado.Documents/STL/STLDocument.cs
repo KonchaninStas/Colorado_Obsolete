@@ -5,9 +5,11 @@ using Colorado.Common.UI.Handlers;
 using Colorado.Documents.Properties;
 using Colorado.Documents.STL.Readers;
 using Colorado.Documents.STL.Utils;
+using Colorado.Documents.STL.Writers;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Colorado.Documents.STL
 {
@@ -37,6 +39,11 @@ namespace Colorado.Documents.STL
         {
             ProgressTracker.Instance.StartIndeterminate(Resources.ProcessingTriangles);
             AddMesh(GetMeshFromStlDocument(PathToFile));
+        }
+
+        public override void Save()
+        {
+            STLASCIIFileWriter.Write(this.Meshes.SelectMany(m=>m.Triangles), @"D:\C.STL");
         }
 
         #endregion Public logic

@@ -87,10 +87,6 @@
       <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
       <Name>Colorado.Documents</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Colorado.Framework\Colorado.Framework.csproj">
-      <Project>{1C086597-835E-4D76-91DF-B6E520B4C3AD}</Project>
-      <Name>Colorado.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OpenGLWinForm\Colorado.OpenGLWinForm.csproj">
       <Project>{9340eba1-3cb7-46dc-88b9-369763f5496d}</Project>
       <Name>Colorado.OpenGLWinForm</Name>
