@@ -1,4 +1,6 @@
-﻿namespace Colorado.GeometryDataStructures.Primitives
+﻿using System;
+
+namespace Colorado.GeometryDataStructures.Primitives
 {
     public class Triangle
     {
@@ -42,7 +44,7 @@
 
         public Point Center { get; }
 
-        public Triangle GetTransformed(Transform transform)
+        public Triangle ApplyTransform(Transform transform)
         {
             return new Triangle(FirstVertex.GetTransformed(transform), SecondVertex.GetTransformed(transform),
                 ThirdVertex.GetTransformed(transform), transform.ApplyToVector(Normal));

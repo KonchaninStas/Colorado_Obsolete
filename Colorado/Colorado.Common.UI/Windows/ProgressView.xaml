@@ -34,7 +34,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock HorizontalAlignment="Center"
-            Grid.Row="0"
+                   Margin="10,30,10,30"
+            Grid.Row="0" TextAlignment="Center"
             Style="{StaticResource TitleTextBlock}"
             Text="{Binding Title}" />
 

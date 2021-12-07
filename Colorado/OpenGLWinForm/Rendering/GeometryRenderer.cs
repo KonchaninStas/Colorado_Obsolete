@@ -57,6 +57,9 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         public void DrawGeometryPrimitives()
         {
+
+            OpenGLGeometryWrapper.DrawLine(new GeometryDataStructures.GeometryStructures.Geometry2D.Line(
+                documentsManager.TotalBoundingBox.MaxPoint, documentsManager.TotalBoundingBox.MinPoint));
             GridPlane.Draw();
             if (TargetPointRenderingSettings.DrawTargetPoint)
             {
@@ -79,6 +82,7 @@ namespace Colorado.OpenGLWinForm.Rendering
             documentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
             documentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
             documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
+            documentsManager.DocumentUpdated+= (s, e) => UpdateRenderingControlSettings();
         }
 
         private void UpdateRenderingControlSettings()
@@ -86,7 +90,8 @@ namespace Colorado.OpenGLWinForm.Rendering
             bool visible = GridPlane != null ? GridPlane.Visible : true;
             RGB lastUsedColor = GridPlane?.Color;
             GridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 2, documentsManager.TotalBoundingBox.MinPoint.Z);
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal, 
+               documentsManager.TotalBoundingBox.MinPoint.Z);
             GridPlane.Visible = visible;
 
             if (lastUsedColor != null)

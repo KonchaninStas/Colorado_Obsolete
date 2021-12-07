@@ -79,7 +79,7 @@ namespace Colorado.GeometryDataStructures.GeometryStructures.Geometry3D
 
         public Mesh GetTransformed(Transform transform)
         {
-            return new Mesh(Triangles.Select(t => t.GetTransformed(transform)).ToList());
+            return new Mesh(Triangles.Select(t => t.ApplyTransform(transform)).ToList());
         }
 
         #endregion Public logic
