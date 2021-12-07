@@ -3,6 +3,7 @@ using Colorado.GeometryDataStructures.Colors;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Controls.ViewModels.Common;
 using Colorado.Viewer.Properties;
+using System;
 
 namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
 {
@@ -12,9 +13,8 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
 
         public RenderingSettingsTabUserControlViewModel(IRenderingControl renderingControl) : base(renderingControl)
         {
-            GridColorViewModel = new RGBColorPickerUserControlViewModel(Resources.GridColorSettings,
-               renderingControl.GeometryRenderer.GridPlane.Color, RGB.GridDefaultColor);
-            GridColorViewModel.ColorChanged += (s, a) => renderingControl.RefreshView();
+            renderingControl.DocumentsManager.DocumentsCountChanged += (s, r) => Init();
+            Init();
             DrawLights = false;
         }
 
@@ -84,7 +84,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
 
         #region Grid
 
-        public RGBColorPickerUserControlViewModel GridColorViewModel { get; }
+        public RGBColorPickerUserControlViewModel GridColorViewModel { get; private set; }
 
         public bool IsGridVisible
         {
@@ -154,9 +154,25 @@ namespace Colorado.Viewer.Controls.ViewModels.Tabs.RenderingTab
                 renderingControl.RefreshView();
             }
         }
-        
+
         #endregion Mesh rendering settings
 
         #endregion Properties
+
+        #region Private logic
+
+        private void Init()
+        {
+            GridColorViewModel = new RGBColorPickerUserControlViewModel(Resources.GridColorSettings,
+              renderingControl.GeometryRenderer.GridPlane.Color, RGB.GridDefaultColor);
+            GridColorViewModel.ColorChanged += (s, a) =>
+            {
+                GridColorViewModel.UpdateAll();
+                renderingControl.RefreshView();
+            };
+            OnPropertyChanged(nameof(GridColorViewModel));
+        }
+
+        #endregion Private logic
     }
 }

@@ -86,6 +86,14 @@ namespace Colorado.Common.UI.ViewModels.Controls
             }
         }
 
+        public void UpdateAll()
+        {
+            OnPropertyChanged(nameof(RedColorValue));
+            OnPropertyChanged(nameof(GreenColorValue));
+            OnPropertyChanged(nameof(BlueColorValue));
+            OnPropertyChanged(nameof(IntensityValue));
+        }
+
         private void RestoreDefaultColorSettings()
         {
             RedColorValue = defaultColorSettings.Red;

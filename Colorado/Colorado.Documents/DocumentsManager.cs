@@ -44,6 +44,7 @@ namespace Colorado.Documents
                 TotalBoundingBox.Add(document.BoundingBox);
                 DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
                 document.DocumentTransformation.TransformChanged += DocumentTransformation_TransformChanged;
+                DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
             }
             catch (OperationAbortException)
             {
@@ -73,6 +74,7 @@ namespace Colorado.Documents
                 document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
             }
             DocumentClosed?.Invoke(this, new DocumentClosedEventArgs(documentToClose));
+            DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
         }
 
         public void CloseAllDocuments()
@@ -81,6 +83,7 @@ namespace Colorado.Documents
             documents.Clear();
             TotalBoundingBox.ResetToDefault();
             AllDocumentsClosed?.Invoke(this, new AllDocumentsClosedEventArgs(closedDocuments));
+            DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
         }
 
         public void ShowDocument(Document document)
@@ -107,6 +110,8 @@ namespace Colorado.Documents
         public event EventHandler<DocumentOpenedEventArgs> DocumentOpened;
 
         public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
+
+        public event EventHandler DocumentsCountChanged;
 
         public event EventHandler<AllDocumentsClosedEventArgs> AllDocumentsClosed;
 

@@ -84,9 +84,15 @@ namespace Colorado.OpenGLWinForm.Rendering
         private void UpdateRenderingControlSettings()
         {
             bool visible = GridPlane != null ? GridPlane.Visible : true;
+            RGB lastUsedColor = GridPlane?.Color;
             GridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
                : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal * 2, documentsManager.TotalBoundingBox.MinPoint.Z);
             GridPlane.Visible = visible;
+
+            if (lastUsedColor != null)
+            {
+                GridPlane.Color.CopyValuesFrom(lastUsedColor);
+            }
         }
 
         private void DrawEntities()

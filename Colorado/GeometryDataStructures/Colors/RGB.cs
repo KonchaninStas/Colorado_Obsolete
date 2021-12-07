@@ -107,5 +107,12 @@ namespace Colorado.GeometryDataStructures.Colors
         {
             return new RGB(Red, Green, Blue);
         }
+
+        public void CopyValuesFrom(RGB lastUsedColor)
+        {
+            Red = lastUsedColor.Red;
+            Green = lastUsedColor.Green;
+            Blue = lastUsedColor.Blue;
+        }
     }
 }
