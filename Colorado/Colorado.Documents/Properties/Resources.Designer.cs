@@ -97,6 +97,25 @@ namespace Colorado.Documents.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saving &quot;{0}&quot; document
+        ///Path to file is &quot;{1}&quot;..
+        /// </summary>
+        internal static string SavingDocument {
+            get {
+                return ResourceManager.GetString("SavingDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving triangles.
+        /// </summary>
+        internal static string SavingTriangles {
+            get {
+                return ResourceManager.GetString("SavingTriangles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vertices transformation.
         /// </summary>
         internal static string VerticesTransformation {

@@ -1,6 +1,7 @@
 ﻿using Colorado.Common.UI.Commands;
 using Colorado.Common.UI.ViewModels.Base;
 using Colorado.Common.UI.ViewModels.Controls;
+using Colorado.Documents;
 using Colorado.Documents.STL;
 using Colorado.Viewer.Controls.ViewModels.Documents;
 using Colorado.Viewer.Controls.Views.Tabs.LightingTab;
@@ -101,7 +102,7 @@ namespace Colorado.Viewer.ViewModels
 
         public ICommand OpenFileCommand
         {
-            get { return new CommandHandler(OpenFile); }
+            get { return new CommandHandler(OpenFile, () => DocumentsManager.RegisteredFilters.Count != 0); }
         }
 
         public ICommand CloseAllCommand
@@ -120,10 +121,18 @@ namespace Colorado.Viewer.ViewModels
 
         private void OpenFile()
         {
+            string filter = string.Empty;
+            foreach (string documentFilter in DocumentsManager.RegisteredFilters)
+            {
+                filter += $"|{documentFilter}";
+            }
+
+            filter = filter.Remove(0,1);
+
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 Multiselect = false,
-                Filter = "Stl Files(*.stl)|*.stl;|All files (*.*)|*.*"
+                Filter = filter
             };
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

@@ -3,6 +3,7 @@ using Colorado.Common.ProgressTracking;
 using Colorado.Common.UI.Handlers;
 using Colorado.Documents.EventArgs;
 using Colorado.Documents.Properties;
+using Colorado.Documents.STL;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
@@ -21,6 +22,12 @@ namespace Colorado.Documents
         public IEnumerable<Document> DocumentsToRender => documents.Where(d => d.Visible);
 
         public int DocumentsCount => documents.Count;
+
+         static DocumentsManager()
+        {
+            RegisteredFilters = new List<string>();
+            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(STLDocument).TypeHandle);
+        }
 
         public DocumentsManager()
         {
@@ -43,7 +50,7 @@ namespace Colorado.Documents
                 documents.Add(document);
                 TotalBoundingBox.Add(document.BoundingBox);
                 DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
-                document.DocumentTransformation.TransformChanged += DocumentTransformation_TransformChanged;
+                document.DocumentTransformation.TransformChanged += (s,e)=> RecalculateBoundingBox();
                 DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
             }
             catch (OperationAbortException)
@@ -59,20 +66,10 @@ namespace Colorado.Documents
             }
         }
 
-        private void DocumentTransformation_TransformChanged(object sender, System.EventArgs e)
-        {
-            //
-        }
-
         public void CloseDocument(Document documentToClose)
         {
             documents.Remove(documentToClose);
-            TotalBoundingBox.ResetToDefault();
-            foreach (Document document in documents)
-            {
-                TotalBoundingBox.Add(document.BoundingBox);
-                document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
-            }
+            RecalculateBoundingBox();
             DocumentClosed?.Invoke(this, new DocumentClosedEventArgs(documentToClose));
             DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
         }
@@ -107,6 +104,13 @@ namespace Colorado.Documents
 
         public IEnumerable<Document> Documents => documents;
 
+        public static ICollection<string> RegisteredFilters { get; }
+
+        public static void RegisterFilter(string filter)
+        {
+            RegisteredFilters.Add(filter);
+        }
+
         public event EventHandler<DocumentOpenedEventArgs> DocumentOpened;
 
         public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
@@ -116,5 +120,15 @@ namespace Colorado.Documents
         public event EventHandler<AllDocumentsClosedEventArgs> AllDocumentsClosed;
 
         public event EventHandler DocumentUpdated;
+
+        private void RecalculateBoundingBox()
+        {
+            TotalBoundingBox.ResetToDefault();
+            foreach (Document document in documents)
+            {
+                TotalBoundingBox.Add(document.BoundingBox);
+                document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
+            }
+        }
     }
 }

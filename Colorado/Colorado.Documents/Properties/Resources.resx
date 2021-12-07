@@ -129,6 +129,13 @@
   <data name="ReadingTriangles" xml:space="preserve">
     <value>Reading triangles</value>
   </data>
+  <data name="SavingDocument" xml:space="preserve">
+    <value>Saving "{0}" document
+Path to file is "{1}".</value>
+  </data>
+  <data name="SavingTriangles" xml:space="preserve">
+    <value>Saving triangles</value>
+  </data>
   <data name="VerticesTransformation" xml:space="preserve">
     <value>Vertices transformation</value>
   </data>

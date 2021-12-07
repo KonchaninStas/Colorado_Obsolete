@@ -4,6 +4,7 @@ using Colorado.Documents;
 using Colorado.OpenGLWinForm;
 using Colorado.Viewer.Properties;
 using System;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace Colorado.Viewer.Controls.ViewModels.Documents
@@ -139,7 +140,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
 
         private void SaveDocument()
         {
-            Document.Save();
+                Document.Save();        
         }
     }
 }

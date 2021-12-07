@@ -1,6 +1,8 @@
-﻿using Colorado.Common.Extensions;
+﻿using Colorado.Common.Exceptions;
+using Colorado.Common.Extensions;
 using Colorado.Common.ProgressTracking;
 using Colorado.Common.Tools.Keyboard;
+using Colorado.Common.UI.Handlers;
 using Colorado.Documents.Properties;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Colorado.Documents
 {
@@ -63,6 +66,8 @@ namespace Colorado.Documents
         public bool Visible { get; set; }
 
         public DocumentTransformation DocumentTransformation { get; private set; }
+
+        public abstract string Filter { get; }
 
         #endregion Properties
 
@@ -138,7 +143,47 @@ namespace Colorado.Documents
             return Name;
         }
 
-        public abstract void Save();
+        public void Save()
+        {
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Filter = Filter
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ProgressHandler progressHandler = new ProgressHandler(string.Format(Resources.SavingDocument,
+                    Path.GetFileNameWithoutExtension(saveFileDialog.FileName), saveFileDialog.FileName));
+                try
+                {
+                    ProgressTracker.Instance.ShowWindow();
+
+                    Save(saveFileDialog.FileName);
+                }
+                catch (OperationAbortException)
+                {
+                    DeleteFile(saveFileDialog);
+                }
+                catch (Exception ex)
+                {
+                    DeleteFile(saveFileDialog);
+                    MessageViewHandler.ShowExceptionMessage(Resources.OpeningDocument, ex);
+                }
+                finally
+                {
+                    progressHandler.Abort();
+                }
+            }
+        }
+
+        private static void DeleteFile(SaveFileDialog saveFileDialog)
+        {
+            if (File.Exists(saveFileDialog.FileName))
+            {
+                File.Delete(saveFileDialog.FileName);
+            }
+        }
+
+        public abstract void Save(string fileName);
 
         #endregion Public logic
     }

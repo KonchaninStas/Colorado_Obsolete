@@ -1,7 +1,10 @@
-﻿using Colorado.GeometryDataStructures.Primitives;
+﻿using Colorado.Common.ProgressTracking;
+using Colorado.Documents.Properties;
+using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Colorado.Documents.STL.Writers
 {
@@ -25,6 +28,7 @@ namespace Colorado.Documents.STL.Writers
         {
             try
             {
+                ProgressTracker.Instance.Init(triangles.Count());
                 using (var sw = new StreamWriter(pathToFile, false))
                 {
                     sw.WriteLine(startOfFile);
@@ -38,13 +42,14 @@ namespace Colorado.Documents.STL.Writers
                         sw.WriteLine();
                         sw.WriteLine(endLoop);
                         sw.WriteLine(endFacet);
+                        ProgressTracker.Instance.NextStep(Resources.SavingTriangles);
                     }
                     sw.WriteLine(endOfFile);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
         }
 

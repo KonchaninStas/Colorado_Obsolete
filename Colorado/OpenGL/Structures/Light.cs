@@ -73,7 +73,7 @@ namespace Colorado.OpenGL.Structures
 
         public override string ToString()
         {
-            return LightType.ToString();
+            return LightType.ToString().Insert(5, " ");
         }
 
         private void CalculateDirection()

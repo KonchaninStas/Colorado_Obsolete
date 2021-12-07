@@ -15,7 +15,18 @@ namespace Colorado.Documents.STL
 {
     public class STLDocument : Document
     {
+        #region Constants
+
+        private const string filter = "Stl Files(*.stl)|*.stl;";
+
+        #endregion Constants
+
         #region Constructor
+
+        static STLDocument()
+        {
+            DocumentsManager.RegisterFilter(filter);
+        }
 
         public STLDocument(KeyboardToolsManager keyboardToolsManager, string pathToStlFile): base(keyboardToolsManager)
         {
@@ -31,6 +42,8 @@ namespace Colorado.Documents.STL
 
         public override string PathToFile { get; }
 
+        public override string Filter => filter;
+
         #endregion Properties
 
         #region Public logic
@@ -41,9 +54,10 @@ namespace Colorado.Documents.STL
             AddMesh(GetMeshFromStlDocument(PathToFile));
         }
 
-        public override void Save()
+        public override void Save(string fileName)
         {
-            STLASCIIFileWriter.Write(this.Meshes.SelectMany(m=>m.Triangles), @"D:\C.STL");
+            STLASCIIFileWriter.Write(Meshes.SelectMany(m => m.Triangles.Select(t=>t.ApplyTransform(
+                DocumentTransformation.ActiveTransform))), fileName);
         }
 
         #endregion Public logic

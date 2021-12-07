@@ -1,4 +1,6 @@
-﻿namespace Colorado.OpenGL.Enumerations
+﻿using System.ComponentModel;
+
+namespace Colorado.OpenGL.Enumerations
 {
     public enum LightType
     {
