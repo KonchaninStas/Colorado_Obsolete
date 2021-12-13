@@ -57,9 +57,6 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         public void DrawGeometryPrimitives()
         {
-
-            OpenGLGeometryWrapper.DrawLine(new GeometryDataStructures.GeometryStructures.Geometry2D.Line(
-                documentsManager.TotalBoundingBox.MaxPoint, documentsManager.TotalBoundingBox.MinPoint));
             GridPlane.Draw();
             if (TargetPointRenderingSettings.DrawTargetPoint)
             {
