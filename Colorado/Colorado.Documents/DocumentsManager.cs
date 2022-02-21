@@ -4,8 +4,6 @@ using Colorado.Common.UI.Handlers;
 using Colorado.Documents.EventArgs;
 using Colorado.Documents.Properties;
 using Colorado.Documents.STL;
-using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
-using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
 using Colorado.GeometryDataStructures.Primitives;
 using System;
 using System.Collections.Generic;
@@ -15,15 +13,15 @@ namespace Colorado.Documents
 {
     public class DocumentsManager
     {
+        #region Private fields
+
         private readonly List<Document> documents;
 
-        public BoundingBox TotalBoundingBox { get; }
+        #endregion Private fields
 
-        public IEnumerable<Document> DocumentsToRender => documents.Where(d => d.Visible);
+        #region Constructors
 
-        public int DocumentsCount => documents.Count;
-
-         static DocumentsManager()
+        static DocumentsManager()
         {
             RegisteredFilters = new List<string>();
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(STLDocument).TypeHandle);
@@ -34,6 +32,40 @@ namespace Colorado.Documents
             documents = new List<Document>();
             TotalBoundingBox = new BoundingBox();
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public BoundingBox TotalBoundingBox { get; }
+
+        public IEnumerable<Document> DocumentsToRender => documents.Where(d => d.Visible);
+
+        public int DocumentsCount => documents.Count;
+
+        public int TotalTrianglesCount => DocumentsToRender.Sum(d => d.TrianglesCount);
+
+        public IEnumerable<Document> Documents => documents;
+
+        public static ICollection<string> RegisteredFilters { get; }
+
+        #endregion Properties
+
+        #region Events
+
+        public event EventHandler<DocumentOpenedEventArgs> DocumentOpened;
+
+        public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
+
+        public event EventHandler DocumentsCountChanged;
+
+        public event EventHandler<AllDocumentsClosedEventArgs> AllDocumentsClosed;
+
+        public event EventHandler DocumentUpdated;
+
+        #endregion Events
+
+        #region Public logic
 
         public void AddDocument(Document document)
         {
@@ -50,12 +82,7 @@ namespace Colorado.Documents
                 documents.Add(document);
                 TotalBoundingBox.Add(document.BoundingBox);
                 DocumentOpened?.Invoke(this, new DocumentOpenedEventArgs(document));
-                document.DocumentTransformation.TransformChanged += (s, e) =>
-                {
-                    RecalculateBoundingBox(true);
-                    DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
-                };
-                
+                document.DocumentTransformation.TransformChanged += DocumentTransformationTransformChanged;
                 DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
             }
             catch (OperationAbortException)
@@ -73,8 +100,9 @@ namespace Colorado.Documents
 
         public void CloseDocument(Document documentToClose)
         {
+            documentToClose.DocumentTransformation.TransformChanged -= DocumentTransformationTransformChanged;
             documents.Remove(documentToClose);
-            RecalculateBoundingBox(true);
+            RecalculateBoundingBox();
             DocumentClosed?.Invoke(this, new DocumentClosedEventArgs(documentToClose));
             DocumentsCountChanged?.Invoke(this, System.EventArgs.Empty);
         }
@@ -107,36 +135,34 @@ namespace Colorado.Documents
             documentToIsolate.Visible = true;
         }
 
-        public IEnumerable<Document> Documents => documents;
-
-        public static ICollection<string> RegisteredFilters { get; }
-
         public static void RegisterFilter(string filter)
         {
             RegisteredFilters.Add(filter);
         }
 
-        public event EventHandler<DocumentOpenedEventArgs> DocumentOpened;
+        #endregion Public logic
 
-        public event EventHandler<DocumentClosedEventArgs> DocumentClosed;
+        #region Callbacks
 
-        public event EventHandler DocumentsCountChanged;
+        private void DocumentTransformationTransformChanged(object sender, TransformChangedEventArgs args)
+        {
+            RecalculateBoundingBox();
+            DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
+        }
 
-        public event EventHandler<AllDocumentsClosedEventArgs> AllDocumentsClosed;
+        #endregion Callbacks
 
-        public event EventHandler DocumentUpdated;
+        #region Private logic
 
-        private void RecalculateBoundingBox(bool invokeEvent)
+        private void RecalculateBoundingBox()
         {
             TotalBoundingBox.ResetToDefault();
             foreach (Document document in documents)
             {
                 TotalBoundingBox.Add(document.BoundingBox);
-                if (invokeEvent)
-                {
-                    document.BoundingBox.Updated += (s, args) => DocumentUpdated?.Invoke(this, System.EventArgs.Empty);
-                }
             }
         }
+
+        #endregion Private logic
     }
 }

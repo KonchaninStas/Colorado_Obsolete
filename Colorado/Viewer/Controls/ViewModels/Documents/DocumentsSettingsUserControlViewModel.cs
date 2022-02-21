@@ -80,7 +80,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
 
         private void UnsubscribeFromDocumentEvents(Document document)
         {
-            document.DocumentTransformation.TransformChanged += DocumentTransformationTransformChanged;
+            document.DocumentTransformation.TransformChanged -= DocumentTransformationTransformChanged;
             document.DocumentTransformation.EditingStarted -= DocumentEditingStarted;
             document.DocumentTransformation.EditingFinished -= DocumentEditingFinished;
         }
@@ -98,6 +98,7 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
 
         private void DocumentEditingFinished(object sender, Colorado.Documents.EventArgs.DocumentEditingFinishedEventArgs e)
         {
+            EditDocumentUserControlViewModel.Dispose();
             EditDocumentUserControlViewModel = null;
             EditingDocumentStateChanged();
         }

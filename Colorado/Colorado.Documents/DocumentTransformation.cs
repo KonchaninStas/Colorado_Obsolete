@@ -53,7 +53,7 @@ namespace Colorado.Documents
 
         public event EventHandler<DocumentEditingFinishedEventArgs> EditingFinished;
 
-        public event EventHandler TransformChanged;
+        public event EventHandler<TransformChangedEventArgs> TransformChanged;
 
         #endregion Events
 
@@ -138,7 +138,7 @@ namespace Colorado.Documents
             document.BoundingBox.ApplyTransform(anotherTransform);
             if (invokeEvent)
             {
-                TransformChanged?.Invoke(this, System.EventArgs.Empty);
+                TransformChanged?.Invoke(this, new TransformChangedEventArgs(document, anotherTransform));
             }
         }
 

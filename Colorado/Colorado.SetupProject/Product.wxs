@@ -23,6 +23,15 @@
               </Directory>
             </Directory>
           </Directory>
+          <Directory Id="ContentModelsDir" Name="Content">
+            <Directory Id="STLModelsDir" Name="STLModels">
+                <Component Id="STLModelsComponent" Guid="D941D599-6DEF-44AC-9818-D9393ECF9E96" Win64="yes">
+                  <File Source='$(var.Colorado.Viewer.TargetDir)\Content\STLModels\John_Deere.stl'/>
+                  <File Source='$(var.Colorado.Viewer.TargetDir)\Content\STLModels\Planetary_Toy_D80.stl'/>
+                  <File Source='$(var.Colorado.Viewer.TargetDir)\Content\STLModels\Star_Destroyer_Fixed.stl'/>
+                </Component>
+            </Directory>
+          </Directory>
           <Component Id="ProductComponent" Guid="802A6FFE-5F09-4503-B484-B6AC789EEA90" Win64="yes">
             <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado Viewer.exe'/>
             <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado Viewer.exe.config'/>
@@ -56,6 +65,7 @@
     <Feature Id="ProductFeature" Title="Colorado Viewer" Level="1">
       <ComponentRef Id="ProductComponent" />
       <ComponentRef Id="ContentComponent" />
+      <ComponentRef Id="STLModelsComponent" />
       <ComponentRef Id="ApplicationShortcutCalc" />
     </Feature>
 

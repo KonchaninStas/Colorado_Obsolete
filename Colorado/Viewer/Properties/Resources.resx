@@ -294,6 +294,9 @@
   <data name="RotationAroundZAxis" xml:space="preserve">
     <value>Around Z axis:</value>
   </data>
+  <data name="SampleFiles" xml:space="preserve">
+    <value>Sample Files</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

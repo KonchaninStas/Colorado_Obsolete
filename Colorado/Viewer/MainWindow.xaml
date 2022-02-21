@@ -49,8 +49,10 @@
                     Style="{StaticResource TabStyle}" Padding="10" />
         
         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2">
-            <Label Content="FPS:" />
+            <Label Content="FPS: " />
             <Label Content="{Binding FPS}" />
+            <Label Content="Visible triangles count: " />
+            <Label Content="{Binding TrianglesCount}" ContentStringFormat="{}{0:N0}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using Colorado.Common.Utilities;
 using Colorado.Documents;
+using Colorado.Documents.EventArgs;
 using Colorado.GeometryDataStructures.Colors;
 using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
 using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
@@ -18,6 +19,8 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private readonly DocumentsManager documentsManager;
         private readonly Camera viewCamera;
+
+        private bool savedGridPlaneVisibleState;
 
         #endregion Private fields
 
@@ -76,10 +79,36 @@ namespace Colorado.OpenGLWinForm.Rendering
 
         private void SubscribeToEvents()
         {
-            documentsManager.DocumentOpened += (s, e) => UpdateRenderingControlSettings();
-            documentsManager.DocumentClosed += (s, e) => UpdateRenderingControlSettings();
+            documentsManager.DocumentOpened += DocumentsManager_DocumentOpened;
+            documentsManager.DocumentClosed += DocumentsManager_DocumentClosed;
             documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
-            documentsManager.DocumentUpdated+= (s, e) => UpdateRenderingControlSettings();
+        }
+
+        private void DocumentsManager_DocumentOpened(object sender, DocumentOpenedEventArgs e)
+        {
+            UpdateRenderingControlSettings();
+
+            e.OpenedDocument.DocumentTransformation.EditingStarted += DocumentTransformation_EditingStarted;
+            e.OpenedDocument.DocumentTransformation.EditingFinished += DocumentTransformation_EditingFinished;
+        }
+
+        private void DocumentsManager_DocumentClosed(object sender, DocumentClosedEventArgs e)
+        {
+            UpdateRenderingControlSettings();
+            e.ClosedDocument.DocumentTransformation.EditingStarted -= DocumentTransformation_EditingStarted;
+            e.ClosedDocument.DocumentTransformation.EditingFinished -= DocumentTransformation_EditingFinished;
+        }
+
+        private void DocumentTransformation_EditingStarted(object sender, DocumentEditingStartedEventArgs e)
+        {
+            savedGridPlaneVisibleState = GridPlane.Visible;
+            GridPlane.Visible = false;
+        }
+
+        private void DocumentTransformation_EditingFinished(object sender, DocumentEditingFinishedEventArgs e)
+        {
+            GridPlane.Visible = savedGridPlaneVisibleState;
+            UpdateRenderingControlSettings();
         }
 
         private void UpdateRenderingControlSettings()
@@ -87,7 +116,7 @@ namespace Colorado.OpenGLWinForm.Rendering
             bool visible = GridPlane != null ? GridPlane.Visible : true;
             RGB lastUsedColor = GridPlane?.Color;
             GridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
-               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal, 
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal,
                documentsManager.TotalBoundingBox.MinPoint.Z);
             GridPlane.Visible = visible;
 

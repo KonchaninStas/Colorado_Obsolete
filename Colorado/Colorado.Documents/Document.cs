@@ -69,6 +69,8 @@ namespace Colorado.Documents
 
         public abstract string Filter { get; }
 
+        public int TrianglesCount { get; private set; }
+
         #endregion Properties
 
         #region Public logic
@@ -102,6 +104,7 @@ namespace Colorado.Documents
         {
             meshes.Add(mesh);
             BoundingBox.Add(mesh.BoundingBox);
+            TrianglesCount += mesh.TrianglesCount;
         }
 
         #region Equals

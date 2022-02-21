@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Colorado.Common.UI.ViewModels.Base
@@ -10,7 +11,13 @@ namespace Colorado.Common.UI.ViewModels.Base
         public MenuItemViewModel(string displayName)
         {
             DisplayName = displayName;
-            MenuItems = new List<MenuItemViewModel>();
+            MenuItems = new ObservableCollection<MenuItemViewModel>();
+        }
+
+        public MenuItemViewModel(string displayName, IEnumerable<MenuItemViewModel> children) : this(displayName)
+        {
+
+            MenuItems = new ObservableCollection<MenuItemViewModel>(children);
         }
 
         public MenuItemViewModel(string displayName, ICommand command)
@@ -36,7 +43,7 @@ namespace Colorado.Common.UI.ViewModels.Base
         /// <summary>
         /// Returns a collection of the child menu items.
         /// </summary>
-        public IEnumerable<MenuItemViewModel> MenuItems { get; set; }
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; }
 
         #endregion Properties
 

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Colorado.Viewer.Controls.ViewModels.Documents
 {
-    public class EditDocumentUserControlViewModel : ViewerBaseViewModel
+    public class EditDocumentUserControlViewModel : ViewerBaseViewModel, IDisposable
     {
         private readonly Document document;
         private EulerAngles eulerAngles;
@@ -19,20 +19,6 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
             this.document = document;
             document.DocumentTransformation.TransformChanged += TransformChangedCallback;
             TransformChangedCallback(null, null);
-        }
-
-        private void TransformChangedCallback(object sender, System.EventArgs e)
-        {
-            eulerAngles = document.DocumentTransformation.ActiveTransform.ToQuaternion().GetEulerAngles();
-            OnPropertyChanged(nameof(PositionX));
-            OnPropertyChanged(nameof(PositionY));
-            OnPropertyChanged(nameof(PositionZ));
-
-            OnPropertyChanged(nameof(RotationAroundXAxis));
-            OnPropertyChanged(nameof(RotationAroundYAxis));
-            OnPropertyChanged(nameof(RotationAroundZAxis));
-
-            OnPropertyChanged(nameof(Scale));
         }
 
         #region Properties
@@ -79,5 +65,32 @@ namespace Colorado.Viewer.Controls.ViewModels.Documents
         }
 
         #endregion Commands
+
+        #region Public logic
+
+        public void Dispose()
+        {
+            document.DocumentTransformation.TransformChanged -= TransformChangedCallback;
+        }
+
+        #endregion Public logic
+
+        #region Private logic
+
+        private void TransformChangedCallback(object sender, System.EventArgs e)
+        {
+            eulerAngles = document.DocumentTransformation.ActiveTransform.ToQuaternion().GetEulerAngles();
+            OnPropertyChanged(nameof(PositionX));
+            OnPropertyChanged(nameof(PositionY));
+            OnPropertyChanged(nameof(PositionZ));
+
+            OnPropertyChanged(nameof(RotationAroundXAxis));
+            OnPropertyChanged(nameof(RotationAroundYAxis));
+            OnPropertyChanged(nameof(RotationAroundZAxis));
+
+            OnPropertyChanged(nameof(Scale));
+        }
+
+        #endregion Private logic
     }
 }

@@ -592,6 +592,15 @@ namespace Colorado.Viewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sample Files.
+        /// </summary>
+        public static string SampleFiles {
+            get {
+                return ResourceManager.GetString("SampleFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

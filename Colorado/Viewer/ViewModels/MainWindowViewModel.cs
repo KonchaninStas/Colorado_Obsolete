@@ -9,6 +9,7 @@ using Colorado.Viewer.Controls.Views.Tabs.MaterialTab;
 using Colorado.Viewer.Controls.Views.Tabs.RenderingTab;
 using Colorado.Viewer.Controls.Views.Tabs.ViewTab;
 using Colorado.Viewer.Properties;
+using Colorado.Viewer.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,7 @@ namespace Colorado.Viewer.ViewModels
     {
         private IEnumerable<TabItemViewModel> tabs;
         private readonly Framework.Application application;
+        private readonly SampleFilesManager sampleFilesManager;
 
         private int fps;
 
@@ -29,6 +31,8 @@ namespace Colorado.Viewer.ViewModels
         {
             application = new Framework.Application();
             OpenGLControl = application.WPFOpenGLControl;
+            sampleFilesManager = new SampleFilesManager(application);
+
             application.OpenGLControl.DrawSceneFinished += DrawSceneFinished;
             DocumentsSettingsUserControlViewModel = new DocumentsSettingsUserControlViewModel(application.RenderingControl);
             DocumentsSettingsUserControlViewModel.PropertyChanged += (s, args) => OnPropertyChanged(nameof(IsMenuEnabled));
@@ -43,14 +47,15 @@ namespace Colorado.Viewer.ViewModels
 
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
-                new MenuItemViewModel(Resources.File)
+                new MenuItemViewModel(Resources.File,
+                new []
                 {
-                     MenuItems = new ObservableCollection<MenuItemViewModel>()
-                    {
-                        new MenuItemViewModel(Resources.Open, OpenFileCommand),
-                        new MenuItemViewModel(Resources.CloseAll, CloseAllCommand),
-                    }
-                }
+                    new MenuItemViewModel(Resources.Open, OpenFileCommand),
+                    new MenuItemViewModel(Resources.CloseAll, CloseAllCommand),
+                    new MenuItemViewModel(Resources.SampleFiles,
+                        sampleFilesManager.SampleFiles.Select(f => new MenuItemViewModel(f.Name,
+                        new CommandHandler(() => sampleFilesManager.OpenFile(f.FullName)))))
+                })
             };
         }
 
@@ -96,6 +101,8 @@ namespace Colorado.Viewer.ViewModels
             }
         }
 
+        public int TrianglesCount => application.DocumentsManager.TotalTrianglesCount;
+
         #endregion Properties
 
         #region Commands
@@ -117,6 +124,7 @@ namespace Colorado.Viewer.ViewModels
         private void DrawSceneFinished(object sender, EventArgs e)
         {
             FPS = application.OpenGLControl.FpsCalculator.FramesPerSecond;
+            OnPropertyChanged(nameof(TrianglesCount));
         }
 
         private void OpenFile()
@@ -127,7 +135,7 @@ namespace Colorado.Viewer.ViewModels
                 filter += $"|{documentFilter}";
             }
 
-            filter = filter.Remove(0,1);
+            filter = filter.Remove(0, 1);
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
