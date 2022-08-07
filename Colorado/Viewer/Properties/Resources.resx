@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AltitudeAngleText" xml:space="preserve">
+    <value>Altitude angle</value>
+  </data>
+  <data name="AppearanceTabHeader" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="AzimuthAngleText" xml:space="preserve">
+    <value>Azimuth angle</value>
+  </data>
+  <data name="BackgroundColorSettings" xml:space="preserve">
+    <value>Background color settings:</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseAll" xml:space="preserve">
+    <value>Close All</value>
+  </data>
+  <data name="CoordinateSystemAxisLength" xml:space="preserve">
+    <value>Coordinate system axes length</value>
+  </data>
+  <data name="DefaultMaterials" xml:space="preserve">
+    <value>Default materials:</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="DrawCoordinateSystem" xml:space="preserve">
+    <value>Draw Coordinate system</value>
+  </data>
+  <data name="DrawFillTriangles" xml:space="preserve">
+    <value>Draw fill triangles (Default mode)</value>
+  </data>
+  <data name="DrawLights" xml:space="preserve">
+    <value>Draw sources of lights</value>
+  </data>
+  <data name="DrawTargetPoint" xml:space="preserve">
+    <value>Draw Target point</value>
+  </data>
+  <data name="DrawTrianglesVertices" xml:space="preserve">
+    <value>Draw vertices of the triangles</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EnableLightingCheckBoxText" xml:space="preserve">
+    <value>Enable lighting</value>
+  </data>
+  <data name="EnableWireframeMode" xml:space="preserve">
+    <value>Enable Wireframe mode</value>
+  </data>
+  <data name="FieldOfView" xml:space="preserve">
+    <value>Field of View</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FinishEditing" xml:space="preserve">
+    <value>Finish Editing</value>
+  </data>
+  <data name="GlobalMaterialSettings" xml:space="preserve">
+    <value>Global material settings</value>
+  </data>
+  <data name="GridColorSettings" xml:space="preserve">
+    <value>Grid color settings:</value>
+  </data>
+  <data name="GridSettings" xml:space="preserve">
+    <value>Grid settings:</value>
+  </data>
+  <data name="GridSpace" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="GridVisibility" xml:space="preserve">
+    <value>Grid Visibility</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Isolate" xml:space="preserve">
+    <value>Isolate</value>
+  </data>
+  <data name="LightAmbientColor" xml:space="preserve">
+    <value>Ambient:</value>
+  </data>
+  <data name="LightColorSettings" xml:space="preserve">
+    <value>Color settings:</value>
+  </data>
+  <data name="LightDiameter" xml:space="preserve">
+    <value>Light source diameter</value>
+  </data>
+  <data name="LightDiffuseColor" xml:space="preserve">
+    <value>Diffuse:</value>
+  </data>
+  <data name="LightingExpanderHeader" xml:space="preserve">
+    <value>Lighting settings</value>
+  </data>
+  <data name="LightingTabHeader" xml:space="preserve">
+    <value>Lighting</value>
+  </data>
+  <data name="LightPositionSettings" xml:space="preserve">
+    <value>Position settings:</value>
+  </data>
+  <data name="LightSpecularColor" xml:space="preserve">
+    <value>Specular:</value>
+  </data>
+  <data name="MaterialAmbientColor" xml:space="preserve">
+    <value>Ambient:</value>
+  </data>
+  <data name="MaterialDiffuseColor" xml:space="preserve">
+    <value>Diffuse:</value>
+  </data>
+  <data name="MaterialEmissionColor" xml:space="preserve">
+    <value>Emission:</value>
+  </data>
+  <data name="MaterialExpanderHeader" xml:space="preserve">
+    <value>Material settings</value>
+  </data>
+  <data name="MaterialSpecularColor" xml:space="preserve">
+    <value>Specular:</value>
+  </data>
+  <data name="MaterialTabHeader" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="MeshRenderingSettings" xml:space="preserve">
+    <value>Mesh rendering settings</value>
+  </data>
+  <data name="MoveToOrigin" xml:space="preserve">
+    <value>Move to Origin</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="OrthographicView" xml:space="preserve">
+    <value>Orthographic</value>
+  </data>
+  <data name="PerspectiveView" xml:space="preserve">
+    <value>Perspective</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="PositionX" xml:space="preserve">
+    <value>X:</value>
+  </data>
+  <data name="PositionY" xml:space="preserve">
+    <value>Y:</value>
+  </data>
+  <data name="PositionZ" xml:space="preserve">
+    <value>Z:</value>
+  </data>
+  <data name="ProjectionMode" xml:space="preserve">
+    <value>Projection Mode:</value>
+  </data>
+  <data name="RenderingTabHeader" xml:space="preserve">
+    <value>Rendering</value>
+  </data>
+  <data name="RestoreDefaultTransform" xml:space="preserve">
+    <value>Restore default</value>
+  </data>
+  <data name="RestoreView" xml:space="preserve">
+    <value>Restore View</value>
+  </data>
+  <data name="Rotation" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="RotationAroundXAxis" xml:space="preserve">
+    <value>Around X axis:</value>
+  </data>
+  <data name="RotationAroundYAxis" xml:space="preserve">
+    <value>Around Y axis:</value>
+  </data>
+  <data name="RotationAroundZAxis" xml:space="preserve">
+    <value>Around Z axis:</value>
+  </data>
+  <data name="SampleFiles" xml:space="preserve">
+    <value>Sample Files</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Scale" xml:space="preserve">
+    <value>Scale:</value>
+  </data>
+  <data name="Shininess" xml:space="preserve">
+    <value>Shininess radius:</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="TargetPointColorSettings" xml:space="preserve">
+    <value>Target point color settings:</value>
+  </data>
+  <data name="UnhandledExceptionOccured" xml:space="preserve">
+    <value>An unhandled exception has been occurred. The application will be terminated</value>
+  </data>
+  <data name="UseGlobalMaterial" xml:space="preserve">
+    <value>Use global material</value>
+  </data>
+  <data name="ViewTabHeader" xml:space="preserve">
+    <value>View</value>
+  </data>
+</root>

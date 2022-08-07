@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define ProductName="Colorado Viewer" ?>
+  <?define ProductVersion="1.0.0.0" ?>
+  <?define ProductCode="7C5B546C-33E8-487A-8731-E748DE645354"?>
+  <?define UpgradeCode="2ee7d8cf-3117-41d9-b5dd-76f7f0f71290"?>
+  <?define Manufacturer="Colorado"?>
+
+  <Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" 
+           Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perUser"  Platform="x64"/>
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="USER_FOLDER">
+        <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)">
+          <Directory Id="ManagersDir" Name="Managers">
+            <Directory Id="MaterialsDir" Name="Materials">
+              <Directory Id="ContentDir" Name="Content">
+                <Component Id="ContentComponent" Guid="D941D599-6DEF-44AC-9818-D9393ECF9E94" Win64="yes">
+                <File Source='$(var.Colorado.Viewer.TargetDir)\Managers\Materials\Content\DefaultMaterials.xml'/>
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+          <Directory Id="ContentModelsDir" Name="Content">
+            <Directory Id="STLModelsDir" Name="STLModels">
+                <Component Id="STLModelsComponent" Guid="D941D599-6DEF-44AC-9818-D9393ECF9E96" Win64="yes">
+                  <File Source='$(var.Colorado.Viewer.TargetDir)\Content\STLModels\John_Deere.stl'/>
+                  <File Source='$(var.Colorado.Viewer.TargetDir)\Content\STLModels\Planetary_Toy_D80.stl'/>
+                  <File Source='$(var.Colorado.Viewer.TargetDir)\Content\STLModels\Star_Destroyer_Fixed.stl'/>
+                </Component>
+            </Directory>
+          </Directory>
+          <Component Id="ProductComponent" Guid="802A6FFE-5F09-4503-B484-B6AC789EEA90" Win64="yes">
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado Viewer.exe'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado Viewer.exe.config'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado.Common.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado.Common.UI.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado.Documents.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\Colorado.Framework.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\GeometryDataStructures.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\OpenGL.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\OpenGLWinForm.dll'/>
+            <File Source='$(var.Colorado.Viewer.TargetDir)\System.Windows.Interactivity.dll'/>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
+          <Component Id="ApplicationShortcutCalc" Win64="yes">
+            <Shortcut Id="ShortcutCalc"
+                 Name="Calc"
+                 Description="$(var.ProductName)"
+                 Target="[INSTALLLOCATION]Colorado Viewer.exe"
+                 WorkingDirectory="INSTALLLOCATION"/>
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="Colorado Viewer" Level="1">
+      <ComponentRef Id="ProductComponent" />
+      <ComponentRef Id="ContentComponent" />
+      <ComponentRef Id="STLModelsComponent" />
+      <ComponentRef Id="ApplicationShortcutCalc" />
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+    <UIRef Id="WixUI_InstallDir"/>
+
+  </Product>
+</Wix>

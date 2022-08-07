@@ -1,0 +1,156 @@
+﻿using Colorado.Common.Utilities;
+using Colorado.Documents;
+using Colorado.Documents.EventArgs;
+using Colorado.GeometryDataStructures.Colors;
+using Colorado.GeometryDataStructures.GeometryStructures.BaseGeometryStructures;
+using Colorado.GeometryDataStructures.GeometryStructures.Geometry3D;
+using Colorado.GeometryDataStructures.Primitives;
+using Colorado.OpenGL.OpenGLWrappers.Geometry;
+using Colorado.OpenGLWinForm.Rendering.PrimitivesRenderers;
+using Colorado.OpenGLWinForm.Rendering.RenderableObjects;
+using Colorado.OpenGLWinForm.Rendering.Settings;
+using Colorado.OpenGLWinForm.View;
+
+namespace Colorado.OpenGLWinForm.Rendering
+{
+    public class GeometryRenderer
+    {
+        #region Private fields
+
+        private readonly DocumentsManager documentsManager;
+        private readonly Camera viewCamera;
+
+        private bool savedGridPlaneVisibleState;
+
+        #endregion Private fields
+
+        #region Constructor
+
+        public GeometryRenderer(DocumentsManager documentsManager, Camera viewCamera)
+        {
+            this.documentsManager = documentsManager;
+            this.viewCamera = viewCamera;
+
+            GlobalMaterialRenderingSettings = new GlobalMaterialRenderingSettings();
+            TargetPointRenderingSettings = new TargetPointRenderingSettings();
+            CoordinateSystemRenderer = new CoordinateSystemRenderer();
+            MeshRenderingSettings = new MeshRenderingSettings();
+
+            SubscribeToEvents();
+            UpdateRenderingControlSettings();
+        }
+
+        #endregion Constructor 
+
+        #region Properties
+
+        public GridPlane GridPlane { get; private set; }
+
+        public GlobalMaterialRenderingSettings GlobalMaterialRenderingSettings { get; }
+
+        public TargetPointRenderingSettings TargetPointRenderingSettings { get; }
+
+        public CoordinateSystemRenderer CoordinateSystemRenderer { get; }
+
+        public MeshRenderingSettings MeshRenderingSettings { get; }
+
+        #endregion Properties
+
+        #region Public logic
+
+        public void DrawGeometryPrimitives()
+        {
+            GridPlane.Draw();
+            if (TargetPointRenderingSettings.DrawTargetPoint)
+            {
+                OpenGLGeometryWrapper.DrawPoint(viewCamera.TargetPoint.Inverse, TargetPointRenderingSettings.TargetPointColor, 20);
+            }
+            CoordinateSystemRenderer.Draw();
+        }
+
+        public void DrawSceneGeometry()
+        {
+            DrawEntities();
+        }
+
+        #endregion Public logic
+
+        #region Private logic
+
+        private void SubscribeToEvents()
+        {
+            documentsManager.DocumentOpened += DocumentsManager_DocumentOpened;
+            documentsManager.DocumentClosed += DocumentsManager_DocumentClosed;
+            documentsManager.AllDocumentsClosed += (s, e) => UpdateRenderingControlSettings();
+        }
+
+        private void DocumentsManager_DocumentOpened(object sender, DocumentOpenedEventArgs e)
+        {
+            UpdateRenderingControlSettings();
+
+            e.OpenedDocument.DocumentTransformation.EditingStarted += DocumentTransformation_EditingStarted;
+            e.OpenedDocument.DocumentTransformation.EditingFinished += DocumentTransformation_EditingFinished;
+        }
+
+        private void DocumentsManager_DocumentClosed(object sender, DocumentClosedEventArgs e)
+        {
+            UpdateRenderingControlSettings();
+            e.ClosedDocument.DocumentTransformation.EditingStarted -= DocumentTransformation_EditingStarted;
+            e.ClosedDocument.DocumentTransformation.EditingFinished -= DocumentTransformation_EditingFinished;
+        }
+
+        private void DocumentTransformation_EditingStarted(object sender, DocumentEditingStartedEventArgs e)
+        {
+            savedGridPlaneVisibleState = GridPlane.Visible;
+            GridPlane.Visible = false;
+        }
+
+        private void DocumentTransformation_EditingFinished(object sender, DocumentEditingFinishedEventArgs e)
+        {
+            GridPlane.Visible = savedGridPlaneVisibleState;
+            UpdateRenderingControlSettings();
+        }
+
+        private void UpdateRenderingControlSettings()
+        {
+            bool visible = GridPlane != null ? GridPlane.Visible : true;
+            RGB lastUsedColor = GridPlane?.Color;
+            GridPlane = documentsManager.TotalBoundingBox.IsEmpty ? new GridPlane()
+               : new GridPlane(5, documentsManager.TotalBoundingBox.Diagonal,
+               documentsManager.TotalBoundingBox.MinPoint.Z);
+            GridPlane.Visible = visible;
+
+            if (lastUsedColor != null)
+            {
+                GridPlane.Color.CopyValuesFrom(lastUsedColor);
+            }
+        }
+
+        private void DrawEntities()
+        {
+            foreach (Document document in documentsManager.DocumentsToRender)
+            {
+                foreach (Mesh mesh in document.Meshes)
+                {
+                    if (MeshRenderingSettings.DrawFillTriangles)
+                    {
+                        OpenGLFastRenderer.DrawMesh(mesh, GlobalMaterialRenderingSettings.UseGlobalMaterial ?
+                           GlobalMaterialRenderingSettings.GlobalMaterial : null, document.DocumentTransformation.ActiveTransform);
+                    }
+
+                    if (MeshRenderingSettings.EnableWireframeMode)
+                    {
+                        OpenGLFastRenderer.DrawMeshLines(mesh, Material.Black, document.DocumentTransformation.ActiveTransform);
+                    }
+
+                    if (MeshRenderingSettings.DrawTrianglesVertices)
+                    {
+                        OpenGLFastRenderer.DrawMeshVertices(mesh, Material.Black, document.DocumentTransformation.ActiveTransform);
+                    }
+                }
+            }
+        }
+
+        #endregion Private logic
+    }
+}

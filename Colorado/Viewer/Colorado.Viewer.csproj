@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AF0663EA-BD47-45D9-BF73-8C3AE984522A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Colorado.Viewer</RootNamespace>
+    <AssemblyName>Colorado Viewer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdParty\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Controls\ViewModels\Common\ViewerBaseViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Documents\DocumentsSettingsUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Documents\DocumentTreeItemViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Documents\EditDocumentUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\LightingTab\LightingTabUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\LightingTab\LightSettingsUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsTabViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\MaterialTab\MaterialSettingsUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\RenderingTab\RenderingSettingsTabUserControlViewModel.cs" />
+    <Compile Include="Controls\ViewModels\Tabs\ViewTab\ViewSettingsTabUserControlViewModel.cs" />
+    <Compile Include="Controls\Views\Documents\DocumentsSettingsUserControl.xaml.cs">
+      <DependentUpon>DocumentsSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Documents\EditDocumentUserControl.xaml.cs">
+      <DependentUpon>EditDocumentUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\LightingTab\LightingTabViewUserControl.xaml.cs">
+      <DependentUpon>LightingTabViewUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\LightingTab\LightSettingsUserControl.xaml.cs">
+      <DependentUpon>LightSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsTabUserControl.xaml.cs">
+      <DependentUpon>MaterialSettingsTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsUserControl.xaml.cs">
+      <DependentUpon>MaterialSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\RenderingTab\RenderingSettingsTabUserControl.xaml.cs">
+      <DependentUpon>RenderingSettingsTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Views\Tabs\ViewTab\ViewSettingsTabUserControl.xaml.cs">
+      <DependentUpon>ViewSettingsTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\SampleFilesManager.cs" />
+    <Compile Include="Utilities\UserPreferences.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Page Include="Controls\Views\Documents\DocumentsSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Documents\EditDocumentUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\LightingTab\LightingTabViewUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\LightingTab\LightSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\MaterialTab\MaterialSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\RenderingTab\RenderingSettingsTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Views\Tabs\ViewTab\ViewSettingsTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Content\STLModels\John_Deere.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\STLModels\Planetary_Toy_D80.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\STLModels\Star_Destroyer_Fixed.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Colorado.Common.UI\Colorado.Common.UI.csproj">
+      <Project>{158CC58D-8C53-4414-A349-964A0C669253}</Project>
+      <Name>Colorado.Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Colorado.Common\Colorado.Common.csproj">
+      <Project>{862D34D5-3582-4683-8EAD-DE07CC583952}</Project>
+      <Name>Colorado.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Colorado.Documents\Colorado.Documents.csproj">
+      <Project>{3336B228-B7AC-403E-9223-EB485883E168}</Project>
+      <Name>Colorado.Documents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Colorado.Framework\Colorado.Framework.csproj">
+      <Project>{1c086597-835e-4d76-91df-b6e520b4c3ad}</Project>
+      <Name>Colorado.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeometryDataStructures\Colorado.GeometryDataStructures.csproj">
+      <Project>{0E982AC4-020B-4CC6-8981-800BC1D26974}</Project>
+      <Name>Colorado.GeometryDataStructures</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGLWinForm\Colorado.OpenGLWinForm.csproj">
+      <Project>{9340EBA1-3CB7-46DC-88B9-369763F5496D}</Project>
+      <Name>Colorado.OpenGLWinForm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGLWPF\Colorado.OpenGLWPF.csproj">
+      <Project>{0cacffe7-8d8d-40b4-9416-ad712ef06ca9}</Project>
+      <Name>Colorado.OpenGLWPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenGL\Colorado.OpenGL.csproj">
+      <Project>{C8E9CE02-6D44-40F2-A0ED-87B8CC0D4C14}</Project>
+      <Name>Colorado.OpenGL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

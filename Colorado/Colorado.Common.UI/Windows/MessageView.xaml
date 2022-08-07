@@ -1,0 +1,79 @@
+﻿<Window 
+    x:Class="Colorado.Common.UI.Windows.MessageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:commands="clr-namespace:Colorado.Common.UI.Commands"
+    xmlns:properties="clr-namespace:Colorado.Common.UI.Properties"
+    Title="{Binding Title}"
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    SizeToContent="WidthAndHeight"
+    MinWidth="500"
+    MaxWidth="1000">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ValueChanged">
+            <commands:EventToCommand Command="{Binding CloseCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/CommonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Colorado.Common.UI;component/Views/Styles/TextBlockStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1.2*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="30,10,30,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid
+                Style="{StaticResource WarningIcon}" >
+                <Polygon 
+                    Style="{StaticResource IconTriangle}" />
+                <TextBlock 
+                    Style="{StaticResource WarningIconText}"/>
+            </Grid>
+
+            <TextBlock
+                Grid.Row="1"
+                Style="{StaticResource MessageViewTextBlock}"
+                Text="{Binding Message}"/>
+        </Grid>
+
+        <StackPanel
+            Margin="15"
+            Grid.Row="1"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center">
+            <Button
+                Visibility="{Binding OkayBtnVisibility}"
+                Command="{Binding CloseWindowCommand}"
+                Content="{x:Static properties:Resources.Okay}"
+                Style="{StaticResource ControlButtonStyle}"/>
+
+            <Button 
+                Visibility="{Binding ConfirmationBtnVisibility}"
+                Command="{Binding YesBtnCommand}"
+                Content="{x:Static properties:Resources.Yes}"
+                Style="{StaticResource ControlButtonStyle}"/>
+
+            <Button 
+                Visibility="{Binding ConfirmationBtnVisibility}"
+                Command="{Binding NoBtnCommand}"
+                Content="{x:Static properties:Resources.No}"
+                Style="{StaticResource ControlButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>
